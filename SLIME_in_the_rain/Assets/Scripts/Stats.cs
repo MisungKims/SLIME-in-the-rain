@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/**
+ * @brief Ω∫≈» ≈¨∑°Ω∫
+ * @author ±ËπÃº∫
+ * @date 22-06-25
+ */
 
 [System.Serializable]
 public class Stats

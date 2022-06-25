@@ -1,21 +1,22 @@
+/**
+ * @brief 무기 오브젝트
+ * @author 김미성
+ * @date 22-06-25
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     #region 변수
-    public Slime slime;
+    public Stats stats;
+
+    private Slime slime;
 
     public Material slimeMat;       // 바뀔 슬라임의 Material
 
-
-    // 슬라임 감지에 필요한 변수
-    float velocity;
-    float acceleration = 0.2f;
-    float distance;
-    Vector3 dirWeaon;
-    bool isDetect = true;
 
     float attachSpeed = 10f;
     #endregion
@@ -23,64 +24,39 @@ public class Weapon : MonoBehaviour
     #region 유니티 함수
     void Start()
     {
-        StartCoroutine(DetectSlime());
+        slime = Slime.Instance;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (SlimeInstance().currentWeapon && slime.currentWeapon.Equals(this))
         {
-            AutoAttack();
-        }
-        else if (Input.GetMouseButtonDown(2))
-        {
-            Skill();
+            if (Input.GetMouseButtonDown(0))
+            {
+                AutoAttack();
+            }
+
+            if (Input.GetMouseButtonDown(2))
+            {
+                Skill();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Dash();
+            }
         }
     }
     #endregion
 
     #region 코루틴
     /// <summary>
-    /// 슬라임 탐지 코루틴
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator DetectSlime()
-    {
-        // 슬라임과의 거리가 1일 때 G Key를 누르면 Slime에게 붙음
-        while (isDetect)
-        {
-            dirWeaon = (slime.weaponPos.position - transform.position).normalized;
-
-            velocity = (velocity + acceleration * Time.deltaTime);          // 한 프레임으로 가속도 계산
-
-            distance = Vector3.Distance(transform.position, slime.transform.position);
-            if (distance <= 1.0f)
-            {
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    StartCoroutine(AttachToSlime());
-                }
-            }
-            else
-            {
-                velocity = 0.0f;
-            }
-
-            yield return null;
-        }
-    }
-
-    /// <summary>
-    /// 슬라임에게 붙음
+    /// 무기 장착 코루틴
     /// </summary>
     /// <returns></returns>
     IEnumerator AttachToSlime()
     {
-        //Vector3 weaponPos = new Vector3(transform.position.x + (dirWeaon.x * velocity),
-        //                        transform.position.y,
-        //                        transform.position.z + (dirWeaon.z * velocity));
-
-        
+        gameObject.layer = 7;       // 장착된 무기는 슬라임이 탐지하지 못하도록 레이어 변경
 
         while (Vector3.Distance(transform.position, slime.weaponPos.position) >= 0.01f)
         {
@@ -89,26 +65,33 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
 
-        isDetect = false;
         slime.ChangeWeapon(this);
+        
     }
     #endregion
 
     #region 함수
+    public abstract void AutoAttack();
+    public abstract void Skill();
+    public abstract void Dash();
+
+
     /// <summary>
-    /// 평타
+    /// 무기 장착 코루틴을 실행
     /// </summary>
-    protected virtual void AutoAttack()
+    public void DoAttach()
     {
-        
+        StartCoroutine(AttachToSlime());
     }
 
-    /// <summary>
-    /// 스킬
-    /// </summary>
-    protected virtual void Skill()
+    Slime SlimeInstance()
     {
+        if (!slime)
+        {
+            slime = Slime.Instance;
+        }
 
+        return slime;
     }
     #endregion
 
