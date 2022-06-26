@@ -18,6 +18,7 @@ public class Dagger : Weapon
     private void Awake()
     {
         weaponType = EWeaponType.dagger;
+        angle = new Vector3(90f, 0, 90f);
     }
     #endregion
 

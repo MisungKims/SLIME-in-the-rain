@@ -57,7 +57,8 @@ public class Slime : MonoBehaviour
 
     Collider[] colliders;
 
-    Rigidbody rigid;
+    [HideInInspector]
+    public Rigidbody rigid;
     Animator anim;
     #endregion
 
@@ -155,6 +156,8 @@ public class Slime : MonoBehaviour
     /// </summary>
     void Dash()
     {
+        if (currentWeapon) return;          // 무기 장착 중에는 무기의 대시
+
         if (Input.GetKeyDown(KeyCode.Space) && dashCoolTime <= 0)
         {
             isDash = true;
@@ -252,6 +255,7 @@ public class Slime : MonoBehaviour
 
         weapon.transform.parent = weaponPos;
         weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localEulerAngles = Vector3.zero;
         stats = weapon.stats;
 
         ChangeMaterial();

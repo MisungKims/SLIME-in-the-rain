@@ -28,6 +28,7 @@ public abstract class Weapon : MonoBehaviour
 
     public EWeaponType weaponType;
 
+    protected Vector3 angle = Vector3.zero;
 
     float attachSpeed = 10f;
     #endregion
@@ -77,7 +78,7 @@ public abstract class Weapon : MonoBehaviour
         }
 
         slime.ChangeWeapon(this);
-        
+        transform.localEulerAngles = angle;
     }
     #endregion
 

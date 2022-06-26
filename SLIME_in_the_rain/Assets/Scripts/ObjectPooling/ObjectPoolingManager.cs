@@ -10,7 +10,7 @@ using UnityEngine;
 
 public enum EObjectFlag // 배열이나 리스트의 순서
 {
-    
+    arrow
 }
 
 public class ObjectPoolingManager : MonoBehaviour
@@ -25,7 +25,7 @@ public class ObjectPoolingManager : MonoBehaviour
 
     public List<ObjectPool> poolingList = new List<ObjectPool>();
 
-    public List<ObjectPool> weaponPrefabList = new List<ObjectPool>();
+    public List<ObjectPool> weaponPollingList = new List<ObjectPool>();
 
     #endregion
 
@@ -44,7 +44,7 @@ public class ObjectPoolingManager : MonoBehaviour
         }
 
 
-        Init();
+        InitObject();
 
         InitWeapon();
     }
@@ -54,7 +54,7 @@ public class ObjectPoolingManager : MonoBehaviour
     /// <summary>
     /// 초기에 initCount 만큼 생성
     /// </summary>
-    private void Init()
+    private void InitObject()
     {
         for (int i = 0; i < poolingList.Count; i++)     // poolingList를 탐색해 각 오브젝트를 미리 생성
         {
@@ -73,14 +73,14 @@ public class ObjectPoolingManager : MonoBehaviour
     /// </summary>
     private void InitWeapon()
     {
-        for (int i = 0; i < weaponPrefabList.Count; i++)     // weaponList를 탐색해 각 무기 오브젝트를 미리 생성
+        for (int i = 0; i < weaponPollingList.Count; i++)     // weaponList를 탐색해 각 무기 오브젝트를 미리 생성
         {
-            for (int j = 0; j < weaponPrefabList[i].initCount; j++)
+            for (int j = 0; j < weaponPollingList[i].initCount; j++)
             {
-                GameObject tempGb = GameObject.Instantiate(weaponPrefabList[i].copyObj, weaponPrefabList[i].parent.transform);
+                GameObject tempGb = GameObject.Instantiate(weaponPollingList[i].copyObj, weaponPollingList[i].parent.transform);
                 tempGb.name = j.ToString();
                 tempGb.gameObject.SetActive(false);
-                weaponPrefabList[i].queue.Enqueue(tempGb);
+                weaponPollingList[i].queue.Enqueue(tempGb);
             }
         }
     }
@@ -107,6 +107,27 @@ public class ObjectPoolingManager : MonoBehaviour
         return tempGb;
     }
 
+    public GameObject Get(EObjectFlag flag, Vector3 pos, Vector3 rot)
+    {
+        int index = (int)flag;
+        GameObject tempGb;
+
+        if (poolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        {
+            tempGb = poolingList[index].queue.Dequeue();
+            tempGb.SetActive(true);
+        }
+        else         // 큐에 더이상 없으면 새로 생성
+        {
+            tempGb = GameObject.Instantiate(poolingList[index].copyObj, poolingList[index].parent.transform);
+        }
+
+        tempGb.transform.position = pos;
+        tempGb.transform.eulerAngles = rot;
+
+        return tempGb.gameObject;
+    }
+
 
     /// <summary>
     /// 다 쓴 오브젝트를 큐에 돌려줌
@@ -128,14 +149,14 @@ public class ObjectPoolingManager : MonoBehaviour
         int index = (int)type;
         GameObject tempGb;
 
-        if (weaponPrefabList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        if (weaponPollingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
         {
-            tempGb = weaponPrefabList[index].queue.Dequeue();
+            tempGb = weaponPollingList[index].queue.Dequeue();
             tempGb.SetActive(true);
         }
         else         // 큐에 더이상 없으면 새로 생성
         {
-            tempGb = GameObject.Instantiate(weaponPrefabList[index].copyObj, weaponPrefabList[index].parent.transform);
+            tempGb = GameObject.Instantiate(weaponPollingList[index].copyObj, weaponPollingList[index].parent.transform);
         }
 
         return tempGb;
@@ -148,10 +169,10 @@ public class ObjectPoolingManager : MonoBehaviour
     public void Set(Weapon gb)
     {
         int index = (int)gb.weaponType;
-        gb.transform.SetParent(weaponPrefabList[index].parent.transform);
+        gb.transform.SetParent(weaponPollingList[index].parent.transform);
         gb.gameObject.SetActive(false);
 
-        weaponPrefabList[index].queue.Enqueue(gb.gameObject);
+        weaponPollingList[index].queue.Enqueue(gb.gameObject);
     }
     #endregion
 }

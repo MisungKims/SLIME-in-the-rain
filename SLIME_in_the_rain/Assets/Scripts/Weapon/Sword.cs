@@ -18,6 +18,7 @@ public class Sword : Weapon
     private void Awake()
     {
         weaponType = EWeaponType.sword;
+        angle = Vector3.zero;
     }
     #endregion
 

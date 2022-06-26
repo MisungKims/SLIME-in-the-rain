@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639731684872195634}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.239, y: 2.484, z: 2.166}
   m_LocalScale: {x: 0.17824997, y: 0.17824991, z: 0.17824997}
   m_ConstrainProportionsScale: 0
@@ -55,6 +55,7 @@ MonoBehaviour:
     attackPower: 0
     defensePower: 0
   slimeMat: {fileID: 2100000, guid: 4b8fdc54d7714154d9ac0ac048601612, type: 2}
+  weaponType: 0
 --- !u!33 &6809944777495323715
 MeshFilter:
   m_ObjectHideFlags: 0
