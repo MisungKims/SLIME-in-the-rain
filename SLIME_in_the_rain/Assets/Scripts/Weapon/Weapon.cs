@@ -30,6 +30,8 @@ public abstract class Weapon : MonoBehaviour
 
     protected Vector3 angle = Vector3.zero;
 
+    Vector3 mouseWorldPosition;
+
     float attachSpeed = 10f;
     #endregion
 
@@ -43,16 +45,7 @@ public abstract class Weapon : MonoBehaviour
     {
         if (SlimeInstance().currentWeapon && slime.currentWeapon.Equals(this))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                AutoAttack();
-            }
-
-            if (Input.GetMouseButtonDown(2))
-            {
-                Skill();
-            }
-
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Dash();
@@ -70,7 +63,7 @@ public abstract class Weapon : MonoBehaviour
     {
         gameObject.layer = 7;       // 장착된 무기는 슬라임이 탐지하지 못하도록 레이어 변경
 
-        while (Vector3.Distance(transform.position, slime.weaponPos.position) >= 0.01f)
+        while (Vector3.Distance(transform.position, slime.weaponPos.position) >= 0.1f)
         {
             transform.position = Vector3.Lerp(transform.position, slime.weaponPos.position, Time.deltaTime * attachSpeed);
 
@@ -83,8 +76,8 @@ public abstract class Weapon : MonoBehaviour
     #endregion
 
     #region 함수
-    public abstract void AutoAttack();
-    public abstract void Skill();
+    public abstract void AutoAttack(Vector3 targetPos);
+    public abstract void Skill(Vector3 targetPos);
     public abstract void Dash();
 
 
@@ -95,6 +88,7 @@ public abstract class Weapon : MonoBehaviour
     {
         StartCoroutine(AttachToSlime());
     }
+
 
     Slime SlimeInstance()
     {

@@ -11,9 +11,7 @@ using UnityEngine;
 public class Bow : Weapon
 {
     #region 변수
-    Vector3 mouseWorldPosition;
 
-    Vector3 mousePos;
     #endregion
 
     #region 유니티 함수
@@ -26,16 +24,25 @@ public class Bow : Weapon
     #endregion
 
     #region 코루틴
-    IEnumerator Fire()
+    IEnumerator FireAnimation()
     {
-        Vector3 rot = GetMousePosRot();
+        Vector3 targetPos1 = transform.localEulerAngles;
+        targetPos1.z = -17f;
 
-        //Slime.Instance.rigid.rotation = Quaternion.Euler(rot);
-        //Slime.Instance.transform.LookAt(mousePos);
+        float time = 0.3f;
+        float speed = 1000f;
 
-       yield return new WaitForSeconds(0.1f);
+        while (time >= 0f)
+        {
+            transform.rotation *= Quaternion.Euler(0f, 0f, Time.deltaTime * speed);
 
-        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, rot).GetComponent<Arrow>().targetPos = mousePos;
+            time -= Time.deltaTime;
+            speed -= Time.deltaTime * 5f;
+
+            yield return null;
+        }
+
+        transform.localEulerAngles = angle;
     }
     #endregion
 
@@ -45,24 +52,34 @@ public class Bow : Weapon
     /// <summary>
     /// 평타
     /// </summary>
-    public override void AutoAttack()
+    public override void AutoAttack(Vector3 targetPos)
     {
-        Debug.Log("AutoAttack");
+        // 화살 생성 뒤 마우스 방향을 바라봄
+        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero).transform.LookAt(targetPos);
 
-        DetectObject();
-        //StartCoroutine(Fire());
-        
-
-        
-
+        //StartCoroutine(FireAnimation());
     }
 
     /// <summary>
     /// 스킬
     /// </summary>
-    public override void Skill()
+    public override void Skill(Vector3 targetPos)
     {
-        Debug.Log("Skill");
+        // 부채꼴로 화살을 발사
+
+        float angle = 45;
+        float interval = 10f;
+
+        if (interval > 0)
+        {
+            for (float y = 180 - angle; y <= 180 + angle; y += interval)
+            {
+                GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow);
+
+                arrow.transform.position = this.transform.position;
+                arrow.transform.eulerAngles = Vector3.up * y;
+            }
+        }
     }
 
     /// <summary>
@@ -71,48 +88,6 @@ public class Bow : Weapon
     public override void Dash()
     {
         Debug.Log("Dash");
-    }
-
-    void DetectObject()
-    {
-        mousePos = Input.mousePosition;
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.CompareTag("Land"))
-            {
-                //Debug.Log(hit.transform.gameObject);
-                Debug.Log(mousePos);
-
-                Vector3 target = Vector3.zero;
-                target.y = mousePos.y;
-
-                //Slime.Instance.rigid.rotation = Quaternion.Euler(GetMousePosRot());
-                Slime.Instance.transform.LookAt(target);
-                //StartCoroutine(Fire());
-
-            }
-        }
-    }
-
-    Vector3 GetMousePosRot()
-    {
-        mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos + Vector3.forward * 10f);
-
-        // Atan2를 이용하면 높이와 밑변(tan)으로 라디안(Radian)을 구할 수 있음
-        // Mathf.Rad2Deg를 곱해서 라디안(Radian)값을 도수법(Degree)으로 변환
-        float angle = Mathf.Atan2(
-            this.transform.position.y - mouseWorldPosition.y,
-            this.transform.position.x - mouseWorldPosition.x) * Mathf.Rad2Deg;
-
-        // angle이 0~180의 각도라서 보정
-        float final = -(angle + 90f);
-        // 로그를 통해서 값 확인
-        //Debug.Log(angle + " / " + final);
-
-        return new Vector3(0f, final, 0f);
     }
 
     #endregion

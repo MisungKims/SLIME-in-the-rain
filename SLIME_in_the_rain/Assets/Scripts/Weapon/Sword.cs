@@ -27,7 +27,7 @@ public class Sword : Weapon
     /// <summary>
     /// 평타
     /// </summary>
-    public override void AutoAttack()
+    public override void AutoAttack(Vector3 targetPos)
     {
         Debug.Log("AutoAttack");
     }
@@ -35,7 +35,7 @@ public class Sword : Weapon
     /// <summary>
     /// 스킬
     /// </summary>
-    public override void Skill()
+    public override void Skill(Vector3 targetPos)
     {
         Debug.Log("Skill");
     }

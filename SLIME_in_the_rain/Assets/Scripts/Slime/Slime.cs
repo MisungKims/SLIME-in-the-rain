@@ -35,6 +35,12 @@ public class Slime : MonoBehaviour
     [SerializeField]
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
 
+    Vector3 mousePos;
+
+    Vector3 targetPos;
+
+    bool isAttacking;   // 공격 중인지?
+
     //////// 이동
     enum AnimState { idle, move, attack, damaged, die }     // 애니메이션의 상태
     AnimState animState = AnimState.idle;           
@@ -42,12 +48,12 @@ public class Slime : MonoBehaviour
     Vector3 direction;                  // 이동 방향
 
     //////// 대시
-    bool isDash = false;
-    float dashSpeed = 100f;       // 대시 속도
-    float defaultTime = 0.1f;
-    float dashTime;
-    float dashDefaultCoolTime = 1f;
-    float dashCoolTime;
+    //bool isDash = false;
+    //float dashSpeed = 100f;       // 대시 속도
+    //float defaultTime = 0.1f;
+    //float dashTime;
+    //float dashDefaultCoolTime = 1f;
+    //float dashCoolTime;
 
     //////// 무기
     [SerializeField]
@@ -82,9 +88,15 @@ public class Slime : MonoBehaviour
         InitStats();
     }
 
+    private void Start()
+    {
+        StartCoroutine(AutoAttack());
+        StartCoroutine(Skill());
+        StartCoroutine(Dash());
+    }
+
     private void Update()
     {
-        Dash();
         DetectWeapon();
     }
 
@@ -98,6 +110,76 @@ public class Slime : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
+    }
+    #endregion
+
+    #region 코루틴
+    /// <summary>
+    /// 무기를 들고 있을 때 좌클릭하면 평타
+    /// </summary>
+    IEnumerator AutoAttack()
+    {
+        while (true)
+        {
+            if (currentWeapon && Input.GetMouseButtonDown(0))
+            {
+                isAttacking = true;
+
+                LookAtMousePos();
+
+                yield return new WaitForSeconds(0.01f);
+
+                currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
+
+                yield return new WaitForSeconds(0.2f);
+
+                isAttacking = false;
+            }
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// 무기를 들고 있을 때 좌클릭하면 평타
+    /// </summary>
+    IEnumerator Skill()
+    {
+        while (true)
+        {
+            if (currentWeapon && Input.GetMouseButtonDown(1))
+            {
+                isAttacking = true;
+
+                LookAtMousePos();
+
+                yield return new WaitForSeconds(0.01f);
+
+                currentWeapon.SendMessage("Skill", targetPos, SendMessageOptions.DontRequireReceiver);
+
+                yield return new WaitForSeconds(0.2f);
+
+                isAttacking = false;
+            }
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
+    /// 무기를 들고 있을 때 좌클릭하면 평타
+    /// </summary>
+    IEnumerator Dash()
+    {
+        while (true)
+        {
+            if (currentWeapon && Input.GetKeyDown(KeyCode.Space))
+            {
+                currentWeapon.SendMessage("Dash", SendMessageOptions.DontRequireReceiver);
+            }
+
+            yield return null;
+        }
     }
     #endregion
 
@@ -127,6 +209,8 @@ public class Slime : MonoBehaviour
     /// </summary>
     void Move()
     {
+        if (isAttacking) return;
+
         float dirX = Input.GetAxis("Horizontal");
         float dirZ = Input.GetAxis("Vertical");
 
@@ -151,45 +235,45 @@ public class Slime : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// 스페이스 바를 누르면 대시
-    /// </summary>
-    void Dash()
-    {
-        if (currentWeapon) return;          // 무기 장착 중에는 무기의 대시
+    ///// <summary>
+    ///// 스페이스 바를 누르면 대시
+    ///// </summary>
+    //void Dash()
+    //{
+    //    if (currentWeapon) return;          // 무기 장착 중에는 무기의 대시
 
-        if (Input.GetKeyDown(KeyCode.Space) && dashCoolTime <= 0)
-        {
-            isDash = true;
-        }
+    //    if (Input.GetKeyDown(KeyCode.Space) && dashCoolTime <= 0)
+    //    {
+    //        isDash = true;
+    //    }
 
-        if (dashTime <= 0)
-        {
-            defaultTime = 0.1f;
+    //    if (dashTime <= 0)
+    //    {
+    //        defaultTime = 0.1f;
 
-            if (isDash)
-            {
-                animState = AnimState.idle;
+    //        if (isDash)
+    //        {
+    //            animState = AnimState.idle;
 
-                rigid.position += Vector3.forward * dashSpeed * Time.deltaTime;
+    //            rigid.position += Vector3.forward * dashSpeed * Time.deltaTime;
 
-                dashTime = defaultTime;
-                dashCoolTime = dashDefaultCoolTime;
-            }
-        }
-        else
-        {
-            dashTime -= Time.deltaTime;
-            defaultTime = dashTime;
-        }
+    //            dashTime = defaultTime;
+    //            dashCoolTime = dashDefaultCoolTime;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        dashTime -= Time.deltaTime;
+    //        defaultTime = dashTime;
+    //    }
 
-        if (dashCoolTime > 0f)
-        {
-            dashCoolTime -= Time.deltaTime;
-        }
+    //    if (dashCoolTime > 0f)
+    //    {
+    //        dashCoolTime -= Time.deltaTime;
+    //    }
 
-        isDash = false;
-    }
+    //    isDash = false;
+    //}
     #endregion
 
     #region 무기
@@ -270,6 +354,39 @@ public class Slime : MonoBehaviour
         {
             skinnedMesh.material = currentWeapon.slimeMat;
         }
+    }
+
+    void LookAtMousePos()
+    {
+        mousePos = Input.mousePosition;
+        mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
+
+        if (!IsHitMonster())         // 몬스터를 클릭하지 않았을 때
+            targetPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        targetPos.y = transform.position.y;
+        transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
+    }
+
+    /// <summary>
+    /// 몬스터를 클릭했는지?
+    /// </summary>
+    /// <returns></returns>
+    bool IsHitMonster()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.CompareTag("Monster"))                // 몬스터 클릭 시
+            {
+                targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
+                return true;
+            }
+        }
+
+        return false;
     }
     #endregion
 

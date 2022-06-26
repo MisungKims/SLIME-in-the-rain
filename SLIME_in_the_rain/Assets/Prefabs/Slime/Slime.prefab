@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c288468445a4a44d966948b5f5a4472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponPos: {fileID: 0}
   stats:
     HP: 0
     coolTime: 0
@@ -272,6 +273,10 @@ MonoBehaviour:
     defensePower: 0
   currentWeapon: {fileID: 0}
   skinnedMesh: {fileID: 0}
+  weaponLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  rigid: {fileID: 0}
 --- !u!95 &7986647109907712075
 Animator:
   serializedVersion: 4

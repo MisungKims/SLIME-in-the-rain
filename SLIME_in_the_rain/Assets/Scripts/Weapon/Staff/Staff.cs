@@ -11,7 +11,8 @@ using UnityEngine;
 public class Staff : Weapon
 {
     #region 변수
-
+    [SerializeField]
+    private Transform projectilePos;
     #endregion
 
     #region 유니티 함수
@@ -23,15 +24,16 @@ public class Staff : Weapon
     /// <summary>
     /// 평타
     /// </summary>
-    public override void AutoAttack()
+    public override void AutoAttack(Vector3 targetPos)
     {
-        Debug.Log("AutoAttack");
+        // 투사체 생성 뒤 마우스 방향을 바라봄
+        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, projectilePos.position, Vector3.zero).transform.LookAt(targetPos);
     }
 
     /// <summary>
     /// 스킬
     /// </summary>
-    public override void Skill()
+    public override void Skill(Vector3 targetPos)
     {
         Debug.Log("Skill");
     }
