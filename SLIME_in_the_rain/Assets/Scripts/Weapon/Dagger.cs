@@ -15,7 +15,10 @@ public class Dagger : Weapon
     #endregion
 
     #region 유니티 함수
-
+    private void Awake()
+    {
+        weaponType = EWeaponType.dagger;
+    }
     #endregion
 
     #region 함수

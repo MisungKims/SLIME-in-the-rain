@@ -233,8 +233,7 @@ public class Slime : MonoBehaviour
             if (currentWeapon)
             {
                 currentWeapon.gameObject.layer = 6;
-                currentWeapon.transform.SetParent(null);
-                currentWeapon.gameObject.SetActive(false);      /// TODO : 오브젝트 풀링해서 Set하기
+                ObjectPoolingManager.Instance.Set(currentWeapon);
                 currentWeapon = null;
             }
 

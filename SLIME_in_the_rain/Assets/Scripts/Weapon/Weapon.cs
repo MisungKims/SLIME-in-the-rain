@@ -8,6 +8,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EWeaponType
+{
+    dagger,
+    sword,
+    iceStaff,
+    fireStaff,
+    bow
+}
+
 public abstract class Weapon : MonoBehaviour
 {
     #region 변수
@@ -16,6 +25,8 @@ public abstract class Weapon : MonoBehaviour
     private Slime slime;
 
     public Material slimeMat;       // 바뀔 슬라임의 Material
+
+    public EWeaponType weaponType;
 
 
     float attachSpeed = 10f;

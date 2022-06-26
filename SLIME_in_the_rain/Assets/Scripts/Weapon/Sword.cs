@@ -15,7 +15,10 @@ public class Sword : Weapon
     #endregion
 
     #region 유니티 함수
-
+    private void Awake()
+    {
+        weaponType = EWeaponType.sword;
+    }
     #endregion
 
     #region 함수

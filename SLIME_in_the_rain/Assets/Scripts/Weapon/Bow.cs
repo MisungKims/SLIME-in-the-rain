@@ -11,11 +11,14 @@ using UnityEngine;
 public class Bow : Weapon
 {
     #region 변수
-
+    
     #endregion
 
     #region 유니티 함수
-
+    private void Awake()
+    {
+        weaponType = EWeaponType.bow;
+    }
     #endregion
 
     #region 함수
