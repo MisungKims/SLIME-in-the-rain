@@ -32,8 +32,10 @@ public class Staff : Weapon
 
     #region 함수
     // 평타
-    public override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack(Vector3 targetPos)
     {
+        base.AutoAttack(targetPos);
+
         // 투사체 생성 뒤 마우스 방향을 바라봄
         ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, projectilePos.position, Vector3.zero).transform.LookAt(targetPos);
     }

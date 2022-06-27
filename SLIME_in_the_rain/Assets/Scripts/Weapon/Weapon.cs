@@ -34,6 +34,11 @@ public abstract class Weapon : MonoBehaviour
 
     float attachSpeed = 10f;
 
+    // 애니메이션
+    [SerializeField]
+    private Animator anim;
+    protected enum AnimState { idle, autoAttack, skill }     // 애니메이션의 상태
+    protected AnimState animState = AnimState.idle;
 
     // 대시
     protected float dashCoolTime;
@@ -42,16 +47,19 @@ public abstract class Weapon : MonoBehaviour
 
     // 캐싱
     private WaitForSeconds waitForDash;
+
+    protected StatManager statManager;
     #endregion
 
     #region 유니티 함수
     void Start()
     {
         slime = Slime.Instance;
+        statManager = StatManager.Instance;
 
         waitForDash = new WaitForSeconds(dashCoolTime);
 
-
+        PlayAnim(AnimState.idle);
     }
 
     #endregion
@@ -85,7 +93,12 @@ public abstract class Weapon : MonoBehaviour
     #endregion
 
     #region 함수
-    public abstract void AutoAttack(Vector3 targetPos);
+    protected virtual void AutoAttack(Vector3 targetPos)
+    {
+        PlayAnim(AnimState.autoAttack);
+        StartCoroutine(CheckAnimEnd("AutoAttack"));
+    }
+
     public abstract void Skill(Vector3 targetPos);
     public abstract void Dash(Slime slime);
 
@@ -96,15 +109,28 @@ public abstract class Weapon : MonoBehaviour
         StartCoroutine(AttachToSlime());
     }
 
-
-    Slime SlimeInstance()
+    // 애니메이션 재생
+    protected void PlayAnim(AnimState state)
     {
-        if (!slime)
+        animState = state;
+
+        anim.SetInteger("animation", (int)animState);
+    }
+
+    // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
+    IEnumerator CheckAnimEnd(string state)
+    {
+        string name = "Base Layer." + state;
+        while (true)
         {
-            slime = Slime.Instance;
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                break;
+            }
+            yield return null;
         }
 
-        return slime;
+        PlayAnim(AnimState.idle);
     }
     #endregion
 

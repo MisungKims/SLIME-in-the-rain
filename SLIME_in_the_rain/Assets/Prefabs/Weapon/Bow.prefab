@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6809944777495323715}
   - component: {fileID: 8044680800882491607}
   - component: {fileID: 639731684872195635}
+  - component: {fileID: 3096576723380205761}
   m_Layer: 6
   m_Name: Bow
   m_TagString: Untagged
@@ -56,6 +57,7 @@ MonoBehaviour:
     defensePower: 0
   slimeMat: {fileID: 2100000, guid: 4b8fdc54d7714154d9ac0ac048601612, type: 2}
   weaponType: 0
+  anim: {fileID: 3096576723380205761}
 --- !u!33 &6809944777495323715
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -121,3 +123,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.90200514, y: 4.7639465, z: 0.23013403}
   m_Center: {x: -0.0677065, y: 0.000012397765, z: 0}
+--- !u!95 &3096576723380205761
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639731684872195634}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c9e1b5e8699dc84c85982a3a1cd7b82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

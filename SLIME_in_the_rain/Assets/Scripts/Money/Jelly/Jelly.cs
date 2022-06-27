@@ -22,7 +22,7 @@ public class Jelly : MonoBehaviour
     Vector3 offset;
 
     // 캐싱
-    GameManager gameManager;
+    JellyManager jellyManager;
     #endregion
 
     #region 유니티 함수
@@ -30,7 +30,7 @@ public class Jelly : MonoBehaviour
     void Start()
     {
         slime = Slime.Instance;
-        gameManager = GameManager.Instance;
+        jellyManager = JellyManager.Instance;
 
         StartCoroutine(DetectSlime());
     }
@@ -82,7 +82,7 @@ public class Jelly : MonoBehaviour
     /// </summary>
     void Get()
     {
-        gameManager.jellyCount++;
+        jellyManager.JellyCount++;
 
         this.gameObject.SetActive(false);
     }

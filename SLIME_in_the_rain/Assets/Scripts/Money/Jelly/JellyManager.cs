@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class JellyManager : MonoBehaviour
 {
     #region º¯¼ö
     #region ½Ì±ÛÅæ
-    private static GameManager instance = null;
-    public static GameManager Instance
+    private static JellyManager instance = null;
+    public static JellyManager Instance
     {
         get
         {
@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public int jellyCount = 0;
+    private int jellyCount = 0;
+    public int JellyCount { get { return jellyCount; } set { jellyCount = value; } }
     #endregion
 
     #region À¯´ÏÆ¼ ÇÔ¼ö

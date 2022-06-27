@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8642570998761848015}
   - component: {fileID: 5104037057721391195}
   - component: {fileID: 5104037057721391012}
+  - component: {fileID: 5914430299525577833}
   m_Layer: 6
   m_Name: IceStaff
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MonoBehaviour:
     defensePower: 0
   slimeMat: {fileID: 2100000, guid: 3462d5ced31a2ee448b7c86a3b98e7ae, type: 2}
   weaponType: 0
+  anim: {fileID: 5914430299525577833}
   projectilePos: {fileID: 8885171396042535961}
 --- !u!33 &8642570998761848015
 MeshFilter:
@@ -123,6 +125,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.072819, y: 12.33848, z: 1.029046}
   m_Center: {x: -0.059210494, y: -0.79548883, z: -0.008631974}
+--- !u!95 &5914430299525577833
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2418877933976737470}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 302c3db77e14e0d4c8ec94f43e3cbd82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7472693736230903840
 GameObject:
   m_ObjectHideFlags: 0

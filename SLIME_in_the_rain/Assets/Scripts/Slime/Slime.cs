@@ -34,11 +34,6 @@ public class Slime : MonoBehaviour
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
 
 
-    //////// 스탯
-    private Stats originStats;      // 기본 슬라임의 스탯
-    public Stats myStats;           // 현재 슬라임의 스탯
-    private Stats extraStats;       // 젤라틴, 룬 등으로 추가될 양
-
 
     //////// 무기
     [Header("------------ 무기")]
@@ -68,7 +63,7 @@ public class Slime : MonoBehaviour
 
     Vector3 targetPos;
 
-    bool isAttacking;   // 평타 중인지?
+    public bool isAttacking;   // 평타 중인지?
 
 
     //////// 이동
@@ -79,8 +74,11 @@ public class Slime : MonoBehaviour
 
 
     //////// 캐싱
-    WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
-    WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
+    private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
+    private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
+
+    [SerializeField]
+    public StatManager statManager;
 
     #endregion
 
@@ -100,8 +98,6 @@ public class Slime : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-
-        InitStats();
 
         isCanDash = true;
     }
@@ -138,7 +134,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (currentWeapon && Input.GetMouseButtonDown(0))
+            if (!isAttacking && currentWeapon && Input.GetMouseButtonDown(0))
             {
                 isAttacking = true;
 
@@ -148,6 +144,8 @@ public class Slime : MonoBehaviour
 
                 currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
 
+                /// TODO : 대기 시간을 각 무기의 공속에 맞게 변경
+                //yield return new WaitForSeconds(statManager.myStats.attackSpeed);
                 yield return waitForAttack;         // 0.2초 대기
 
                 isAttacking = false;
@@ -164,7 +162,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (currentWeapon && Input.GetMouseButtonDown(1))
+            if (!isAttacking && currentWeapon && Input.GetMouseButtonDown(1))
             {
                 isAttacking = true;
 
@@ -178,7 +176,7 @@ public class Slime : MonoBehaviour
 
                 isAttacking = false;
 
-                yield return new WaitForSeconds(myStats.coolTime - 0.2f);
+                yield return new WaitForSeconds(statManager.myStats.coolTime - 0.2f);
             }
 
             yield return null;
@@ -208,15 +206,7 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 함수
-    /// <summary>
-    /// 스탯 초기화
-    /// </summary>
-    void InitStats()
-    {
-        originStats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
-        myStats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f);
-    }
+
 
     /// <summary>
     /// 슬라임과 오브젝트 사이의 거리를 구함
@@ -229,10 +219,8 @@ public class Slime : MonoBehaviour
         return offset.sqrMagnitude;
     }
 
-    /// <summary>
-    /// 애니메이션 플레이
-    /// </summary>
-    /// <param name="state"></param>
+
+    // 애니메이션 플레이
     void PlayAnim(AnimState state)
     {
         animState = state;
@@ -261,7 +249,7 @@ public class Slime : MonoBehaviour
 
                 rigid.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
-            rigid.position += direction * myStats.moveSpeed * Time.deltaTime;   // 이동
+            rigid.position += direction * statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {
@@ -405,7 +393,7 @@ public class Slime : MonoBehaviour
         currentWeapon.transform.parent = weaponPos;
         currentWeapon.transform.localPosition = Vector3.zero;
 
-        ChangeStats(currentWeapon);            // 변경한 무기의 스탯으로 변경
+        statManager.ChangeStats(currentWeapon);            // 변경한 무기의 스탯으로 변경
 
         ChangeMaterial();               // 슬라임의 색 변경
     }
@@ -424,102 +412,7 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    #region 스탯
-    /// <summary>
-    /// 무기 변경 시 해당 무기의 스탯으로 변경
-    /// </summary>
-    void ChangeStats(Weapon weapon)
-    {
-        myStats.HP = weapon.stats.HP + extraStats.HP;
-        myStats.coolTime = weapon.stats.coolTime + extraStats.coolTime;
-        myStats.moveSpeed = weapon.stats.moveSpeed + extraStats.moveSpeed;
-        myStats.attackSpeed = weapon.stats.attackSpeed + extraStats.attackSpeed;
-        myStats.attackPower = weapon.stats.attackPower + extraStats.attackPower;
-        myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
-    }
-
-    /// <summary>
-    /// HP 스탯 추가
-    /// </summary>
-    /// <param name="amount">추가할 HP의 양</param>
-    public void AddHP(float amount)
-    {
-        extraStats.HP += amount;
-        if (currentWeapon)
-        {
-            myStats.HP = currentWeapon.stats.HP + extraStats.HP;
-        }
-        else
-        {
-            myStats.HP = originStats.HP + extraStats.HP;
-        }
-    }
-
-    public void AddCoolTime(float amount)
-    {
-        extraStats.coolTime += amount;
-        if (currentWeapon)
-        {
-            myStats.coolTime = currentWeapon.stats.coolTime + extraStats.coolTime;
-        }
-        else
-        {
-            myStats.coolTime = originStats.coolTime + extraStats.coolTime;
-        }
-    }
-
-    public void AddMoveSpeed(float amount)
-    {
-        extraStats.moveSpeed += amount;
-        if (currentWeapon)
-        {
-            myStats.moveSpeed = currentWeapon.stats.moveSpeed + extraStats.moveSpeed;
-        }
-        else
-        {
-            myStats.moveSpeed = originStats.moveSpeed + extraStats.moveSpeed;
-        }
-    }
-
-    public void AddAttackSpeed(float amount)
-    {
-        extraStats.attackSpeed += amount;
-        if (currentWeapon)
-        {
-            myStats.attackSpeed = currentWeapon.stats.attackSpeed + extraStats.attackSpeed;
-        }
-        else
-        {
-            myStats.attackSpeed = originStats.attackSpeed + extraStats.attackSpeed;
-        }
-    }
-
-    public void AddAttackPower(float amount)
-    {
-        extraStats.attackPower += amount;
-        if (currentWeapon)
-        {
-            myStats.attackPower = currentWeapon.stats.attackPower + extraStats.attackPower;
-        }
-        else
-        {
-            myStats.attackPower = originStats.attackPower + extraStats.attackPower;
-        }
-    }
-
-    public void AddDefensePower(float amount)
-    {
-        extraStats.defensePower += amount;
-        if (currentWeapon)
-        {
-            myStats.defensePower = currentWeapon.stats.defensePower + extraStats.defensePower;
-        }
-        else
-        {
-            myStats.defensePower = originStats.defensePower + extraStats.defensePower;
-        }
-    }
-    #endregion
+    
 
     #endregion
 }

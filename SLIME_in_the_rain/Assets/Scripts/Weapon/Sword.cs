@@ -29,12 +29,14 @@ public class Sword : Weapon
     // 일정 시간동안 이속이 증가
     IEnumerator IncrementSpeed(Slime slime)
     {
-        originSpeed = slime.myStats.moveSpeed;
-        slime.myStats.moveSpeed += dashSpeed;
+        StatManager statManager = slime.statManager;
+
+        originSpeed = statManager.myStats.moveSpeed;
+        statManager.myStats.moveSpeed += dashSpeed;
 
         yield return new WaitForSeconds(dashDuration);
 
-        slime.myStats.moveSpeed = originSpeed;
+        statManager.myStats.moveSpeed = originSpeed;
     }
     #endregion
 
@@ -43,8 +45,10 @@ public class Sword : Weapon
     /// <summary>
     /// 평타
     /// </summary>
-    public override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack(Vector3 targetPos)
     {
+        base.AutoAttack(targetPos);
+
         Debug.Log("AutoAttack");
     }
 

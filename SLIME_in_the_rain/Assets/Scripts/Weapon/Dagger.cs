@@ -28,8 +28,10 @@ public class Dagger : Weapon
     /// <summary>
     /// ∆Ú≈∏
     /// </summary>
-    public override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack(Vector3 targetPos)
     {
+        base.AutoAttack(targetPos);
+
         Debug.Log("AutoAttack");
     }
 

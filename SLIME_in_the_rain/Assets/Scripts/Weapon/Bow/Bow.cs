@@ -12,7 +12,7 @@ public class Bow : Weapon
 {
     #region 변수
     Vector3 lookRot;
-
+    Vector3 bowPos;
     #endregion
 
     #region 유니티 함수
@@ -25,34 +25,19 @@ public class Bow : Weapon
     #endregion
 
     #region 코루틴
-    IEnumerator FireAnimation()
-    {
-        Vector3 targetPos1 = transform.localEulerAngles;
-        targetPos1.z = -17f;
 
-        float time = 0.3f;
-        float speed = 1000f;
-
-        while (time >= 0f)
-        {
-            transform.rotation *= Quaternion.Euler(0f, 0f, Time.deltaTime * speed);
-
-            time -= Time.deltaTime;
-            speed -= Time.deltaTime * 5f;
-
-            yield return null;
-        }
-
-        transform.localEulerAngles = angle;
-    }
     #endregion
 
     #region 함수
     // 평타
-    public override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack(Vector3 targetPos)
     {
+        bowPos = transform.position;
+
+        base.AutoAttack(targetPos);
+
         // 화살 생성 뒤 마우스 방향을 바라봄
-        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero).transform.LookAt(targetPos);
+        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, bowPos, Vector3.zero).transform.LookAt(targetPos);
     }
 
     // 스킬
