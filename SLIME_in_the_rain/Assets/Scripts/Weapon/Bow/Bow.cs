@@ -13,7 +13,6 @@ public class Bow : Weapon
     #region 변수
     Vector3 lookRot;
 
-
     #endregion
 
     #region 유니티 함수
@@ -21,8 +20,8 @@ public class Bow : Weapon
     {
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);
+        dashCoolTime = 2f;
     }
-
     #endregion
 
     #region 코루틴
@@ -46,24 +45,17 @@ public class Bow : Weapon
 
         transform.localEulerAngles = angle;
     }
-
     #endregion
 
-
     #region 함수
-
-    /// <summary>
-    /// 평타
-    /// </summary>
+    // 평타
     public override void AutoAttack(Vector3 targetPos)
     {
         // 화살 생성 뒤 마우스 방향을 바라봄
         ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero).transform.LookAt(targetPos);
     }
 
-    /// <summary>
-    /// 스킬
-    /// </summary>
+    // 스킬
     public override void Skill(Vector3 targetPos)
     {
         // 부채꼴로 화살을 발사
@@ -88,13 +80,18 @@ public class Bow : Weapon
         }
     }
 
-    /// <summary>
-    /// 대시
-    /// </summary>
+    // 대시
     public override void Dash(Slime slime)
     {
-        slime.Dash();
-    }
+        if (isDash)
+        {
+            slime.isDash = false;
+            return;
+        }
 
+        slime.Dash();           // 일반 대시
+
+        StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
+    }
     #endregion
 }

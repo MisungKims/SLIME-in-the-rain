@@ -19,6 +19,7 @@ public class Dagger : Weapon
     {
         weaponType = EWeaponType.dagger;
         angle = new Vector3(90f, 0, 90f);
+        dashCoolTime = 0.5f;
     }
     #endregion
 

@@ -56,10 +56,11 @@ public class Slime : MonoBehaviour
 
     //////// 대시
     [Header("------------ 대시")]
-    float dashDistance = 300f;   // 대시할 거리
-    public float dashTime = 1f;        // 대시 재사용 가능 시간
-    public float currentDashTime;      // 현재 대시 지속시간
+    float dashDistance = 1.3f;          // 대시할 거리
+    public float dashTime = 1f;        // 대시 지속 시간
+    public float currentDashTime;
     public bool isDash { get; set; }                // 대시 중인지?
+    bool isCanDash;     // 대시 가능한지?
 
 
     //////// 공격
@@ -101,6 +102,8 @@ public class Slime : MonoBehaviour
         anim = GetComponent<Animator>();
 
         InitStats();
+
+        isCanDash = true;
     }
 
     private void Start()
@@ -114,8 +117,6 @@ public class Slime : MonoBehaviour
         DetectWeapon();
 
         SpaceBar();
-
-        
     }
 
     void FixedUpdate()
@@ -166,7 +167,7 @@ public class Slime : MonoBehaviour
             if (currentWeapon && Input.GetMouseButtonDown(1))
             {
                 isAttacking = true;
-                
+
                 LookAtMousePos();
 
                 yield return waitForRotate;         // 0.01초 대기
@@ -184,8 +185,26 @@ public class Slime : MonoBehaviour
         }
     }
 
-    
+    IEnumerator DoDash()
+    {
+        isCanDash = false;
 
+        PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
+
+        currentDashTime = dashTime;
+        while (currentDashTime >= 0)
+        {
+            transform.position += transform.forward * dashDistance * Time.deltaTime * 0.8f;
+
+            currentDashTime -= Time.deltaTime;
+        }
+
+        isDash = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        isCanDash = true;
+    }
     #endregion
 
     #region 함수
@@ -222,9 +241,7 @@ public class Slime : MonoBehaviour
     }
 
     #region 움직임
-    /// <summary>
-    /// 슬라임의 움직임
-    /// </summary>
+    // 슬라임의 움직임
     void Move()
     {
         if (isAttacking || isDash) return;
@@ -254,15 +271,14 @@ public class Slime : MonoBehaviour
         PlayAnim(animState);
     }
 
-    /// <summary>
-    /// 스페이스바 누르면 앞으로 대시
-    /// </summary>
+
+    // 스페이스바 누르면 앞으로 대시
     void SpaceBar()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isDash)
         {
             isDash = true;
-            
+
             if (currentWeapon)
             {
                 currentWeapon.SendMessage("Dash", this, SendMessageOptions.DontRequireReceiver);
@@ -274,24 +290,19 @@ public class Slime : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 스페이스바 누르면 앞으로 대시
-    /// </summary>
+    // 대시
     public void Dash()
     {
-        PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
-
-        currentDashTime = dashTime;
-        if (currentDashTime >= 0)
+        if (!isCanDash)
         {
-            //transform.position = Vector3.Lerp(transform.position, transform.forward * dashDistance, Time.deltaTime);
-            transform.position += transform.forward * dashDistance * Time.deltaTime;
-
-            currentDashTime -= Time.deltaTime;
+            isDash = false;
+            return;
         }
 
-        isDash = false;
+        StartCoroutine(DoDash());
     }
+
+    
     #endregion
 
     #region 공격

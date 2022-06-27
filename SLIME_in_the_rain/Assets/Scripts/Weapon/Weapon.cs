@@ -35,21 +35,29 @@ public abstract class Weapon : MonoBehaviour
     float attachSpeed = 10f;
 
 
+    // 대시
+    protected float dashCoolTime;
+    protected bool isDash = false;
+
+
+    // 캐싱
+    private WaitForSeconds waitForDash;
     #endregion
 
     #region 유니티 함수
     void Start()
     {
         slime = Slime.Instance;
+
+        waitForDash = new WaitForSeconds(dashCoolTime);
+
+
     }
 
     #endregion
 
     #region 코루틴
-    /// <summary>
-    /// 무기 장착 코루틴
-    /// </summary>
-    /// <returns></returns>
+    // 무기 장착 코루틴
     IEnumerator AttachToSlime()
     {
         gameObject.layer = 7;       // 장착된 무기는 슬라임이 탐지하지 못하도록 레이어 변경
@@ -64,6 +72,16 @@ public abstract class Weapon : MonoBehaviour
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
     }
+
+    // 대시 쿨타임 코루틴
+    protected IEnumerator DashTimeCount()
+    {
+        isDash = true;
+
+        yield return waitForDash;
+
+        isDash = false;
+    }
     #endregion
 
     #region 함수
@@ -72,9 +90,7 @@ public abstract class Weapon : MonoBehaviour
     public abstract void Dash(Slime slime);
 
 
-    /// <summary>
-    /// 무기 장착 코루틴을 실행
-    /// </summary>
+    // 무기 장착 코루틴을 실행
     public void DoAttach()
     {
         StartCoroutine(AttachToSlime());

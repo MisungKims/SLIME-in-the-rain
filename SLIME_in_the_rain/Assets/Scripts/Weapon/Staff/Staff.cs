@@ -14,9 +14,11 @@ public class Staff : Weapon
     [SerializeField]
     private Transform projectilePos;        // 생성될 투사체의 위치
 
+    Quaternion from = Quaternion.Euler(new Vector3(90, 0, 0));
+    Quaternion to = Quaternion.Euler(new Vector3(0, 0, 0));
+
     //////// 대시
-    float dashDistance = 300f;   // 대시할 거리
-    float dashTime = 1f;        // 대시 재사용 가능 시간
+    float dashDistance = 400f;   // 대시할 거리
     float currentDashTime;      // 현재 대시 지속시간
     #endregion
 
@@ -24,41 +26,41 @@ public class Staff : Weapon
 
     #endregion
 
-    #region 함수
+    #region 코루틴
 
-    /// <summary>
-    /// 평타
-    /// </summary>
+    #endregion
+
+    #region 함수
+    // 평타
     public override void AutoAttack(Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
         ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, projectilePos.position, Vector3.zero).transform.LookAt(targetPos);
     }
 
-    /// <summary>
-    /// 스킬
-    /// </summary>
+    // 스킬
     public override void Skill(Vector3 targetPos)
     {
         Debug.Log("Skill");
     }
 
-    /// <summary>
+
     /// 대시
-    /// </summary>
     public override void Dash(Slime slime)
     {
-        Transform slimePos = slime.transform;
-
-        currentDashTime = dashTime;
-        if (currentDashTime >= 0)
+        if (isDash)
         {
-            slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;
-
-            currentDashTime -= Time.deltaTime;
+            slime.isDash = false;
+            return;
         }
 
+        Transform slimePos = slime.transform;
+
+        slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
+
         slime.isDash = false;
+
+        StartCoroutine(DashTimeCount());
     }
     #endregion
 }

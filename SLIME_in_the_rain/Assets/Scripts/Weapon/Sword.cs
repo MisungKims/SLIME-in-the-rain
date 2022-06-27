@@ -11,7 +11,9 @@ using UnityEngine;
 public class Sword : Weapon
 {
     #region 변수
-
+    float originSpeed;
+    float dashSpeed = 3f;
+    float dashDuration = 1.5f;
     #endregion
 
     #region 유니티 함수
@@ -19,6 +21,20 @@ public class Sword : Weapon
     {
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;
+        dashCoolTime = 1f;
+    }
+    #endregion
+
+    #region 코루틴
+    // 일정 시간동안 이속이 증가
+    IEnumerator IncrementSpeed(Slime slime)
+    {
+        originSpeed = slime.myStats.moveSpeed;
+        slime.myStats.moveSpeed += dashSpeed;
+
+        yield return new WaitForSeconds(dashDuration);
+
+        slime.myStats.moveSpeed = originSpeed;
     }
     #endregion
 
@@ -40,12 +56,21 @@ public class Sword : Weapon
         Debug.Log("Skill");
     }
 
-    /// <summary>
-    /// 대시
-    /// </summary>
+
+    // 대시
     public override void Dash(Slime slime)
     {
-        Debug.Log("Dash");
+        if (isDash)
+        {
+            slime.isDash = false;
+            return;
+        }
+
+        StartCoroutine(IncrementSpeed(slime));                  // 이속 증가
+
+        StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
+
+        slime.isDash = false;
     }
     #endregion
 

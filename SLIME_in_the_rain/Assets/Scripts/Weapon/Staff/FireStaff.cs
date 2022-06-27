@@ -8,6 +8,7 @@ public class FireStaff : Staff
     private void Awake()
     {
         weaponType = EWeaponType.fireStaff;
+        dashCoolTime = 5f;
     }
     #endregion
 }
