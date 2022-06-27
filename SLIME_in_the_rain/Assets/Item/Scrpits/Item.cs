@@ -13,7 +13,8 @@ public class Item
 {
     public itemType itemType;
     public string itemName;
-    public GameObject itemGb;
+    
+    public Material itemGb;
     public bool Use()
     {
         return false;

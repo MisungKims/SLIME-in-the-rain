@@ -62,20 +62,18 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-   
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("FieldItem"))
+        if (collision.gameObject.CompareTag("FieldItem"))
         {
-            FieldItems fieldItems = other.GetComponent<FieldItems>();
+            FieldItems fieldItems = collision.gameObject.GetComponent<FieldItems>();
             if (AddItem(fieldItems.GetItem()))
             {
                 fieldItems.DestroyItem();
             }
         }
     }
-    
 
-   
+
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class FieldItems : MonoBehaviour
 {
     public Item item;
-    public GameObject material;
+    public MeshRenderer mesh;
+     
 
     public void SetItem(Item _item)
     {
@@ -13,7 +14,7 @@ public class FieldItems : MonoBehaviour
         item.itemGb = _item.itemGb;
         item.itemType = _item.itemType;
 
-        material = item.itemGb;
+        mesh.materials[0].color = _item.itemGb.color;
     }
     public Item GetItem()
     {
