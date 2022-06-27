@@ -12,7 +12,12 @@ public class Staff : Weapon
 {
     #region 변수
     [SerializeField]
-    private Transform projectilePos;
+    private Transform projectilePos;        // 생성될 투사체의 위치
+
+    //////// 대시
+    float dashDistance = 300f;   // 대시할 거리
+    float dashTime = 1f;        // 대시 재사용 가능 시간
+    float currentDashTime;      // 현재 대시 지속시간
     #endregion
 
     #region 유니티 함수
@@ -41,9 +46,19 @@ public class Staff : Weapon
     /// <summary>
     /// 대시
     /// </summary>
-    public override void Dash()
+    public override void Dash(Slime slime)
     {
-        Debug.Log("Dash");
+        Transform slimePos = slime.transform;
+
+        currentDashTime = dashTime;
+        if (currentDashTime >= 0)
+        {
+            slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;
+
+            currentDashTime -= Time.deltaTime;
+        }
+
+        slime.isDash = false;
     }
     #endregion
 }

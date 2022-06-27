@@ -35,15 +35,16 @@ public class Slime : MonoBehaviour
 
 
     //////// 스탯
-    private Stats originStats;       // 기본 슬라임의 스탯
+    private Stats originStats;      // 기본 슬라임의 스탯
     public Stats myStats;           // 현재 슬라임의 스탯
-    private Stats extraStats;        // 젤라틴, 룬 등으로 추가될 양
+    private Stats extraStats;       // 젤라틴, 룬 등으로 추가될 양
 
 
     //////// 무기
+    [Header("------------ 무기")]
     public Transform weaponPos;     // 무기 장착 시 무기의 parent
 
-    public Weapon currentWeapon;            // 장착 중인 무기
+    public Weapon currentWeapon;    // 장착 중인 무기
 
     [SerializeField]
     private LayerMask weaponLayer;
@@ -51,6 +52,14 @@ public class Slime : MonoBehaviour
     private float detectRadius = 1.1f;      // 무기를 감지할 범위
 
     Collider[] colliders;
+
+
+    //////// 대시
+    [Header("------------ 대시")]
+    float dashDistance = 300f;   // 대시할 거리
+    public float dashTime = 1f;        // 대시 재사용 가능 시간
+    public float currentDashTime;      // 현재 대시 지속시간
+    public bool isDash { get; set; }                // 대시 중인지?
 
 
     //////// 공격
@@ -62,8 +71,8 @@ public class Slime : MonoBehaviour
 
 
     //////// 이동
-    enum AnimState { idle, move, attack, damaged, die }     // 애니메이션의 상태
-    AnimState animState = AnimState.idle;           
+    enum AnimState { idle, move, dash, damaged, die }     // 애니메이션의 상태
+    AnimState animState = AnimState.idle;
 
     Vector3 direction;                  // 이동 방향
 
@@ -98,19 +107,20 @@ public class Slime : MonoBehaviour
     {
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
-        StartCoroutine(Dash());
     }
 
     private void Update()
     {
         DetectWeapon();
+
+        SpaceBar();
+
+        
     }
 
     void FixedUpdate()
     {
         Move();
-        
-        anim.SetInteger("animation", (int)animState);
     }
     private void OnDrawGizmos()
     {
@@ -133,11 +143,11 @@ public class Slime : MonoBehaviour
 
                 LookAtMousePos();
 
-                yield return waitForRotate;
+                yield return waitForRotate;         // 0.01초 대기
 
                 currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
 
-                yield return waitForAttack;
+                yield return waitForAttack;         // 0.2초 대기
 
                 isAttacking = false;
             }
@@ -147,7 +157,7 @@ public class Slime : MonoBehaviour
     }
 
     /// <summary>
-    /// 무기를 들고 있을 때 좌클릭하면 평타
+    /// 무기를 들고 있을 때 우클릭하면 스킬
     /// </summary>
     IEnumerator Skill()
     {
@@ -159,11 +169,11 @@ public class Slime : MonoBehaviour
                 
                 LookAtMousePos();
 
-                yield return waitForRotate;
+                yield return waitForRotate;         // 0.01초 대기
 
                 currentWeapon.SendMessage("Skill", targetPos, SendMessageOptions.DontRequireReceiver);
 
-                yield return waitForAttack;
+                yield return waitForAttack;         // 0.2초 대기
 
                 isAttacking = false;
 
@@ -174,21 +184,8 @@ public class Slime : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 무기를 들고 있을 때 좌클릭하면 평타
-    /// </summary>
-    IEnumerator Dash()
-    {
-        while (true)
-        {
-            if (currentWeapon && Input.GetKeyDown(KeyCode.Space))
-            {
-                currentWeapon.SendMessage("Dash", SendMessageOptions.DontRequireReceiver);
-            }
+    
 
-            yield return null;
-        }
-    }
     #endregion
 
     #region 함수
@@ -213,13 +210,24 @@ public class Slime : MonoBehaviour
         return offset.sqrMagnitude;
     }
 
+    /// <summary>
+    /// 애니메이션 플레이
+    /// </summary>
+    /// <param name="state"></param>
+    void PlayAnim(AnimState state)
+    {
+        animState = state;
+
+        anim.SetInteger("animation", (int)animState);
+    }
+
     #region 움직임
     /// <summary>
     /// 슬라임의 움직임
     /// </summary>
     void Move()
     {
-        if (isAttacking) return;
+        if (isAttacking || isDash) return;
 
         float dirX = Input.GetAxis("Horizontal");
         float dirZ = Input.GetAxis("Vertical");
@@ -243,47 +251,47 @@ public class Slime : MonoBehaviour
             animState = AnimState.idle;
         }
 
+        PlayAnim(animState);
     }
 
-    ///// <summary>
-    ///// 스페이스 바를 누르면 대시
-    ///// </summary>
-    //void Dash()
-    //{
-    //    if (currentWeapon) return;          // 무기 장착 중에는 무기의 대시
+    /// <summary>
+    /// 스페이스바 누르면 앞으로 대시
+    /// </summary>
+    void SpaceBar()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isDash = true;
+            
+            if (currentWeapon)
+            {
+                currentWeapon.SendMessage("Dash", this, SendMessageOptions.DontRequireReceiver);
+            }
+            else
+            {
+                Dash();
+            }
+        }
+    }
 
-    //    if (Input.GetKeyDown(KeyCode.Space) && dashCoolTime <= 0)
-    //    {
-    //        isDash = true;
-    //    }
+    /// <summary>
+    /// 스페이스바 누르면 앞으로 대시
+    /// </summary>
+    public void Dash()
+    {
+        PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
 
-    //    if (dashTime <= 0)
-    //    {
-    //        defaultTime = 0.1f;
+        currentDashTime = dashTime;
+        if (currentDashTime >= 0)
+        {
+            //transform.position = Vector3.Lerp(transform.position, transform.forward * dashDistance, Time.deltaTime);
+            transform.position += transform.forward * dashDistance * Time.deltaTime;
 
-    //        if (isDash)
-    //        {
-    //            animState = AnimState.idle;
+            currentDashTime -= Time.deltaTime;
+        }
 
-    //            rigid.position += Vector3.forward * dashSpeed * Time.deltaTime;
-
-    //            dashTime = defaultTime;
-    //            dashCoolTime = dashDefaultCoolTime;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        dashTime -= Time.deltaTime;
-    //        defaultTime = dashTime;
-    //    }
-
-    //    if (dashCoolTime > 0f)
-    //    {
-    //        dashCoolTime -= Time.deltaTime;
-    //    }
-
-    //    isDash = false;
-    //}
+        isDash = false;
+    }
     #endregion
 
     #region 공격

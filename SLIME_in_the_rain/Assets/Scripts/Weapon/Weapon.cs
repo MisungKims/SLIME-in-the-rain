@@ -33,6 +33,8 @@ public abstract class Weapon : MonoBehaviour
     Vector3 mouseWorldPosition;
 
     float attachSpeed = 10f;
+
+
     #endregion
 
     #region 유니티 함수
@@ -41,17 +43,6 @@ public abstract class Weapon : MonoBehaviour
         slime = Slime.Instance;
     }
 
-    void Update()
-    {
-        if (SlimeInstance().currentWeapon && slime.currentWeapon.Equals(this))
-        {
-            
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Dash();
-            }
-        }
-    }
     #endregion
 
     #region 코루틴
@@ -78,7 +69,7 @@ public abstract class Weapon : MonoBehaviour
     #region 함수
     public abstract void AutoAttack(Vector3 targetPos);
     public abstract void Skill(Vector3 targetPos);
-    public abstract void Dash();
+    public abstract void Dash(Slime slime);
 
 
     /// <summary>

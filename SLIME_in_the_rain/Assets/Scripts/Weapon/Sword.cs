@@ -43,7 +43,7 @@ public class Sword : Weapon
     /// <summary>
     /// ´ë½Ã
     /// </summary>
-    public override void Dash()
+    public override void Dash(Slime slime)
     {
         Debug.Log("Dash");
     }
