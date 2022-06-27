@@ -26,20 +26,40 @@ public class Slime : MonoBehaviour
     }
     #endregion
 
-    public Transform weaponPos;
+    private Rigidbody rigid;
 
-    public Stats stats;
-
-    public Weapon currentWeapon;
+    private Animator anim;
 
     [SerializeField]
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
 
+
+    //////// 스탯
+    private Stats originStats;       // 기본 슬라임의 스탯
+    public Stats myStats;           // 현재 슬라임의 스탯
+    private Stats extraStats;        // 젤라틴, 룬 등으로 추가될 양
+
+
+    //////// 무기
+    public Transform weaponPos;     // 무기 장착 시 무기의 parent
+
+    public Weapon currentWeapon;            // 장착 중인 무기
+
+    [SerializeField]
+    private LayerMask weaponLayer;
+
+    private float detectRadius = 1.1f;      // 무기를 감지할 범위
+
+    Collider[] colliders;
+
+
+    //////// 공격
     Vector3 mousePos;
 
     Vector3 targetPos;
 
-    bool isAttacking;   // 공격 중인지?
+    bool isAttacking;   // 평타 중인지?
+
 
     //////// 이동
     enum AnimState { idle, move, attack, damaged, die }     // 애니메이션의 상태
@@ -47,25 +67,11 @@ public class Slime : MonoBehaviour
 
     Vector3 direction;                  // 이동 방향
 
-    //////// 대시
-    //bool isDash = false;
-    //float dashSpeed = 100f;       // 대시 속도
-    //float defaultTime = 0.1f;
-    //float dashTime;
-    //float dashDefaultCoolTime = 1f;
-    //float dashCoolTime;
 
-    //////// 무기
-    [SerializeField]
-    private LayerMask weaponLayer;
+    //////// 캐싱
+    WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
+    WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
 
-    private float detectRadius = 1.1f;
-
-    Collider[] colliders;
-
-    [HideInInspector]
-    public Rigidbody rigid;
-    Animator anim;
     #endregion
 
     #region 유니티 함수
@@ -127,11 +133,11 @@ public class Slime : MonoBehaviour
 
                 LookAtMousePos();
 
-                yield return new WaitForSeconds(0.01f);
+                yield return waitForRotate;
 
                 currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
 
-                yield return new WaitForSeconds(0.2f);
+                yield return waitForAttack;
 
                 isAttacking = false;
             }
@@ -150,16 +156,18 @@ public class Slime : MonoBehaviour
             if (currentWeapon && Input.GetMouseButtonDown(1))
             {
                 isAttacking = true;
-
+                
                 LookAtMousePos();
 
-                yield return new WaitForSeconds(0.01f);
+                yield return waitForRotate;
 
                 currentWeapon.SendMessage("Skill", targetPos, SendMessageOptions.DontRequireReceiver);
 
-                yield return new WaitForSeconds(0.2f);
+                yield return waitForAttack;
 
                 isAttacking = false;
+
+                yield return new WaitForSeconds(myStats.coolTime - 0.2f);
             }
 
             yield return null;
@@ -189,7 +197,9 @@ public class Slime : MonoBehaviour
     /// </summary>
     void InitStats()
     {
-        stats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
+        originStats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
+        myStats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f);
     }
 
     /// <summary>
@@ -226,7 +236,7 @@ public class Slime : MonoBehaviour
 
                 rigid.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
-            rigid.position += direction * stats.moveSpeed * Time.deltaTime;   // 이동
+            rigid.position += direction * myStats.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {
@@ -274,6 +284,42 @@ public class Slime : MonoBehaviour
 
     //    isDash = false;
     //}
+    #endregion
+
+    #region 공격
+
+    void LookAtMousePos()
+    {
+        mousePos = Input.mousePosition;
+        mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
+
+        if (!IsHitMonster())         // 몬스터를 클릭하지 않았을 때
+            targetPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        targetPos.y = transform.position.y;
+        transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
+    }
+
+    /// <summary>
+    /// 몬스터를 클릭했는지?
+    /// </summary>
+    /// <returns></returns>
+    bool IsHitMonster()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.CompareTag("Monster"))                // 몬스터 클릭 시
+            {
+                targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
+                return true;
+            }
+        }
+
+        return false;
+    }
     #endregion
 
     #region 무기
@@ -337,13 +383,14 @@ public class Slime : MonoBehaviour
     {
         currentWeapon = weapon;
 
-        weapon.transform.parent = weaponPos;
-        weapon.transform.localPosition = Vector3.zero;
-        weapon.transform.localEulerAngles = Vector3.zero;
-        stats = weapon.stats;
+        currentWeapon.transform.parent = weaponPos;
+        currentWeapon.transform.localPosition = Vector3.zero;
 
-        ChangeMaterial();
+        ChangeStats(currentWeapon);            // 변경한 무기의 스탯으로 변경
+
+        ChangeMaterial();               // 슬라임의 색 변경
     }
+
 
     /// <summary>
     /// 슬라임의 색(머터리얼) 변경
@@ -356,37 +403,102 @@ public class Slime : MonoBehaviour
         }
     }
 
-    void LookAtMousePos()
+    #endregion
+
+    #region 스탯
+    /// <summary>
+    /// 무기 변경 시 해당 무기의 스탯으로 변경
+    /// </summary>
+    void ChangeStats(Weapon weapon)
     {
-        mousePos = Input.mousePosition;
-        mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
-
-        if (!IsHitMonster())         // 몬스터를 클릭하지 않았을 때
-            targetPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-        targetPos.y = transform.position.y;
-        transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
+        myStats.HP = weapon.stats.HP + extraStats.HP;
+        myStats.coolTime = weapon.stats.coolTime + extraStats.coolTime;
+        myStats.moveSpeed = weapon.stats.moveSpeed + extraStats.moveSpeed;
+        myStats.attackSpeed = weapon.stats.attackSpeed + extraStats.attackSpeed;
+        myStats.attackPower = weapon.stats.attackPower + extraStats.attackPower;
+        myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
     }
 
     /// <summary>
-    /// 몬스터를 클릭했는지?
+    /// HP 스탯 추가
     /// </summary>
-    /// <returns></returns>
-    bool IsHitMonster()
+    /// <param name="amount">추가할 HP의 양</param>
+    public void AddHP(float amount)
     {
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit))
+        extraStats.HP += amount;
+        if (currentWeapon)
         {
-            if (hit.transform.CompareTag("Monster"))                // 몬스터 클릭 시
-            {
-                targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
-                return true;
-            }
+            myStats.HP = currentWeapon.stats.HP + extraStats.HP;
         }
+        else
+        {
+            myStats.HP = originStats.HP + extraStats.HP;
+        }
+    }
 
-        return false;
+    public void AddCoolTime(float amount)
+    {
+        extraStats.coolTime += amount;
+        if (currentWeapon)
+        {
+            myStats.coolTime = currentWeapon.stats.coolTime + extraStats.coolTime;
+        }
+        else
+        {
+            myStats.coolTime = originStats.coolTime + extraStats.coolTime;
+        }
+    }
+
+    public void AddMoveSpeed(float amount)
+    {
+        extraStats.moveSpeed += amount;
+        if (currentWeapon)
+        {
+            myStats.moveSpeed = currentWeapon.stats.moveSpeed + extraStats.moveSpeed;
+        }
+        else
+        {
+            myStats.moveSpeed = originStats.moveSpeed + extraStats.moveSpeed;
+        }
+    }
+
+    public void AddAttackSpeed(float amount)
+    {
+        extraStats.attackSpeed += amount;
+        if (currentWeapon)
+        {
+            myStats.attackSpeed = currentWeapon.stats.attackSpeed + extraStats.attackSpeed;
+        }
+        else
+        {
+            myStats.attackSpeed = originStats.attackSpeed + extraStats.attackSpeed;
+        }
+    }
+
+    public void AddAttackPower(float amount)
+    {
+        extraStats.attackPower += amount;
+        if (currentWeapon)
+        {
+            myStats.attackPower = currentWeapon.stats.attackPower + extraStats.attackPower;
+        }
+        else
+        {
+            myStats.attackPower = originStats.attackPower + extraStats.attackPower;
+        }
+    }
+
+    public void AddDefensePower(float amount)
+    {
+        extraStats.defensePower += amount;
+        if (currentWeapon)
+        {
+            myStats.defensePower = currentWeapon.stats.defensePower + extraStats.defensePower;
+        }
+        else
+        {
+            myStats.defensePower = originStats.defensePower + extraStats.defensePower;
+        }
     }
     #endregion
 

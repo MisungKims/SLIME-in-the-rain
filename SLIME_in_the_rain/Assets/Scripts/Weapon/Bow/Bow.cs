@@ -11,6 +11,8 @@ using UnityEngine;
 public class Bow : Weapon
 {
     #region 변수
+    Vector3 lookRot;
+
 
     #endregion
 
@@ -44,6 +46,7 @@ public class Bow : Weapon
 
         transform.localEulerAngles = angle;
     }
+
     #endregion
 
 
@@ -56,8 +59,6 @@ public class Bow : Weapon
     {
         // 화살 생성 뒤 마우스 방향을 바라봄
         ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero).transform.LookAt(targetPos);
-
-        //StartCoroutine(FireAnimation());
     }
 
     /// <summary>
@@ -67,18 +68,23 @@ public class Bow : Weapon
     {
         // 부채꼴로 화살을 발사
 
-        float angle = 45;
-        float interval = 10f;
+        float angle = 45;           // 각도
+        float interval = 10f;       // 간격
 
-        if (interval > 0)
+        for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            for (float y = 180 - angle; y <= 180 + angle; y += interval)
-            {
-                GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow);
+            GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow);
 
-                arrow.transform.position = this.transform.position;
-                arrow.transform.eulerAngles = Vector3.up * y;
-            }
+            arrow.transform.position = this.transform.position;
+
+            arrow.transform.LookAt(targetPos);                  // 마우스 클릭 위치로 바라보게 한 다음  
+
+            lookRot = arrow.transform.eulerAngles;
+            lookRot.x = 0;
+            lookRot.y += y + 180;
+            lookRot.z = 0;
+
+            arrow.transform.eulerAngles = lookRot;     // 각도를 조절해 부채꼴처럼 보이도록 함
         }
     }
 
