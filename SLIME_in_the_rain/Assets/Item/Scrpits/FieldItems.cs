@@ -5,16 +5,17 @@ using UnityEngine;
 public class FieldItems : MonoBehaviour
 {
     public Item item;
-    public MeshRenderer mesh;
+   
+  
      
 
     public void SetItem(Item _item)
     {
         item.itemName = _item.itemName;
-        item.itemGb = _item.itemGb;
         item.itemType = _item.itemType;
+        item.itemIcon = _item.itemIcon;
 
-        mesh.materials[0].color = _item.itemGb.color;
+
     }
     public Item GetItem()
     {
@@ -22,6 +23,7 @@ public class FieldItems : MonoBehaviour
     }
     public void DestroyItem()
     {
-        Destroy(gameObject);
+        Debug.Log("a");
+        Destroy(this.gameObject);
     }
 }

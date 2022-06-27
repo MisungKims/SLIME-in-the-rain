@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
     public OnChangeItem onChangeItem;
 
 
-    List<Item> items = new List<Item>();
+   public List<Item> items = new List<Item>();
 
     private int slotCount;
     public int SlotCount
@@ -52,28 +52,29 @@ public class Inventory : MonoBehaviour
         if (items.Count < slotCount)
         {
             items.Add(_item);
-            if (onChangeItem != null)
-            {
-
-            onChangeItem.Invoke();
-            return true;
-            }
+            //if (onChangeItem != null)
+            //{
+                onChangeItem.Invoke();
+                return true;
+         //   }
         }
         return false;
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("FieldItem"))
+        if (other.CompareTag("FieldItem"))
         {
-            FieldItems fieldItems = collision.gameObject.GetComponent<FieldItems>();
+            FieldItems fieldItems = other.GetComponent<FieldItems>();
             if (AddItem(fieldItems.GetItem()))
             {
+
                 fieldItems.DestroyItem();
             }
         }
     }
+
+
 
 
 }

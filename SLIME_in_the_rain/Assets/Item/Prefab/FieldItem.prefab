@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 766645351682560396}
   - component: {fileID: -4719193430560588608}
   - component: {fileID: 2575957333622191370}
+  - component: {fileID: 3619715912630964948}
   m_Layer: 0
   m_Name: FieldItem
-  m_TagString: Untagged
+  m_TagString: FieldItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +119,7 @@ MonoBehaviour:
   item:
     itemType: 1
     itemName: 
-    itemGb: {fileID: 3247098743224949592, guid: 041cfa63691aff543ad5c55826203243, type: 3}
+    itemMr: {fileID: 3247098743224949592, guid: 041cfa63691aff543ad5c55826203243, type: 3}
   mesh: {fileID: 1144979910793327142, guid: 5638cbf16f107884eb2695620aedb558, type: 3}
 --- !u!64 &-4719193430560588608
 MeshCollider:
@@ -147,3 +148,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.84438145, y: 0.117965534, z: 0.80775577}
   m_Center: {x: 0.009700258, y: -0.014912088, z: -0.050239213}
+--- !u!135 &3619715912630964948
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4841079101741461204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.91358876
+  m_Center: {x: 0.009700253, y: 0.8396939, z: -0.050239217}

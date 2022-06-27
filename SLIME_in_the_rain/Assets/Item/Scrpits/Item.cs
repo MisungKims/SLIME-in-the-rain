@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum itemType
+public enum ItemType
 {
     weapon,
     gelatin
@@ -11,10 +11,9 @@ public enum itemType
 [System.Serializable]
 public class Item
 {
-    public itemType itemType;
+    public ItemType itemType;
     public string itemName;
-    
-    public Material itemGb;
+    public Sprite itemIcon;
     public bool Use()
     {
         return false;

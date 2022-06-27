@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3247098743224949592}
   - component: {fileID: 3343376107239278588}
   - component: {fileID: -4814727111350996186}
+  - component: {fileID: -4202687778787703206}
   m_Layer: 0
   m_Name: BlueGelatin
-  m_TagString: Untagged
+  m_TagString: FieldItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +97,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 8e6b3699953db3d48ae824482b8ceeee, type: 3}
 --- !u!54 &-4814727111350996186
@@ -115,3 +116,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &-4202687778787703206
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6247164590532823187}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.91358876
+  m_Center: {x: 0.009700253, y: 0.8396939, z: -0.050239217}
