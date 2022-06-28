@@ -115,14 +115,7 @@ public class Dagger : Weapon
 
             if (hit.transform.CompareTag("DamagedObject"))
             {
-                Debug.Log(hit.transform.name);
-
-                // µ¥¹ÌÁö¸¦ ÀÔÈû
-                IDamage damagedObject = hit.transform.GetComponent<IDamage>();
-                if (damagedObject != null)
-                {
-                    damagedObject.Damaged();
-                }
+                Damage(hit.transform);          // µ¥¹ÌÁö¸¦ ÀÔÈû
             }
         }
     }
@@ -138,15 +131,20 @@ public class Dagger : Weapon
         {
             if (hits[i].transform.CompareTag("DamagedObject"))
             {
-                Debug.Log(hits[i].transform.name);
-
-                // µ¥¹ÌÁö¸¦ ÀÔÈû
-                IDamage damagedObject = hits[i].transform.GetComponent<IDamage>();
-                if (damagedObject != null)
-                {
-                    damagedObject.Damaged();
-                }
+                Damage(hits[i].transform);          // µ¥¹ÌÁö¸¦ ÀÔÈû
             }
+        }
+    }
+
+    // µ¥¹ÌÁö¸¦ ÀÔÈû
+    void Damage(Transform hitObj)
+    {
+        Debug.Log(hitObj.name);
+
+        IDamage damagedObject = hitObj.GetComponent<IDamage>();
+        if (damagedObject != null)
+        {
+            damagedObject.Damaged();
         }
     }
     #endregion
