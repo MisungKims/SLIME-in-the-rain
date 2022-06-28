@@ -130,9 +130,9 @@ public class Weapon : MonoBehaviour
     // ½ºÅ³
     protected virtual void Skill(Vector3 targetPos)
     {
-        PlayAnim(AnimState.autoAttack);
+        PlayAnim(AnimState.skill);
 
-        StartCoroutine(CheckAnimEnd("AutoAttack"));
+        StartCoroutine(CheckAnimEnd("Skill"));
 
         StartCoroutine(SkillTimeCount());
     }
