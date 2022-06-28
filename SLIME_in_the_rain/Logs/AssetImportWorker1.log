@@ -1,10 +1,14 @@
 Using pre-set license
 Built from '2021.3/staging' branch; Version is '2021.3.5f1 (40eb3a945986) revision 4254522'; Using compiler version '192829333'; Build Type 'Release'
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 32630 MB
 =======
 OS: 'Windows 10  (10.0.19043) 64bit Core' Language: 'ko' Physical Memory: 8103 MB
 >>>>>>> Stashed changes
+=======
+OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 16298 MB
+>>>>>>> develop
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
@@ -15,6 +19,7 @@ C:\Program Files\Unity\Hub\Editor\2021.3.5f1\Editor\Unity.exe
 -name
 AssetImportWorker1
 -projectPath
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 C:/Users/woody/OneDrive/바탕 화면/슬라임/SLIME_in_the_rain/SLIME_in_the_rain
 -logFile
@@ -32,6 +37,15 @@ Logs/AssetImportWorker1.log
 Successfully changed project path to: C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
 C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
 >>>>>>> Stashed changes
+=======
+C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain
+-logFile
+Logs/AssetImportWorker1.log
+-srvPort
+62383
+Successfully changed project path to: C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain
+C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain
+>>>>>>> develop
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -61,6 +75,7 @@ C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 Refreshing native plugins compatible for Editor in 136.89 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
@@ -76,22 +91,30 @@ Direct3D:
     Driver:   27.21.14.5671
 =======
 Refreshing native plugins compatible for Editor in 90.83 ms, found 3 plugins.
+=======
+Refreshing native plugins compatible for Editor in 65.16 ms, found 3 plugins.
+>>>>>>> develop
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.5f1 (40eb3a945986)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain/Assets
+[Subsystems] Discovering subsystems at path C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1660 Ti (ID=0x2191)
+    Renderer: NVIDIA GeForce GTX 1660 SUPER (ID=0x21c4)
     Vendor:   NVIDIA
     VRAM:     5991 MB
+<<<<<<< HEAD
     Driver:   30.0.14.7196
 >>>>>>> Stashed changes
+=======
+    Driver:   27.21.14.5671
+>>>>>>> develop
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/MonoBleedingEdge/etc'
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56672
 Begin MonoManager ReloadAssembly
@@ -108,26 +131,33 @@ Domain Reload Profiling:
 		BeginReloadAssembly (159ms)
 =======
 Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56228
+=======
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56264
+>>>>>>> develop
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.014681 seconds.
+Registered in 0.002616 seconds.
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 90.64 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 65.12 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.774 seconds
+- Completed reload, in  0.491 seconds
 Domain Reload Profiling:
+<<<<<<< HEAD
 	ReloadAssembly (775ms)
 		BeginReloadAssembly (135ms)
 >>>>>>> Stashed changes
+=======
+	ReloadAssembly (492ms)
+		BeginReloadAssembly (52ms)
+>>>>>>> develop
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 		EndReloadAssembly (906ms)
 			LoadAssemblies (156ms)
@@ -146,25 +176,35 @@ Domain Reload Profiling:
 =======
 		EndReloadAssembly (508ms)
 			LoadAssemblies (132ms)
+=======
+		EndReloadAssembly (360ms)
+			LoadAssemblies (51ms)
+>>>>>>> develop
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (108ms)
+			SetupTypeCache (83ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (34ms)
-			SetupLoadedEditorAssemblies (306ms)
+			RebuildScriptCaches (27ms)
+			SetupLoadedEditorAssemblies (211ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (12ms)
+				InitializePlatformSupportModulesInManaged (6ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (91ms)
+				RefreshPlugins (65ms)
 				BeforeProcessingInitializeOnLoad (1ms)
+<<<<<<< HEAD
 				ProcessInitializeOnLoadAttributes (138ms)
 				ProcessInitializeOnLoadMethodAttributes (64ms)
 >>>>>>> Stashed changes
+=======
+				ProcessInitializeOnLoadAttributes (102ms)
+				ProcessInitializeOnLoadMethodAttributes (36ms)
+>>>>>>> develop
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 Registered in 0.013896 seconds.
 Begin MonoManager ReloadAssembly
@@ -213,67 +253,80 @@ Memory consumption went from 131.6 MB to 131.6 MB.
 Total: 48.094100 ms (FindLiveObjects: 20.272400 ms CreateObjectMapping: 9.234800 ms MarkObjects: 18.544500 ms  DeleteObjects: 0.040000 ms)
 =======
 Registered in 0.007947 seconds.
+=======
+Registered in 0.002414 seconds.
+>>>>>>> develop
 Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\WaveGun\Documents\GitHub\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\WaveGun\Documents\GitHub\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\kim\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\kim\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.00 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.59 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.448 seconds
+- Completed reload, in  0.806 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1449ms)
-		BeginReloadAssembly (136ms)
+	ReloadAssembly (806ms)
+		BeginReloadAssembly (85ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (19ms)
-		EndReloadAssembly (1163ms)
-			LoadAssemblies (334ms)
+			CreateAndSetChildDomain (16ms)
+		EndReloadAssembly (636ms)
+			LoadAssemblies (56ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (308ms)
+			SetupTypeCache (211ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (55ms)
-			SetupLoadedEditorAssemblies (427ms)
+			RebuildScriptCaches (42ms)
+			SetupLoadedEditorAssemblies (294ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
+				InitializePlatformSupportModulesInManaged (4ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (105ms)
-				ProcessInitializeOnLoadAttributes (265ms)
-				ProcessInitializeOnLoadMethodAttributes (36ms)
-				AfterProcessingInitializeOnLoad (10ms)
+				BeforeProcessingInitializeOnLoad (67ms)
+				ProcessInitializeOnLoadAttributes (196ms)
+				ProcessInitializeOnLoadMethodAttributes (24ms)
+				AfterProcessingInitializeOnLoad (3ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
-Refreshing native plugins compatible for Editor in 0.76 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 0.58 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
+<<<<<<< HEAD
 Unloading 3393 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 40 unused Assets / (0.8 MB). Loaded Objects now: 3839.
 Memory consumption went from 125.5 MB to 124.8 MB.
 Total: 3.793700 ms (FindLiveObjects: 0.310300 ms CreateObjectMapping: 0.258100 ms MarkObjects: 2.881700 ms  DeleteObjects: 0.341900 ms)
 >>>>>>> Stashed changes
+=======
+Unloading 3414 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 25 unused Assets / (56.2 KB). Loaded Objects now: 3875.
+Memory consumption went from 126.3 MB to 126.2 MB.
+Total: 2.410600 ms (FindLiveObjects: 0.256500 ms CreateObjectMapping: 0.192400 ms MarkObjects: 1.904000 ms  DeleteObjects: 0.057000 ms)
+>>>>>>> develop
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
   custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+<<<<<<< HEAD
 ========================================================================
 Received Import Request.
 <<<<<<< Updated upstream
@@ -5746,3 +5799,5 @@ Received Import Request.
   artifactKey: Guid(0fdc615735bf9bd43ae401974c134a37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Idle 02.FBX using Guid(0fdc615735bf9bd43ae401974c134a37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1e5894610f55f1e150a5d9ae74f3f23') in 0.059684 seconds 
 >>>>>>> Stashed changes
+=======
+>>>>>>> develop
