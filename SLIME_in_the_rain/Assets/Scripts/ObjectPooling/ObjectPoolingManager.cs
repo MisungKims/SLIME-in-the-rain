@@ -8,12 +8,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EObjectFlag
+public enum EObjectFlag     // ≈ıªÁ√º Flag
 {
     arrow,
     ice,
     fire,
-    iceSkill
+    iceSkill,
+    fireSkill
 }
 
 public class ObjectPoolingManager : MonoBehaviour

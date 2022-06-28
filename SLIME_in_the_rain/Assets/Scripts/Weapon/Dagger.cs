@@ -35,9 +35,10 @@ public class Dagger : Weapon
     }
 
     // 스킬
-    public override void Skill(Vector3 targetPos)
+    protected override void Skill(Vector3 targetPos)
     {
         Debug.Log("Skill");
+        base.Skill(targetPos);
     }
 
     // 대시
@@ -53,8 +54,6 @@ public class Dagger : Weapon
 
             PlayAnim(AnimState.autoAttack);
             StartCoroutine(CheckAnimEnd("AutoAttack"));
-
-            
         }
 
         return canDash;
@@ -85,6 +84,7 @@ public class Dagger : Weapon
         }
     }
 
+    // 돌진 대시 시 데미지입힘
     void DoDashDamage()
     {
         Transform slimeTransform = slime.transform;

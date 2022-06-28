@@ -155,14 +155,12 @@ public class Slime : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 무기를 들고 있을 때 우클릭하면 스킬
-    /// </summary>
+    // 무기를 들고 있을 때 우클릭하면 스킬
     IEnumerator Skill()
     {
         while (true)
         {
-            if (!isAttacking && currentWeapon && Input.GetMouseButtonDown(1))
+            if (IsCanSkill())
             {
                 isAttacking = true;
 
@@ -175,8 +173,6 @@ public class Slime : MonoBehaviour
                 yield return waitForAttack;         // 0.2초 대기
 
                 isAttacking = false;
-
-                yield return new WaitForSeconds(stat.coolTime - 0.2f);
             }
 
             yield return null;
@@ -206,19 +202,13 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 함수
-
-
-    /// <summary>
-    /// 슬라임과 오브젝트 사이의 거리를 구함
-    /// </summary>
-    /// <param name="target">거리를 구할 오브젝트</param>
+    // 슬라임과 오브젝트 사이의 거리를 구함
     float GetDistance(Transform targetPos)
     {
         Vector3 offset = transform.position - targetPos.position;
 
         return offset.sqrMagnitude;
     }
-
 
     // 애니메이션 플레이
     void PlayAnim(AnimState state)
@@ -294,6 +284,18 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 공격
+    // 스킬을 사용할 수 있는지?
+    bool IsCanSkill()
+    {
+        if (!isAttacking && currentWeapon && currentWeapon.isCanSkill && Input.GetMouseButtonDown(1))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     void LookAtMousePos()
     {

@@ -9,6 +9,7 @@ public class FireStaff : Staff
     {
         weaponType = EWeaponType.fireStaff;
         projectileFlag = EObjectFlag.fire;
+        skillProjectileFlag = EObjectFlag.fireSkill;
         dashCoolTime = 5f;
     }
     #endregion

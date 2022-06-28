@@ -42,8 +42,10 @@ public class Staff : Weapon
     }
 
     // ½ºÅ³
-    public override void Skill(Vector3 targetPos)
+    protected override void Skill(Vector3 targetPos)
     {
+        base.Skill(targetPos);
+
         GetProjectile(skillProjectileFlag, targetPos);
     }
 
