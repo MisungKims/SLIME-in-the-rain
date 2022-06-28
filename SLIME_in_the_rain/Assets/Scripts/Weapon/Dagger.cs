@@ -11,8 +11,15 @@ using UnityEngine;
 public class Dagger : Weapon
 {
     #region 변수
-    private float maxDistance = 0.8f;
-    private float maxDashAttackDistance = 2f;
+    private float maxDistance = 0.8f;               // 평타 공격 범위
+    private float maxDashAttackDistance = 2f;       // 돌진 대시 공격 범위
+
+    // 스킬
+    private float skillDuration = 5f;        // 스킬 지속시간
+    private Material mat;                   // 투명도를 조절할 머터리얼
+    private float alpha;
+    private float maxAlpha = 1f;
+    private float minAlpha = 0.6f;
     #endregion
 
     #region 유니티 함수
@@ -21,6 +28,41 @@ public class Dagger : Weapon
         weaponType = EWeaponType.dagger;
         angle = new Vector3(90f, 0, 90f);
         dashCoolTime = 0.5f;
+    }
+    #endregion
+
+    #region 코루틴
+    // 은신 스킬 코루틴 (투명도 조절)
+    IEnumerator Stealth()
+    {
+        slime.isStealth = true;
+        slimeMat = slime.SkinnedMesh.material;
+
+        // 반투명하게
+        alpha = maxAlpha;
+        while (alpha >= minAlpha)
+        {
+            alpha -= Time.deltaTime * 1.5f;
+
+            slimeMat.color = new Color(slimeMat.color.r, slimeMat.color.g, slimeMat.color.b, alpha);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(skillDuration);
+
+        // 원래대로
+        alpha = slimeMat.color.a;
+        while (alpha <= maxAlpha)
+        {
+            alpha += Time.deltaTime * 1.5f;
+
+            slimeMat.color = new Color(slimeMat.color.r, slimeMat.color.g, slimeMat.color.b, alpha);
+
+            yield return null;
+        }
+
+        slime.isStealth = false;
     }
     #endregion
 
@@ -37,8 +79,9 @@ public class Dagger : Weapon
     // 스킬
     protected override void Skill(Vector3 targetPos)
     {
-        Debug.Log("Skill");
         base.Skill(targetPos);
+
+        StartCoroutine(Stealth());
     }
 
     // 대시
@@ -87,6 +130,7 @@ public class Dagger : Weapon
     // 돌진 대시 시 데미지입힘
     void DoDashDamage()
     {
+        // 범위에 있는 모든 것에게 데미지
         Transform slimeTransform = slime.transform;
         RaycastHit[] hits = Physics.RaycastAll(slimeTransform.position, slimeTransform.forward, maxDashAttackDistance);
 

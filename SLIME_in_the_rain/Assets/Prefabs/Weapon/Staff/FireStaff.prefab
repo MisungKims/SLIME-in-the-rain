@@ -81,8 +81,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
+    maxHP: 0
     HP: 0
-    coolTime: 0
+    coolTime: 13
     moveSpeed: 1.2
     attackSpeed: 0.4
     attackPower: 0
@@ -90,6 +91,7 @@ MonoBehaviour:
   slimeMat: {fileID: 2100000, guid: f6955a8b28bac5347984ed8002456d80, type: 2}
   weaponType: 0
   anim: {fileID: 6053054186354116934}
+  isCanSkill: 1
   projectilePos: {fileID: 7680507323707185387}
 --- !u!33 &7399014684522148186
 MeshFilter:
