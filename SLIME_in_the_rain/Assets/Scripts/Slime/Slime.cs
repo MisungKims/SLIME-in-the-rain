@@ -32,6 +32,7 @@ public class Slime : MonoBehaviour
 
     [SerializeField]
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
+    public SkinnedMeshRenderer SkinnedMesh { get { return skinnedMesh; } }
 
     private Stats stat;
     public Stats Stat { get { return stat; } }
@@ -65,6 +66,8 @@ public class Slime : MonoBehaviour
     Vector3 targetPos;
 
     public bool isAttacking;   // 평타 중인지?
+
+    public bool isStealth;      // 은신 중인지?
 
 
     //////// 이동
@@ -179,6 +182,7 @@ public class Slime : MonoBehaviour
         }
     }
 
+    // 대시 코루틴
     IEnumerator DoDash()
     {
         isCanDash = false;

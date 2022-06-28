@@ -96,7 +96,7 @@ public class Weapon : MonoBehaviour
     {
         isCanSkill = false;
 
-        yield return waitForDash;
+        yield return new WaitForSeconds(slime.Stat.coolTime);
 
         isCanSkill = true;
     }

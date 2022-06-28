@@ -11,12 +11,10 @@ using UnityEngine;
 public class Sword : Weapon
 {
     #region 변수
-
-
     // 대시
     float originSpeed;
-    float dashSpeed = 3f;
-    float dashDuration = 1.5f;
+    float dashSpeed = 2.5f;
+    float dashDuration = 2.5f;
 
     // 공격
     private float maxDistance = 1.1f;
