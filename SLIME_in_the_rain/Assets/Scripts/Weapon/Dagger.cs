@@ -13,6 +13,7 @@ public class Dagger : Weapon
     #region 변수
     private float maxDistance = 0.8f;               // 평타 공격 범위
     private float maxDashAttackDistance = 2f;       // 돌진 대시 공격 범위
+    private float dashDistance = 2f;
 
     // 스킬
     private float skillDuration = 5f;        // 스킬 지속시간
@@ -93,6 +94,7 @@ public class Dagger : Weapon
         if (canDash)
         {
             DoDashDamage();
+            slime.DashDistance = dashDistance;
             slime.Dash();           // 일반 대시
 
             PlayAnim(AnimState.autoAttack);
@@ -107,7 +109,7 @@ public class Dagger : Weapon
     {
         Transform slimeTransform = slime.transform;
 
-        // 슬라임의 위치에서 공격 범위만큼 ray를 쏨
+        // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
         RaycastHit hit;
         if (Physics.Raycast(slimeTransform.position, slimeTransform.forward, out hit, maxDistance))
         {
@@ -123,7 +125,7 @@ public class Dagger : Weapon
     // 돌진 대시 시 데미지입힘
     void DoDashDamage()
     {
-        // 범위에 있는 모든 것에게 데미지
+        // 돌진 시 앞에 있는 모든 것에게 데미지
         Transform slimeTransform = slime.transform;
         RaycastHit[] hits = Physics.RaycastAll(slimeTransform.position, slimeTransform.forward, maxDashAttackDistance);
 

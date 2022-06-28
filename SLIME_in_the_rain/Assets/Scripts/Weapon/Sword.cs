@@ -46,9 +46,7 @@ public class Sword : Weapon
 
     #region 함수
 
-    /// <summary>
-    /// 평타
-    /// </summary>
+    // 평타
     protected override void AutoAttack(Vector3 targetPos)
     {
         base.AutoAttack(targetPos);
@@ -56,14 +54,12 @@ public class Sword : Weapon
         DoDamage();
     }
 
-    /// <summary>
-    /// 스킬
-    /// </summary>
+    // 스킬
     protected override void Skill(Vector3 targetPos)
     {
         base.Skill(targetPos);
 
-        Debug.Log("Skill");
+        DoSkillDamage();
     }
 
     // 대시
@@ -85,7 +81,7 @@ public class Sword : Weapon
     {
         Transform slimeTransform = slime.transform;
 
-        // 슬라임의 위치에서 공격 범위만큼 ray를 쏨
+        // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
         RaycastHit hit;
         if (Physics.Raycast(slimeTransform.position, slimeTransform.forward, out hit, maxDistance))
         {
@@ -93,15 +89,27 @@ public class Sword : Weapon
 
             if (hit.transform.CompareTag("DamagedObject"))
             {
-                Debug.Log(hit.transform.name);
-
-                // 데미지를 입힘
-                IDamage damagedObject = hit.transform.GetComponent<IDamage>();
-                if (damagedObject != null)
-                {
-                    damagedObject.Damaged();
-                }
+                Damage(hit.transform);          // 데미지를 입힘
             }
+        }
+    }
+
+    // 스킬 시 데미지입힘
+    void DoSkillDamage()
+    {
+        // 부채꼴 범위
+    }
+
+
+    // 데미지를 입힘
+    void Damage(Transform hitObj)
+    {
+        Debug.Log(hitObj.name);
+
+        IDamage damagedObject = hitObj.GetComponent<IDamage>();
+        if (damagedObject != null)
+        {
+            damagedObject.Damaged();
         }
     }
     #endregion

@@ -12,6 +12,8 @@ public class Bow : Weapon
 {
     #region 변수
     Vector3 lookRot;
+
+    private float dashDistance = 2f;
     #endregion
 
     #region 유니티 함수
@@ -75,7 +77,11 @@ public class Bow : Weapon
     {
         bool canDash = base.Dash(slime);
 
-        if (canDash) slime.Dash();           // 일반 대시
+        if (canDash)
+        {
+            slime.DashDistance = dashDistance;
+            slime.Dash();           // 일반 대시
+        }
 
        return canDash;
     }
