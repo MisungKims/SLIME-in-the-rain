@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
 
     #region 코루틴
     /// <summary>
-    /// 3초 후에 없어짐
+    /// 2초 후에 없어짐
     /// </summary>
     /// <returns></returns>
     IEnumerator Remove()

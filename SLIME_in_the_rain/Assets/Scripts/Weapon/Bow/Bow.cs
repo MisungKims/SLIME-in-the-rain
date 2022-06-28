@@ -44,8 +44,10 @@ public class Bow : Weapon
     }
 
     // 스킬
-    public override void Skill(Vector3 targetPos)
+    protected override void Skill(Vector3 targetPos)
     {
+        base.Skill(targetPos);
+
         // 부채꼴로 화살을 발사
 
         float angle = 45;           // 각도

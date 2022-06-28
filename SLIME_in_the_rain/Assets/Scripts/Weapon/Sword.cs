@@ -61,8 +61,10 @@ public class Sword : Weapon
     /// <summary>
     /// ½ºÅ³
     /// </summary>
-    public override void Skill(Vector3 targetPos)
+    protected override void Skill(Vector3 targetPos)
     {
+        base.Skill(targetPos);
+
         Debug.Log("Skill");
     }
 
