@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2021.3/staging' branch; Version is '2021.3.5f1 (40eb3a945986) revision 4254522'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 10  (10.0.19043) 64bit Core' Language: 'ko' Physical Memory: 8103 MB
+OS: 'Windows 10  (10.0.19044) 64bit Professional' Language: 'ko' Physical Memory: 16298 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
@@ -11,13 +11,13 @@ C:\Program Files\Unity\Hub\Editor\2021.3.5f1\Editor\Unity.exe
 -name
 AssetImportWorker1
 -projectPath
-C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
+C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-58042
-Successfully changed project path to: C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
-C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
+62383
+Successfully changed project path to: C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain
+C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -47,319 +47,113 @@ C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Refreshing native plugins compatible for Editor in 90.83 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 65.16 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.3.5f1 (40eb3a945986)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/WaveGun/Documents/GitHub/SLIME_in_the_rain/SLIME_in_the_rain/Assets
+[Subsystems] Discovering subsystems at path C:/Users/User/Desktop/kim/SLIME_in_the_rain/SLIME_in_the_rain/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1660 Ti (ID=0x2191)
+    Renderer: NVIDIA GeForce GTX 1660 SUPER (ID=0x21c4)
     Vendor:   NVIDIA
     VRAM:     5991 MB
-    Driver:   30.0.14.7196
+    Driver:   27.21.14.5671
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56228
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56264
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.014681 seconds.
+Registered in 0.002616 seconds.
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 90.64 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 65.12 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.774 seconds
+- Completed reload, in  0.491 seconds
 Domain Reload Profiling:
-	ReloadAssembly (775ms)
-		BeginReloadAssembly (135ms)
+	ReloadAssembly (492ms)
+		BeginReloadAssembly (52ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (508ms)
-			LoadAssemblies (132ms)
+		EndReloadAssembly (360ms)
+			LoadAssemblies (51ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (108ms)
+			SetupTypeCache (83ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (34ms)
-			SetupLoadedEditorAssemblies (306ms)
+			RebuildScriptCaches (27ms)
+			SetupLoadedEditorAssemblies (211ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (12ms)
+				InitializePlatformSupportModulesInManaged (6ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (91ms)
+				RefreshPlugins (65ms)
 				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (138ms)
-				ProcessInitializeOnLoadMethodAttributes (64ms)
+				ProcessInitializeOnLoadAttributes (102ms)
+				ProcessInitializeOnLoadMethodAttributes (36ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.007947 seconds.
+Registered in 0.002414 seconds.
 Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\WaveGun\Documents\GitHub\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\WaveGun\Documents\GitHub\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\kim\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Users\User\Desktop\kim\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
 Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 1.00 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 0.59 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.448 seconds
+- Completed reload, in  0.806 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1449ms)
-		BeginReloadAssembly (136ms)
+	ReloadAssembly (806ms)
+		BeginReloadAssembly (85ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
+			DisableScriptedObjects (5ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (19ms)
-		EndReloadAssembly (1163ms)
-			LoadAssemblies (334ms)
+			CreateAndSetChildDomain (16ms)
+		EndReloadAssembly (636ms)
+			LoadAssemblies (56ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (308ms)
+			SetupTypeCache (211ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (55ms)
-			SetupLoadedEditorAssemblies (427ms)
+			RebuildScriptCaches (42ms)
+			SetupLoadedEditorAssemblies (294ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (9ms)
+				InitializePlatformSupportModulesInManaged (4ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (105ms)
-				ProcessInitializeOnLoadAttributes (265ms)
-				ProcessInitializeOnLoadMethodAttributes (36ms)
-				AfterProcessingInitializeOnLoad (10ms)
+				BeforeProcessingInitializeOnLoad (67ms)
+				ProcessInitializeOnLoadAttributes (196ms)
+				ProcessInitializeOnLoadMethodAttributes (24ms)
+				AfterProcessingInitializeOnLoad (3ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (13ms)
+			AwakeInstancesAfterBackupRestoration (4ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
-Refreshing native plugins compatible for Editor in 0.76 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 0.58 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3393 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 40 unused Assets / (0.8 MB). Loaded Objects now: 3839.
-Memory consumption went from 125.5 MB to 124.8 MB.
-Total: 3.793700 ms (FindLiveObjects: 0.310300 ms CreateObjectMapping: 0.258100 ms MarkObjects: 2.881700 ms  DeleteObjects: 0.341900 ms)
+Unloading 3414 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 25 unused Assets / (56.2 KB). Loaded Objects now: 3875.
+Memory consumption went from 126.3 MB to 126.2 MB.
+Total: 2.410600 ms (FindLiveObjects: 0.256500 ms CreateObjectMapping: 0.192400 ms MarkObjects: 1.904000 ms  DeleteObjects: 0.057000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 596172.805368 seconds.
-  path: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
-  artifactKey: Guid(8f586378b4e144a9851e7b34d9b748ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset using Guid(8f586378b4e144a9851e7b34d9b748ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98b09c6608f06103f96bdb3d043c07a0') in 0.239463 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 542.721580 seconds.
-  path: Assets/Fantasy Wooden GUI  Free/normal_ui_set A/1_normal_ui_set-free.png
-  artifactKey: Guid(f3e42cb7317f6f14186e2c2267014de2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Fantasy Wooden GUI  Free/normal_ui_set A/1_normal_ui_set-free.png using Guid(f3e42cb7317f6f14186e2c2267014de2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a471fcaf75214eb59979e3c6351d580') in 0.030393 seconds 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.007672 seconds.
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory doesn't match image C:\Users\WaveGun\Documents\GitHub\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
-Symbol file LoadedFromMemory doesn't match image C:\Users\WaveGun\Documents\GitHub\SLIME_in_the_rain\SLIME_in_the_rain\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
-Native extension for WindowsStandalone target not found
-Native extension for WebGL target not found
-Refreshing native plugins compatible for Editor in 0.71 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.314 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1315ms)
-		BeginReloadAssembly (173ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (7ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (42ms)
-		EndReloadAssembly (1016ms)
-			LoadAssemblies (122ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (343ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (55ms)
-			SetupLoadedEditorAssemblies (433ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (21ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (1ms)
-				BeforeProcessingInitializeOnLoad (98ms)
-				ProcessInitializeOnLoadAttributes (263ms)
-				ProcessInitializeOnLoadMethodAttributes (37ms)
-				AfterProcessingInitializeOnLoad (12ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (18ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 2.08 ms, found 3 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 3377 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 32 unused Assets / (0.7 MB). Loaded Objects now: 3884.
-Memory consumption went from 129.0 MB to 128.3 MB.
-Total: 3.860300 ms (FindLiveObjects: 0.272000 ms CreateObjectMapping: 0.167900 ms MarkObjects: 3.099300 ms  DeleteObjects: 0.319800 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 3053.320329 seconds.
-  path: Assets/RPG Monster Wave PBR/Materials/PBRDefault.mat
-  artifactKey: Guid(94d5d665d0a8c574597f451ca909d580) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPG Monster Wave PBR/Materials/PBRDefault.mat using Guid(94d5d665d0a8c574597f451ca909d580) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e45cdbdaeeaa7bb2f5edf649724a313') in 0.391446 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000046 seconds.
-  path: Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_D.mat
-  artifactKey: Guid(8a836c8e5ce8346499641dbe5330c6b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_D.mat using Guid(8a836c8e5ce8346499641dbe5330c6b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06f04716c8f3d1e315a3fc4bd0e53a38') in 0.064343 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000037 seconds.
-  path: Assets/RPG Monster Wave PBR/Materials/PBRMaskTint03.mat
-  artifactKey: Guid(ea05a000b2e8594469f5a6a7ae4e01a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/RPG Monster Wave PBR/Materials/PBRMaskTint03.mat using Guid(ea05a000b2e8594469f5a6a7ae4e01a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3aba9fcd6b1cc6009ad1a31337866632') in 0.112840 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000080 seconds.
-  path: Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_A.mat
-  artifactKey: Guid(04fe6fbad65202a42b0796bfc719d234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_A.mat using Guid(04fe6fbad65202a42b0796bfc719d234) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ddbe64c5d958c1f9254a02a9a56701f3') in 0.048970 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000069 seconds.
-  path: Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_C.mat
-  artifactKey: Guid(f6955a8b28bac5347984ed8002456d80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_C.mat using Guid(f6955a8b28bac5347984ed8002456d80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c17005064ff55dd64974c740592bd348') in 0.057280 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000055 seconds.
-  path: Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_F.mat
-  artifactKey: Guid(4b8fdc54d7714154d9ac0ac048601612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_F.mat using Guid(4b8fdc54d7714154d9ac0ac048601612) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e0a5cca4e21be608b057da9592829d5') in 0.057413 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000048 seconds.
-  path: Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_E.mat
-  artifactKey: Guid(3462d5ced31a2ee448b7c86a3b98e7ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Suriyun/Monster Pack Holy/Materials/Poho/T_Poho_E.mat using Guid(3462d5ced31a2ee448b7c86a3b98e7ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5060cf7216a0173385b6a537b0c62f52') in 0.051021 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.026949 seconds.
-  path: Assets/Cafe24Ssurround.ttf
-  artifactKey: Guid(909cd2dd17277b5498ded08e3b7c9156) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Cafe24Ssurround.ttf using Guid(909cd2dd17277b5498ded08e3b7c9156) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b92addebff7c7fbae6739511e3ba5fa4') in 0.047827 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000044 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Underground.FBX
-  artifactKey: Guid(ed98b7d6b99b374428708b868de9f3a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Underground.FBX using Guid(ed98b7d6b99b374428708b868de9f3a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f4f3aa98b58fddde4f395f18e5b861d') in 0.111864 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000044 seconds.
-  path: Assets/CartoonCubeWorld/Materials/CartoonCubeWorld_MAIN.mat
-  artifactKey: Guid(76520ab9e9bd19242a8518bc12ce4e52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/CartoonCubeWorld/Materials/CartoonCubeWorld_MAIN.mat using Guid(76520ab9e9bd19242a8518bc12ce4e52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfaf3314acb0bb118f40cc4c5a577c6a') in 0.023874 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000083 seconds.
-  path: Assets/Earthworm Cute Series/Cute series demo assets/Ground.mat
-  artifactKey: Guid(f37ea2bd19136a2469ed0e0758f4ce30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/Cute series demo assets/Ground.mat using Guid(f37ea2bd19136a2469ed0e0758f4ce30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '680a1ac435ff5ec24a823db6afd47959') in 0.029240 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Move Forward In Place.FBX
-  artifactKey: Guid(61605e9f5d5ba104b8a13e846a9f9f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Move Forward In Place.FBX using Guid(61605e9f5d5ba104b8a13e846a9f9f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48c2941ec7c48b5b5fab424c6dca5a50') in 0.061990 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/CartoonCubeWorld/Materials/CartoonCubeWorld_Metal.mat
-  artifactKey: Guid(4519447814c03fc45853439f4e5efba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/CartoonCubeWorld/Materials/CartoonCubeWorld_Metal.mat using Guid(4519447814c03fc45853439f4e5efba4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22585bc5107da80d019664aa549c0cce') in 0.029956 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Bite Attack.FBX
-  artifactKey: Guid(c72832676042b064e8099c0e52021550) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Bite Attack.FBX using Guid(c72832676042b064e8099c0e52021550) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cab21a81bc06a0e9788f153ca08aba0f') in 0.058581 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000036 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Take Damage.FBX
-  artifactKey: Guid(40cbf93c667332d4ca5e6ea8bb5a162c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Take Damage.FBX using Guid(40cbf93c667332d4ca5e6ea8bb5a162c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ed9d7696d1e9ce9302a8260f0462484') in 0.055232 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.124570 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Projectile Attack.FBX
-  artifactKey: Guid(f4151b5d05c4e0e48a23494e41e77ddc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Projectile Attack.FBX using Guid(f4151b5d05c4e0e48a23494e41e77ddc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4c619d2bd13aaada19ad62077184100') in 0.056695 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000043 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Idle 03.FBX
-  artifactKey: Guid(d682c8dccfb2f98429b27c79c2b16f7c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Idle 03.FBX using Guid(d682c8dccfb2f98429b27c79c2b16f7c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fae4a44cd51b2f58c914e75e3585e9f9') in 0.060163 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000048 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Spawn.FBX
-  artifactKey: Guid(159406c9304a37944a3f75923b90d09f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Spawn.FBX using Guid(159406c9304a37944a3f75923b90d09f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '061fb15f1d70f66b09b5c8b27969b40a') in 0.055408 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000051 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Idle 04.FBX
-  artifactKey: Guid(0638c81470a5a6449a8fad6634413512) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Idle 04.FBX using Guid(0638c81470a5a6449a8fad6634413512) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a64a5d032cddca4f45a26072af1af7ee') in 0.058055 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000038 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Cast Spell.FBX
-  artifactKey: Guid(35915eeecb254784ab6ef3862ddb20e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Cast Spell.FBX using Guid(35915eeecb254784ab6ef3862ddb20e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20059ef799834101719ec6b412d0ac9e') in 0.053863 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Die.FBX
-  artifactKey: Guid(da49d1e915581414fa0b3d1617ee00db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Die.FBX using Guid(da49d1e915581414fa0b3d1617ee00db) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e72d48a8943acf4adc5ecfaf99136392') in 0.052100 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/Earthworm Cute Series/FBX/Earthworm@Idle 02.FBX
-  artifactKey: Guid(0fdc615735bf9bd43ae401974c134a37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Earthworm Cute Series/FBX/Earthworm@Idle 02.FBX using Guid(0fdc615735bf9bd43ae401974c134a37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1e5894610f55f1e150a5d9ae74f3f23') in 0.059684 seconds 
