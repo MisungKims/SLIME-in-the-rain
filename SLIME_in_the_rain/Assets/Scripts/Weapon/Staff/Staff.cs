@@ -73,6 +73,8 @@ public class Staff : Weapon
         lookRot = arrow.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
+
+        arrow.transform.eulerAngles = lookRot;
     }
     #endregion
 }
