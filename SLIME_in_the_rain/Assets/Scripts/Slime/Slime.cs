@@ -53,7 +53,9 @@ public class Slime : MonoBehaviour
 
     //////// 대시
     [Header("------------ 대시")]
-    float dashDistance = 1.4f;          // 대시할 거리
+    private float originDashDistance = 1.4f;          // 대시할 거리
+    private float dashDistance = 1.4f;
+    public float DashDistance { set { dashDistance = value; } }
     public float dashTime = 1f;        // 대시 지속 시간
     public float currentDashTime;
     public bool isDash { get; set; }                // 대시 중인지?
@@ -201,6 +203,7 @@ public class Slime : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        dashDistance = originDashDistance;
         isCanDash = true;
     }
     #endregion
