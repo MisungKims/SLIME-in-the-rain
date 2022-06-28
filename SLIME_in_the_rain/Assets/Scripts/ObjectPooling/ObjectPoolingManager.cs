@@ -8,9 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EObjectFlag // 배열이나 리스트의 순서
+public enum EObjectFlag
 {
-    arrow
+    arrow,
+    ice,
+    fire,
+    iceSkill
 }
 
 public class ObjectPoolingManager : MonoBehaviour

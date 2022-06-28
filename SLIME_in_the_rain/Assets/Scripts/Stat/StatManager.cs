@@ -29,7 +29,7 @@ public class StatManager : MonoBehaviour
     //////// 스탯
     private Stats originStats;      // 기본 스탯
     public Stats myStats;           // 현재 스탯
-    private Stats extraStats;       // 젤라틴, 룬 등으로 추가될 스탯
+    private Stats extraStats;       // 젤라틴, 룬 등으로 추가될 스탯 증가량
 
     //////// 캐싱
     private Slime slime;
@@ -63,15 +63,15 @@ public class StatManager : MonoBehaviour
     // 스탯 초기화
     void InitStats()
     {
-        originStats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
-        myStats = new Stats(100, 1f, 1.2f, 1f, 1f, 1f);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f);
+        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f);
+        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0f);
     }
 
     // 무기 변경 시 해당 무기의 스탯으로 변경
     public void ChangeStats(Weapon weapon)
     {
-        myStats.HP = weapon.stats.HP + extraStats.HP;
+        myStats.maxHP = weapon.stats.maxHP + extraStats.maxHP;
         myStats.coolTime = weapon.stats.coolTime + extraStats.coolTime;
         myStats.moveSpeed = weapon.stats.moveSpeed + extraStats.moveSpeed;
         myStats.attackSpeed = weapon.stats.attackSpeed + extraStats.attackSpeed;
@@ -79,20 +79,20 @@ public class StatManager : MonoBehaviour
         myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
     }
 
-    // Hp 스탯 변경
-    public void AddHP(float amount)
+    // Max Hp 스탯 변경
+    public void AddMaxHP(float amount)
     {
-        extraStats.HP += amount;
+        extraStats.maxHP += amount;
 
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)                       
         {
             // 무기를 가진 상태라면, 무기의 스탯 값에서 계산
-            myStats.HP = currentWeapon.stats.HP + extraStats.HP;
+            myStats.maxHP = currentWeapon.stats.maxHP + extraStats.maxHP;
         }
         else
         {
-            myStats.HP = originStats.HP + extraStats.HP;
+            myStats.maxHP = originStats.maxHP + extraStats.maxHP;
         }
     }
 

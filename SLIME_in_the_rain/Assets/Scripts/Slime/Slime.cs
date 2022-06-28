@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour, IDamage
+public class Slime : MonoBehaviour
 {
     #region 변수
     #region 싱글톤
@@ -33,7 +33,8 @@ public class Slime : MonoBehaviour, IDamage
     [SerializeField]
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
 
-
+    private Stats stat;
+    public Stats Stat { get { return stat; } }
 
     //////// 무기
     [Header("------------ 무기")]
@@ -104,6 +105,7 @@ public class Slime : MonoBehaviour, IDamage
 
     private void Start()
     {
+        stat = statManager.myStats;
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
     }
@@ -144,7 +146,7 @@ public class Slime : MonoBehaviour, IDamage
 
                 currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
 
-                yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
+                yield return new WaitForSeconds(stat.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
                 isAttacking = false;
             }
@@ -174,7 +176,7 @@ public class Slime : MonoBehaviour, IDamage
 
                 isAttacking = false;
 
-                yield return new WaitForSeconds(statManager.myStats.coolTime - 0.2f);
+                yield return new WaitForSeconds(stat.coolTime - 0.2f);
             }
 
             yield return null;
@@ -247,7 +249,7 @@ public class Slime : MonoBehaviour, IDamage
 
                 rigid.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
-            rigid.position += direction * statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
+            rigid.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {
@@ -298,7 +300,9 @@ public class Slime : MonoBehaviour, IDamage
         mousePos = Input.mousePosition;
         mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
 
-        if (!IsHitMonster())         // 몬스터를 클릭하지 않았을 때
+        // 오브젝트를 클릭하지 않았을 때는 마우스 위치를 바라보고,
+        // 오브젝트를 클릭했을 때는 오브젝트 위치를 바라봄
+        if (!IsHitObject())        
             targetPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         targetPos.y = transform.position.y;
@@ -306,17 +310,17 @@ public class Slime : MonoBehaviour, IDamage
     }
 
     /// <summary>
-    /// 몬스터를 클릭했는지?
+    /// 오브젝트를 클릭했는지?
     /// </summary>
     /// <returns></returns>
-    bool IsHitMonster()
+    bool IsHitObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.CompareTag("DamagedObject"))                // 몬스터 클릭 시
+            if (hit.transform.CompareTag("DamagedObject") || hit.transform.CompareTag("Land"))                // 몬스터 클릭 시
             {
                 targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
                 return true;
@@ -413,9 +417,15 @@ public class Slime : MonoBehaviour, IDamage
     #endregion
 
     // 데미지를 입음
-    public void Damaged()
+    public void Damaged(float amount)
     {
+        // 대미지 = 몬스터 공격력 * (1 - 방어율)
+        // 방어율 = 방어력 / (1 + 방어력)
 
+        float damageReduction = stat.defensePower / (1 + stat.defensePower);
+        stat.HP -= amount * (1 - damageReduction);
+
+        PlayAnim(AnimState.damaged);
     }
 
     #endregion

@@ -7,6 +7,7 @@
 [System.Serializable]
 public class Stats
 {
+    public float maxHP;
     public float HP;
     public float coolTime;
     public float moveSpeed;
@@ -14,9 +15,10 @@ public class Stats
     public float attackPower;
     public float defensePower;
 
-    public Stats(float hP, float coolTime, float moveSpeed, float attackSpeed, float attackPower, float defensePower)
+    public Stats(float maxHP, float HP, float coolTime, float moveSpeed, float attackSpeed, float attackPower, float defensePower)
     {
-        HP = hP;
+        this.maxHP = maxHP;
+        this.HP = HP;
         this.coolTime = coolTime;
         this.moveSpeed = moveSpeed;
         this.attackSpeed = attackSpeed;

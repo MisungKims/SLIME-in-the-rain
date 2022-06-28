@@ -16,6 +16,9 @@ public class Staff : Weapon
 
     Vector3 lookRot;
 
+    protected EObjectFlag projectileFlag;     // 생성할 투사체의 flag
+    protected EObjectFlag skillProjectileFlag;     // 생성할 투사체의 flag
+
     //////// 대시
     float dashDistance = 400f;   // 대시할 거리
     float currentDashTime;      // 현재 대시 지속시간
@@ -35,19 +38,13 @@ public class Staff : Weapon
     {
         base.AutoAttack(targetPos);
 
-        // 투사체 생성 뒤 마우스 방향을 바라봄
-        GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero);
-        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
-
-        lookRot = arrow.transform.eulerAngles;
-        lookRot.x = 0;
-        lookRot.z = 0;
+        GetProjectile(projectileFlag, targetPos);
     }
 
     // 스킬
     public override void Skill(Vector3 targetPos)
     {
-        Debug.Log("Skill");
+        GetProjectile(skillProjectileFlag, targetPos);
     }
 
     // 대시
@@ -66,22 +63,16 @@ public class Staff : Weapon
         return canDash;
     }
 
-    /// 대시
-    //public override void Dash(Slime slime)
-    //{
-    //    if (isDash)
-    //    {
-    //        slime.isDash = false;
-    //        return;
-    //    }
+    // 투사체 생성
+    public void GetProjectile(EObjectFlag flag, Vector3 targetPos)
+    {
+        // 투사체 생성 뒤 마우스 방향을 바라봄
+        GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);
+        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
 
-    //    Transform slimePos = slime.transform;
-
-    //    slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
-
-    //    slime.isDash = false;
-
-    //    StartCoroutine(DashTimeCount());
-    //}
+        lookRot = arrow.transform.eulerAngles;
+        lookRot.x = 0;
+        lookRot.z = 0;
+    }
     #endregion
 }

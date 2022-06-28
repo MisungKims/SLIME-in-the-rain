@@ -8,9 +8,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     #region 변수
+    [SerializeField]
+    private float speed;
+
+    private float damageAmount;
+    public float DamageAmount { set { damageAmount = value; } }
+
     // 캐싱
     WaitForSeconds waitFor1s = new WaitForSeconds(1f);
     WaitForSeconds waitFor2s = new WaitForSeconds(2f);
@@ -24,7 +30,7 @@ public abstract class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * 10f * Time.deltaTime);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -52,7 +58,7 @@ public abstract class Projectile : MonoBehaviour
 
     #region 함수
     // 데미지를 입힘
-    void DoDamage(Collider other)
+    protected virtual void DoDamage(Collider other)
     {
         ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.arrow);
 

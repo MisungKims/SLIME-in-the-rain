@@ -8,6 +8,8 @@ public class IceStaff : Staff
     private void Awake()
     {
         weaponType = EWeaponType.iceStaff;
+        projectileFlag = EObjectFlag.ice;
+        skillProjectileFlag = EObjectFlag.iceSkill;
         dashCoolTime = 5f;
     }
     #endregion

@@ -76,18 +76,5 @@ public class Bow : Weapon
        return canDash;
     }
 
-    // 대시
-    //public override bool Dash(Slime slime)
-    //{
-    //    if (isDash)
-    //    {
-    //        slime.isDash = false;
-    //        return;
-    //    }
-
-    //    slime.Dash();           // 일반 대시
-
-    //    StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
-    //}
     #endregion
 }

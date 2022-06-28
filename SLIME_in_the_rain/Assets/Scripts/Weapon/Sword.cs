@@ -11,6 +11,8 @@ using UnityEngine;
 public class Sword : Weapon
 {
     #region 변수
+
+
     // 대시
     float originSpeed;
     float dashSpeed = 3f;
