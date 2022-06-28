@@ -11,7 +11,8 @@ using UnityEngine;
 public class Dagger : Weapon
 {
     #region 변수
-
+    private float maxDistance = 0.8f;
+    private float maxDashAttackDistance = 2f;
     #endregion
 
     #region 유니티 함수
@@ -25,30 +26,84 @@ public class Dagger : Weapon
 
     #region 함수
 
-    /// <summary>
-    /// 평타
-    /// </summary>
+    // 평타
     protected override void AutoAttack(Vector3 targetPos)
     {
         base.AutoAttack(targetPos);
 
-        Debug.Log("AutoAttack");
+        DoDamage();
     }
 
-    /// <summary>
-    /// 스킬
-    /// </summary>
+    // 스킬
     public override void Skill(Vector3 targetPos)
     {
         Debug.Log("Skill");
     }
 
-    /// <summary>
-    /// 대시
-    /// </summary>
-    public override void Dash(Slime slime)
+    // 대시
+    public override bool Dash(Slime slime)
     {
-        Debug.Log("Dash");
+        bool canDash = base.Dash(slime);
+
+        // 돌진 베기
+        if (canDash)
+        {
+            DoDashDamage();
+            slime.Dash();           // 일반 대시
+
+            PlayAnim(AnimState.autoAttack);
+            StartCoroutine(CheckAnimEnd("AutoAttack"));
+
+            
+        }
+
+        return canDash;
+    }
+
+    // 오브젝트를 공격하면 데미지를 입힘
+    void DoDamage()
+    {
+        Transform slimeTransform = slime.transform;
+
+        // 슬라임의 위치에서 공격 범위만큼 ray를 쏨
+        RaycastHit hit;
+        if (Physics.Raycast(slimeTransform.position, slimeTransform.forward, out hit, maxDistance))
+        {
+            //Debug.DrawRay(slime.transform.position, slime.transform.forward * hit.distance, Color.red);
+
+            if (hit.transform.CompareTag("DamagedObject"))
+            {
+                Debug.Log(hit.transform.name);
+
+                // 데미지를 입힘
+                IDamage damagedObject = hit.transform.GetComponent<IDamage>();
+                if (damagedObject != null)
+                {
+                    damagedObject.Damaged();
+                }
+            }
+        }
+    }
+
+    void DoDashDamage()
+    {
+        Transform slimeTransform = slime.transform;
+        RaycastHit[] hits = Physics.RaycastAll(slimeTransform.position, slimeTransform.forward, maxDashAttackDistance);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].transform.CompareTag("DamagedObject"))
+            {
+                Debug.Log(hits[i].transform.name);
+
+                // 데미지를 입힘
+                IDamage damagedObject = hits[i].transform.GetComponent<IDamage>();
+                if (damagedObject != null)
+                {
+                    damagedObject.Damaged();
+                }
+            }
+        }
     }
     #endregion
 }

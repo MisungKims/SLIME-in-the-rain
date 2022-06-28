@@ -12,7 +12,6 @@ public class Bow : Weapon
 {
     #region 변수
     Vector3 lookRot;
-    Vector3 bowPos;
     #endregion
 
     #region 유니티 함수
@@ -32,12 +31,14 @@ public class Bow : Weapon
     // 평타
     protected override void AutoAttack(Vector3 targetPos)
     {
-        bowPos = transform.position;
+        base.AutoAttack(targetPos);         // 평타 애니메이션 재생
 
-        base.AutoAttack(targetPos);
+        GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero);
+        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
 
-        // 화살 생성 뒤 마우스 방향을 바라봄
-        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, bowPos, Vector3.zero).transform.LookAt(targetPos);
+        lookRot = arrow.transform.eulerAngles;
+        lookRot.x = 0;
+        lookRot.z = 0;
     }
 
     // 스킬
@@ -66,17 +67,27 @@ public class Bow : Weapon
     }
 
     // 대시
-    public override void Dash(Slime slime)
+    public override bool Dash(Slime slime)
     {
-        if (isDash)
-        {
-            slime.isDash = false;
-            return;
-        }
+        bool canDash = base.Dash(slime);
 
-        slime.Dash();           // 일반 대시
+        if (canDash) slime.Dash();           // 일반 대시
 
-        StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
+       return canDash;
     }
+
+    // 대시
+    //public override bool Dash(Slime slime)
+    //{
+    //    if (isDash)
+    //    {
+    //        slime.isDash = false;
+    //        return;
+    //    }
+
+    //    slime.Dash();           // 일반 대시
+
+    //    StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
+    //}
     #endregion
 }

@@ -5,10 +5,7 @@ using UnityEngine;
 public class Ice : Projectile
 {
     #region ÇÔ¼ö
-    public override void Damage()
-    {
 
-    }
 
     #endregion
 }

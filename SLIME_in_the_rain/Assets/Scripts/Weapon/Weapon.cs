@@ -22,15 +22,13 @@ public abstract class Weapon : MonoBehaviour
     #region 변수
     public Stats stats;
 
-    private Slime slime;
+    protected Slime slime;
 
     public Material slimeMat;       // 바뀔 슬라임의 Material
 
     public EWeaponType weaponType;
 
     protected Vector3 angle = Vector3.zero;
-
-    Vector3 mouseWorldPosition;
 
     float attachSpeed = 10f;
 
@@ -90,17 +88,48 @@ public abstract class Weapon : MonoBehaviour
 
         isDash = false;
     }
+
+    // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
+    public IEnumerator CheckAnimEnd(string state)
+    {
+        string name = "Base Layer." + state;
+        while (true)
+        {
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                break;
+            }
+            yield return null;
+        }
+
+        PlayAnim(AnimState.idle);
+    }
     #endregion
 
     #region 함수
     protected virtual void AutoAttack(Vector3 targetPos)
     {
         PlayAnim(AnimState.autoAttack);
+
         StartCoroutine(CheckAnimEnd("AutoAttack"));
     }
 
     public abstract void Skill(Vector3 targetPos);
-    public abstract void Dash(Slime slime);
+
+    public virtual bool Dash(Slime slime)
+    {
+        if (isDash)             // 대시 쿨타임이 지나지 않았으면 false 반환
+        {
+            slime.isDash = false;
+            return false;
+        }
+        else
+        {
+            StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
+            return true;
+        }
+    }
+    //public abstract void Dash(Slime slime);
 
 
     // 무기 장착 코루틴을 실행
@@ -117,21 +146,7 @@ public abstract class Weapon : MonoBehaviour
         anim.SetInteger("animation", (int)animState);
     }
 
-    // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
-    IEnumerator CheckAnimEnd(string state)
-    {
-        string name = "Base Layer." + state;
-        while (true)
-        {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
-            {
-                break;
-            }
-            yield return null;
-        }
-
-        PlayAnim(AnimState.idle);
-    }
+   
     #endregion
 
 }

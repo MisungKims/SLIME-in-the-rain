@@ -29,10 +29,9 @@ public abstract class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("DamagedObject"))
         {
-            ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.arrow);
-            Damage();
+            DoDamage(other);
         }
     }
     #endregion
@@ -52,10 +51,16 @@ public abstract class Projectile : MonoBehaviour
     #endregion
 
     #region 함수
-    /// <summary>
-    /// 데미지를 입힘
-    /// </summary>
-    public abstract void Damage();
+    // 데미지를 입힘
+    void DoDamage(Collider other)
+    {
+        ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.arrow);
 
+        IDamage damagedObject = other.transform.GetComponent<IDamage>();
+        if (damagedObject != null)
+        {
+            damagedObject.Damaged();
+        }
+    }
     #endregion
 }

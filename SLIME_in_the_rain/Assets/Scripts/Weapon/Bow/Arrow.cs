@@ -5,10 +5,6 @@ using UnityEngine;
 public class Arrow : Projectile
 {
     #region ÇÔ¼ö
-    public override void Damage()
-    {
-        
-    }
 
     #endregion
 }

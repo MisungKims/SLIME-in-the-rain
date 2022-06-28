@@ -11,9 +11,13 @@ using UnityEngine;
 public class Sword : Weapon
 {
     #region 변수
+    // 대시
     float originSpeed;
     float dashSpeed = 3f;
     float dashDuration = 1.5f;
+
+    // 공격
+    private float maxDistance = 1.1f;
     #endregion
 
     #region 유니티 함수
@@ -49,7 +53,7 @@ public class Sword : Weapon
     {
         base.AutoAttack(targetPos);
 
-        Debug.Log("AutoAttack");
+        DoDamage();
     }
 
     /// <summary>
@@ -60,21 +64,43 @@ public class Sword : Weapon
         Debug.Log("Skill");
     }
 
-
     // 대시
-    public override void Dash(Slime slime)
+    public override bool Dash(Slime slime)
     {
-        if (isDash)
+        bool canDash = base.Dash(slime);
+
+        if (canDash)
         {
+            StartCoroutine(IncrementSpeed(slime));                  // 이속 증가
             slime.isDash = false;
-            return;
         }
+        return canDash;
+    }
 
-        StartCoroutine(IncrementSpeed(slime));                  // 이속 증가
 
-        StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
+    // 오브젝트를 공격하면 데미지를 입힘
+    void DoDamage()
+    {
+        Transform slimeTransform = slime.transform;
 
-        slime.isDash = false;
+        // 슬라임의 위치에서 공격 범위만큼 ray를 쏨
+        RaycastHit hit;
+        if (Physics.Raycast(slimeTransform.position, slimeTransform.forward, out hit, maxDistance))
+        {
+            //Debug.DrawRay(slime.transform.position, slime.transform.forward * hit.distance, Color.red);
+
+            if (hit.transform.CompareTag("DamagedObject"))
+            {
+                Debug.Log(hit.transform.name);
+
+                // 데미지를 입힘
+                IDamage damagedObject = hit.transform.GetComponent<IDamage>();
+                if (damagedObject != null)
+                {
+                    damagedObject.Damaged();
+                }
+            }
+        }
     }
     #endregion
 

@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour
+public class Slime : MonoBehaviour, IDamage
 {
     #region 변수
     #region 싱글톤
@@ -51,7 +51,7 @@ public class Slime : MonoBehaviour
 
     //////// 대시
     [Header("------------ 대시")]
-    float dashDistance = 1.3f;          // 대시할 거리
+    float dashDistance = 1.4f;          // 대시할 거리
     public float dashTime = 1f;        // 대시 지속 시간
     public float currentDashTime;
     public bool isDash { get; set; }                // 대시 중인지?
@@ -144,9 +144,7 @@ public class Slime : MonoBehaviour
 
                 currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
 
-                /// TODO : 대기 시간을 각 무기의 공속에 맞게 변경
-                //yield return new WaitForSeconds(statManager.myStats.attackSpeed);
-                yield return waitForAttack;         // 0.2초 대기
+                yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
                 isAttacking = false;
             }
@@ -318,7 +316,7 @@ public class Slime : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.CompareTag("Monster"))                // 몬스터 클릭 시
+            if (hit.transform.CompareTag("DamagedObject"))                // 몬스터 클릭 시
             {
                 targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
                 return true;
@@ -327,6 +325,7 @@ public class Slime : MonoBehaviour
 
         return false;
     }
+
     #endregion
 
     #region 무기
@@ -344,6 +343,7 @@ public class Slime : MonoBehaviour
         else if (colliders.Length > 1)
         {
             // 감지한 무기들 중 제일 가까운 거리에 있는 무기를 장착
+
             int minIndex = 0;
             float minDis = GetDistance(colliders[0].transform);
 
@@ -412,7 +412,11 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    
+    // 데미지를 입음
+    public void Damaged()
+    {
+
+    }
 
     #endregion
 }

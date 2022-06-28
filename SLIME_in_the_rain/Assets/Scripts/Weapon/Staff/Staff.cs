@@ -14,8 +14,7 @@ public class Staff : Weapon
     [SerializeField]
     private Transform projectilePos;        // 생성될 투사체의 위치
 
-    Quaternion from = Quaternion.Euler(new Vector3(90, 0, 0));
-    Quaternion to = Quaternion.Euler(new Vector3(0, 0, 0));
+    Vector3 lookRot;
 
     //////// 대시
     float dashDistance = 400f;   // 대시할 거리
@@ -37,7 +36,12 @@ public class Staff : Weapon
         base.AutoAttack(targetPos);
 
         // 투사체 생성 뒤 마우스 방향을 바라봄
-        ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, projectilePos.position, Vector3.zero).transform.LookAt(targetPos);
+        GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero);
+        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+
+        lookRot = arrow.transform.eulerAngles;
+        lookRot.x = 0;
+        lookRot.z = 0;
     }
 
     // 스킬
@@ -46,23 +50,38 @@ public class Staff : Weapon
         Debug.Log("Skill");
     }
 
+    // 대시
+    public override bool Dash(Slime slime)
+    {
+        bool canDash = base.Dash(slime);
+
+        if (canDash)
+        {
+            Transform slimePos = slime.transform;
+
+            slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
+
+            slime.isDash = false;
+        }
+        return canDash;
+    }
 
     /// 대시
-    public override void Dash(Slime slime)
-    {
-        if (isDash)
-        {
-            slime.isDash = false;
-            return;
-        }
+    //public override void Dash(Slime slime)
+    //{
+    //    if (isDash)
+    //    {
+    //        slime.isDash = false;
+    //        return;
+    //    }
 
-        Transform slimePos = slime.transform;
+    //    Transform slimePos = slime.transform;
 
-        slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
+    //    slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
 
-        slime.isDash = false;
+    //    slime.isDash = false;
 
-        StartCoroutine(DashTimeCount());
-    }
+    //    StartCoroutine(DashTimeCount());
+    //}
     #endregion
 }
