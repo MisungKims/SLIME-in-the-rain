@@ -32,7 +32,6 @@ public class Slime : MonoBehaviour
 
     [SerializeField]
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
-    public SkinnedMeshRenderer SkinnedMesh { get { return skinnedMesh; } }
 
     private Stats stat;
     public Stats Stat { get { return stat; } }
@@ -53,9 +52,7 @@ public class Slime : MonoBehaviour
 
     //////// 대시
     [Header("------------ 대시")]
-    private float originDashDistance = 1.4f;          // 대시할 거리
-    private float dashDistance = 1.4f;
-    public float DashDistance { set { dashDistance = value; } }
+    float dashDistance = 1.4f;          // 대시할 거리
     public float dashTime = 1f;        // 대시 지속 시간
     public float currentDashTime;
     public bool isDash { get; set; }                // 대시 중인지?
@@ -68,8 +65,6 @@ public class Slime : MonoBehaviour
     Vector3 targetPos;
 
     public bool isAttacking;   // 평타 중인지?
-
-    public bool isStealth;      // 은신 중인지?
 
 
     //////// 이동
@@ -126,16 +121,17 @@ public class Slime : MonoBehaviour
     {
         Move();
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, detectRadius);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
+    }
     #endregion
 
     #region 코루틴
-    // 무기를 들고 있을 때 좌클릭하면 평타
+    /// <summary>
+    /// 무기를 들고 있을 때 좌클릭하면 평타
+    /// </summary>
     IEnumerator AutoAttack()
     {
         while (true)
@@ -159,12 +155,14 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // 무기를 들고 있을 때 우클릭하면 스킬
+    /// <summary>
+    /// 무기를 들고 있을 때 우클릭하면 스킬
+    /// </summary>
     IEnumerator Skill()
     {
         while (true)
         {
-            if (IsCanSkill())
+            if (!isAttacking && currentWeapon && Input.GetMouseButtonDown(1))
             {
                 isAttacking = true;
 
@@ -177,13 +175,14 @@ public class Slime : MonoBehaviour
                 yield return waitForAttack;         // 0.2초 대기
 
                 isAttacking = false;
+
+                yield return new WaitForSeconds(stat.coolTime - 0.2f);
             }
 
             yield return null;
         }
     }
 
-    // 대시 코루틴
     IEnumerator DoDash()
     {
         isCanDash = false;
@@ -193,7 +192,7 @@ public class Slime : MonoBehaviour
         currentDashTime = dashTime;
         while (currentDashTime >= 0)
         {
-            transform.position += transform.forward * dashDistance * Time.deltaTime;
+            transform.position += transform.forward * dashDistance * Time.deltaTime * 0.8f;
 
             currentDashTime -= Time.deltaTime;
         }
@@ -202,19 +201,24 @@ public class Slime : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        dashDistance = originDashDistance;
         isCanDash = true;
     }
     #endregion
 
     #region 함수
-    // 슬라임과 오브젝트 사이의 거리를 구함
+
+
+    /// <summary>
+    /// 슬라임과 오브젝트 사이의 거리를 구함
+    /// </summary>
+    /// <param name="target">거리를 구할 오브젝트</param>
     float GetDistance(Transform targetPos)
     {
         Vector3 offset = transform.position - targetPos.position;
 
         return offset.sqrMagnitude;
     }
+
 
     // 애니메이션 플레이
     void PlayAnim(AnimState state)
@@ -290,20 +294,7 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 공격
-    // 스킬을 사용할 수 있는지?
-    bool IsCanSkill()
-    {
-        if (!isAttacking && currentWeapon && currentWeapon.isCanSkill && Input.GetMouseButtonDown(1))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
-    // 마우스로 클릭한 위치를 바라봄
     void LookAtMousePos()
     {
         mousePos = Input.mousePosition;
@@ -318,7 +309,10 @@ public class Slime : MonoBehaviour
         transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
     }
 
-    // 오브젝트를 클릭했는지?
+    /// <summary>
+    /// 오브젝트를 클릭했는지?
+    /// </summary>
+    /// <returns></returns>
     bool IsHitObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -339,7 +333,9 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 무기
-    // 주변에 있는 무기 감지
+    /// <summary>
+    /// 주변에 있는 무기 감지
+    /// </summary>
     void DetectWeapon()
     {
         colliders = Physics.OverlapSphere(transform.position, detectRadius, weaponLayer);
@@ -370,7 +366,10 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // 감지한 무기 장착
+    /// <summary>
+    /// 감지한 무기 장착
+    /// </summary>
+    /// <param name="index"></param>
     void EquipWeapon(int index)
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -386,7 +385,11 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // 무기 변경
+    
+    /// <summary>
+    /// 무기 변경
+    /// </summary>
+    /// <param name="weapon"></param>
     public void ChangeWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
@@ -399,7 +402,10 @@ public class Slime : MonoBehaviour
         ChangeMaterial();               // 슬라임의 색 변경
     }
 
-    // 슬라임의 색(머터리얼) 변경
+
+    /// <summary>
+    /// 슬라임의 색(머터리얼) 변경
+    /// </summary>
     void ChangeMaterial()
     {
         if (currentWeapon)
@@ -421,5 +427,6 @@ public class Slime : MonoBehaviour
 
         PlayAnim(AnimState.damaged);
     }
+
     #endregion
 }

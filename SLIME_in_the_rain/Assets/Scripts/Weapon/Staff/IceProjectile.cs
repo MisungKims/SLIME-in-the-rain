@@ -14,7 +14,8 @@ public class IceProjectile : Projectile
     // 데미지를 입힘
     protected override void DoDamage(Collider other)
     {
-        Debug.Log(other.name);
+        ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.arrow);
+
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {

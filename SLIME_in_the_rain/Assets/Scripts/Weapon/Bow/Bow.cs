@@ -1,7 +1,7 @@
 /**
  * @brief 활 스크립트
  * @author 김미성
- * @date 22-06-27
+ * @date 22-06-26
  */
 
 using System.Collections;
@@ -12,8 +12,6 @@ public class Bow : Weapon
 {
     #region 변수
     Vector3 lookRot;
-
-    private float dashDistance = 2f;
     #endregion
 
     #region 유니티 함수
@@ -35,7 +33,7 @@ public class Bow : Weapon
     {
         base.AutoAttack(targetPos);         // 평타 애니메이션 재생
 
-        GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero);
+        GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero);
         arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
 
         lookRot = arrow.transform.eulerAngles;
@@ -46,10 +44,8 @@ public class Bow : Weapon
     }
 
     // 스킬
-    protected override void Skill(Vector3 targetPos)
+    public override void Skill(Vector3 targetPos)
     {
-        base.Skill(targetPos);
-
         // 부채꼴로 화살을 발사
 
         float angle = 45;           // 각도
@@ -57,7 +53,7 @@ public class Bow : Weapon
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow);
+            GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow);
 
             arrow.transform.position = this.transform.position;
 
@@ -77,13 +73,10 @@ public class Bow : Weapon
     {
         bool canDash = base.Dash(slime);
 
-        if (canDash)
-        {
-            slime.DashDistance = dashDistance;
-            slime.Dash();           // 일반 대시
-        }
+        if (canDash) slime.Dash();           // 일반 대시
 
        return canDash;
     }
+
     #endregion
 }
