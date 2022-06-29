@@ -8,13 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneShield : Rune
+public class RuneShield : Rune, IDashRune
 {
     #region ÇÔ¼ö
-    public override void Use()
+    public void Dash()
     {
-        throw new System.NotImplementedException();
-
 
     }
     #endregion

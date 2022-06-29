@@ -122,6 +122,8 @@ public class Weapon : MonoBehaviour
     // 평타
     protected virtual void AutoAttack(Vector3 targetPos)
     {
+        RuneManager.Instance.UseAttackRune();
+
         PlayAnim(AnimState.autoAttack);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
@@ -130,6 +132,9 @@ public class Weapon : MonoBehaviour
     // 스킬
     protected virtual void Skill(Vector3 targetPos)
     {
+        RuneManager.Instance.UseAttackRune();
+        RuneManager.Instance.UseSkillRune();
+
         PlayAnim(AnimState.skill);
 
         StartCoroutine(CheckAnimEnd("Skill"));
@@ -147,6 +152,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
+            RuneManager.Instance.UseDashRune();
             StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
             return true;
         }
@@ -165,5 +171,7 @@ public class Weapon : MonoBehaviour
 
         anim.SetInteger("animation", (int)animState);
     }
+
+   
     #endregion
 }

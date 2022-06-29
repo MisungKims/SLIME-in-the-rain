@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneBow : RuneWeapon
+public class RuneBow : RuneWeapon, IAttackRune
 {
     #region 유니티 함수
     private void Awake()
@@ -19,14 +19,16 @@ public class RuneBow : RuneWeapon
     #endregion
 
     #region 함수
-    protected override bool UseWeaponRune()
-    {
-        if (base.UseWeaponRune())
-        {
-            return true;
-        }
 
-        return false;
-    }
+
+    //protected override bool UseWeaponRune()
+    //{
+    //    if (base.UseWeaponRune())
+    //    {
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
     #endregion
 }

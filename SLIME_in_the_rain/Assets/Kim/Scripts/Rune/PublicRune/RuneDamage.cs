@@ -8,14 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneDamage : Rune
+public class RuneDamage : Rune, IPassiveRune
 {
     #region 함수
-    public override void Use()
+    public void Passive()
     {
-        throw new System.NotImplementedException();
-
-
+        // 데미지 30% 증가
     }
     #endregion
 }

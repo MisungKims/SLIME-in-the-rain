@@ -19,14 +19,16 @@ public class RuneFireStaff : RuneWeapon
     #endregion
 
     #region ÇÔ¼ö
-    protected override bool UseWeaponRune()
-    {
-        if (base.UseWeaponRune())
-        {
-            return true;
-        }
+   
 
-        return false;
-    }
+    //protected override bool UseWeaponRune()
+    //{
+    //    if (base.UseWeaponRune())
+    //    {
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
     #endregion
 }

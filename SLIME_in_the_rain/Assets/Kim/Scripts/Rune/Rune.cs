@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class Rune : MonoBehaviour
+public class Rune : MonoBehaviour
 {
     #region 변수
     // 룬의 이름
@@ -28,7 +28,11 @@ public abstract class Rune : MonoBehaviour
     public Sprite RuneSprite { get { return runeSprite; } }
     #endregion
 
+    #region 유니티 함수
+
+    #endregion
+
     #region 함수
-    public abstract void Use();     // 룬을 사용
+    //public abstract void Use();     // 룬을 사용
     #endregion
 }

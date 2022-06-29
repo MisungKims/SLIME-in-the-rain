@@ -8,14 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneLife : Rune
+public class RuneLife : Rune, IPassiveRune
 {
     #region ÇÔ¼ö
-    public override void Use()
+    public void Passive()
     {
-        throw new System.NotImplementedException();
-
-
+        // ¸ñ¼û +2
     }
     #endregion
 }

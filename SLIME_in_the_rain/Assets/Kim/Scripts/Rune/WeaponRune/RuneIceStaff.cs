@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneIceStaff : RuneWeapon
+public class RuneIceStaff : RuneWeapon, ISkillRune
 {
     #region 유니티 함수
     private void Awake()
@@ -19,14 +19,9 @@ public class RuneIceStaff : RuneWeapon
     #endregion
 
     #region 함수
-    protected override bool UseWeaponRune()
+    public void Skill()
     {
-        if (base.UseWeaponRune())
-        {
-            return true;
-        }
 
-        return false;
     }
     #endregion
 }

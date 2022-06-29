@@ -12,13 +12,44 @@ using UnityEngine;
 public class RuneManager : MonoBehaviour
 {
     #region 변수
+    #region 싱글톤
+    private static RuneManager instance = null;
+    public static RuneManager Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
+
     [SerializeField]
     private List<Rune> runes = new List<Rune>();        // 전체 룬의 리스트
 
-    private Rune[] myRunes = new Rune[3];       // 내 룬
-    int runeCount = 0;
+    public Rune[] myRunes = new Rune[3];       // 내 룬
+    public int runeCount = 0;
 
     int rand;
+    #endregion
+
+    #region 유니티 함수
+    private void Awake()
+    {
+        if (null == instance)
+        {
+            instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     #endregion
 
     #region 함수
@@ -35,8 +66,56 @@ public class RuneManager : MonoBehaviour
     {
         if (runeCount > 2) return;
 
-        myRunes[runeCount] = rune;
+        Rune runeObj = GameObject.Instantiate(rune, this.transform);
+        myRunes[runeCount] = runeObj;
+
+        // 패시브 룬이면 바로 적용 (목숨 증가, 스탯 증가 등)
+        IPassiveRune passiveRune = runeObj.GetComponent<IPassiveRune>();
+        if (passiveRune != null)
+        {
+            passiveRune.Passive();
+        }
+
         runeCount++;
+    }
+
+    // 공격 시 룬 발동
+    public void UseAttackRune()
+    {
+        for (int i = 0; i < runeCount; i++)
+        {
+            IAttackRune attackRune = myRunes[i].GetComponent<IAttackRune>();
+            if (attackRune != null)
+            {
+                attackRune.Attack();
+            }
+        }
+    }
+
+    // 스킬 시 룬 발동
+    public void UseSkillRune()
+    {
+        for (int i = 0; i < runeCount; i++)
+        {
+            IAttackRune attackRune = myRunes[i].GetComponent<IAttackRune>();
+            if (attackRune != null)
+            {
+                attackRune.Attack();
+            }
+        }
+    }
+
+    // 대시 시 룬 발동
+    public void UseDashRune()
+    {
+        for (int i = 0; i < runeCount; i++)
+        {
+            IDashRune dashRune = myRunes[i].GetComponent<IDashRune>();
+            if (dashRune != null)
+            {
+                dashRune.Dash();
+            }
+        }
     }
     #endregion
 }

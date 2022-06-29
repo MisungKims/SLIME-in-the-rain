@@ -8,13 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneHitter : Rune
+public class RuneHitter : Rune, IPassiveRune
 {
     #region ÇÔ¼ö
-    public override void Use()
+    public void Passive()
     {
-        throw new System.NotImplementedException();
-
 
     }
     #endregion

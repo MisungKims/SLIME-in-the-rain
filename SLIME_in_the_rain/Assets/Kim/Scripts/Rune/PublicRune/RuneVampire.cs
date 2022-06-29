@@ -8,13 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneVampire : Rune
+public class RuneVampire : Rune, IAttackRune
 {
     #region ÇÔ¼ö
-    public override void Use()
+    public void Attack()
     {
 
-        throw new System.NotImplementedException();
     }
     #endregion
 }

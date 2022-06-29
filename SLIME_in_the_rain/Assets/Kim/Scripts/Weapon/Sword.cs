@@ -27,9 +27,6 @@ public class Sword : Weapon
     float dotValue = 0f;
     #endregion
 
-
-    
-
     #region 유니티 함수
     private void Awake()
     {

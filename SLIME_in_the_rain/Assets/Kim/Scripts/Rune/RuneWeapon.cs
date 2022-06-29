@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneWeapon : Rune
+public class RuneWeapon : Rune, IAttackRune
 {
     #region 변수
     protected EWeaponType weaponType1;
@@ -19,11 +19,9 @@ public class RuneWeapon : Rune
     #endregion
 
     #region 함수
-    public override void Use()
+    public void Attack()
     {
-        UseWeaponRune();
-
-        throw new System.NotImplementedException();
+        if (!UseWeaponRune()) return;
     }
 
     protected virtual bool UseWeaponRune()

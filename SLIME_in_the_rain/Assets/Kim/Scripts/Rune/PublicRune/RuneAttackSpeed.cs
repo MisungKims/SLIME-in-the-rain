@@ -8,14 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneAttackSpeed : Rune
+public class RuneAttackSpeed : Rune, IPassiveRune
 {
     #region 함수
-    public override void Use()
+    public void Passive()
     {
-        throw new System.NotImplementedException();
-
-
+        // 공속 30% 증가
     }
     #endregion
 }
