@@ -1,7 +1,7 @@
 /**
  * @brief 양손검 스크립트
  * @author 김미성
- * @date 22-06-25
+ * @date 22-06-29
  */
 
 using System.Collections;

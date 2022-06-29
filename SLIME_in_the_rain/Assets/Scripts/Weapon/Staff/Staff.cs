@@ -16,12 +16,11 @@ public class Staff : Weapon
 
     Vector3 lookRot;
 
-    protected EObjectFlag projectileFlag;     // 생성할 투사체의 flag
-    protected EObjectFlag skillProjectileFlag;     // 생성할 투사체의 flag
+    protected EProjectileFlag projectileFlag;     // 생성할 투사체의 flag
+    protected EProjectileFlag skillProjectileFlag;     // 생성할 스킬 투사체의 flag
 
     //////// 대시
     float dashDistance = 400f;   // 대시할 거리
-    float currentDashTime;      // 현재 대시 지속시간
     #endregion
 
     #region 유니티 함수
@@ -66,7 +65,7 @@ public class Staff : Weapon
     }
 
     // 투사체 생성
-    public void GetProjectile(EObjectFlag flag, Vector3 targetPos)
+    public void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
         GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);

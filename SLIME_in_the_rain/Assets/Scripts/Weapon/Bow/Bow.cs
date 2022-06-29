@@ -1,7 +1,7 @@
 /**
  * @brief 활 스크립트
  * @author 김미성
- * @date 22-06-26
+ * @date 22-06-27
  */
 
 using System.Collections;
@@ -35,7 +35,7 @@ public class Bow : Weapon
     {
         base.AutoAttack(targetPos);         // 평타 애니메이션 재생
 
-        GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow, transform.position, Vector3.zero);
+        GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero);
         arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
 
         lookRot = arrow.transform.eulerAngles;
@@ -57,7 +57,7 @@ public class Bow : Weapon
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            GameObject arrow = ObjectPoolingManager.Instance.Get(EObjectFlag.arrow);
+            GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow);
 
             arrow.transform.position = this.transform.position;
 
@@ -85,6 +85,5 @@ public class Bow : Weapon
 
        return canDash;
     }
-
     #endregion
 }

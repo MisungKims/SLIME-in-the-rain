@@ -1,7 +1,7 @@
 /**
  * @brief 단검 스크립트
  * @author 김미성
- * @date 22-06-26
+ * @date 22-06-29
  */
 
 using System.Collections;
@@ -23,7 +23,7 @@ public class Dagger : Weapon
     private float minAlpha = 0.6f;
 
     // 돌진 베기
-    private float detectRadius = 0.7f;
+    private float detectRadius = 0.6f;
     #endregion
 
     public Slime slime2; // 나주엥 지우기
@@ -71,6 +71,7 @@ public class Dagger : Weapon
         slime.isStealth = false;
     }
 
+    // 대시 코루틴
     IEnumerator DashCorutine()
     {
         slime.DashDistance = dashDistance;
@@ -161,7 +162,7 @@ public class Dagger : Weapon
         }
     }
     #endregion
-
+}
     // 유니티 에디터에 부채꼴을 그려줄 메소드
     //private void OnDrawGizmos()
     //{
@@ -173,12 +174,11 @@ public class Dagger : Weapon
     //    Handles.DrawSolidArc(slimeTransform.position, Vector3.up, slimeTransform.forward, -angleRange / 2, detectRadius);
     //}
 
+//    void OnDrawGizmosSelected()
+//    {
+//        Transform slimeTransform = slime2.transform;
 
-    void OnDrawGizmosSelected()
-    {
-        Transform slimeTransform = slime2.transform;
-
-        Gizmos.color = new Color(0f, 0f, 1f, 0.2f);
-        Gizmos.DrawSphere(slimeTransform.position, detectRadius);
-    }
-}
+//        Gizmos.color = new Color(0f, 0f, 1f, 0.2f);
+//        Gizmos.DrawSphere(slimeTransform.position, detectRadius);
+//    }
+//}

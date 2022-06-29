@@ -296,7 +296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e29b2cc3dcfbd4bb5a35882f834737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolingList:
+  objectPoolingList: []
+  projectilePoolingList:
   - copyObj: {fileID: 5718012098248317006, guid: 60594843a958e134f983440a636f99a7, type: 3}
     parent: {fileID: 1019394795}
     initCount: 15
@@ -312,7 +313,7 @@ MonoBehaviour:
   - copyObj: {fileID: 597184532556497915, guid: 8a97374e500051e44bafc27f4a3fe76b, type: 3}
     parent: {fileID: 1360235444}
     initCount: 1
-  weaponPollingList:
+  weaponPoolingList:
   - copyObj: {fileID: 5371130838421662721, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
     parent: {fileID: 2040618862}
     initCount: 3

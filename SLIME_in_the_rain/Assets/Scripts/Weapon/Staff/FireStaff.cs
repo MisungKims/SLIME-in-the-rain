@@ -8,8 +8,8 @@ public class FireStaff : Staff
     private void Awake()
     {
         weaponType = EWeaponType.fireStaff;
-        projectileFlag = EObjectFlag.fire;
-        skillProjectileFlag = EObjectFlag.fireSkill;
+        projectileFlag = EProjectileFlag.fire;
+        skillProjectileFlag = EProjectileFlag.fireSkill;
         dashCoolTime = 5f;
     }
     #endregion

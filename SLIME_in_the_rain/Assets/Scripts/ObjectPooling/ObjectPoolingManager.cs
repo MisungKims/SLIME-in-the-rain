@@ -8,13 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EObjectFlag     // 투사체 Flag
+public enum EObjectFlag
 {
-    arrow,
-    ice,
-    fire,
-    iceSkill,
-    fireSkill
+    jelly,
+    gelatin,
+    box
 }
 
 public class ObjectPoolingManager : MonoBehaviour
@@ -27,9 +25,12 @@ public class ObjectPoolingManager : MonoBehaviour
         get { return instance; }
     }
 
-    public List<ObjectPool> poolingList = new List<ObjectPool>();
 
-    public List<ObjectPool> weaponPollingList = new List<ObjectPool>();
+    public List<ObjectPool> objectPoolingList = new List<ObjectPool>();
+
+    public List<ObjectPool> projectilePoolingList = new List<ObjectPool>();
+    
+    public List<ObjectPool> weaponPoolingList = new List<ObjectPool>();
 
     #endregion
 
@@ -47,48 +48,58 @@ public class ObjectPoolingManager : MonoBehaviour
                 Destroy(this.gameObject);
         }
 
-
         InitObject();
-
+        InitProjectile();
         InitWeapon();
     }
     #endregion
 
     #region 함수
-    /// <summary>
-    /// 초기에 initCount 만큼 생성
-    /// </summary>
+
+    // 오브젝트를 initCount 만큼 생성
     private void InitObject()
     {
-        for (int i = 0; i < poolingList.Count; i++)     // poolingList를 탐색해 각 오브젝트를 미리 생성
+        for (int i = 0; i < objectPoolingList.Count; i++)     // poolingList를 탐색해 각 오브젝트를 미리 생성
         {
-            for (int j = 0; j < poolingList[i].initCount; j++)
+            for (int j = 0; j < objectPoolingList[i].initCount; j++)
             {
-                GameObject tempGb = GameObject.Instantiate(poolingList[i].copyObj, poolingList[i].parent.transform);
+                GameObject tempGb = GameObject.Instantiate(objectPoolingList[i].copyObj, objectPoolingList[i].parent.transform);
                 tempGb.name = j.ToString();
                 tempGb.gameObject.SetActive(false);
-                poolingList[i].queue.Enqueue(tempGb);
+                objectPoolingList[i].queue.Enqueue(tempGb);
             }
         }
     }
 
-    /// <summary>
-    /// 초기에 initCount 만큼 생성
-    /// </summary>
+    // 투사체를 initCount 만큼 생성
+    private void InitProjectile()
+    {
+        for (int i = 0; i < projectilePoolingList.Count; i++)     // poolingList를 탐색해 각 오브젝트를 미리 생성
+        {
+            for (int j = 0; j < projectilePoolingList[i].initCount; j++)
+            {
+                GameObject tempGb = GameObject.Instantiate(projectilePoolingList[i].copyObj, projectilePoolingList[i].parent.transform);
+                tempGb.name = j.ToString();
+                tempGb.gameObject.SetActive(false);
+                projectilePoolingList[i].queue.Enqueue(tempGb);
+            }
+        }
+    }
+
+    // 무기를 initCount 만큼 생성
     private void InitWeapon()
     {
-        for (int i = 0; i < weaponPollingList.Count; i++)     // weaponList를 탐색해 각 무기 오브젝트를 미리 생성
+        for (int i = 0; i < weaponPoolingList.Count; i++)     // weaponList를 탐색해 각 무기 오브젝트를 미리 생성
         {
-            for (int j = 0; j < weaponPollingList[i].initCount; j++)
+            for (int j = 0; j < weaponPoolingList[i].initCount; j++)
             {
-                GameObject tempGb = GameObject.Instantiate(weaponPollingList[i].copyObj, weaponPollingList[i].parent.transform);
+                GameObject tempGb = GameObject.Instantiate(weaponPoolingList[i].copyObj, weaponPoolingList[i].parent.transform);
                 tempGb.name = j.ToString();
                 tempGb.gameObject.SetActive(false);
-                weaponPollingList[i].queue.Enqueue(tempGb);
+                weaponPoolingList[i].queue.Enqueue(tempGb);
             }
         }
     }
-
 
     /// <summary>
     /// 오브젝트를 반환
@@ -98,32 +109,67 @@ public class ObjectPoolingManager : MonoBehaviour
         int index = (int)flag;
         GameObject tempGb;
 
-        if (poolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
         {
-            tempGb = poolingList[index].queue.Dequeue();
+            tempGb = objectPoolingList[index].queue.Dequeue();
             tempGb.SetActive(true);
         }
         else         // 큐에 더이상 없으면 새로 생성
         {
-            tempGb = GameObject.Instantiate(poolingList[index].copyObj, poolingList[index].parent.transform);
+            tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
         return tempGb;
     }
 
-    public GameObject Get(EObjectFlag flag, Vector3 pos, Vector3 rot)
+    /// <summary>
+    /// 다 쓴 오브젝트를 큐에 돌려줌
+    /// </summary>
+    public void Set(GameObject gb, EObjectFlag flag)
+    {
+        int index = (int)flag;
+        gb.SetActive(false);
+
+        objectPoolingList[index].queue.Enqueue(gb);
+    }
+
+    /// <summary>
+    /// 투사체 오브젝트를 반환
+    /// </summary>
+    public GameObject Get(EProjectileFlag flag)
     {
         int index = (int)flag;
         GameObject tempGb;
 
-        if (poolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        if (projectilePoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
         {
-            tempGb = poolingList[index].queue.Dequeue();
+            tempGb = projectilePoolingList[index].queue.Dequeue();
             tempGb.SetActive(true);
         }
         else         // 큐에 더이상 없으면 새로 생성
         {
-            tempGb = GameObject.Instantiate(poolingList[index].copyObj, poolingList[index].parent.transform);
+            tempGb = GameObject.Instantiate(projectilePoolingList[index].copyObj, projectilePoolingList[index].parent.transform);
+        }
+
+        return tempGb;
+    }
+
+    /// <summary>
+    /// 투사체 오브젝트의 위치, 회전값 조절하여 반환
+    /// </summary>
+    public GameObject Get(EProjectileFlag flag, Vector3 pos, Vector3 rot)
+    {
+        int index = (int)flag;
+        GameObject tempGb;
+
+        if (projectilePoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        {
+            tempGb = projectilePoolingList[index].queue.Dequeue();
+            tempGb.SetActive(true);
+        }
+        else         // 큐에 더이상 없으면 새로 생성
+        {
+            tempGb = GameObject.Instantiate(projectilePoolingList[index].copyObj, projectilePoolingList[index].parent.transform);
         }
 
         tempGb.transform.position = pos;
@@ -134,16 +180,15 @@ public class ObjectPoolingManager : MonoBehaviour
 
 
     /// <summary>
-    /// 다 쓴 오브젝트를 큐에 돌려줌
+    /// 다 쓴 투사체 오브젝트를 큐에 돌려줌
     /// </summary>
-    public void Set(GameObject gb, EObjectFlag flag)
+    public void Set(GameObject gb, EProjectileFlag flag)
     {
         int index = (int)flag;
         gb.SetActive(false);
 
-        poolingList[index].queue.Enqueue(gb);
+        projectilePoolingList[index].queue.Enqueue(gb);
     }
-
 
     /// <summary>
     /// 무기 오브젝트를 반환
@@ -153,19 +198,18 @@ public class ObjectPoolingManager : MonoBehaviour
         int index = (int)type;
         GameObject tempGb;
 
-        if (weaponPollingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        if (weaponPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
         {
-            tempGb = weaponPollingList[index].queue.Dequeue();
+            tempGb = weaponPoolingList[index].queue.Dequeue();
             tempGb.SetActive(true);
         }
         else         // 큐에 더이상 없으면 새로 생성
         {
-            tempGb = GameObject.Instantiate(weaponPollingList[index].copyObj, weaponPollingList[index].parent.transform);
+            tempGb = GameObject.Instantiate(weaponPoolingList[index].copyObj, weaponPoolingList[index].parent.transform);
         }
 
         return tempGb;
     }
-
 
     /// <summary>
     /// 다 쓴 무기 오브젝트를 큐에 돌려줌
@@ -173,10 +217,10 @@ public class ObjectPoolingManager : MonoBehaviour
     public void Set(Weapon gb)
     {
         int index = (int)gb.weaponType;
-        gb.transform.SetParent(weaponPollingList[index].parent.transform);
+        gb.transform.SetParent(weaponPoolingList[index].parent.transform);
         gb.gameObject.SetActive(false);
 
-        weaponPollingList[index].queue.Enqueue(gb.gameObject);
+        weaponPoolingList[index].queue.Enqueue(gb.gameObject);
     }
     #endregion
 }
