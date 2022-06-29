@@ -126,17 +126,16 @@ public class Slime : MonoBehaviour
     {
         Move();
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectRadius);
-    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, detectRadius);
+    //}
     #endregion
 
     #region 코루틴
-    /// <summary>
-    /// 무기를 들고 있을 때 좌클릭하면 평타
-    /// </summary>
+    // 무기를 들고 있을 때 좌클릭하면 평타
     IEnumerator AutoAttack()
     {
         while (true)
@@ -304,6 +303,7 @@ public class Slime : MonoBehaviour
         }
     }
 
+    // 마우스로 클릭한 위치를 바라봄
     void LookAtMousePos()
     {
         mousePos = Input.mousePosition;
@@ -318,10 +318,7 @@ public class Slime : MonoBehaviour
         transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
     }
 
-    /// <summary>
-    /// 오브젝트를 클릭했는지?
-    /// </summary>
-    /// <returns></returns>
+    // 오브젝트를 클릭했는지?
     bool IsHitObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -342,9 +339,7 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 무기
-    /// <summary>
-    /// 주변에 있는 무기 감지
-    /// </summary>
+    // 주변에 있는 무기 감지
     void DetectWeapon()
     {
         colliders = Physics.OverlapSphere(transform.position, detectRadius, weaponLayer);
@@ -375,10 +370,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 감지한 무기 장착
-    /// </summary>
-    /// <param name="index"></param>
+    // 감지한 무기 장착
     void EquipWeapon(int index)
     {
         if (Input.GetKeyDown(KeyCode.G))
@@ -394,11 +386,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    
-    /// <summary>
-    /// 무기 변경
-    /// </summary>
-    /// <param name="weapon"></param>
+    // 무기 변경
     public void ChangeWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
@@ -411,10 +399,7 @@ public class Slime : MonoBehaviour
         ChangeMaterial();               // 슬라임의 색 변경
     }
 
-
-    /// <summary>
-    /// 슬라임의 색(머터리얼) 변경
-    /// </summary>
+    // 슬라임의 색(머터리얼) 변경
     void ChangeMaterial()
     {
         if (currentWeapon)
@@ -436,6 +421,5 @@ public class Slime : MonoBehaviour
 
         PlayAnim(AnimState.damaged);
     }
-
     #endregion
 }

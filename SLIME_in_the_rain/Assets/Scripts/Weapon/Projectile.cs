@@ -8,6 +8,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EProjectileFlag     // 투사체 Flag
+{
+    arrow,
+    ice,
+    fire,
+    iceSkill,
+    fireSkill
+}
+
 public class Projectile : MonoBehaviour
 {
     #region 변수
@@ -16,6 +25,9 @@ public class Projectile : MonoBehaviour
 
     private float damageAmount;
     public float DamageAmount { set { damageAmount = value; } }
+
+    [SerializeField]
+    private EProjectileFlag flag;
 
     // 캐싱
     WaitForSeconds waitFor1s = new WaitForSeconds(1f);
@@ -43,15 +55,13 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region 코루틴
-    /// <summary>
-    /// 2초 후에 없어짐
-    /// </summary>
-    /// <returns></returns>
+
+    // 2초 후에 없어짐
     IEnumerator Remove()
     {
         yield return waitFor2s;
 
-        ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.arrow);
+        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
 
     #endregion
@@ -60,7 +70,7 @@ public class Projectile : MonoBehaviour
     // 데미지를 입힘
     protected virtual void DoDamage(Collider other)
     {
-        ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.arrow);
+        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
 
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
