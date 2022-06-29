@@ -15,6 +15,8 @@ public class FireProjectile : Projectile
     // 데미지를 입힘
     protected override void DoDamage(Collider other)
     {
+        Debug.Log(other.name);
+
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
