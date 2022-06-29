@@ -7,12 +7,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;  // OnDrawGizmos
 
 public class Dagger : Weapon
 {
     #region 변수
     private float maxDistance = 0.8f;               // 평타 공격 범위
-    private float maxDashAttackDistance = 2f;       // 돌진 대시 공격 범위
     private float dashDistance = 2f;
 
     // 스킬
@@ -21,7 +21,12 @@ public class Dagger : Weapon
     private float alpha;
     private float maxAlpha = 1f;
     private float minAlpha = 0.6f;
+
+    // 돌진 베기
+    private float detectRadius = 0.7f;
     #endregion
+
+    public Slime slime2; // 나주엥 지우기
 
     #region 유니티 함수
     private void Awake()
@@ -65,6 +70,19 @@ public class Dagger : Weapon
 
         slime.isStealth = false;
     }
+
+    IEnumerator DashCorutine()
+    {
+        slime.DashDistance = dashDistance;
+        slime.Dash();           // 일반 대시
+
+        yield return new WaitForSeconds(0.07f);        // 대시가 끝날 때까지 대기
+
+        // 대시 후 공격
+        PlayAnim(AnimState.autoAttack);
+        StartCoroutine(CheckAnimEnd("AutoAttack"));
+        DoDashDamage();
+    }
     #endregion
 
     #region 함수
@@ -91,15 +109,7 @@ public class Dagger : Weapon
         bool canDash = base.Dash(slime);
 
         // 돌진 베기
-        if (canDash)
-        {
-            DoDashDamage();
-            slime.DashDistance = dashDistance;
-            slime.Dash();           // 일반 대시
-
-            PlayAnim(AnimState.autoAttack);
-            StartCoroutine(CheckAnimEnd("AutoAttack"));
-        }
+        if (canDash) StartCoroutine(DashCorutine());
 
         return canDash;
     }
@@ -125,15 +135,16 @@ public class Dagger : Weapon
     // 돌진 대시 시 데미지입힘
     void DoDashDamage()
     {
-        // 돌진 시 앞에 있는 모든 것에게 데미지
         Transform slimeTransform = slime.transform;
-        RaycastHit[] hits = Physics.RaycastAll(slimeTransform.position, slimeTransform.forward, maxDashAttackDistance);
 
-        for (int i = 0; i < hits.Length; i++)
+        // 원 안에 있는 적들을 감지
+        Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, detectRadius);
+
+        for (int i = 0; i < colliders.Length; i++)
         {
-            if (hits[i].transform.CompareTag("DamagedObject"))
+            if (colliders[i].CompareTag("DamagedObject"))
             {
-                Damage(hits[i].transform);          // 데미지를 입힘
+                Damage(colliders[i].transform);
             }
         }
     }
@@ -150,4 +161,24 @@ public class Dagger : Weapon
         }
     }
     #endregion
+
+    // 유니티 에디터에 부채꼴을 그려줄 메소드
+    //private void OnDrawGizmos()
+    //{
+    //    Transform slimeTransform = slime2.transform;
+
+    //    Handles.color = new Color(0f, 0f, 1f, 0.2f);
+    //    // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
+    //    Handles.DrawSolidArc(slimeTransform.position, Vector3.up, slimeTransform.forward, angleRange / 2, detectRadius);
+    //    Handles.DrawSolidArc(slimeTransform.position, Vector3.up, slimeTransform.forward, -angleRange / 2, detectRadius);
+    //}
+
+
+    void OnDrawGizmosSelected()
+    {
+        Transform slimeTransform = slime2.transform;
+
+        Gizmos.color = new Color(0f, 0f, 1f, 0.2f);
+        Gizmos.DrawSphere(slimeTransform.position, detectRadius);
+    }
 }

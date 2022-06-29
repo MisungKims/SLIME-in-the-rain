@@ -194,7 +194,7 @@ public class Slime : MonoBehaviour
         currentDashTime = dashTime;
         while (currentDashTime >= 0)
         {
-            transform.position += transform.forward * dashDistance * Time.deltaTime * 0.8f;
+            transform.position += transform.forward * dashDistance * Time.deltaTime;
 
             currentDashTime -= Time.deltaTime;
         }

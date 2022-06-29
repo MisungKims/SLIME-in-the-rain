@@ -2180,6 +2180,17 @@ Transform:
   m_Father: {fileID: 543673176}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176947205 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7800106901202221368, guid: abfa34f3330bb0e43a9840ccf986c98b, type: 3}
+  m_PrefabInstance: {fileID: 7554246250496210310}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c288468445a4a44d966948b5f5a4472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1198028203
 GameObject:
   m_ObjectHideFlags: 0
@@ -3777,6 +3788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dagger
       objectReference: {fileID: 0}
+    - target: {fileID: 5371130838421662735, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
+      propertyPath: slime2
+      value: 
+      objectReference: {fileID: 1176947205}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
 --- !u!1001 &1191005058547673294
@@ -3837,6 +3852,22 @@ PrefabInstance:
     - target: {fileID: 1191005057179352862, guid: 644d5aac9e3c30a47b223ec501e72975, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204189787398559287, guid: 644d5aac9e3c30a47b223ec501e72975, type: 3}
+      propertyPath: radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204189787398559287, guid: 644d5aac9e3c30a47b223ec501e72975, type: 3}
+      propertyPath: slime2
+      value: 
+      objectReference: {fileID: 1176947205}
+    - target: {fileID: 7204189787398559287, guid: 644d5aac9e3c30a47b223ec501e72975, type: 3}
+      propertyPath: distance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204189787398559287, guid: 644d5aac9e3c30a47b223ec501e72975, type: 3}
+      propertyPath: angleRange
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7328077707227241862, guid: 644d5aac9e3c30a47b223ec501e72975, type: 3}
       propertyPath: m_Layer
