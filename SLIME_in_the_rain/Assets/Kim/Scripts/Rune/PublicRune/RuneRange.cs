@@ -1,7 +1,7 @@
 /**
  * @brief 범위 증가 룬
  * @author 김미성
- * @date 22-06-29
+ * @date 22-06-30
  */
 
 using System.Collections;
@@ -13,7 +13,11 @@ public class RuneRange : Rune, IPassiveRune
     #region 함수
     public void Passive()
     {
+        // 범위 2배
+        statManager.AddAttackRange(statManager.GetIncrementStat("AtkRange", 200));
 
+        // 공속 효과 감소
+        statManager.AddAttackSpeed(statManager.GetIncrementStat("AtkSpeed", 50) * -1);
     }
     #endregion
 }

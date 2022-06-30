@@ -21,13 +21,13 @@ public class Projectile : MonoBehaviour
 {
     #region 변수
     [SerializeField]
-    private float speed;
+    protected float speed;
 
     private float damageAmount;
     public float DamageAmount { set { damageAmount = value; } }
 
     [SerializeField]
-    private EProjectileFlag flag;
+    protected EProjectileFlag flag;
 
     // 캐싱
     WaitForSeconds waitFor1s = new WaitForSeconds(1f);
@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        Move();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,6 +67,11 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region 함수
+    protected virtual void Move()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    }
+
     // 데미지를 입힘
     protected virtual void DoDamage(Collider other)
     {

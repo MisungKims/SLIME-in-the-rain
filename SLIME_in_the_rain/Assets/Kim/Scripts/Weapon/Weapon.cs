@@ -32,6 +32,9 @@ public class Weapon : MonoBehaviour
 
     float attachSpeed = 10f;
 
+    protected bool isHaveRune = false;
+    public bool IsHaveRune { set { isHaveRune = value; } }
+
     // 애니메이션
     [SerializeField]
     private Animator anim;
@@ -162,6 +165,16 @@ public class Weapon : MonoBehaviour
     public void DoAttach()
     {
         StartCoroutine(AttachToSlime());
+
+        UseRune();
+    }
+
+    protected virtual void UseRune()
+    {
+        if (!isHaveRune)
+        {
+            RuneManager.Instance.UseWeaponRune(this);       // 발동되지 않은 무기룬을 가지고 있다면 무기룬 발동
+        }
     }
 
     // 애니메이션 재생

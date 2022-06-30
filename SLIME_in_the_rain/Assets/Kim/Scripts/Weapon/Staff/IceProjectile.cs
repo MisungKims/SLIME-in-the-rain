@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceProjectile : Projectile
+public class IceProjectile : StaffProjectile
 {
     #region 함수
     // 데미지를 입힘

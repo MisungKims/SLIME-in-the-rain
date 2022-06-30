@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;  // OnDrawGizmos
 
-public class Dagger : Weapon
+public class Dagger : Short
 {
     #region 변수
     private float maxDistance = 0.8f;               // 평타 공격 범위
@@ -87,15 +87,6 @@ public class Dagger : Weapon
     #endregion
 
     #region 함수
-
-    // 평타
-    protected override void AutoAttack(Vector3 targetPos)
-    {
-        base.AutoAttack(targetPos);
-
-        DoDamage();
-    }
-
     // 스킬
     protected override void Skill(Vector3 targetPos)
     {
@@ -115,24 +106,6 @@ public class Dagger : Weapon
         return canDash;
     }
 
-    // 오브젝트를 공격하면 데미지를 입힘
-    void DoDamage()
-    {
-        Transform slimeTransform = slime.transform;
-
-        // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
-        RaycastHit hit;
-        if (Physics.Raycast(slimeTransform.position, slimeTransform.forward, out hit, maxDistance))
-        {
-            //Debug.DrawRay(slime.transform.position, slime.transform.forward * hit.distance, Color.red);
-
-            if (hit.transform.CompareTag("DamagedObject"))
-            {
-                Damage(hit.transform);          // 데미지를 입힘
-            }
-        }
-    }
-
     // 돌진 대시 시 데미지입힘
     void DoDashDamage()
     {
@@ -147,18 +120,6 @@ public class Dagger : Weapon
             {
                 Damage(colliders[i].transform);
             }
-        }
-    }
-
-    // 데미지를 입힘
-    void Damage(Transform hitObj)
-    {
-        Debug.Log(hitObj.name);
-
-        IDamage damagedObject = hitObj.GetComponent<IDamage>();
-        if (damagedObject != null)
-        {
-            damagedObject.Damaged();
         }
     }
     #endregion

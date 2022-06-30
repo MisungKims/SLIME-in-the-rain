@@ -14,6 +14,7 @@ public class RuneDamage : Rune, IPassiveRune
     public void Passive()
     {
         // 데미지 30% 증가
+        statManager.AddAttackPower(statManager.GetIncrementStat("AtkPower", 30));
     }
     #endregion
 }

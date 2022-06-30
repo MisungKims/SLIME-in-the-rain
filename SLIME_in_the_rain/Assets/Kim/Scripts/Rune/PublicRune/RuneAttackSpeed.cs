@@ -1,7 +1,7 @@
 /**
  * @brief 공속 증가 룬
  * @author 김미성
- * @date 22-06-29
+ * @date 22-06-30
  */
 
 using System.Collections;
@@ -14,6 +14,7 @@ public class RuneAttackSpeed : Rune, IPassiveRune
     public void Passive()
     {
         // 공속 30% 증가
+        statManager.AddAttackSpeed(statManager.GetIncrementStat("AtkSpeed", 30));
     }
     #endregion
 }

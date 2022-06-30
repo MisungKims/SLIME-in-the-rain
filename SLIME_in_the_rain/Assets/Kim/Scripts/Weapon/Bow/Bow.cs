@@ -57,10 +57,11 @@ public class Bow : Weapon
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow);
+            Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow).GetComponent<Arrow>();
+
+            if (isHaveRune) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
 
             arrow.transform.position = this.transform.position;
-
             arrow.transform.LookAt(targetPos);                  // 마우스 클릭 위치로 바라보게 한 다음  
 
             lookRot = arrow.transform.eulerAngles;

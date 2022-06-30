@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneBow : RuneWeapon, IAttackRune
+public class RuneBow : RuneWeapon
 {
     #region 유니티 함수
     private void Awake()
@@ -19,16 +19,15 @@ public class RuneBow : RuneWeapon, IAttackRune
     #endregion
 
     #region 함수
+    public override bool Use(Weapon weapon)
+    {
+        if (base.Use(weapon))
+        {
+            weapon.stats.attackPower += statManager.GetIncrementStat("AtkPower", 50);       // 데미지 50% 증가
 
-
-    //protected override bool UseWeaponRune()
-    //{
-    //    if (base.UseWeaponRune())
-    //    {
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
+            return true;
+        }
+        else return false;
+    }
     #endregion
 }

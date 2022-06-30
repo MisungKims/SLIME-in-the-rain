@@ -334,15 +334,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
+    maxHP: 0
     HP: 0
     coolTime: 10
     moveSpeed: 1.2
     attackSpeed: 0.2
     attackPower: 0
+    attackRange: 0
     defensePower: 0
+    hitCount: 1
   slimeMat: {fileID: 2100000, guid: 90c18619a2c41d641b2afdfbcc3bb92c, type: 2}
   weaponType: 0
   anim: {fileID: 84464588991287067}
+  isCanSkill: 1
+  slime2: {fileID: 0}
 --- !u!65 &5371130838421662720
 BoxCollider:
   m_ObjectHideFlags: 0

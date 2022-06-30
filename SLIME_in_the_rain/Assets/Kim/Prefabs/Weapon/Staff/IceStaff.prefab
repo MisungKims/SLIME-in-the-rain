@@ -56,10 +56,13 @@ MonoBehaviour:
     moveSpeed: 1.2
     attackSpeed: 0.2
     attackPower: 0
+    attackRange: 0
     defensePower: 0
+    hitCount: 1
   slimeMat: {fileID: 2100000, guid: 3462d5ced31a2ee448b7c86a3b98e7ae, type: 2}
   weaponType: 0
   anim: {fileID: 5914430299525577833}
+  isCanSkill: 1
   projectilePos: {fileID: 8885171396042535961}
 --- !u!33 &8642570998761848015
 MeshFilter:

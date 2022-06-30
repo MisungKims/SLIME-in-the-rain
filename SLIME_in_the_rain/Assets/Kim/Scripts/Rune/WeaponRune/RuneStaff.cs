@@ -1,5 +1,5 @@
 /**
- * @brief 단거리 무기 전용 룬
+ * @brief 지팡이 무기 전용 룬
  * @author 김미성
  * @date 22-06-29
  */
@@ -19,14 +19,6 @@ public class RuneStaff : RuneWeapon
     #endregion
 
     #region 함수
-    protected override bool UseWeaponRune()
-    {
-        if (base.UseWeaponRune())
-        {
-            return true;
-        }
 
-        return false;
-    }
     #endregion
 }

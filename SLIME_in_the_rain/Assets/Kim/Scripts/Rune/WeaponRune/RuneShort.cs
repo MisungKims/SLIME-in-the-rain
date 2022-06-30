@@ -19,14 +19,14 @@ public class RuneShort : RuneWeapon
     #endregion
 
     #region 함수
-    protected override bool UseWeaponRune()
+    public override bool Use(Weapon weapon)
     {
-        if (base.UseWeaponRune())
+        if (base.Use(weapon))
         {
+            weapon.stats.hitCount *= 3;         // 타수 3배
             return true;
         }
-
-        return false;
+        else return false;
     }
     #endregion
 }

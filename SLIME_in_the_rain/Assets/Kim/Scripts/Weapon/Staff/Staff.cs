@@ -68,14 +68,17 @@ public class Staff : Weapon
     public void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
-        GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);
-        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+        StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero).GetComponent<StaffProjectile>();
 
-        lookRot = arrow.transform.eulerAngles;
+        if (isHaveRune) projectile.IsUseRune = true;            // 지팡이 룬을 가지고 있다면 사용할 수 있도록
+
+        projectile.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+
+        lookRot = projectile.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
 
-        arrow.transform.eulerAngles = lookRot;
+        projectile.transform.eulerAngles = lookRot;
     }
     #endregion
 }

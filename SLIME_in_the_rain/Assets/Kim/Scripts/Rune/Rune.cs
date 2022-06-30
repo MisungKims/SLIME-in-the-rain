@@ -1,7 +1,7 @@
 /**
- * @brief 슬라임 오브젝트
+ * @brief 룬 오브젝트
  * @author 김미성
- * @date 22-06-29
+ * @date 22-06-30
  */
 
 using System.Collections;
@@ -26,13 +26,18 @@ public class Rune : MonoBehaviour
     [SerializeField]
     private Sprite runeSprite;
     public Sprite RuneSprite { get { return runeSprite; } }
+
+    // 캐싱
+    protected StatManager statManager;
     #endregion
 
     #region 유니티 함수
-
+    private void Awake()
+    {
+        statManager = StatManager.Instance;
+    }
     #endregion
 
     #region 함수
-    //public abstract void Use();     // 룬을 사용
     #endregion
 }

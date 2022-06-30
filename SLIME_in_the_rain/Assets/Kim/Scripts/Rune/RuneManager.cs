@@ -68,16 +68,35 @@ public class RuneManager : MonoBehaviour
 
         Rune runeObj = GameObject.Instantiate(rune, this.transform);
         myRunes[runeCount] = runeObj;
+        UsePassiveRune(runeObj);         // 추가한 룬이 패시브 룬이면 바로 적용 (목숨 증가, 스탯 증가 등)
 
-        // 패시브 룬이면 바로 적용 (목숨 증가, 스탯 증가 등)
-        IPassiveRune passiveRune = runeObj.GetComponent<IPassiveRune>();
+        runeCount++;
+    }
+
+
+    // 무기 룬 발동
+    public void UseWeaponRune(Weapon weapon)
+    {
+        for (int i = 0; i < runeCount; i++)
+        {
+            IWeaponRune weaponRune = myRunes[i].GetComponent<IWeaponRune>();
+            if (weaponRune != null)
+            {
+                weaponRune.Use(weapon);
+            }
+        }
+    }
+
+    // 패시브 룬 발동
+    public void UsePassiveRune(Rune rune)
+    {
+        IPassiveRune passiveRune = rune.GetComponent<IPassiveRune>();
         if (passiveRune != null)
         {
             passiveRune.Passive();
         }
-
-        runeCount++;
     }
+
 
     // 공격 시 룬 발동
     public void UseAttackRune()
