@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuneIceStaff : RuneWeapon, ISkillRune
+public class RuneIceStaff : RuneWeapon
 {
     #region 유니티 함수
     private void Awake()
@@ -19,9 +19,19 @@ public class RuneIceStaff : RuneWeapon, ISkillRune
     #endregion
 
     #region 함수
-    public void Skill()
+    public override bool Use(Weapon weapon)
     {
+        if (UseWeaponRune(weapon))          // 룬이 발동할 수 있는지 판별
+        {
+            IceStaff iceStaff = weapon.GetComponent<IceStaff>();
+            if (iceStaff != null)
+            {
+                iceStaff.IsHaveRune2 = true;       // 무기가 룬의 특성을 사용할 수 있도록
+                return true;
+            }
+        }
 
+        return false;
     }
     #endregion
 }

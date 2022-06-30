@@ -10,6 +10,18 @@ using UnityEngine;
 
 public class IceProjectile : StaffProjectile
 {
+    #region 변수
+    private float stunTime = 1f;
+    public float StunTime { get { return stunTime; } set { stunTime = value; } }
+    #endregion
+
+    #region 유니티 함수
+    private void OnEnable()
+    {
+        stunTime = 1f;
+    }
+    #endregion
+
     #region 함수
     // 데미지를 입힘
     protected override void DoDamage(Collider other)
@@ -19,7 +31,7 @@ public class IceProjectile : StaffProjectile
         if (damagedObject != null)
         {
             damagedObject.Damaged();
-            damagedObject.Stun();       // 스턴
+            damagedObject.Stun(stunTime);       // 스턴
         }
     }
     #endregion

@@ -14,7 +14,7 @@ public class Staff : Weapon
     [SerializeField]
     private Transform projectilePos;        // 생성될 투사체의 위치
 
-    Vector3 lookRot;
+    protected Vector3 lookRot;
 
     protected EProjectileFlag projectileFlag;     // 생성할 투사체의 flag
     protected EProjectileFlag skillProjectileFlag;     // 생성할 스킬 투사체의 flag
@@ -65,12 +65,16 @@ public class Staff : Weapon
     }
 
     // 투사체 생성
-    public void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
+    public virtual void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero).GetComponent<StaffProjectile>();
 
-        if (isHaveRune) projectile.IsUseRune = true;            // 지팡이 룬을 가지고 있다면 사용할 수 있도록
+        if (isHaveRune)
+        {
+            projectile.IsUseRune = true;            // 지팡이 룬을 가지고 있다면 사용할 수 있도록
+            projectile.Target = slime.target;
+        }
 
         projectile.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
 

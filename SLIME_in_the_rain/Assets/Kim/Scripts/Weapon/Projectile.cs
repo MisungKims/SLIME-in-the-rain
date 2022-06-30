@@ -14,7 +14,9 @@ public enum EProjectileFlag     // ≈ıªÁ√º Flag
     ice,
     fire,
     iceSkill,
-    fireSkill
+    fireSkill,
+    dagger,
+    sword
 }
 
 public class Projectile : MonoBehaviour

@@ -6,8 +6,11 @@ public class Short : Weapon
 {
     #region 변수
     // 룬
-    private bool isHaveRune2 = false;
+    protected bool isHaveRune2 = false;
     public bool IsHaveRune2 { set { isHaveRune = value; } }
+
+    Vector3 lookRot;
+    protected EProjectileFlag flag;
     #endregion
 
     #region 함수
@@ -48,6 +51,24 @@ public class Short : Weapon
                 Damage(hit.transform);          // 데미지를 입힘
             }
         }
+
+        if (isHaveRune2)        // 검기 발사 룬을 가지고 있을 때
+        {
+            Missile(slimeTransform.forward);
+        }
+    }
+
+    // 검기 발사
+    protected void Missile(Vector3 targetPos)
+    {
+        GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);
+        arrow.transform.LookAt(targetPos);      // 검 생성 뒤 마우스 방향을 바라봄
+
+        lookRot = arrow.transform.eulerAngles;
+        lookRot.x = 0;
+        lookRot.z = 0;
+
+        arrow.transform.eulerAngles = lookRot;
     }
 
     // 데미지를 입힘

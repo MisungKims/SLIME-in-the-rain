@@ -313,6 +313,12 @@ MonoBehaviour:
   - copyObj: {fileID: 597184532556497915, guid: 8a97374e500051e44bafc27f4a3fe76b, type: 3}
     parent: {fileID: 1360235444}
     initCount: 1
+  - copyObj: {fileID: 5371130838421662721, guid: f983f0e86cfceec4983d019819384988, type: 3}
+    parent: {fileID: 495315912}
+    initCount: 1
+  - copyObj: {fileID: 1191005057179352833, guid: 684bf66a276065d458e570ec89f35ac4, type: 3}
+    parent: {fileID: 1266465004}
+    initCount: 1
   weaponPoolingList:
   - copyObj: {fileID: 5371130838421662721, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
     parent: {fileID: 2040618862}
@@ -953,7 +959,9 @@ MonoBehaviour:
     moveSpeed: 0
     attackSpeed: 0
     attackPower: 0
+    attackRange: 0
     defensePower: 0
+    hitCount: 0
 --- !u!4 &483188568
 Transform:
   m_ObjectHideFlags: 0
@@ -968,6 +976,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &495315912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 495315913}
+  m_Layer: 0
+  m_Name: Dagger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &495315913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495315912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 901087711}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &543673175
 GameObject:
@@ -1427,6 +1466,8 @@ Transform:
   - {fileID: 1019394796}
   - {fileID: 1156237471}
   - {fileID: 1360235445}
+  - {fileID: 495315913}
+  - {fileID: 1266465005}
   m_Father: {fileID: 242851866}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2403,6 +2444,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!1 &1266465004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1266465005}
+  m_Layer: 0
+  m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1266465005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266465004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 901087711}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1283032521
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3821,6 +3893,11 @@ MonoBehaviour:
   - {fileID: 3611576358467548614, guid: 84ad634785381ed4097eb2db72598666, type: 3}
   - {fileID: 5005005931436561584, guid: 0c30a8dabecaf3747a3d2771e828b718, type: 3}
   - {fileID: 3957245377041795609, guid: d2ada8975dd350e47bad73d0fb735b5f, type: 3}
+  myRunes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  runeCount: 0
 --- !u!1001 &1191005058547673294
 PrefabInstance:
   m_ObjectHideFlags: 0

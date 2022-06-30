@@ -20,7 +20,7 @@ public class FireProjectile : StaffProjectile
         if (damagedObject != null)
         {
             damagedObject.Damaged();
-            damagedObject.Stun();       // 스턴
+            damagedObject.Stun(1f);       // 스턴
         }
     }
     #endregion

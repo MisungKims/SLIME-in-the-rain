@@ -66,6 +66,7 @@ public class Slime : MonoBehaviour
     Vector3 mousePos;
 
     Vector3 targetPos;
+    public Transform target;
 
     public bool isAttacking;   // 평타 중인지?
 
@@ -209,9 +210,9 @@ public class Slime : MonoBehaviour
 
     #region 함수
     // 슬라임과 오브젝트 사이의 거리를 구함
-    float GetDistance(Transform targetPos)
+    float GetDistance(Transform target)
     {
-        Vector3 offset = transform.position - targetPos.position;
+        Vector3 offset = transform.position - target.position;
 
         return offset.sqrMagnitude;
     }
@@ -326,10 +327,15 @@ public class Slime : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.CompareTag("DamagedObject") || hit.transform.CompareTag("Land"))                // 몬스터 클릭 시
+            if (hit.transform.CompareTag("DamagedObject") || hit.transform.CompareTag("Land"))
             {
                 targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
                 return true;
+            }
+
+            if (hit.transform.gameObject.layer == 8)        // 몬스터 레이어면 target을 설정 (유도를 위해)
+            {
+                target = hit.transform;
             }
         }
 

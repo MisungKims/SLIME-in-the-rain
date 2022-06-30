@@ -7,7 +7,9 @@ public class StaffProjectile : Projectile
     #region 변수
     private bool isUseRune = false;
     public bool IsUseRune { set { isUseRune = value; } }
-    Transform targetPos;
+
+    private Transform target;
+    public Transform Target { set { target = value; } }
     #endregion
 
     #region 유니티 함수
@@ -20,10 +22,9 @@ public class StaffProjectile : Projectile
     #region 함수
     protected override void Move()
     {
-        // 타겟으로
-        if (isUseRune)
+        if (isUseRune && target != null)          // 유도 룬 사용 시 타겟으로
         {
-
+            transform.position = Vector3.MoveTowards(gameObject.transform.position, target.position, 0.1f);
         }
         else
         {
