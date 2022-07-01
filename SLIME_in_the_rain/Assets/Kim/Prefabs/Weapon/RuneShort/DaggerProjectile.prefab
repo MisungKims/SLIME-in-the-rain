@@ -295,9 +295,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4738287802388887227}
-  - component: {fileID: 5371130838421662735}
+  - component: {fileID: 3846934264509968756}
   - component: {fileID: 5371130838421662720}
-  - component: {fileID: 84464588991287067}
   m_Layer: 6
   m_Name: DaggerProjectile
   m_TagString: Untagged
@@ -321,7 +320,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 90}
---- !u!114 &5371130838421662735
+--- !u!114 &3846934264509968756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -330,24 +329,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5371130838421662721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5703cd04870647249ac1b797c7e28d6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d0a5e508c200de46891bc657ad3cdea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-    maxHP: 0
-    HP: 0
-    coolTime: 10
-    moveSpeed: 1.2
-    attackSpeed: 0.2
-    attackPower: 0
-    attackRange: 0
-    defensePower: 0
-    hitCount: 1
-  slimeMat: {fileID: 2100000, guid: 90c18619a2c41d641b2afdfbcc3bb92c, type: 2}
-  weaponType: 0
-  anim: {fileID: 84464588991287067}
-  isCanSkill: 1
-  slime2: {fileID: 0}
+  speed: 0
+  flag: 5
 --- !u!65 &5371130838421662720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -361,26 +347,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.14680934, y: 0.030749217, z: 0.56045914}
   m_Center: {x: 0.00046789646, y: -0.0015089586, z: -0.15683031}
---- !u!95 &84464588991287067
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5371130838421662721}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 75446993c32733949b7bdb25b1d98740, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6115017776493487358
 GameObject:
   m_ObjectHideFlags: 0

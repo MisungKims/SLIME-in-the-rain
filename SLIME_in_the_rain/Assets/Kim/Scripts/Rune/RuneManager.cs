@@ -33,6 +33,8 @@ public class RuneManager : MonoBehaviour
     public Rune[] myRunes = new Rune[3];       // 내 룬
     public int runeCount = 0;
 
+    public RuneSlot[] runeSlots = new RuneSlot[3];      // ui 슬롯
+
     int rand;
     #endregion
 
@@ -69,6 +71,8 @@ public class RuneManager : MonoBehaviour
         Rune runeObj = GameObject.Instantiate(rune, this.transform);
         myRunes[runeCount] = runeObj;
         UsePassiveRune(runeObj);         // 추가한 룬이 패시브 룬이면 바로 적용 (목숨 증가, 스탯 증가 등)
+        UseWeaponRune(Slime.Instance.currentWeapon);
+        runeSlots[runeCount].SetUI(runeObj);
 
         runeCount++;
     }
@@ -77,6 +81,8 @@ public class RuneManager : MonoBehaviour
     // 무기 룬 발동
     public void UseWeaponRune(Weapon weapon)
     {
+        if (!weapon) return;
+
         for (int i = 0; i < runeCount; i++)
         {
             IWeaponRune weaponRune = myRunes[i].GetComponent<IWeaponRune>();

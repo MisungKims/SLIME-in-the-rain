@@ -29,7 +29,13 @@ public class SelectRuneWindow : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private RuneButton[] runeButtons = new RuneButton[3];
+    private GameObject panel;
+
+    [SerializeField]
+    private Canvas GetGelatinCanvas;     // 젤라틴 획득 캔버스
+
+    [SerializeField]
+    private RuneButton[] runeButtons = new RuneButton[3];           // 룬 선택 버튼 배열
 
 
     // 리롤
@@ -71,12 +77,13 @@ public class SelectRuneWindow : MonoBehaviour
     {
         runeManager = RuneManager.Instance;
         JellyManager.Instance.JellyCount = 200; // 나중에 지우기 
-        SetButtons();
+        
     }
 
     private void OnEnable()
     {
-        //SetButtons();
+        SetButtons();
+        GetGelatinCanvas.enabled = false;
     }
     #endregion
 
@@ -85,13 +92,13 @@ public class SelectRuneWindow : MonoBehaviour
     {
         for (int i = 0; i < runeButtons.Length; i++)
         {
-            runeButtons[i].SetButton(RuneManager.Instance.GetRandomRune());
+            runeButtons[i].SetUI(RuneManager.Instance.GetRandomRune());
         }
     }
 
     public void Reroll()
     {
-        if (JellyManager.Instance.JellyCount < 100 || rerollCount <= 0) return;     // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때 return
+        //if (JellyManager.Instance.JellyCount < 100 || rerollCount <= 0) return;     // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때 return
 
         SetButtons();
 
@@ -100,12 +107,17 @@ public class SelectRuneWindow : MonoBehaviour
         RerollCount--;
     }
 
-    // 룬 선택창 나가기 시 랜덤 젤라틴 지급
-    public void CloseWindow()
+    // 랜덤 젤라틴 지급
+    public void GetGelatin()
     {
         // TODO : 랜덤 젤라틴 지급
+        GetGelatinCanvas.enabled = true;
+    }
 
-        this.gameObject.SetActive(false);
+    // 룬 선택창을 닫기
+    public void CloseWindow()
+    {
+        panel.SetActive(false);
     }
     #endregion
 }

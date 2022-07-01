@@ -14,8 +14,8 @@ public class RuneRange : Rune, IPassiveRune
     public void Passive()
     {
         // 범위 2배
-        statManager.AddAttackRange(statManager.GetIncrementStat("AtkRange", 200));
-
+        statManager.MultipleAttackRange(2);
+        
         // 공속 효과 감소
         statManager.AddAttackSpeed(statManager.GetIncrementStat("AtkSpeed", 50) * -1);
     }

@@ -5,7 +5,11 @@ using UnityEngine;
 public class RuneWeapon : Rune, IWeaponRune
 {
     #region 변수
+    public List<EWeaponType> weaponTypes = new List<EWeaponType>();
+
+    [SerializeField]
     protected EWeaponType weaponType1;
+    [SerializeField]
     protected EWeaponType weaponType2;
 
     private Slime slime;
@@ -35,12 +39,20 @@ public class RuneWeapon : Rune, IWeaponRune
     {
         // 무기가 type1 혹은 type2 와 같다면 사용할 수 있도록
         EWeaponType currentWeapon = weapon.weaponType;
-        if (currentWeapon.Equals(weaponType1) || currentWeapon.Equals(weaponType2))
+        //if (currentWeapon.Equals(weaponType1) || currentWeapon.Equals(weaponType2))
+        //{
+        //    Use(weapon);
+        //    return true;
+        //}
+        if (currentWeapon == weaponType1 || currentWeapon == weaponType2)
         {
-            Use(slime.currentWeapon);
+            Use(weapon);
             return true;
         }
-        else return false;
+        else
+        {
+            return false;
+        }
     }
     #endregion
 

@@ -56,7 +56,6 @@ public class StatManager : MonoBehaviour
     private void Start()
     {
         slime = Slime.Instance;
-        test();
     }
     #endregion
 
@@ -66,7 +65,7 @@ public class StatManager : MonoBehaviour
     {
         originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1);
         myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1);
     }
 
     // amount 만큼 증가값을 반환
@@ -105,15 +104,6 @@ public class StatManager : MonoBehaviour
         myStats.attackRange = weapon.stats.attackRange + extraStats.attackRange;
         myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
         myStats.hitCount = weapon.stats.hitCount * extraStats.hitCount;
-    }
-
-
-    public void test()
-    {
-        Debug.Log("1 " + myStats.attackSpeed);
-        AddAttackSpeed(GetIncrementStat("AtkSpeed", 50) * -1);
-        Debug.Log("2 " + myStats.attackSpeed);
-
     }
 
     // Max Hp 스탯 변경
@@ -211,19 +201,31 @@ public class StatManager : MonoBehaviour
     }
 
     // 공격 범위 스탯 변경
-    public void AddAttackRange(float amount)
+    public void MultipleAttackRange(float amount)
     {
-        extraStats.attackRange += amount;
+        extraStats.attackRange *= amount;
 
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.attackRange = currentWeapon.stats.attackRange + extraStats.attackRange;
+            myStats.attackRange = currentWeapon.stats.attackRange * extraStats.attackRange;
         }
         else
         {
-            myStats.attackRange = originStats.attackRange + extraStats.attackRange;
+            myStats.attackRange = originStats.attackRange * extraStats.attackRange;
         }
+
+        //extraStats.attackRange += amount;
+
+        //currentWeapon = slime.currentWeapon;
+        //if (currentWeapon)
+        //{
+        //    myStats.attackRange = currentWeapon.stats.attackRange + extraStats.attackRange;
+        //}
+        //else
+        //{
+        //    myStats.attackRange = originStats.attackRange + extraStats.attackRange;
+        //}
     }
 
     // 방어력 스탯 변경
@@ -244,7 +246,7 @@ public class StatManager : MonoBehaviour
 
     // 타수 스탯 변경
     // ex) amount가 2면 2배
-    public void AddHitCount(int amount)
+    public void MultipleHitCount(int amount)
     {
         extraStats.hitCount *= amount;
 

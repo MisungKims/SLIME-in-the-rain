@@ -14,7 +14,7 @@ public class RuneHitCount : Rune, IPassiveRune
     public void Passive()
     {
         // Å¸¼ö 2¹è
-        statManager.AddHitCount(2);
+        statManager.MultipleHitCount(2);
     }
     #endregion
 }

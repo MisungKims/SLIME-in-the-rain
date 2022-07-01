@@ -184,7 +184,5 @@ public class Weapon : MonoBehaviour
 
         anim.SetInteger("animation", (int)animState);
     }
-
-   
     #endregion
 }
