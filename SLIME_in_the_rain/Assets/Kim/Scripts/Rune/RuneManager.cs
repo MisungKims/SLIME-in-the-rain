@@ -118,7 +118,6 @@ public class RuneManager : MonoBehaviour
         }
     }
 
-
     // 공격 시 룬 발동
     public void UseAttackRune()
     {

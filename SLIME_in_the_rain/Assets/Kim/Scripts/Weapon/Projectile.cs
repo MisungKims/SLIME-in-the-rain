@@ -51,13 +51,15 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("DamagedObject"))
         {
+
+            Debug.Log(other.name);
+
             DoDamage(other);
         }
     }
     #endregion
 
     #region 코루틴
-
     // 2초 후에 없어짐
     IEnumerator Remove()
     {
@@ -65,7 +67,6 @@ public class Projectile : MonoBehaviour
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
-
     #endregion
 
     #region 함수

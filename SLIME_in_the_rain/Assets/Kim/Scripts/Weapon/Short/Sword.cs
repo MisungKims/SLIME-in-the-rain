@@ -59,6 +59,9 @@ public class Sword : Short
         base.Skill(targetPos);
 
         DoSkillDamage();
+
+        // 검기 발사 룬을 가지고 있을 때 검기 발사
+        Missile(targetPos);
     }
 
     // 대시
@@ -80,7 +83,7 @@ public class Sword : Short
         Transform slimeTransform = slime.transform;
 
         // 원 안에 들어온 적들을 구함
-        Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, detectRadius);
+        Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, slime.Stat.attackRange);
 
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -101,9 +104,6 @@ public class Sword : Short
                 }
             }
         }
-
-        // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(slimeTransform.forward);
     }
     #endregion
 }

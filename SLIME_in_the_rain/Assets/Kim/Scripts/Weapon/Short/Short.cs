@@ -18,6 +18,9 @@ public class Short : Weapon
         base.AutoAttack(targetPos);
 
         DoDamage();
+
+        // 검기 발사 룬을 가지고 있을 때 검기 발사
+        Missile(targetPos);
     }
 
     // 오브젝트를 공격하면 데미지를 입힘
@@ -36,9 +39,6 @@ public class Short : Weapon
                 Damage(hit.transform);          // 데미지를 입힘
             }
         }
-
-        // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(slimeTransform.forward);
     }
 
     // 검기 발사

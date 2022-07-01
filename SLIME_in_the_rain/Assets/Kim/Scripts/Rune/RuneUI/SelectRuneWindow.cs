@@ -68,26 +68,29 @@ public class SelectRuneWindow : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        
-        RerollCount = rerollMaxCount;
+    }
+    private void OnEnable()
+    {
+        Init();
     }
 
     private void Start()
     {
         runeManager = RuneManager.Instance;
         JellyManager.Instance.JellyCount = 200; // 나중에 지우기 
-        
-    }
-
-    private void OnEnable()
-    {
-        SetButtons();
-        GetGelatinCanvas.enabled = false;
     }
     #endregion
 
     #region 함수
+    // 룬 선택 창 초기화
+    void Init()
+    {
+        SetButtons();
+        RerollCount = rerollMaxCount;
+        GetGelatinCanvas.enabled = false;
+    }
+
+    // 버튼 초기화
     public void SetButtons()
     {
         for (int i = 0; i < runeButtons.Length; i++)

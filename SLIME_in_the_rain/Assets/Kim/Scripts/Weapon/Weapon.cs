@@ -171,7 +171,7 @@ public class Weapon : MonoBehaviour
     }
 
     // 룬 사용
-    protected virtual void UseRune()
+    public void UseRune()
     {
         // 무기 룬을 발동시킬 수 있는지 판별 후 발동
         RuneManager.Instance.IsHaveWeaponRune(this);
