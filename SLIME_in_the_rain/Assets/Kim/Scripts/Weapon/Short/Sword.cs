@@ -102,10 +102,8 @@ public class Sword : Short
             }
         }
 
-        if (isHaveRune2)        // 검기 발사 룬을 가지고 있을 때
-        {
-            Missile(slimeTransform.forward);
-        }
+        // 검기 발사 룬을 가지고 있을 때 검기 발사
+        Missile(slimeTransform.forward);
     }
     #endregion
 }

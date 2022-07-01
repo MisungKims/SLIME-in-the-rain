@@ -20,7 +20,9 @@ public enum EWeaponType
 public class Weapon : MonoBehaviour
 {
     #region 변수
-    public Stats stats;
+    public Stats stats;         // 무기의 스탯
+
+    public List<WeaponRuneInfo> weaponRuneInfos = new List<WeaponRuneInfo>();           // 무기의 룬 정보
 
     protected Slime slime;
 
@@ -32,8 +34,8 @@ public class Weapon : MonoBehaviour
 
     float attachSpeed = 10f;
 
-    protected bool isHaveRune = false;
-    public bool IsHaveRune { set { isHaveRune = value; } }
+    //protected bool isHaveRune = false;
+    //public bool IsHaveRune { set { isHaveRune = value; } }
 
     // 애니메이션
     [SerializeField]
@@ -82,6 +84,7 @@ public class Weapon : MonoBehaviour
 
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
+        UseRune();
     }
 
     // 대시 쿨타임 코루틴
@@ -165,16 +168,13 @@ public class Weapon : MonoBehaviour
     public void DoAttach()
     {
         StartCoroutine(AttachToSlime());
-
-        UseRune();
     }
 
+    // 룬 사용
     protected virtual void UseRune()
     {
-        if (!isHaveRune)
-        {
-            RuneManager.Instance.UseWeaponRune(this);       // 발동되지 않은 무기룬을 가지고 있다면 무기룬 발동
-        }
+        // 무기 룬을 발동시킬 수 있는지 판별 후 발동
+        RuneManager.Instance.IsHaveWeaponRune(this);
     }
 
     // 애니메이션 재생

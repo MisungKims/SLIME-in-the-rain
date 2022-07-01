@@ -11,11 +11,7 @@ using UnityEngine;
 public class RuneShort : RuneWeapon
 {
     #region 유니티 함수
-    private void Awake()
-    {
-        weaponType1 = EWeaponType.dagger;
-        weaponType2 = EWeaponType.sword;
-    }
+
     #endregion
 
     #region 함수
@@ -24,6 +20,8 @@ public class RuneShort : RuneWeapon
         if (base.Use(weapon))
         {
             weapon.stats.hitCount *= 3;         // 타수 3배
+            StatManager.Instance.ChangeStats(weapon);            // 스탯 변경
+
             return true;
         }
         else return false;

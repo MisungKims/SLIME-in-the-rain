@@ -6,12 +6,7 @@ public class RuneWeapon : Rune, IWeaponRune
 {
     #region 변수
     public List<EWeaponType> weaponTypes = new List<EWeaponType>();
-
-    [SerializeField]
-    protected EWeaponType weaponType1;
-    [SerializeField]
-    protected EWeaponType weaponType2;
-
+    
     private Slime slime;
     #endregion
 
@@ -24,35 +19,27 @@ public class RuneWeapon : Rune, IWeaponRune
 
 
     #region 함수
+
     public virtual bool Use(Weapon weapon)
     {
-        if (UseWeaponRune(weapon))          // 룬이 발동할 수 있는지 판별
+        for (int i = 0; i < weaponTypes.Count; i++)
         {
-            weapon.IsHaveRune = true;       // 무기가 룬의 특성을 사용할 수 있도록
-            return true;
+            if (weaponTypes[i].Equals(weapon.weaponType))           // 룬이 발동할 수 있는지 판별 (이 룬이 사용하려는 무기의 룬인지?)
+            {
+                // 발동할 수 있다면 해당 무기의 룬을 발동
+                for (int j = 0; j < weapon.weaponRuneInfos.Count; j++)
+                {
+                    if (weapon.weaponRuneInfos[j].runeName.Equals(this.name))
+                    {
+                        //Debug.Log(this.name);
+                        weapon.weaponRuneInfos[j].isActive = true;
+                        return true;
+                    }
+                }
+            }
         }
-        else return false;
-    }
 
-    // 이 룬이 발동하는 무기인지?
-    protected bool UseWeaponRune(Weapon weapon)
-    {
-        // 무기가 type1 혹은 type2 와 같다면 사용할 수 있도록
-        EWeaponType currentWeapon = weapon.weaponType;
-        //if (currentWeapon.Equals(weaponType1) || currentWeapon.Equals(weaponType2))
-        //{
-        //    Use(weapon);
-        //    return true;
-        //}
-        if (currentWeapon == weaponType1 || currentWeapon == weaponType2)
-        {
-            Use(weapon);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return false;
     }
     #endregion
 

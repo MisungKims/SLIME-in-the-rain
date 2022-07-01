@@ -11,11 +11,7 @@ using UnityEngine;
 public class RuneStaff : RuneWeapon
 {
     #region 유니티 함수
-    private void Awake()
-    {
-        weaponType1 = EWeaponType.iceStaff;
-        weaponType2 = EWeaponType.fireStaff;
-    }
+
     #endregion
 
     #region 함수

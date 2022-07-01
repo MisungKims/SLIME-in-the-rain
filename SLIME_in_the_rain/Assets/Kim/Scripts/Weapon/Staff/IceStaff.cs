@@ -6,8 +6,8 @@ public class IceStaff : Staff
 {
     #region 변수
     // 룬
-    private bool isHaveRune2 = false;
-    public bool IsHaveRune2 { set { isHaveRune = value; } }
+    //private bool isHaveRune2 = false;
+    //public bool IsHaveRune2 { set { isHaveRune = value; } }
     #endregion
 
 
@@ -22,31 +22,22 @@ public class IceStaff : Staff
     #endregion
 
     #region 함수
-    protected override void UseRune()
-    {
-        if (!isHaveRune)
-        {
-            RuneManager.Instance.UseWeaponRune(this);       // 발동되지 않은 무기룬을 가지고 있다면 무기룬 발동
-        }
-
-        if (!isHaveRune2)
-        {
-            RuneManager.Instance.UseWeaponRune(this);       // 발동되지 않은 무기룬을 가지고 있다면 무기룬 발동
-        }
-    }
-
     // 투사체 생성
     public override void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero).GetComponent<StaffProjectile>();
 
-        if (isHaveRune)
-        {
-            projectile.IsUseRune = true;            // 지팡이 룬을 가지고 있다면 사용할 수 있도록 (유도)
-            projectile.Target = slime.target;
-        }
-        if (isHaveRune2)        // 얼음 지팡이 룬 (스턴 시간 2배)
+        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
+        StunRune(flag, projectile);     // 스턴 2배 룬을 가지고 있다면 사용
+
+        LookAtPos(projectile, targetPos);
+    }
+
+    // 얼음 지팡이 룬이 있다면 스턴 시간 2배
+    void StunRune(EProjectileFlag flag, StaffProjectile projectile)
+    {
+        if (weaponRuneInfos[1].isActive)
         {
             if (flag.Equals(EProjectileFlag.iceSkill))
             {
@@ -57,14 +48,6 @@ public class IceStaff : Staff
                 }
             }
         }
-
-        projectile.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
-
-        lookRot = projectile.transform.eulerAngles;
-        lookRot.x = 0;
-        lookRot.z = 0;
-
-        projectile.transform.eulerAngles = lookRot;
     }
     #endregion
 }

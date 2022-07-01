@@ -5,28 +5,13 @@ using UnityEngine;
 public class Short : Weapon
 {
     #region 변수
-    // 룬
-    protected bool isHaveRune2 = false;
-    public bool IsHaveRune2 { set { isHaveRune = value; } }
-
     Vector3 lookRot;
-    protected EProjectileFlag flag;
+
+    protected EProjectileFlag flag;         // 어떤 종류의 투사체인지?
+
     #endregion
 
     #region 함수
-    protected override void UseRune()
-    {
-        if (!isHaveRune)
-        {
-            RuneManager.Instance.UseWeaponRune(this);       // 발동되지 않은 무기룬을 가지고 있다면 무기룬 발동
-        }
-
-        if (!isHaveRune2)
-        {
-            RuneManager.Instance.UseWeaponRune(this);       // 발동되지 않은 무기룬을 가지고 있다면 무기룬 발동
-        }
-    }
-
     // 평타
     protected override void AutoAttack(Vector3 targetPos)
     {
@@ -52,23 +37,24 @@ public class Short : Weapon
             }
         }
 
-        if (isHaveRune2)        // 검기 발사 룬을 가지고 있을 때
-        {
-            Missile(slimeTransform.forward);
-        }
+        // 검기 발사 룬을 가지고 있을 때 검기 발사
+        Missile(slimeTransform.forward);
     }
 
     // 검기 발사
     protected void Missile(Vector3 targetPos)
     {
-        GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);
-        arrow.transform.LookAt(targetPos);      // 검 생성 뒤 마우스 방향을 바라봄
+        if (weaponRuneInfos[1].isActive)       
+        {
+            GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);
+            arrow.transform.LookAt(targetPos);      // 검 생성 뒤 마우스 방향을 바라봄
 
-        lookRot = arrow.transform.eulerAngles;
-        lookRot.x = 0;
-        lookRot.z = 0;
+            lookRot = arrow.transform.eulerAngles;
+            lookRot.x = 0;
+            lookRot.z = 0;
 
-        arrow.transform.eulerAngles = lookRot;
+            arrow.transform.eulerAngles = lookRot;
+        }
     }
 
     // 데미지를 입힘

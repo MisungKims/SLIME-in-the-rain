@@ -11,11 +11,7 @@ using UnityEngine;
 public class RuneBow : RuneWeapon
 {
     #region 유니티 함수
-    private void Awake()
-    {
-        weaponType1 = EWeaponType.bow;
-        weaponType2 = EWeaponType.bow;
-    }
+
     #endregion
 
     #region 함수
@@ -23,7 +19,8 @@ public class RuneBow : RuneWeapon
     {
         if (base.Use(weapon))
         {
-            weapon.stats.attackPower += statManager.GetIncrementStat("AtkPower", 50);       // 데미지 50% 증가
+            weapon.stats.attackPower += StatManager.Instance.GetIncrementStat("AtkPower", 50);       // 데미지 50% 증가
+            StatManager.Instance.ChangeStats(weapon);            // 스탯 변경
 
             return true;
         }

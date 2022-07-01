@@ -69,28 +69,43 @@ public class RuneManager : MonoBehaviour
         if (runeCount > 2) return;
 
         Rune runeObj = GameObject.Instantiate(rune, this.transform);
+        runeObj.name = rune.name;
         myRunes[runeCount] = runeObj;
+
         UsePassiveRune(runeObj);         // 추가한 룬이 패시브 룬이면 바로 적용 (목숨 증가, 스탯 증가 등)
-        UseWeaponRune(Slime.Instance.currentWeapon);
-        runeSlots[runeCount].SetUI(runeObj);
+
+        UseWeaponRune(runeObj, Slime.Instance.currentWeapon);        // 무기룬이면 현재 들고 있는 무기의 룬인지 판별 후 적용
+
+        runeSlots[runeCount].SetUI(runeObj);            // 룬 슬롯에 추가
 
         runeCount++;
     }
 
-
     // 무기 룬 발동
-    public void UseWeaponRune(Weapon weapon)
+    bool UseWeaponRune(Rune rune, Weapon weapon)
     {
-        if (!weapon) return;
+        if (!weapon) return false;
 
+        IWeaponRune weaponRune = rune.GetComponent<IWeaponRune>();
+        if (weaponRune != null)
+        {
+           return weaponRune.Use(weapon);             // 룬을 사용할 수 있으면 true 리턴
+        }
+
+        return false;
+    }
+
+    // 가지고 있는 룬 중 해당 무기의 룬이 있다면 발동시키고 true 반환
+    public bool IsHaveWeaponRune(Weapon weapon)
+    {
         for (int i = 0; i < runeCount; i++)
         {
-            IWeaponRune weaponRune = myRunes[i].GetComponent<IWeaponRune>();
-            if (weaponRune != null)
+            if(UseWeaponRune(myRunes[i], weapon))
             {
-                weaponRune.Use(weapon);
+                return true;
             }
         }
+        return false;
     }
 
     // 패시브 룬 발동
