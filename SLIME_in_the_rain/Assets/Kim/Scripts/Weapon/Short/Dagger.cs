@@ -36,6 +36,14 @@ public class Dagger : Short
         dashCoolTime = 0.5f;
         flag = EProjectileFlag.dagger;
     }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        UIseting("단검", "회색", "은신"); //내용 정보 셋팅 //jeon 추가
+    }
+
     #endregion
 
     #region 코루틴

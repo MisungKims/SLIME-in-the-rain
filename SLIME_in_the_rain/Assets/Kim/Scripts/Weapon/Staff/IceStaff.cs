@@ -18,6 +18,14 @@ public class IceStaff : Staff
         skillProjectileFlag = EProjectileFlag.iceSkill;
         dashCoolTime = 5f;
     }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        UIseting("얼음지팡이", "파란색", "얼음공격"); //내용 정보 셋팅 //jeon 추가
+    }
+
     #endregion
 
     #region 함수

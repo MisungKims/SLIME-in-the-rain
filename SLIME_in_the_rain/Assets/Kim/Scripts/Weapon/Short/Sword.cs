@@ -35,6 +35,14 @@ public class Sword : Short
         dashCoolTime = 1f;
         flag = EProjectileFlag.sword;
     }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        UIseting("양손검", "초록색", "힘껏베기"); //내용 정보 셋팅 //jeon 추가
+    }
+
     #endregion
 
     #region 코루틴

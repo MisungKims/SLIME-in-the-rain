@@ -34,8 +34,11 @@ public class Weapon : MonoBehaviour
 
     float attachSpeed = 10f;
 
-    //protected bool isHaveRune = false;
-    //public bool IsHaveRune { set { isHaveRune = value; } }
+
+    //무기UI Text 변수
+    public string wName = "무기없음";
+    public string wColor = "기본색";
+    public string wSkill = "스킬없음";
 
     // 애니메이션
     [SerializeField]
@@ -49,15 +52,18 @@ public class Weapon : MonoBehaviour
 
     // 스킬
     public bool isCanSkill = true;
+    private int currentCoolTime;
+    public int CurrentCoolTime { get { return currentCoolTime; } }
 
     // 캐싱
     private WaitForSeconds waitForDash;
+    private WaitForSeconds waitFor1s = new WaitForSeconds(1f);
 
     protected StatManager statManager;
     #endregion
 
     #region 유니티 함수
-    void Start()
+    protected virtual void Start()
     {
         slime = Slime.Instance;
         statManager = StatManager.Instance;
@@ -102,7 +108,13 @@ public class Weapon : MonoBehaviour
     {
         isCanSkill = false;
 
-        yield return new WaitForSeconds(slime.Stat.coolTime);
+        currentCoolTime = (int)slime.Stat.coolTime;
+        for (int i = 0; i < slime.Stat.coolTime; i++)
+        {
+            yield return waitFor1s;
+
+            currentCoolTime--;
+        }
 
         isCanSkill = true;
     }
@@ -125,8 +137,13 @@ public class Weapon : MonoBehaviour
     #endregion
 
     #region 함수
-
-
+    // 무기 UI 할당한 정보 넣어주기 
+    protected void UIseting(string n, string c, string s) 
+    {
+        this.wName = n;
+        this.wColor = c;
+        this.wSkill = s;
+    }
 
     // 평타
     protected virtual void AutoAttack(Vector3 targetPos)

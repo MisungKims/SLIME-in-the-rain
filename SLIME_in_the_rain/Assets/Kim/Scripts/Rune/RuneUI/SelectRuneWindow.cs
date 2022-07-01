@@ -53,6 +53,9 @@ public class SelectRuneWindow : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private FadeOutText warningText;     // 젤리 부족 경고창
+
     // 캐싱
     private RuneManager runeManager;
     #endregion
@@ -99,9 +102,18 @@ public class SelectRuneWindow : MonoBehaviour
         }
     }
 
+    // 룬 버튼 새로고침
     public void Reroll()
     {
-        //if (JellyManager.Instance.JellyCount < 100 || rerollCount <= 0) return;     // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때 return
+        // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때
+        if (JellyManager.Instance.JellyCount < 100 || rerollCount <= 0)
+        {
+            // 젤리 부족 경고창을 띄움
+            if (warningText.gameObject.activeSelf) warningText.isAgain = true;
+            else warningText.gameObject.SetActive(true);
+
+            return;     
+        }
 
         SetButtons();
 
