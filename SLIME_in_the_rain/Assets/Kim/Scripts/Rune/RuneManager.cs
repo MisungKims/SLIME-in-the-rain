@@ -136,10 +136,10 @@ public class RuneManager : MonoBehaviour
     {
         for (int i = 0; i < runeCount; i++)
         {
-            IAttackRune attackRune = myRunes[i].GetComponent<IAttackRune>();
+            ISkillRune attackRune = myRunes[i].GetComponent<ISkillRune>();
             if (attackRune != null)
             {
-                attackRune.Attack();
+                attackRune.Skill();
             }
         }
     }

@@ -63,9 +63,9 @@ public class StatManager : MonoBehaviour
     // 스탯 초기화
     void InitStats()
     {
-        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1);
-        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1);
+        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
     }
 
     // amount 만큼 증가값을 반환
@@ -261,5 +261,43 @@ public class StatManager : MonoBehaviour
         }
     }
 
+    // 데미지 증가
+    public void AddDamage(float amount)
+    {
+        extraStats.IncreasesDamage += amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.IncreasesDamage = currentWeapon.stats.IncreasesDamage + extraStats.IncreasesDamage;
+        }
+        else
+        {
+            myStats.IncreasesDamage = originStats.IncreasesDamage + extraStats.IncreasesDamage;
+        }
+    }
+
+    
+    /// TODO : 데미지 구현
+
+    // 평타 데미지 반환
+    public float GetAutoAtkDamage()
+    {
+        float damage = 1f;
+
+        damage += (damage * myStats.IncreasesDamage) * 0.01f;        // 데미지 증가량 계산
+
+        return damage;
+    }
+
+    // 스킬 데미지 반환
+    public float GetSkillDamage()
+    {
+        float damage = 0.1f;
+
+        damage += (damage * myStats.IncreasesDamage) * 0.01f;        // 데미지 증가량 계산
+
+        return damage;
+    }
     #endregion
 }

@@ -10,6 +10,7 @@ using UnityEngine;
 
 public enum EObjectFlag
 {
+    shield,
     jelly,
     gelatin,
     box

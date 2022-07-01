@@ -13,8 +13,9 @@ public class StaffProjectile : Projectile
     #endregion
 
     #region 유니티 함수
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         isUseRune = false;
     }
     #endregion
@@ -22,7 +23,7 @@ public class StaffProjectile : Projectile
     #region 함수
     protected override void Move()
     {
-        if (isUseRune && target != null)          // 유도 룬 사용 시 타겟으로
+        if (isUseRune && target != null)          // 유도 룬 사용 시 타겟을 향해
         {
             transform.position = Vector3.MoveTowards(gameObject.transform.position, target.position, 0.1f);
         }

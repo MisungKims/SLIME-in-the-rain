@@ -10,10 +10,35 @@ using UnityEngine;
 
 public class RuneShield : Rune, IDashRune
 {
+    GameObject shield;          // 실드 오브젝트
+
+    ObjectPoolingManager objectPoolingManager;
+    
+    void Start()
+    {
+        objectPoolingManager = ObjectPoolingManager.Instance;
+    }
+
+    #region 코루틴
+
+    // 대시가 끝났는지 감지하여 shield 오브젝트의 액티브 설정
+    IEnumerator DetectDash()
+    {
+        shield = objectPoolingManager.Get(EObjectFlag.shield);
+        shield.transform.localPosition = Vector3.zero;
+        
+        yield return new WaitForSeconds(1f);
+
+        objectPoolingManager.Set(shield, EObjectFlag.shield);
+    }
+    #endregion
+
     #region 함수
     public void Dash()
     {
+        float amount = statManager.GetIncrementStat("HP", 30);          // TODO : 실드 생성
 
+        StartCoroutine(DetectDash());
     }
     #endregion
 }

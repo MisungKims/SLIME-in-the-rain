@@ -20,7 +20,7 @@ public class Sword : Short
     //private float maxDistance = 1.1f;
 
     // ½ºÅ³
-    private float detectRadius = 1.5f;
+    //private float detectRadius = 1.5f;
     private float distance = 2f;
     private float angleRange = 90f;
     Vector3 direction;

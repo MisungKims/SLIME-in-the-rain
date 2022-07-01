@@ -37,7 +37,4 @@ public class Rune : MonoBehaviour
         statManager = StatManager.Instance;
     }
     #endregion
-
-    #region ÇÔ¼ö
-    #endregion
 }

@@ -16,8 +16,9 @@ public class Stats
     public float attackRange;           // 공격 범위
     public float defensePower;          // 방어력
     public int hitCount;                // 타수
+    public float IncreasesDamage;       // 데미지 증가량
 
-    public Stats(float maxHP, float HP, float coolTime, float moveSpeed, float attackSpeed, float attackPower, float attackRange, float defensePower, int hitCount)
+    public Stats(float maxHP, float HP, float coolTime, float moveSpeed, float attackSpeed, float attackPower, float attackRange, float defensePower, int hitCount, float IncreasesDamage)
     {
         this.maxHP = maxHP;
         this.HP = HP;
@@ -28,5 +29,6 @@ public class Stats
         this.attackRange = attackRange;
         this.defensePower = defensePower;
         this.hitCount = hitCount;
+        this.IncreasesDamage = IncreasesDamage;
     }
 }

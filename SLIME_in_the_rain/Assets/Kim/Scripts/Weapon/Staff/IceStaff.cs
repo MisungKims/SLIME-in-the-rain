@@ -10,7 +10,6 @@ public class IceStaff : Staff
     //public bool IsHaveRune2 { set { isHaveRune = value; } }
     #endregion
 
-
     #region 유니티 함수
     private void Awake()
     {
@@ -26,7 +25,7 @@ public class IceStaff : Staff
     public override void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
-        StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero).GetComponent<StaffProjectile>();
+        StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
 
         MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
         StunRune(flag, projectile);     // 스턴 2배 룬을 가지고 있다면 사용

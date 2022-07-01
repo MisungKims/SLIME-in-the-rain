@@ -125,6 +125,9 @@ public class Weapon : MonoBehaviour
     #endregion
 
     #region 함수
+
+
+
     // 평타
     protected virtual void AutoAttack(Vector3 targetPos)
     {

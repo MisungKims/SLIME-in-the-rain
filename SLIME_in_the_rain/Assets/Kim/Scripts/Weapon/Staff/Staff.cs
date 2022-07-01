@@ -12,7 +12,7 @@ public class Staff : Weapon
 {
     #region 변수
     [SerializeField]
-    private Transform projectilePos;        // 생성될 투사체의 위치
+    protected Transform projectilePos;        // 생성될 투사체의 위치
 
     protected Vector3 lookRot;
 
@@ -60,11 +60,11 @@ public class Staff : Weapon
     public virtual void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
-        StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero).GetComponent<StaffProjectile>();
-
-        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
+        StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
 
         LookAtPos(projectile, targetPos);
+        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
+
     }
 
     protected void LookAtPos(StaffProjectile projectile, Vector3 targetPos)

@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region 유니티 함수
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         StartCoroutine(Remove());
     }
@@ -51,9 +51,6 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("DamagedObject"))
         {
-
-            Debug.Log(other.name);
-
             DoDamage(other);
         }
     }

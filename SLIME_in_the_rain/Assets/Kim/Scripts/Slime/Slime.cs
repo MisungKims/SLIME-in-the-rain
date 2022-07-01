@@ -330,12 +330,13 @@ public class Slime : MonoBehaviour
             if (hit.transform.CompareTag("DamagedObject") || hit.transform.CompareTag("Land"))
             {
                 targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
-                return true;
-            }
 
-            if (hit.transform.gameObject.layer == 8)        // 몬스터 레이어면 target을 설정 (유도를 위해)
-            {
-                target = hit.transform;
+                if (hit.transform.gameObject.layer == 8)        // 몬스터 레이어면 target을 설정 (유도를 위해)
+                {
+                    target = hit.transform;
+                }
+
+                return true;
             }
         }
 
