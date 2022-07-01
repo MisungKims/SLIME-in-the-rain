@@ -21,9 +21,10 @@ public class Weapon : MonoBehaviour
 {
     #region 변수
 #region jeon 추가
+    //무기UI Text 변수
     public string wName = "무기없음";
     public string wColor = "기본색";
-    public string wSkill = "없음"; 
+    public string wSkill = "스킬없음"; 
 
    protected void UIseting(string n, string c, string s) // 무기ui할당한 정보 넣어주기 
     {

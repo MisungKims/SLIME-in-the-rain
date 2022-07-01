@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     #region 변수
-    Inventory inven;
+    Inventory inven; //인벤토리
     [SerializeField]
-    private Button AddButton;
-    public Slot[] slots;
+    private Button ExpansionButton; //인벤확장버튼
+    [SerializeField]
+    private Slot[] slots;
     public Transform slotHolder;
-    #region GbUI
+
+    [Header ("GbUI")] 
     public GameObject inventroyPanel;
     public GameObject statsUI;
     public GameObject CombinationUI;
     public GameObject DissolutionUI;
-    #endregion
-
     #region onOffBool
     bool activeInventory = false;
     bool activeStatsUI = false;
@@ -26,10 +26,11 @@ public class InventoryUI : MonoBehaviour
     #endregion
     #endregion
 
-    #region 유니티 함수
+
+    #region 유니티 메소드
     private void Start()
     {
-        inven = Inventory.instance;
+        inven = Inventory.Instance;
         slots = slotHolder.GetComponentsInChildren<Slot>();
         inven.onSlotCountChange += SlotChange;
         inventroyPanel.SetActive(activeInventory);
@@ -52,12 +53,10 @@ public class InventoryUI : MonoBehaviour
             statsUI.SetActive(activeStatsUI);
             CombinationUI.SetActive(activeCombination);
             DissolutionUI.SetActive(activeDissolution);
-
-        
     }
     #endregion
 
-    #region 함수
+    #region 메소드
     private void SlotChange(int value)
     {
         for (int i = 0; i < slots.Length; i++)
@@ -73,12 +72,12 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    public  void AddSlot() //슬롯 추가
+    public  void ExpansionSlot() //슬롯 추가
     {
         inven.SlotCount++;
         if (inven.SlotCount >= 28)
         {
-            AddButton.interactable = false;
+            ExpansionButton.interactable = false;
         }
     }
 

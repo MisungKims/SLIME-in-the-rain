@@ -22,8 +22,7 @@ public class StatsUIManager : MonoBehaviour
         }
     }
     #endregion
-    //바뀔 textMesh
-    [Header("무기UI")]
+    [Header("무기UI")]//바뀔 textMesh
     public TextMeshProUGUI weaponTitleC;
     public TextMeshProUGUI weaponColorC;
     public TextMeshProUGUI weaponSkillC;
@@ -35,12 +34,9 @@ public class StatsUIManager : MonoBehaviour
     public TextMeshProUGUI statMOVESPDC;
     public TextMeshProUGUI statCOOLC;
 
-
     private Slime slime;
     private StatManager statManager;
-  
-
-
+    private Stats nowStats;
     #endregion
 
     #region 유니티 메소드
@@ -64,20 +60,35 @@ public class StatsUIManager : MonoBehaviour
     }
     private void Update()
     {
+        inputStatsUI();
         if (slime.currentWeapon != null)
         {
-        inputUI();
-
+            inputWeaponUI();
+        }
+        else
+        {
+            weaponTitleC.text = "무기없음";
+            weaponColorC.text = "기본색";
+            weaponSkillC.text = "스킬없음";
         }
     }
 
     #endregion
-    void inputUI() //최종 출력ui
+    #region 메소드
+    void inputWeaponUI() //최종 출력ui
     {
-        
         weaponTitleC.text = slime.currentWeapon.wName;
         weaponColorC.text = slime.currentWeapon.wColor;
         weaponSkillC.text = slime.currentWeapon.wSkill;
     }
-
+    void inputStatsUI() //최종 출력ui
+    {
+        statHPC.text = statManager.myStats.HP.ToString();
+        statATKC.text = statManager.myStats.attackPower.ToString();
+        statDEFC.text = statManager.myStats.defensePower.ToString();
+        statATKSPDC.text = statManager.myStats.attackSpeed.ToString();
+        statMOVESPDC.text = statManager.myStats.moveSpeed.ToString();
+        statCOOLC.text = statManager.myStats.coolTime.ToString();
+    }
+    #endregion
 }

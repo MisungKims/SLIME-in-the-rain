@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    #region Singleton
-    public static Inventory instance;
-    private void Awake()
+    #region ΩÃ±€≈Ê
+    private static Inventory instance = null;
+    public static Inventory Instance
     {
-        if (instance != null)
+        get
         {
-            Destroy(gameObject);
-            return;
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
         }
-        instance = this;
     }
+   
     #endregion
 
     public delegate void OnSlotCountChange(int value);
     public OnSlotCountChange onSlotCountChange;
 
-   /* public delegate void OnChangeItem();
-    public OnChangeItem onChangeItem;*/
 
 
    public List<Item> items = new List<Item>();
@@ -40,41 +41,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
+    #region ¿Ø¥œ∆º∏ﬁº“µÂ
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     void Start()
     {
        SlotCount = 4;   
     }
-
-    // Update is called once per frame
-    /*public bool AddItem(Item _item)
-    {
-        if (items.Count < slotCount)
-        {
-            items.Add(_item);
-            //if (onChangeItem != null)
-            //{
-                onChangeItem.Invoke();
-                return true;
-         //   }
-        }
-        return false;
-    }*/
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("FieldItem"))
-        {
-            FieldItems fieldItems = other.GetComponent<FieldItems>();
-            if (AddItem(fieldItems.GetItem()))
-            {
-
-                fieldItems.DestroyItem();
-            }
-        }
-    }*/
-
-
-
-
+    #endregion
 }
