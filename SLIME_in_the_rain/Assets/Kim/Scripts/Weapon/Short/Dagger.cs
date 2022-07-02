@@ -91,7 +91,7 @@ public class Dagger : Short
         // 대시 후 공격
         PlayAnim(AnimState.autoAttack);
         StartCoroutine(CheckAnimEnd("AutoAttack"));
-        DoDashDamage();
+        DoDashDamage(false);
     }
     #endregion
 
@@ -121,7 +121,7 @@ public class Dagger : Short
     }
 
     // 돌진 대시 시 데미지입힘
-    void DoDashDamage()
+    void DoDashDamage(bool isSkill)
     {
         Transform slimeTransform = slime.transform;
 
@@ -132,7 +132,7 @@ public class Dagger : Short
         {
             if (colliders[i].CompareTag("DamagedObject"))
             {
-                Damage(colliders[i].transform);
+                Damage(colliders[i].transform, isSkill);
             }
         }
     }

@@ -104,6 +104,7 @@ public class StatManager : MonoBehaviour
         myStats.attackRange = weapon.stats.attackRange + extraStats.attackRange;
         myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
         myStats.hitCount = weapon.stats.hitCount * extraStats.hitCount;
+        myStats.increasesDamage = weapon.stats.increasesDamage + extraStats.increasesDamage;
     }
 
     // Max Hp 스탯 변경
@@ -214,18 +215,6 @@ public class StatManager : MonoBehaviour
         {
             myStats.attackRange = originStats.attackRange * extraStats.attackRange;
         }
-
-        //extraStats.attackRange += amount;
-
-        //currentWeapon = slime.currentWeapon;
-        //if (currentWeapon)
-        //{
-        //    myStats.attackRange = currentWeapon.stats.attackRange + extraStats.attackRange;
-        //}
-        //else
-        //{
-        //    myStats.attackRange = originStats.attackRange + extraStats.attackRange;
-        //}
     }
 
     // 방어력 스탯 변경
@@ -264,16 +253,16 @@ public class StatManager : MonoBehaviour
     // 데미지 증가
     public void AddDamage(float amount)
     {
-        extraStats.IncreasesDamage += amount;
+        extraStats.increasesDamage += amount;
 
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.IncreasesDamage = currentWeapon.stats.IncreasesDamage + extraStats.IncreasesDamage;
+            myStats.increasesDamage = currentWeapon.stats.increasesDamage + extraStats.increasesDamage;
         }
         else
         {
-            myStats.IncreasesDamage = originStats.IncreasesDamage + extraStats.IncreasesDamage;
+            myStats.increasesDamage = originStats.increasesDamage + extraStats.increasesDamage;
         }
     }
 
@@ -285,7 +274,7 @@ public class StatManager : MonoBehaviour
     {
         float damage = 1f;
 
-        damage += (damage * myStats.IncreasesDamage) * 0.01f;        // 데미지 증가량 계산
+        damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
 
         return damage;
     }
@@ -295,7 +284,7 @@ public class StatManager : MonoBehaviour
     {
         float damage = 0.1f;
 
-        damage += (damage * myStats.IncreasesDamage) * 0.01f;        // 데미지 증가량 계산
+        damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
 
         return damage;
     }

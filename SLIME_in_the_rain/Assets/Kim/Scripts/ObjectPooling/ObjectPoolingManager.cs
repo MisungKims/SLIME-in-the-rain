@@ -11,9 +11,9 @@ using UnityEngine;
 public enum EObjectFlag
 {
     shield,
+    box,
     jelly,
-    gelatin,
-    box
+    gelatin
 }
 
 public class ObjectPoolingManager : MonoBehaviour
@@ -119,6 +119,29 @@ public class ObjectPoolingManager : MonoBehaviour
         {
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
+
+        return tempGb;
+    }
+
+    /// <summary>
+    /// 오브젝트를 반환
+    /// </summary>
+    public GameObject Get(EObjectFlag flag, Vector3 pos)
+    {
+        int index = (int)flag;
+        GameObject tempGb;
+
+        if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        {
+            tempGb = objectPoolingList[index].queue.Dequeue();
+            tempGb.SetActive(true);
+        }
+        else         // 큐에 더이상 없으면 새로 생성
+        {
+            tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
+        }
+
+        tempGb.transform.position = pos;
 
         return tempGb;
     }

@@ -15,14 +15,16 @@ public class Arrow : Projectile
     public bool IsPenetrate { set { isPenetrate = value; } }
     #endregion
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
         isPenetrate = false;
     }
 
     #region 함수
     // 데미지를 입힘
-    protected override void DoDamage(Collider other)
+    protected override void DoDamage(Collider other, bool isSkill)
     {
         if (!isPenetrate)
         {
@@ -32,7 +34,8 @@ public class Arrow : Projectile
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
-            damagedObject.Damaged();
+            if (isSkill) damagedObject.SkillDamaged();
+            else damagedObject.AutoAtkDamaged();
         }
     }
     #endregion

@@ -30,10 +30,11 @@ public class IceStaff : Staff
 
     #region 함수
     // 투사체 생성
-    public override void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
+    public override void GetProjectile(EProjectileFlag flag, Vector3 targetPos, bool isSkill)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
+        projectile.isSkill = isSkill;
 
         MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
         StunRune(flag, projectile);     // 스턴 2배 룬을 가지고 있다면 사용

@@ -29,7 +29,7 @@ public class Staff : Weapon
     {
         base.AutoAttack(targetPos);
 
-        GetProjectile(projectileFlag, targetPos);
+        GetProjectile(projectileFlag, targetPos, false);
     }
 
     // 스킬
@@ -37,7 +37,7 @@ public class Staff : Weapon
     {
         base.Skill(targetPos);
 
-        GetProjectile(skillProjectileFlag, targetPos);
+        GetProjectile(skillProjectileFlag, targetPos, true);
     }
 
     // 대시
@@ -57,14 +57,14 @@ public class Staff : Weapon
     }
 
     // 투사체 생성
-    public virtual void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
+    public virtual void GetProjectile(EProjectileFlag flag, Vector3 targetPos, bool isSkill)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
+        projectile.isSkill = isSkill;
 
         LookAtPos(projectile, targetPos);
         MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
-
     }
 
     protected void LookAtPos(StaffProjectile projectile, Vector3 targetPos)

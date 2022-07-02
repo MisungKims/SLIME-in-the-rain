@@ -31,6 +31,8 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     protected EProjectileFlag flag;
 
+    public bool isSkill;
+
     // Ä³½Ì
     WaitForSeconds waitFor1s = new WaitForSeconds(1f);
     WaitForSeconds waitFor2s = new WaitForSeconds(2f);
@@ -51,7 +53,7 @@ public class Projectile : MonoBehaviour
     {
         if (other.CompareTag("DamagedObject"))
         {
-            DoDamage(other);
+            DoDamage(other, isSkill);
         }
     }
     #endregion
@@ -73,14 +75,15 @@ public class Projectile : MonoBehaviour
     }
 
     // µ¥¹ÌÁö¸¦ ÀÔÈû
-    protected virtual void DoDamage(Collider other)
+    protected virtual void DoDamage(Collider other, bool isSkill)
     {
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
 
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
-            damagedObject.Damaged();
+           if(isSkill) damagedObject.SkillDamaged();
+           else damagedObject.AutoAtkDamaged();
         }
     }
     #endregion

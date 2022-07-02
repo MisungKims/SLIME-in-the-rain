@@ -69,7 +69,7 @@ public class Sword : Short
         DoSkillDamage();
 
         // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(targetPos);
+        Missile(targetPos, true);
     }
 
     // 대시
@@ -107,7 +107,7 @@ public class Sword : Short
                     // 탐지한 오브젝트가 스킬 각도안에 들어왔으면 데미지
                     if (Vector3.Dot(direction.normalized, slimeTransform.forward) > dotValue)
                     {
-                        Damage(colliders[i].transform);
+                        Damage(colliders[i].transform, true);
                     }
                 }
             }

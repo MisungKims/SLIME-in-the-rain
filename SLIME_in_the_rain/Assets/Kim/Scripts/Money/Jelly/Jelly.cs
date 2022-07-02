@@ -23,6 +23,7 @@ public class Jelly : MonoBehaviour
 
     // 캐싱
     JellyManager jellyManager;
+    ObjectPoolingManager objectPoolingManager;
     #endregion
 
     #region 유니티 함수
@@ -31,6 +32,7 @@ public class Jelly : MonoBehaviour
     {
         slime = Slime.Instance;
         jellyManager = JellyManager.Instance;
+        objectPoolingManager = ObjectPoolingManager.Instance;
 
         StartCoroutine(DetectSlime());
     }
@@ -84,7 +86,7 @@ public class Jelly : MonoBehaviour
     {
         jellyManager.JellyCount++;
 
-        this.gameObject.SetActive(false);
+        objectPoolingManager.Set(this.gameObject, EObjectFlag.jelly);       // 오브젝트 풀에 반환
     }
     #endregion
 }
