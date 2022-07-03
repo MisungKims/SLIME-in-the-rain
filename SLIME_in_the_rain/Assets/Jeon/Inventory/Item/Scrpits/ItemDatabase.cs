@@ -4,10 +4,32 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
-    public static ItemDatabase instance;
-    private void Awake()
+    #region ΩÃ±€≈Ê
+    private static ItemDatabase instance = null;
+    public static ItemDatabase Instance
     {
-        instance = this;
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
+    void Awake()
+    {
+        if (null == instance)
+        {
+            instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     public List<Item> itemDB = new List<Item>();
 
@@ -16,10 +38,12 @@ public class ItemDatabase : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < pos.Length; i++)
         {
             GameObject go = Instantiate(fieldItemPrefab, pos[i],Quaternion.identity);
             go.GetComponent<FieldItems>().SetItem(itemDB[Random.Range(0, 2)]);
         }
     }
+
+
 }

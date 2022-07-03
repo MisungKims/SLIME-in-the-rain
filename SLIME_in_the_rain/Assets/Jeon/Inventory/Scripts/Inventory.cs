@@ -23,6 +23,8 @@ public class Inventory : MonoBehaviour
     public delegate void OnSlotCountChange(int value);
     public OnSlotCountChange onSlotCountChange;
 
+    public delegate void OnChangedItem();
+    public OnChangedItem onChangedItem;
 
 
    public List<Item> items = new List<Item>();
@@ -53,7 +55,12 @@ public class Inventory : MonoBehaviour
     }
     void Start()
     {
+       
        SlotCount = 4;   
     }
+
     #endregion
+
+ 
+
 }

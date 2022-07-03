@@ -5,23 +5,9 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    private Item _item;
-    public Item item
-    {
-        get { return _item; }
-        set
-        {
-            _item = value;
-            if (_item != null)
-            {
-                UpdateSlotUI();
-            }
-            else
-            {
-                RemoveSlot();
-            }
-        }
-    }
+
+    public Item item;
+   
 
     public Image itemIcon;
 

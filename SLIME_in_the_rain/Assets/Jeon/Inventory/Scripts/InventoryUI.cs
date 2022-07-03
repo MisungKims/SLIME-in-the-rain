@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class InventoryUI : MonoBehaviour
     public GameObject statsUI;
     public GameObject CombinationUI;
     public GameObject DissolutionUI;
+
+    private JellyManager jellyManager;
+
+    public TextMeshProUGUI JellyTextC; //Á©¸®
     #region onOffBool
     bool activeInventory = false;
     bool activeStatsUI = false;
@@ -33,10 +38,12 @@ public class InventoryUI : MonoBehaviour
         inven = Inventory.Instance;
         slots = slotHolder.GetComponentsInChildren<Slot>();
         inven.onSlotCountChange += SlotChange;
+        inven.onChangedItem += RedrawSlotUI;
         inventroyPanel.SetActive(activeInventory);
         statsUI.SetActive(activeStatsUI);
         CombinationUI.SetActive(activeCombination);
         DissolutionUI.SetActive(activeDissolution);
+        jellyManager = JellyManager.Instance;
     }
     private void Update()
     {
@@ -53,6 +60,7 @@ public class InventoryUI : MonoBehaviour
             statsUI.SetActive(activeStatsUI);
             CombinationUI.SetActive(activeCombination);
             DissolutionUI.SetActive(activeDissolution);
+            JellyTextC.text = jellyManager.JellyCount.ToString();
     }
     #endregion
 
@@ -104,10 +112,10 @@ public class InventoryUI : MonoBehaviour
         activeCombination = false;
     }
     #endregion
-    #endregion
+   
 
 
-    /*void RedrawSlotUI()
+    void RedrawSlotUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -118,5 +126,6 @@ public class InventoryUI : MonoBehaviour
             slots[i].item = inven.items[i];
             slots[i].UpdateSlotUI();
         }
-    }*/
+    }
+    #endregion
 }
