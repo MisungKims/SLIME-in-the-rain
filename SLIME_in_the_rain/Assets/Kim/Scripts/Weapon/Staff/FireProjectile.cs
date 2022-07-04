@@ -8,19 +8,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireProjectile : Projectile
+public class FireProjectile : StaffProjectile
 {
     #region 함수
     // 데미지를 입힘
-    protected override void DoDamage(Collider other)
+    protected override void DoDamage(Collider other, bool isSkill)
     {
         Debug.Log(other.name);
 
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
-            damagedObject.Damaged();
-            damagedObject.Stun();       // 스턴
+            if (isSkill) damagedObject.SkillDamaged();
+            else damagedObject.AutoAtkDamaged();
         }
     }
     #endregion

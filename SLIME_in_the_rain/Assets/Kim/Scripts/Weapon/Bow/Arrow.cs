@@ -10,7 +10,33 @@ using UnityEngine;
 
 public class Arrow : Projectile
 {
-    #region 함수
+    #region 변수
+    private bool isPenetrate = false;       // 관통 화살인지?
+    public bool IsPenetrate { set { isPenetrate = value; } }
+    #endregion
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        isPenetrate = false;
+    }
+
+    #region 함수
+    // 데미지를 입힘
+    protected override void DoDamage(Collider other, bool isSkill)
+    {
+        if (!isPenetrate)
+        {
+            ObjectPoolingManager.Instance.Set(this.gameObject, flag);           // 관통화살이 아니면 사라짐
+        }
+        
+        IDamage damagedObject = other.transform.GetComponent<IDamage>();
+        if (damagedObject != null)
+        {
+            if (isSkill) damagedObject.SkillDamaged();
+            else damagedObject.AutoAtkDamaged();
+        }
+    }
     #endregion
 }

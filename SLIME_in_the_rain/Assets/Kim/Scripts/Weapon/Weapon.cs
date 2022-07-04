@@ -20,7 +20,9 @@ public enum EWeaponType
 public class Weapon : MonoBehaviour
 {
     #region 변수
-    public Stats stats;
+    public Stats stats;         // 무기의 스탯
+
+    public List<WeaponRuneInfo> weaponRuneInfos = new List<WeaponRuneInfo>();           // 무기의 룬 정보
 
     protected Slime slime;
 
@@ -31,6 +33,12 @@ public class Weapon : MonoBehaviour
     protected Vector3 angle = Vector3.zero;
 
     float attachSpeed = 10f;
+
+
+    //무기UI Text 변수
+    public string wName = "무기없음";
+    public string wColor = "기본색";
+    public string wSkill = "스킬없음";
 
     // 애니메이션
     [SerializeField]
@@ -44,15 +52,18 @@ public class Weapon : MonoBehaviour
 
     // 스킬
     public bool isCanSkill = true;
+    private int currentCoolTime;
+    public int CurrentCoolTime { get { return currentCoolTime; } }
 
     // 캐싱
     private WaitForSeconds waitForDash;
+    private WaitForSeconds waitFor1s = new WaitForSeconds(1f);
 
     protected StatManager statManager;
     #endregion
 
     #region 유니티 함수
-    void Start()
+    protected virtual void Start()
     {
         slime = Slime.Instance;
         statManager = StatManager.Instance;
@@ -79,6 +90,7 @@ public class Weapon : MonoBehaviour
 
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
+        UseRune();
     }
 
     // 대시 쿨타임 코루틴
@@ -96,7 +108,13 @@ public class Weapon : MonoBehaviour
     {
         isCanSkill = false;
 
-        yield return new WaitForSeconds(slime.Stat.coolTime);
+        currentCoolTime = (int)slime.Stat.coolTime;
+        for (int i = 0; i < slime.Stat.coolTime; i++)
+        {
+            yield return waitFor1s;
+
+            currentCoolTime--;
+        }
 
         isCanSkill = true;
     }
@@ -119,9 +137,19 @@ public class Weapon : MonoBehaviour
     #endregion
 
     #region 함수
+    // 무기 UI 할당한 정보 넣어주기 
+    protected void UIseting(string n, string c, string s) 
+    {
+        this.wName = n;
+        this.wColor = c;
+        this.wSkill = s;
+    }
+
     // 평타
     protected virtual void AutoAttack(Vector3 targetPos)
     {
+        RuneManager.Instance.UseAttackRune();
+
         PlayAnim(AnimState.autoAttack);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
@@ -130,6 +158,9 @@ public class Weapon : MonoBehaviour
     // 스킬
     protected virtual void Skill(Vector3 targetPos)
     {
+        RuneManager.Instance.UseAttackRune();
+        RuneManager.Instance.UseSkillRune();
+
         PlayAnim(AnimState.skill);
 
         StartCoroutine(CheckAnimEnd("Skill"));
@@ -147,6 +178,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
+            RuneManager.Instance.UseDashRune();
             StartCoroutine(DashTimeCount());        // 대시 쿨타임 카운트
             return true;
         }
@@ -156,6 +188,13 @@ public class Weapon : MonoBehaviour
     public void DoAttach()
     {
         StartCoroutine(AttachToSlime());
+    }
+
+    // 룬 사용
+    public void UseRune()
+    {
+        // 무기 룬을 발동시킬 수 있는지 판별 후 발동
+        RuneManager.Instance.IsHaveWeaponRune(this);
     }
 
     // 애니메이션 재생

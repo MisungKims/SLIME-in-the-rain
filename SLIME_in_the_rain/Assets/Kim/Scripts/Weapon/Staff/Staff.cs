@@ -12,9 +12,9 @@ public class Staff : Weapon
 {
     #region 변수
     [SerializeField]
-    private Transform projectilePos;        // 생성될 투사체의 위치
+    protected Transform projectilePos;        // 생성될 투사체의 위치
 
-    Vector3 lookRot;
+    protected Vector3 lookRot;
 
     protected EProjectileFlag projectileFlag;     // 생성할 투사체의 flag
     protected EProjectileFlag skillProjectileFlag;     // 생성할 스킬 투사체의 flag
@@ -23,21 +23,13 @@ public class Staff : Weapon
     float dashDistance = 400f;   // 대시할 거리
     #endregion
 
-    #region 유니티 함수
-
-    #endregion
-
-    #region 코루틴
-
-    #endregion
-
     #region 함수
     // 평타
     protected override void AutoAttack(Vector3 targetPos)
     {
         base.AutoAttack(targetPos);
 
-        GetProjectile(projectileFlag, targetPos);
+        GetProjectile(projectileFlag, targetPos, false);
     }
 
     // 스킬
@@ -45,7 +37,7 @@ public class Staff : Weapon
     {
         base.Skill(targetPos);
 
-        GetProjectile(skillProjectileFlag, targetPos);
+        GetProjectile(skillProjectileFlag, targetPos, true);
     }
 
     // 대시
@@ -65,17 +57,35 @@ public class Staff : Weapon
     }
 
     // 투사체 생성
-    public void GetProjectile(EProjectileFlag flag, Vector3 targetPos)
+    public virtual void GetProjectile(EProjectileFlag flag, Vector3 targetPos, bool isSkill)
     {
         // 투사체 생성 뒤 마우스 방향을 바라봄
-        GameObject arrow = ObjectPoolingManager.Instance.Get(flag, transform.position, Vector3.zero);
-        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+        StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
+        projectile.isSkill = isSkill;
 
-        lookRot = arrow.transform.eulerAngles;
+        LookAtPos(projectile, targetPos);
+        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
+    }
+
+    protected void LookAtPos(StaffProjectile projectile, Vector3 targetPos)
+    {
+        projectile.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+
+        lookRot = projectile.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
 
-        arrow.transform.eulerAngles = lookRot;
+        projectile.transform.eulerAngles = lookRot;
+    }
+
+    // 유도 투사체 룬을 가지고 있다면 사용할 수 있도록
+    protected void MissileRune(StaffProjectile projectile)
+    {
+        if (weaponRuneInfos[0].isActive)
+        {
+            projectile.IsUseRune = true;
+            projectile.Target = slime.target;
+        }
     }
     #endregion
 }

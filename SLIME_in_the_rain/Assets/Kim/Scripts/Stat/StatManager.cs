@@ -1,7 +1,7 @@
 /**
  * @brief 스탯 매니저
  * @author 김미성
- * @date 22-06-27
+ * @date 22-06-30
  */
 
 using System.Collections;
@@ -63,9 +63,34 @@ public class StatManager : MonoBehaviour
     // 스탯 초기화
     void InitStats()
     {
-        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f);
-        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0f);
+        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
+    }
+
+    // amount 만큼 증가값을 반환
+    // ex) HP 30% 증가값
+    public float GetIncrementStat(string statName, float percent)
+    {
+        float returnVal = 0f;
+
+        switch (statName)
+        {
+            case "MaxHP":
+                returnVal = (myStats.maxHP * percent) * 0.01f;
+                break;
+            case "AtkSpeed":
+                returnVal = (myStats.attackSpeed * percent) * 0.01f;
+                break;
+            case "AtkPower":
+                returnVal = (myStats.attackPower * percent) * 0.01f;
+                break;
+            case "AtkRange":
+                returnVal = (myStats.attackRange * percent) * 0.01f;
+                break;
+        }
+
+        return returnVal;
     }
 
     // 무기 변경 시 해당 무기의 스탯으로 변경
@@ -76,7 +101,10 @@ public class StatManager : MonoBehaviour
         myStats.moveSpeed = weapon.stats.moveSpeed + extraStats.moveSpeed;
         myStats.attackSpeed = weapon.stats.attackSpeed + extraStats.attackSpeed;
         myStats.attackPower = weapon.stats.attackPower + extraStats.attackPower;
+        myStats.attackRange = weapon.stats.attackRange + extraStats.attackRange;
         myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
+        myStats.hitCount = weapon.stats.hitCount * extraStats.hitCount;
+        myStats.increasesDamage = weapon.stats.increasesDamage + extraStats.increasesDamage;
     }
 
     // Max Hp 스탯 변경
@@ -85,14 +113,27 @@ public class StatManager : MonoBehaviour
         extraStats.maxHP += amount;
 
         currentWeapon = slime.currentWeapon;
-        if (currentWeapon)                       
+        if (currentWeapon != null)
         {
-            // 무기를 가진 상태라면, 무기의 스탯 값에서 계산
-            myStats.maxHP = currentWeapon.stats.maxHP + extraStats.maxHP;
+            myStats.maxHP = currentWeapon.stats.maxHP + extraStats.maxHP;            // 무기를 가진 상태라면, 무기의 스탯 값에서 계산
         }
         else
         {
             myStats.maxHP = originStats.maxHP + extraStats.maxHP;
+        }
+    }
+
+    // Hp 스탯 변경
+    public void AddHP(float amount)
+    {
+        float sum = amount + myStats.HP;
+        if (sum > myStats.maxHP)
+        {
+            myStats.HP = myStats.maxHP;
+        }
+        else
+        {
+            myStats.HP = sum;
         }
     }
 
@@ -134,7 +175,7 @@ public class StatManager : MonoBehaviour
         extraStats.attackSpeed += amount;
 
         currentWeapon = slime.currentWeapon;
-        if (currentWeapon)
+        if (currentWeapon != null)
         {
             myStats.attackSpeed = currentWeapon.stats.attackSpeed + extraStats.attackSpeed;
         }
@@ -160,6 +201,22 @@ public class StatManager : MonoBehaviour
         }
     }
 
+    // 공격 범위 스탯 변경
+    public void MultipleAttackRange(float amount)
+    {
+        extraStats.attackRange *= amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.attackRange = currentWeapon.stats.attackRange * extraStats.attackRange;
+        }
+        else
+        {
+            myStats.attackRange = originStats.attackRange * extraStats.attackRange;
+        }
+    }
+
     // 방어력 스탯 변경
     public void AddDefensePower(float amount)
     {
@@ -176,5 +233,60 @@ public class StatManager : MonoBehaviour
         }
     }
 
-#endregion
+    // 타수 스탯 변경
+    // ex) amount가 2면 2배
+    public void MultipleHitCount(int amount)
+    {
+        extraStats.hitCount *= amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.hitCount = currentWeapon.stats.hitCount * extraStats.hitCount;
+        }
+        else
+        {
+            myStats.hitCount = originStats.hitCount * extraStats.hitCount;
+        }
+    }
+
+    // 데미지 증가
+    public void AddDamage(float amount)
+    {
+        extraStats.increasesDamage += amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.increasesDamage = currentWeapon.stats.increasesDamage + extraStats.increasesDamage;
+        }
+        else
+        {
+            myStats.increasesDamage = originStats.increasesDamage + extraStats.increasesDamage;
+        }
+    }
+
+    
+    /// TODO : 데미지 구현
+
+    // 평타 데미지 반환
+    public float GetAutoAtkDamage()
+    {
+        float damage = 1f;
+
+        damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
+
+        return damage;
+    }
+
+    // 스킬 데미지 반환
+    public float GetSkillDamage()
+    {
+        float damage = 0.1f;
+
+        damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
+
+        return damage;
+    }
+    #endregion
 }

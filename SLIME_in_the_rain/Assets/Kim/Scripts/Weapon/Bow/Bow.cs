@@ -23,6 +23,14 @@ public class Bow : Weapon
         angle = new Vector3(0f, -90f, 0f);
         dashCoolTime = 2f;
     }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        UIseting("활", "노란색", "애쉬w"); //내용 정보 셋팅 //jeon 추가
+    }
+
     #endregion
 
     #region 코루틴
@@ -35,9 +43,7 @@ public class Bow : Weapon
     {
         base.AutoAttack(targetPos);         // 평타 애니메이션 재생
 
-        GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero);
-        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
-
+        Arrow arrow = GetProjectile(targetPos);
         lookRot = arrow.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
@@ -57,12 +63,7 @@ public class Bow : Weapon
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            GameObject arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow);
-
-            arrow.transform.position = this.transform.position;
-
-            arrow.transform.LookAt(targetPos);                  // 마우스 클릭 위치로 바라보게 한 다음  
-
+            Arrow arrow = GetProjectile(targetPos);
             lookRot = arrow.transform.eulerAngles;
             lookRot.x = 0;
             lookRot.y += y + 180;
@@ -70,6 +71,17 @@ public class Bow : Weapon
 
             arrow.transform.eulerAngles = lookRot;     // 각도를 조절해 부채꼴처럼 보이도록 함
         }
+    }
+
+    // 투사체(화살) 생성
+    Arrow GetProjectile(Vector3 targetPos)
+    {
+        Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero).GetComponent<Arrow>();
+        if (weaponRuneInfos[0].isActive) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
+
+        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+
+        return arrow;
     }
 
     // 대시

@@ -14,20 +14,24 @@ public enum EProjectileFlag     // 투사체 Flag
     ice,
     fire,
     iceSkill,
-    fireSkill
+    fireSkill,
+    dagger,
+    sword
 }
 
 public class Projectile : MonoBehaviour
 {
     #region 변수
     [SerializeField]
-    private float speed;
+    protected float speed;
 
     private float damageAmount;
     public float DamageAmount { set { damageAmount = value; } }
 
     [SerializeField]
-    private EProjectileFlag flag;
+    protected EProjectileFlag flag;
+
+    public bool isSkill;
 
     // 캐싱
     WaitForSeconds waitFor1s = new WaitForSeconds(1f);
@@ -35,27 +39,26 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region 유니티 함수
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         StartCoroutine(Remove());
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        Move();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DamagedObject"))
         {
-            DoDamage(other);
+            DoDamage(other, isSkill);
         }
     }
     #endregion
 
     #region 코루틴
-
     // 2초 후에 없어짐
     IEnumerator Remove()
     {
@@ -63,19 +66,24 @@ public class Projectile : MonoBehaviour
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
-
     #endregion
 
     #region 함수
+    protected virtual void Move()
+    {
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    }
+
     // 데미지를 입힘
-    protected virtual void DoDamage(Collider other)
+    protected virtual void DoDamage(Collider other, bool isSkill)
     {
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
 
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
-            damagedObject.Damaged();
+           if(isSkill) damagedObject.SkillDamaged();
+           else damagedObject.AutoAtkDamaged();
         }
     }
     #endregion
