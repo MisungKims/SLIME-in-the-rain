@@ -14,6 +14,11 @@ public class Item
     public ItemType itemType;
     public string itemName;
     public Sprite itemIcon;
+    public GameObject itemGB;
+
+    public Material itemMaterial;
+
+
     public bool Use()
     {
         return false;
