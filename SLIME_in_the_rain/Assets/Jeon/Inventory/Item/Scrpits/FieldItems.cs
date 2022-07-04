@@ -9,6 +9,8 @@ public class FieldItems : PickUp
     public MeshRenderer gb;
     Inventory inventory;
     Slime slime;
+    [SerializeField]
+    FadeOutText warningText;
     #endregion
 
     #region 유니티 함수
@@ -49,7 +51,9 @@ public class FieldItems : PickUp
             targetPos.z = transform.position.z + (dir.z * velocity);
 
             transform.position = targetPos;
-            Debug.Log("아이템 공간 없음");
+
+            if (warningText.gameObject.activeSelf) warningText.isAgain = true;
+            else warningText.gameObject.SetActive(true);
         }
     }
 

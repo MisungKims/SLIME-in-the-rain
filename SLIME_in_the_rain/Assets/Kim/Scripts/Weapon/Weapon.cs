@@ -91,6 +91,7 @@ public class Weapon : MonoBehaviour
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
         UseRune();
+        ///////////////여기에 추가(무기 바꾼거)
     }
 
     // 대시 쿨타임 코루틴
