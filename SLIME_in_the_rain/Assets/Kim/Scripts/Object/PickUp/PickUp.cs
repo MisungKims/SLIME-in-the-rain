@@ -14,11 +14,11 @@ public abstract class PickUp : MonoBehaviour
     private Slime slime;
 
     // 슬라임 감지에 필요한 변수
-    float velocity;
-    float acceleration = 0.2f;
-    float distance;
-    Vector3 dir;
-    Vector3 targetPos;
+   protected float velocity;
+    protected float acceleration = 0.2f;
+    protected float distance;
+    protected Vector3 dir;
+    protected Vector3 targetPos;
     Vector3 offset;
     #endregion
 
