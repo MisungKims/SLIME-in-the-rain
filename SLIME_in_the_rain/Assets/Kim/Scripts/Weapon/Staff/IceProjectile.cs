@@ -11,7 +11,7 @@ using UnityEngine;
 public class IceProjectile : StaffProjectile
 {
     #region 변수
-    private float stunTime = 1f;
+    private float stunTime = 2f;
     public float StunTime { get { return stunTime; } set { stunTime = value; } }
     #endregion
 
@@ -30,7 +30,7 @@ public class IceProjectile : StaffProjectile
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
-            if (isSkill) damagedObject.SkillDamaged();
+            if (isSkill) damagedObject.Stun(StunTime);
             else damagedObject.AutoAtkDamaged();
 
             damagedObject.Stun(stunTime);       // 스턴

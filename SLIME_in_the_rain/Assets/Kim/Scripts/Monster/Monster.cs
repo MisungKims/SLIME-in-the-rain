@@ -1,7 +1,7 @@
 /**
- * @brief 몬스터
+ * @brief 몬스터 스크립트
  * @author 김미성
- * @date 22-07-04
+ * @date 22-07-05
  */
 
 using System.Collections;
@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEditor;  // OnDrawGizmos
 
+// 몬스터의 애니메이션 상태
 public enum EMonsterAnim
 {
     idle,
@@ -26,82 +27,107 @@ public class Monster : MonoBehaviour, IDamage
 {
     #region 변수
     private Animator anim;
+    private NavMeshAgent nav;
 
     [SerializeField]
-    private Stats stats;
+    protected Stats stats;
 
-    // 슬라임 감지
-    private float detectRange = 2f;
-    private float angleRange = 90f;
-    Vector3 direction;
-    float dotValue = 0f;
     [SerializeField]
-    private LayerMask slimeLayer = 9;
-    private Transform target;
+    protected LayerMask slimeLayer = 9;
+    protected Transform target;
+
 
     // 공격
-    NavMeshAgent nav;
-    private bool isChasing = false;
-    private bool isAttacking = false;
-    int randAttack;
+    Collider[] atkRangeColliders;       // 공격 범위 감지 콜라이더
 
-    private bool isStun = false;
+    protected bool isChasing = false;   // 추적 중인지?
+
+    protected bool isAttacking = false; // 공격 중인지?
+    public bool IsAttacking
+    {
+        set
+        {
+            isAttacking = value;
+            if (!isChasing) isAttacking = false;
+        }
+    }
+
+    private int randAttack;      // 공격 방법
+
+    // 공격 후 대기 시간
+    private float randAtkTime;          
+    private float minAtkTime = 1f;
+    private float maxAtkTime = 3f;
+
+    // 스턴
+    protected bool isStun = false;
 
     // 캐싱
-    StatManager statManager;
+    protected StatManager statManager;
     #endregion
 
     #region 유니티 함수
 
-    private void Awake()
+    protected virtual void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         statManager = StatManager.Instance;
 
-        PlayAnim(EMonsterAnim.idle);
+        nav.speed = stats.moveSpeed;
 
-        StartCoroutine(DetectSlime());
+        PlayAnim(EMonsterAnim.idle);
     }
     #endregion
 
     #region 코루틴
 
-    // 슬라임 감지 코루틴
-    IEnumerator DetectSlime()
+    // 감지된 슬라임을 쫓음
+    IEnumerator Chase()
     {
-        while (true)
+        while (target && isChasing)
         {
-            if (!isChasing)           // 슬라임을 쫓는 중이 아닐 때
+            // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
+            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+            if (atkRangeColliders.Length > 0 && !isAttacking)
             {
-                // 원 안에 들어온 슬라임 콜라이더를 구하여 공격
-                Collider[] colliders = Physics.OverlapSphere(transform.position, detectRange, slimeLayer);
-
-                if (colliders.Length > 0)
-                {
-                    dotValue = Mathf.Cos(Mathf.Deg2Rad * (angleRange / 2));             // 각도에 대한 코사인값
-                    direction = colliders[0].transform.position - transform.position;      // 몬스터에서 슬라임을 보는 벡터
-
-                    if (direction.magnitude < detectRange)         // 탐지한 오브젝트와 부채꼴의 중심점의 거리를 비교 
-                    {
-                        // 탐지한 오브젝트가 각도안에 들어왔으면 공격 시작
-                        if (Vector3.Dot(direction.normalized, transform.forward) > dotValue)
-                        {
-                            target = colliders[0].transform;
-                            Chase();
-                            Debug.Log("Detect slime");
-                        }
-                    }
-                }
-
+                IsAttacking = true;
+                StartCoroutine(Attack());
             }
+            else if(atkRangeColliders.Length <= 0)
+            {
+                IsAttacking = false;
+                PlayAnim(EMonsterAnim.run);
+            }
+
+            // 슬라임을 쫓아다님
+            nav.SetDestination(target.position);
+
             yield return null;
         }
     }
+
+    // 공격 
+    IEnumerator Attack()
+    {
+        while (isAttacking)
+        {
+            // 공격 방식을 랜덤으로 실행
+            randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
+            DamageSlime(randAttack);
+
+            PlayAnim((EMonsterAnim)randAttack);
+
+            // 랜덤한 시간동안 대기
+            randAtkTime = Random.Range(minAtkTime, maxAtkTime);
+            yield return new WaitForSeconds(randAtkTime);
+        }
+    }
+
 
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
     public IEnumerator CheckAnimEnd(string state)
@@ -134,105 +160,97 @@ public class Monster : MonoBehaviour, IDamage
     #region 함수
     #region 데미지
     // 슬라임의 평타에 데미지를 입음
-    public void AutoAtkDamaged()
+    public virtual void AutoAtkDamaged()
     {
         PlayAnim(EMonsterAnim.hit);
-        StartCoroutine(CheckAnimEnd("GetHit"));
 
-        stats.HP -= statManager.GetAutoAtkDamage();
+        float damage = statManager.GetAutoAtkDamage();
+        stats.HP -= damage;
+        ShowDamage(damage);
 
         Debug.Log(name + " 평타 " + statManager.GetAutoAtkDamage());
     }
 
     // 슬라임의스킬에 데미지를 입음
-    public void SkillDamaged()
+    public virtual void SkillDamaged()
     {
         PlayAnim(EMonsterAnim.hit);
-        StartCoroutine(CheckAnimEnd("GetHit"));
 
-        stats.HP -= statManager.GetSkillDamage();
+        float damage = statManager.GetSkillDamage();
+        stats.HP -= damage;
+        ShowDamage(damage);
 
         Debug.Log(name + " 스킬 " + statManager.GetSkillDamage());
     }
 
     // 스턴
-    public void Stun(float stunTime)
+    public virtual void Stun(float stunTime)
     {
+        float damage = statManager.GetSkillDamage();
+        stats.HP -= damage;
+        ShowDamage(damage);
+
         StartCoroutine(DoStun(stunTime));
+    }
+
+    // 데미지 피격 수치 UI로 보여줌
+    protected void ShowDamage(float damage)
+    {
+        DamageText damageText = ObjectPoolingManager.Instance.Get(EObjectFlag.damageText, transform.position).GetComponent<DamageText>();
+        damageText.Damage = (int)damage;
     }
     #endregion
 
-    void Chase()
+    #region 공격
+    // 슬라임에게 데미지를 입힘
+    void DamageSlime(int atkType)
     {
         if (!target) return;
 
-        isChasing = true;
-        nav.SetDestination(target.position);
-        PlayAnim(EMonsterAnim.walk);
-        StartCoroutine(CanAttack());
-    }
-
-    IEnumerator CanAttack()
-    {
-        while (isChasing)
+        IDamage damagedObject = target.GetComponent<IDamage>();
+        if (damagedObject != null)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-            if (colliders.Length > 0)
-            {
-                Debug.Log("TRUE");
-                isAttacking = true;
-
-                randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
-                PlayAnim((EMonsterAnim)randAttack);
-                //if (randAttack == (int)EMonsterAnim.attack1) StartCoroutine(CheckAnimEnd("Attack01"));
-                //else StartCoroutine(CheckAnimEnd("Attack02"));
-            }
-            else
-            {
-                Debug.Log("FALSE");
-                isAttacking = false;
-                PlayAnim(EMonsterAnim.walk);
-            }
-
-            yield return null;
+            // Attack1보다 Attack2의 데미지가 더 크도록
+            if (atkType == (int)EMonsterAnim.attack1) damagedObject.AutoAtkDamaged();
+            else damagedObject.SkillDamaged();
         }
     }
 
-    // 공격
-    void Attack()
+    // 추적 시작
+    protected void StartChase(Transform targetTransform)
     {
-        
-
-        Collider[] colliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-        if (colliders.Length > 0)
+        if (!isChasing)
         {
-            isAttacking = true;
-
-            //randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
-            //PlayAnim((EMonsterAnim)randAttack);
-            //if (randAttack == (int)EMonsterAnim.attack1) StartCoroutine(CheckAnimEnd("Attack01"));
-            //else StartCoroutine(CheckAnimEnd("Attack02"));
+            isChasing = true;
+            target = targetTransform;
+            StartCoroutine(Chase());
         }
-        else
-        {
-            isAttacking = false;
-        }
-
     }
 
-    // 애니메이션 플레이
-    void PlayAnim(EMonsterAnim animState)
+    // 추적 정지
+    protected void StopChase()
     {
-        anim.SetInteger("animation", (int)animState);
+        if (isChasing)
+        {
+            isChasing = false;
+            target = null;
+            PlayAnim(EMonsterAnim.idle);
+        }
     }
     #endregion
 
-    // 유니티 에디터에 부채꼴을 그려줄 메소드
-    private void OnDrawGizmos()
+    // 애니메이션 플레이
+    protected void PlayAnim(EMonsterAnim animState)
     {
-        Handles.color = new Color(0f, 0f, 1f, 0.2f);
-        // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, detectRange);
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, detectRange);
+        int state = (int)animState;
+
+        anim.SetInteger("animation", state);
+
+        // 반복해야하는 애니메이션이 아니라면, 애니메이션이 끝난 후 상태를 Idle로 변경
+        if (state >= (int)EMonsterAnim.attack1 && state <= (int)EMonsterAnim.hit)
+        {
+            StartCoroutine(CheckAnimEnd(state.ToString()));
+        }
     }
+    #endregion
 }
