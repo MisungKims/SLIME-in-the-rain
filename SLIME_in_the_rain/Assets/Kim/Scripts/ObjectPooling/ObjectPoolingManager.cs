@@ -13,7 +13,8 @@ public enum EObjectFlag
     shield,
     box,
     jelly,
-    gelatin
+    gelatin,
+    damageText
 }
 
 public class ObjectPoolingManager : MonoBehaviour

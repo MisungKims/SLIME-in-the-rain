@@ -1,3 +1,9 @@
+/**
+ * @brief 페이드 아웃하는 텍스트
+ * @author 김미성
+ * @date 22-07-05
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +12,6 @@ using TMPro;
 public class FadeOutText : MonoBehaviour
 {
     #region 변수
-
     Material material;
 
     float alpha;                // 투명도
@@ -18,20 +23,20 @@ public class FadeOutText : MonoBehaviour
     #endregion
 
     #region 유니티 함수
-    private void Awake()
+    protected virtual void Awake()
     {
         material = GetComponent<TextMeshProUGUI>().fontMaterial;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        StartCoroutine(FadeOut());
+        StartCoroutine(ActiveFalse());
     }
     #endregion
 
     #region 코루틴
     // Fade Out 코루틴
-    IEnumerator FadeOut()
+    protected IEnumerator FadeOut()
     {
         material.SetColor("_FaceColor", Color.Lerp(Color.clear, Color.white, 1));
 
@@ -55,6 +60,11 @@ public class FadeOutText : MonoBehaviour
 
             alpha -= Time.deltaTime;
         }
+    }
+
+    protected virtual IEnumerator ActiveFalse()
+    {
+        yield return StartCoroutine(FadeOut());
 
         gameObject.SetActive(false);
     }
