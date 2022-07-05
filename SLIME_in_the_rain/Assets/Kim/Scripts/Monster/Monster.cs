@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEditor;  // OnDrawGizmos
 
 public enum EMonsterAnim
@@ -30,13 +31,17 @@ public class Monster : MonoBehaviour, IDamage
     private Stats stats;
 
     // 슬라임 감지
+    private float detectRange = 2f;
     private float angleRange = 90f;
     Vector3 direction;
     float dotValue = 0f;
+    [SerializeField]
     private LayerMask slimeLayer = 9;
     private Transform target;
 
     // 공격
+    NavMeshAgent nav;
+    private bool isChasing = false;
     private bool isAttacking = false;
     int randAttack;
 
@@ -50,6 +55,7 @@ public class Monster : MonoBehaviour, IDamage
 
     private void Awake()
     {
+        nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
     }
 
@@ -70,22 +76,23 @@ public class Monster : MonoBehaviour, IDamage
     {
         while (true)
         {
-            if (!isAttacking)           // 공격 중이 아닐 때
+            if (!isChasing)           // 슬라임을 쫓는 중이 아닐 때
             {
                 // 원 안에 들어온 슬라임 콜라이더를 구하여 공격
-                Collider[] colliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, detectRange, slimeLayer);
 
                 if (colliders.Length > 0)
                 {
                     dotValue = Mathf.Cos(Mathf.Deg2Rad * (angleRange / 2));             // 각도에 대한 코사인값
                     direction = colliders[0].transform.position - transform.position;      // 몬스터에서 슬라임을 보는 벡터
 
-                    if (direction.magnitude < stats.attackRange)         // 탐지한 오브젝트와 부채꼴의 중심점의 거리를 비교 
+                    if (direction.magnitude < detectRange)         // 탐지한 오브젝트와 부채꼴의 중심점의 거리를 비교 
                     {
                         // 탐지한 오브젝트가 각도안에 들어왔으면 공격 시작
                         if (Vector3.Dot(direction.normalized, transform.forward) > dotValue)
                         {
                             target = colliders[0].transform;
+                            Chase();
                             Debug.Log("Detect slime");
                         }
                     }
@@ -155,15 +162,62 @@ public class Monster : MonoBehaviour, IDamage
     }
     #endregion
 
-    // 공격
-    void Attack()
+    void Chase()
     {
         if (!target) return;
 
-        randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
-        PlayAnim((EMonsterAnim)randAttack);
-        if (randAttack == (int)EMonsterAnim.attack1) StartCoroutine(CheckAnimEnd("Attack01"));
-        else StartCoroutine(CheckAnimEnd("Attack02"));
+        isChasing = true;
+        nav.SetDestination(target.position);
+        PlayAnim(EMonsterAnim.walk);
+        StartCoroutine(CanAttack());
+    }
+
+    IEnumerator CanAttack()
+    {
+        while (isChasing)
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+            if (colliders.Length > 0)
+            {
+                Debug.Log("TRUE");
+                isAttacking = true;
+
+                randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
+                PlayAnim((EMonsterAnim)randAttack);
+                //if (randAttack == (int)EMonsterAnim.attack1) StartCoroutine(CheckAnimEnd("Attack01"));
+                //else StartCoroutine(CheckAnimEnd("Attack02"));
+            }
+            else
+            {
+                Debug.Log("FALSE");
+                isAttacking = false;
+                PlayAnim(EMonsterAnim.walk);
+            }
+
+            yield return null;
+        }
+    }
+
+    // 공격
+    void Attack()
+    {
+        
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+        if (colliders.Length > 0)
+        {
+            isAttacking = true;
+
+            //randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
+            //PlayAnim((EMonsterAnim)randAttack);
+            //if (randAttack == (int)EMonsterAnim.attack1) StartCoroutine(CheckAnimEnd("Attack01"));
+            //else StartCoroutine(CheckAnimEnd("Attack02"));
+        }
+        else
+        {
+            isAttacking = false;
+        }
+
     }
 
     // 애니메이션 플레이
@@ -178,7 +232,7 @@ public class Monster : MonoBehaviour, IDamage
     {
         Handles.color = new Color(0f, 0f, 1f, 0.2f);
         // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, stats.attackRange);
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, stats.attackRange);
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, detectRange);
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, detectRange);
     }
 }
