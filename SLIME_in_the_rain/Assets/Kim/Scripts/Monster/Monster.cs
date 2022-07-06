@@ -1,13 +1,14 @@
 /**
  * @brief 몬스터 스크립트
  * @author 김미성
- * @date 22-07-05
+ * @date 22-07-06
  */
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEditor;  // OnDrawGizmos
 
 // 몬스터의 애니메이션 상태
@@ -16,8 +17,7 @@ public enum EMonsterAnim
     idle,
     walk,
     run,
-    attack1,
-    attack2,
+    attack,
     hit,
     stun,
     die
@@ -26,6 +26,9 @@ public enum EMonsterAnim
 public class Monster : MonoBehaviour, IDamage
 {
     #region 변수
+    [SerializeField]
+    private int attackTypeCount;
+
     private Animator anim;
     private NavMeshAgent nav;
 
@@ -35,6 +38,16 @@ public class Monster : MonoBehaviour, IDamage
     [SerializeField]
     protected LayerMask slimeLayer = 9;
     protected Transform target;
+
+    private EMonsterAnim currentAnim;
+
+
+    // 추적
+    private bool takeDamage;            // 데미지를 입었는지?
+    private bool isCounting;            // 추적 카운팅을 시작했는지?
+
+    private float originCountTime = 10f;    // 기본 카운팅 시간
+    private float countTime;                // 카운팅해야하는 시간
 
 
     // 공격
@@ -62,8 +75,15 @@ public class Monster : MonoBehaviour, IDamage
     // 스턴
     protected bool isStun = false;
 
+    // 체력바
+    [SerializeField]
+    private Slider hpBar;
+
     // 캐싱
     protected StatManager statManager;
+    private WaitForSeconds waitFor1s = new WaitForSeconds(1f);
+    private Slime slime;
+
     #endregion
 
     #region 유니티 함수
@@ -72,11 +92,14 @@ public class Monster : MonoBehaviour, IDamage
     {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        hpBar.maxValue = stats.maxHP;
     }
 
     protected virtual void Start()
     {
         statManager = StatManager.Instance;
+        slime = Slime.Instance;
 
         nav.speed = stats.moveSpeed;
 
@@ -117,10 +140,16 @@ public class Monster : MonoBehaviour, IDamage
         while (isAttacking)
         {
             // 공격 방식을 랜덤으로 실행
-            randAttack = Random.Range((int)EMonsterAnim.attack1, (int)EMonsterAnim.attack2 + 1);
-            DamageSlime(randAttack);
+            PlayAnim(EMonsterAnim.idle);
 
-            PlayAnim((EMonsterAnim)randAttack);
+            yield return new WaitForSeconds(0.1f);
+
+            randAttack = Random.Range(0, attackTypeCount);
+            anim.SetInteger("attack", randAttack);
+
+            PlayAnim(EMonsterAnim.attack);
+
+            DamageSlime(randAttack);
 
             // 랜덤한 시간동안 대기
             randAtkTime = Random.Range(minAtkTime, maxAtkTime);
@@ -128,15 +157,52 @@ public class Monster : MonoBehaviour, IDamage
         }
     }
 
+    // 슬라임 추적을 시작하고 시간이 지나도 공격을 못하면 추적 중지
+    IEnumerator ChaseTimeCount()
+    {
+        isCounting = true;
+        takeDamage = false;
+        countTime = originCountTime;
+
+        for (int i = 0; i < countTime; i++)
+        {
+            if (takeDamage)                      // 카운트 세는 도중 데미지를 입었다면, 카운트 시간을 증가시킴
+            {
+                countTime += originCountTime;
+                takeDamage = false;
+            }
+
+            if(isAttacking)                     // 공격을 시도했을 때에도 추적 중지 카운트 시간을 증가
+            {
+                countTime += originCountTime;
+            }
+
+            yield return waitFor1s;
+        }
+
+        if (isChasing && !isAttacking)
+        {
+            isCounting = false;
+            StopChase();
+        }
+    }
 
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
     public IEnumerator CheckAnimEnd(string state)
     {
         string name = "Base Layer." + state;
+
+        if (state == "3")
+        {
+            name = "Attack " + anim.GetInteger("attack");
+        }
+
         while (true)
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
             {
+                if(currentAnim.Equals(EMonsterAnim.attack)) anim.SetInteger("attack", -1);
+
                 PlayAnim(EMonsterAnim.idle);
                 break;
             }
@@ -153,7 +219,8 @@ public class Monster : MonoBehaviour, IDamage
         yield return new WaitForSeconds(time);
 
         isStun = false;
-        PlayAnim(EMonsterAnim.idle);
+        HaveDamage();
+        // PlayAnim(EMonsterAnim.idle);
     }
     #endregion
 
@@ -168,10 +235,12 @@ public class Monster : MonoBehaviour, IDamage
         stats.HP -= damage;
         ShowDamage(damage);
 
+        HaveDamage();
+
         Debug.Log(name + " 평타 " + statManager.GetAutoAtkDamage());
     }
 
-    // 슬라임의스킬에 데미지를 입음
+    // 슬라임의 스킬에 데미지를 입음
     public virtual void SkillDamaged()
     {
         PlayAnim(EMonsterAnim.hit);
@@ -179,6 +248,8 @@ public class Monster : MonoBehaviour, IDamage
         float damage = statManager.GetSkillDamage();
         stats.HP -= damage;
         ShowDamage(damage);
+
+        HaveDamage();
 
         Debug.Log(name + " 스킬 " + statManager.GetSkillDamage());
     }
@@ -198,6 +269,8 @@ public class Monster : MonoBehaviour, IDamage
     {
         DamageText damageText = ObjectPoolingManager.Instance.Get(EObjectFlag.damageText, transform.position).GetComponent<DamageText>();
         damageText.Damage = (int)damage;
+
+        SetHPBar();     // 체력바 설정
     }
     #endregion
 
@@ -210,10 +283,32 @@ public class Monster : MonoBehaviour, IDamage
         IDamage damagedObject = target.GetComponent<IDamage>();
         if (damagedObject != null)
         {
-            // Attack1보다 Attack2의 데미지가 더 크도록
-            if (atkType == (int)EMonsterAnim.attack1) damagedObject.AutoAtkDamaged();
-            else damagedObject.SkillDamaged();
+            damagedObject.AutoAtkDamaged();
         }
+    }
+
+    // 데미지를 입었을 때 슬라임 추적 시작
+    void HaveDamage()
+    {
+        takeDamage = true;
+
+        StartChase(slime.transform);
+
+        if (!isCounting)
+        {
+            StartCoroutine(ChaseTimeCount());       // 추적 타임 카운트 시작
+        }
+    }
+
+    // 체력바 활성화
+    void SetHPBar()
+    {
+        if (!hpBar.gameObject.activeSelf)
+        {
+            hpBar.gameObject.SetActive(true);
+        }
+
+        hpBar.value = stats.HP;
     }
 
     // 추적 시작
@@ -230,9 +325,10 @@ public class Monster : MonoBehaviour, IDamage
     // 추적 정지
     protected void StopChase()
     {
-        if (isChasing)
+        if (isChasing && !isCounting)
         {
             isChasing = false;
+            if (isAttacking) IsAttacking = false;
             target = null;
             PlayAnim(EMonsterAnim.idle);
         }
@@ -242,13 +338,23 @@ public class Monster : MonoBehaviour, IDamage
     // 애니메이션 플레이
     protected void PlayAnim(EMonsterAnim animState)
     {
+        
         int state = (int)animState;
+        currentAnim = animState;
 
         anim.SetInteger("animation", state);
 
-        // 반복해야하는 애니메이션이 아니라면, 애니메이션이 끝난 후 상태를 Idle로 변경
-        if (state >= (int)EMonsterAnim.attack1 && state <= (int)EMonsterAnim.hit)
+        if (!(animState.Equals(EMonsterAnim.attack)))
         {
+            anim.SetInteger("attack", -1);
+        }
+
+
+        //반복해야하는 애니메이션이 아니라면, 애니메이션이 끝난 후 상태를 Idle로 변경
+        if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.hit)
+        {
+            Debug.Log(animState + " " + anim.GetInteger("attack"));
+
             StartCoroutine(CheckAnimEnd(state.ToString()));
         }
     }

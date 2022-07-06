@@ -1,7 +1,7 @@
 /**
  * @details 부채꼴 범위에 들어오면 반응하는 감지형 몬스터
  * @author 김미성
- * @date 22-07-05
+ * @date 22-07-06
  */
 
 using System.Collections;
