@@ -16,6 +16,7 @@ public class DetectingMonster : Monster
     // 슬라임 감지
     Collider[] fanColliders;         // 부채꼴 감지 콜라이더
 
+    [SerializeField]
     private float detectRange = 2f;
     private float angleRange = 90f;
     Vector3 direction;

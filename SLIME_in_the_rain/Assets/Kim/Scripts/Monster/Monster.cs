@@ -397,7 +397,7 @@ public class Monster : MonoBehaviour, IDamage
     #endregion
 
     // 체력바 활성화
-    void ShowHPBar()
+    protected virtual void ShowHPBar()
     {
         if (!hpBar)
         {
@@ -411,7 +411,7 @@ public class Monster : MonoBehaviour, IDamage
     }
 
     // 체력바를 숨김
-    void HideHPBar()
+    protected virtual void HideHPBar()
     {
         if (!hpBar) return;
 
