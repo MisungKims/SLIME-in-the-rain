@@ -40,6 +40,13 @@ public class DamageText : FadeOutText
         text = GetComponent<TextMeshProUGUI>();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        transform.position = Vector3.zero;
+    }
+
     void Update()
     {
         transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));         // 위로 올라감

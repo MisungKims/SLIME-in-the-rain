@@ -20,13 +20,13 @@ public class DetectingMonster : Monster
     private float angleRange = 90f;
     Vector3 direction;
     float dotValue = 0f;
-  
+
     #endregion
 
     #region 유니티 함수
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
 
         StartCoroutine(DetectSlime());          // 슬라임 감지 시작
     }
@@ -36,7 +36,7 @@ public class DetectingMonster : Monster
     // 부채꼴 범위 안에 들어온 슬라임을 감지하는 코루틴
     IEnumerator DetectSlime()
     {
-        while (true)
+        while (!isDie)
         {
             // 원 안에 들어온 슬라임 콜라이더를 구하여 공격
             fanColliders = Physics.OverlapSphere(transform.position, detectRange, slimeLayer);
