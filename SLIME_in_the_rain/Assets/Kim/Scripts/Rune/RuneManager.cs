@@ -119,14 +119,14 @@ public class RuneManager : MonoBehaviour
     }
 
     // 공격 시 룬 발동
-    public void UseAttackRune()
+    public void UseAttackRune(GameObject monster)
     {
         for (int i = 0; i < runeCount; i++)
         {
             IAttackRune attackRune = myRunes[i].GetComponent<IAttackRune>();
             if (attackRune != null)
             {
-                attackRune.Attack();
+                attackRune.Attack(monster);
             }
         }
     }

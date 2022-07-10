@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    maxHP: 0
+    maxHP: 100
     HP: 0
     coolTime: 15
     moveSpeed: 1.2
@@ -59,6 +59,7 @@ MonoBehaviour:
     attackRange: 1
     defensePower: 1
     hitCount: 1
+    increasesDamage: 0
   weaponRuneInfos:
   - runeName: RuneStaff
     isActive: 0
@@ -66,6 +67,12 @@ MonoBehaviour:
     isActive: 0
   slimeMat: {fileID: 2100000, guid: 3462d5ced31a2ee448b7c86a3b98e7ae, type: 2}
   weaponType: 2
+  monsterLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  wName: "\uBB34\uAE30\uC5C6\uC74C"
+  wColor: "\uAE30\uBCF8\uC0C9"
+  wSkill: "\uC2A4\uD0AC\uC5C6\uC74C"
   anim: {fileID: 5914430299525577833}
   isCanSkill: 1
   projectilePos: {fileID: 8885171396042535961}

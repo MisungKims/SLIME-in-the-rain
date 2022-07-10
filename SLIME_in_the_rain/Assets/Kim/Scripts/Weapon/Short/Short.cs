@@ -69,6 +69,11 @@ public class Short : Weapon
         {
             if (isSkill) damagedObject.SkillDamaged();
             else damagedObject.AutoAtkDamaged();
+
+            if (hitObj.gameObject.layer == 8)
+            {
+                RuneManager.Instance.UseAttackRune(hitObj.gameObject);
+            }
         }
     }
     #endregion

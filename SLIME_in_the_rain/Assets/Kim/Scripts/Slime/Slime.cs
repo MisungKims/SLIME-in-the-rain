@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour, IDamage
+public class Slime : MonoBehaviour
 {
     #region 변수
     #region 싱글톤
@@ -430,25 +430,30 @@ public class Slime : MonoBehaviour, IDamage
     //}
 
 
-    // 슬라임의 평타에 데미지를 입음
-    public void AutoAtkDamaged()
+    //// 슬라임의 평타에 데미지를 입음
+    //public void AutoAtkDamaged()
+    //{
+    //    PlayAnim(AnimState.damaged);
+    //    Debug.Log("AutoAtkDamaged");
+    //    // 대미지 = 몬스터 공격력 * (1 - 방어율)
+    //    // 방어율 = 방어력 / (1 + 방어력)
+
+    //    //float damageReduction = stat.defensePower / (1 + stat.defensePower);
+    //    //stat.HP -= amount * (1 - damageReduction);
+
+    //    //
+    //}
+
+    //// 슬라임의스킬에 데미지를 입음
+    //public void SkillDamaged()
+    //{
+    //    PlayAnim(AnimState.damaged);
+    //    Debug.Log("SkillDamaged");
+    //}
+
+    public void Damaged(Stats monsterStats, int atkType)
     {
         PlayAnim(AnimState.damaged);
-        Debug.Log("AutoAtkDamaged");
-        // 대미지 = 몬스터 공격력 * (1 - 방어율)
-        // 방어율 = 방어력 / (1 + 방어력)
-
-        //float damageReduction = stat.defensePower / (1 + stat.defensePower);
-        //stat.HP -= amount * (1 - damageReduction);
-
-        //
-    }
-
-    // 슬라임의스킬에 데미지를 입음
-    public void SkillDamaged()
-    {
-        PlayAnim(AnimState.damaged);
-        Debug.Log("SkillDamaged");
     }
 
     // 스턴

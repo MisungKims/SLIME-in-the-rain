@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    maxHP: 0
-    HP: 0
+    maxHP: 100
+    HP: 30
     coolTime: 10
     moveSpeed: 1.2
     attackSpeed: 0.2
@@ -58,11 +58,18 @@ MonoBehaviour:
     attackRange: 1
     defensePower: 1
     hitCount: 1
+    increasesDamage: 0
   weaponRuneInfos:
   - runeName: RuneBow
     isActive: 0
   slimeMat: {fileID: 2100000, guid: 4b8fdc54d7714154d9ac0ac048601612, type: 2}
   weaponType: 4
+  monsterLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  wName: "\uBB34\uAE30\uC5C6\uC74C"
+  wColor: "\uAE30\uBCF8\uC0C9"
+  wSkill: "\uC2A4\uD0AC\uC5C6\uC74C"
   anim: {fileID: 3096576723380205761}
   isCanSkill: 1
 --- !u!33 &6809944777495323715
