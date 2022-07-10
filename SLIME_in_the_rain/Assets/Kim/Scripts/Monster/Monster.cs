@@ -23,31 +23,24 @@ public enum EMonsterAnim
     die
 }
 
-public class Monster : MonoBehaviour, IDamage
+public abstract class Monster : MonoBehaviour, IDamage
 {
     #region 변수
     [SerializeField]
     private int attackTypeCount;
 
     private Animator anim;
-    private NavMeshAgent nav;
+    protected NavMeshAgent nav;
 
     [SerializeField]
     protected Stats stats;
+    public Stats Stats { get { return stats; } }
 
     [SerializeField]
     protected LayerMask slimeLayer = 9;
     protected Transform target;
 
     private EMonsterAnim currentAnim;
-
-
-    // 추적
-    private bool takeDamage;            // 데미지를 입었는지?
-    private bool isCounting;            // 추적 카운팅을 시작했는지?
-
-    private float originCountTime = 10f;    // 기본 카운팅 시간
-    private float countTime;                // 카운팅해야하는 시간
 
 
     // 공격
@@ -75,25 +68,21 @@ public class Monster : MonoBehaviour, IDamage
     // 스턴
     protected bool isStun = false;
 
-    // 체력바
-    private Slider hpBar;
-    private Vector3 hpBarPos;
-
     protected bool isDie;
 
     // 캐싱
     private StatManager statManager;
-    private ObjectPoolingManager objectPoolingManager;
+    protected ObjectPoolingManager objectPoolingManager;
+    protected MonsterManager monsterManager;
     private Slime slime;
+    private DamageText damageText;
 
-    private WaitForSeconds waitFor1s = new WaitForSeconds(1f);
     private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     
     #endregion
 
     #region 유니티 함수
-
-    void Awake()
+    protected virtual void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
@@ -110,6 +99,7 @@ public class Monster : MonoBehaviour, IDamage
     {
         statManager = StatManager.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
+        monsterManager = MonsterManager.Instance;
         slime = Slime.Instance;
 
         nav.speed = stats.moveSpeed;
@@ -121,7 +111,7 @@ public class Monster : MonoBehaviour, IDamage
     // 감지된 슬라임을 쫓음
     IEnumerator Chase()
     {
-        while (target && isChasing)
+        while (target && isChasing && !isStun)
         {
             // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
             atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
@@ -166,36 +156,6 @@ public class Monster : MonoBehaviour, IDamage
         }
     }
 
-    // 슬라임 추적을 시작하고 시간이 지나도 공격을 못하면 추적 중지
-    IEnumerator ChaseTimeCount()
-    {
-        isCounting = true;
-        takeDamage = false;
-        countTime = originCountTime;
-
-        for (int i = 0; i < countTime; i++)
-        {
-            if (takeDamage)                      // 카운트 세는 도중 데미지를 입었다면, 카운트 시간을 증가시킴
-            {
-                countTime += 6f;
-                takeDamage = false;
-            }
-
-            if(isAttacking)                     // 공격을 시도했을 때에도 추적 중지 카운트 시간을 증가
-            {
-                countTime += 6f;
-            }
-
-            yield return waitFor1s;
-        }
-
-        if (isChasing && !isAttacking)
-        {
-            isCounting = false;
-            StopChase();
-        }
-    }
-
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
     public IEnumerator CheckAnimEnd(string state)
     {
@@ -223,28 +183,17 @@ public class Monster : MonoBehaviour, IDamage
     IEnumerator DoStun(float time)
     {
         isStun = true;
-        PlayAnim(EMonsterAnim.stun);
+        if (isChasing) isChasing = false;
 
+        PlayAnim(EMonsterAnim.stun);
+        nav.SetDestination(transform.position);
+        
         yield return new WaitForSeconds(time);
 
         isStun = false;
         TryStartChase();
-        // PlayAnim(EMonsterAnim.idle);
     }
-    
-    // 체력바의 위치를 조절하는 코루틴
-    IEnumerator SetHPBarPos()
-    {
-        while (hpBar)
-        {
-            hpBarPos = transform.position;
-            hpBarPos.y += 1.5f;
 
-            hpBar.transform.position = hpBarPos;
-
-            yield return null;
-        }
-    }
 
     // 3초 뒤 오브젝트 비활성화
     IEnumerator DieCoroutine()
@@ -262,9 +211,11 @@ public class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        PlayAnim(EMonsterAnim.hit);
-
-        HaveDamage(statManager.GetAutoAtkDamage());
+        if (HaveDamage(statManager.GetAutoAtkDamage()))
+        {
+            if (!isStun) PlayAnim(EMonsterAnim.hit);
+            TryStartChase();               // 슬라임 따라다니기 시작
+        }
     }
 
     // 슬라임의 스킬에 데미지를 입음
@@ -272,9 +223,11 @@ public class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        PlayAnim(EMonsterAnim.hit);
-
-        HaveDamage(statManager.GetSkillDamage());
+        if (HaveDamage(statManager.GetSkillDamage()))
+        {
+            if (!isStun) PlayAnim(EMonsterAnim.hit);
+            TryStartChase();               // 슬라임 따라다니기 시작
+        }
     }
 
     // 스턴
@@ -282,9 +235,9 @@ public class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        if (!HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
+        if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
         {
-            StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
+            if(!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
         }
     }
 
@@ -313,17 +266,16 @@ public class Monster : MonoBehaviour, IDamage
     {
         ShowDamage(damage);         // 데미지 수치 보여줌
 
-        if (stats.HP - damage < 0)
+        if (stats.HP - damage <= 0)
         {
             stats.HP = 0;
             Die();
-            return true;
+            return false;
         }
         else
         {
             stats.HP -= damage;
-            TryStartChase();               // 슬라임 따라다니기 시작
-            return false;
+            return true;
         }
     }
 
@@ -332,7 +284,7 @@ public class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        DamageText damageText = ObjectPoolingManager.Instance.Get(EObjectFlag.damageText, transform.position).GetComponent<DamageText>();
+        damageText = objectPoolingManager.Get(EObjectFlag.damageText, transform.position).GetComponent<DamageText>();
         damageText.Damage = (int)damage;
 
         ShowHPBar();     // 체력바 설정
@@ -345,79 +297,30 @@ public class Monster : MonoBehaviour, IDamage
     {
         if (!target) return;
 
-        IDamage damagedObject = target.GetComponent<IDamage>();
-        if (damagedObject != null)
-        {
-            damagedObject.AutoAtkDamaged();
-        }
+        slime.Damaged(stats, atkType);
     }
 
     // 슬라임 추적 시도
-    void TryStartChase()
+    protected virtual void TryStartChase()
     {
-        takeDamage = true;
-
-        StartChase(slime.transform);
-
-        if (!isCounting)                // 추적 타임 카운트가 돌고 있지 않을 때
-        {
-            StartCoroutine(ChaseTimeCount());       // 추적 타임 카운트 시작
-        }
+        StartChase();
     }
 
-
     // 추적 시작
-    protected void StartChase(Transform targetTransform)
+    private void StartChase()
     {
         if (!isChasing)
         {
             isChasing = true;
-            target = targetTransform;
+            target = slime.transform;
             StartCoroutine(Chase());
-        }
-    }
-
-    // 추적 정지
-    protected void StopChase()
-    {
-        if (isChasing && !isCounting)
-        {
-            isChasing = false;
-            if (isAttacking) IsAttacking = false;
-
-            nav.SetDestination(this.transform.position);
-
-            target = null;
-
-            HideHPBar();
-
-            PlayAnim(EMonsterAnim.idle);
         }
     }
     #endregion
 
-    // 체력바 활성화
-    protected virtual void ShowHPBar()
-    {
-        if (!hpBar)
-        {
-            hpBar = objectPoolingManager.Get(EObjectFlag.hpBar).GetComponent<Slider>();
-            hpBar.maxValue = stats.maxHP;
+    public abstract void ShowHPBar();       // 체력바 활성화
+    public abstract void HideHPBar();       // 체력바 비활성화
 
-            StartCoroutine(SetHPBarPos());
-        }
-
-        hpBar.value = stats.HP;
-    }
-
-    // 체력바를 숨김
-    protected virtual void HideHPBar()
-    {
-        if (!hpBar) return;
-
-        objectPoolingManager.Set(hpBar.gameObject, EObjectFlag.hpBar);
-        hpBar = null;
-    }
 
     // 애니메이션 플레이
     protected void PlayAnim(EMonsterAnim animState)
@@ -426,12 +329,13 @@ public class Monster : MonoBehaviour, IDamage
         int state = (int)animState;
         currentAnim = animState;
 
-        anim.SetInteger("animation", state);
-
         if (!(animState.Equals(EMonsterAnim.attack)))
         {
             anim.SetInteger("attack", -1);
         }
+
+
+        anim.SetInteger("animation", state);
 
 
         //반복해야하는 애니메이션이 아니라면, 애니메이션이 끝난 후 상태를 Idle로 변경

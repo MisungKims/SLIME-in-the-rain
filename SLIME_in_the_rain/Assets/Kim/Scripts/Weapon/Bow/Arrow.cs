@@ -36,6 +36,12 @@ public class Arrow : Projectile
         {
             if (isSkill) damagedObject.SkillDamaged();
             else damagedObject.AutoAtkDamaged();
+
+            // ศํว๗ ท้
+            if (other.gameObject.layer == 8)
+            {
+                RuneManager.Instance.UseAttackRune(other.gameObject);
+            }
         }
     }
     #endregion

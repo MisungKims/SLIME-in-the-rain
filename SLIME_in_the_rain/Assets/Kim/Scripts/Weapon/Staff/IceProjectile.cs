@@ -34,6 +34,12 @@ public class IceProjectile : StaffProjectile
             else damagedObject.AutoAtkDamaged();
 
             damagedObject.Stun(stunTime);       // Ω∫≈œ
+
+            // »Ì«˜ ∑È
+            if (other.gameObject.layer == 8)
+            {
+                RuneManager.Instance.UseAttackRune(other.gameObject);
+            }
         }
     }
     #endregion

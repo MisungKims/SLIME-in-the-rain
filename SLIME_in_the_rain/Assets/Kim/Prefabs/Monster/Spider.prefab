@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 3181719511261407630}
   - component: {fileID: 3181719511261407631}
   - component: {fileID: 3181719511261407625}
-  - component: {fileID: 3181719511261407627}
+  - component: {fileID: 1474794668511901500}
   - component: {fileID: 3181719511261407624}
   m_Layer: 8
   m_Name: Spider
@@ -1212,6 +1212,7 @@ MonoBehaviour:
   slimeLayer:
     serializedVersion: 2
     m_Bits: 520
+  detectRange: 2
 --- !u!95 &3181719511261407631
 Animator:
   serializedVersion: 4
@@ -1254,7 +1255,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &3181719511261407627
+--- !u!136 &1474794668511901500
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1264,8 +1265,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5766273
-  m_Height: 1.1532546
+  m_Radius: 0.79
+  m_Height: 1.24
   m_Direction: 1
   m_Center: {x: 0.032702424, y: 0.48225665, z: 0}
 --- !u!54 &3181719511261407624
@@ -1282,7 +1283,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &3276256965812074643
 GameObject:

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;  // OnDrawGizmos
 
-public class DetectingMonster : Monster
+public class DetectingMonster : GeneralMonster
 {
     #region 변수
 
@@ -25,6 +25,13 @@ public class DetectingMonster : Monster
     #endregion
 
     #region 유니티 함수
+    protected override void Awake()
+    {
+        base.Awake();
+
+        addCountAmount = 8f;
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -52,12 +59,10 @@ public class DetectingMonster : Monster
                     // 탐지한 오브젝트가 각도안에 들어왔으면 쫓기 시작
                     if (Vector3.Dot(direction.normalized, transform.forward) > dotValue)
                     {
-                        StartChase(fanColliders[0].transform);
+                        if(!isChasing) TryStartChase();
                     }
                 }
-                else StopChase();
             }
-            else StopChase();
 
             yield return null;
         }

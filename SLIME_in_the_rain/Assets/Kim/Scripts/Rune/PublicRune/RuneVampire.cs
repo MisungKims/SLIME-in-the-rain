@@ -10,11 +10,15 @@ using UnityEngine;
 
 public class RuneVampire : Rune, IAttackRune
 {
+    Monster monster;
+
     #region ÇÔ¼ö
-    public void Attack()
+    public void Attack(GameObject monster)
     {
-        // TODO : ÈíÇ÷ 20%
-        float amount = 0f;    //  (monsterStat.HP * percent) * 0.01f;
+        this.monster = monster.GetComponent<Monster>();
+
+        // ÈíÇ÷ 20%
+        float amount = (this.monster.Stats.HP * 20) * 0.01f;
         statManager.AddHP(amount);
     }
     #endregion

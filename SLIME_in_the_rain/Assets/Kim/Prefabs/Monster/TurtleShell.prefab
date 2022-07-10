@@ -1052,7 +1052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6014399257192330360}
-  - component: {fileID: 6008999535169751911}
+  - component: {fileID: 649413585776182058}
   - component: {fileID: 1324639378343059604}
   - component: {fileID: 5923535505501165570}
   - component: {fileID: 5923535505501165571}
@@ -1081,7 +1081,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6008999535169751911
+--- !u!114 &649413585776182058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1090,10 +1090,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6008999535169751908}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b1702de607875c408505cebebf917ce, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fdf6834e9a11ac499f694919cf33805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 0
+  attackTypeCount: 2
   stats:
     maxHP: 100
     HP: 100
@@ -1177,7 +1177,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &6008999548737696558
 GameObject:

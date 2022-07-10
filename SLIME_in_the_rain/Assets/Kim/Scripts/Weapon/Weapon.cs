@@ -149,8 +149,6 @@ public class Weapon : MonoBehaviour
     // 평타
     protected virtual void AutoAttack(Vector3 targetPos)
     {
-        RuneManager.Instance.UseAttackRune();
-
         PlayAnim(AnimState.autoAttack);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
@@ -159,7 +157,6 @@ public class Weapon : MonoBehaviour
     // 스킬
     protected virtual void Skill(Vector3 targetPos)
     {
-        RuneManager.Instance.UseAttackRune();
         RuneManager.Instance.UseSkillRune();
 
         PlayAnim(AnimState.skill);

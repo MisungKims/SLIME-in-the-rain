@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Boss : DetectingMonster
+public class Boss : Monster
 {
     #region 변수
     [SerializeField]
@@ -12,7 +12,7 @@ public class Boss : DetectingMonster
 
     #region 함수
 
-    protected override void ShowHPBar()
+    public override void ShowHPBar()
     {
         if (!hpBar.gameObject.activeSelf)
         {
@@ -22,7 +22,7 @@ public class Boss : DetectingMonster
         hpBar.value = stats.HP;
     }
 
-    protected override void HideHPBar()
+    public override void HideHPBar()
     {
         hpBar.gameObject.SetActive(false);
     }

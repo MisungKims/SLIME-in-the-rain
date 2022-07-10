@@ -99,7 +99,7 @@ public class Dagger : Short
     // ½ºÅ³
     protected override void Skill(Vector3 targetPos)
     {
-        RuneManager.Instance.UseAttackRune();
+        //RuneManager.Instance.UseAttackRune();
         RuneManager.Instance.UseSkillRune();
 
         StartCoroutine(CheckAnimEnd("Skill"));
