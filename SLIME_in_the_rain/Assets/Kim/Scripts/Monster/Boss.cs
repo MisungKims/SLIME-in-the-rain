@@ -8,6 +8,17 @@ public class Boss : Monster
     #region 변수
     [SerializeField]
     private Slider hpBar;
+
+    private WaitForSeconds waitFor6s = new WaitForSeconds(6f);
+    #endregion
+
+    #region 코루틴
+    protected override IEnumerator DieCoroutine()
+    {
+        yield return waitFor6s;
+
+        this.gameObject.SetActive(false);
+    }
     #endregion
 
     #region 함수
@@ -17,6 +28,7 @@ public class Boss : Monster
         if (!hpBar.gameObject.activeSelf)
         {
             hpBar.gameObject.SetActive(true);
+            hpBar.maxValue = stats.maxHP;
         }
 
         hpBar.value = stats.HP;
