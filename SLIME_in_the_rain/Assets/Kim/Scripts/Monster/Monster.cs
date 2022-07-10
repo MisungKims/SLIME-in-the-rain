@@ -27,9 +27,9 @@ public abstract class Monster : MonoBehaviour, IDamage
 {
     #region 변수
     [SerializeField]
-    private int attackTypeCount;
+    protected int attackTypeCount;
 
-    private Animator anim;
+    protected Animator anim;
     protected NavMeshAgent nav;
 
     [SerializeField]
@@ -44,7 +44,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
 
     // 공격
-    Collider[] atkRangeColliders;       // 공격 범위 감지 콜라이더
+    protected Collider[] atkRangeColliders;       // 공격 범위 감지 콜라이더
 
     protected bool isChasing = false;   // 추적 중인지?
 
@@ -58,12 +58,12 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
     }
 
-    private int randAttack;      // 공격 방법
+    protected int randAttack;      // 공격 방법
 
     // 공격 후 대기 시간
-    private float randAtkTime;          
-    private float minAtkTime = 1f;
-    private float maxAtkTime = 3f;
+    protected float randAtkTime;
+    protected float minAtkTime = 1f;
+    protected float maxAtkTime = 3f;
 
     // 스턴
     protected bool isStun = false;
@@ -109,7 +109,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     #region 코루틴
 
     // 감지된 슬라임을 쫓음
-    IEnumerator Chase()
+    protected virtual IEnumerator Chase()
     {
         while (target && isChasing && !isStun)
         {
@@ -134,7 +134,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     // 공격 
-    IEnumerator Attack()
+    private IEnumerator Attack()
     {
         while (isAttacking)
         {
@@ -145,6 +145,8 @@ public abstract class Monster : MonoBehaviour, IDamage
 
             randAttack = Random.Range(0, attackTypeCount);
             anim.SetInteger("attack", randAttack);
+
+            Debug.Log(randAttack);
 
             PlayAnim(EMonsterAnim.attack);
 
@@ -196,7 +198,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
 
     // 3초 뒤 오브젝트 비활성화
-    IEnumerator DieCoroutine()
+    protected virtual IEnumerator DieCoroutine()
     {
         yield return waitFor3s;
 
@@ -264,17 +266,17 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 데미지를 입음
     bool HaveDamage(float damage)
     {
-        ShowDamage(damage);         // 데미지 수치 보여줌
-
         if (stats.HP - damage <= 0)
         {
             stats.HP = 0;
+            ShowDamage(damage);
             Die();
             return false;
         }
         else
         {
             stats.HP -= damage;
+            ShowDamage(damage); 
             return true;
         }
     }
@@ -293,7 +295,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     #region 공격
     // 슬라임에게 데미지를 입힘
-    void DamageSlime(int atkType)
+    public void DamageSlime(int atkType)
     {
         if (!target) return;
 

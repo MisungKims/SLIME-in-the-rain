@@ -16,7 +16,8 @@ public enum EProjectileFlag     // 투사체 Flag
     iceSkill,
     fireSkill,
     dagger,
-    sword
+    sword,
+    earthworm
 }
 
 public class Projectile : MonoBehaviour
@@ -34,7 +35,7 @@ public class Projectile : MonoBehaviour
     public bool isSkill;
 
     // 캐싱
-    WaitForSeconds waitFor1s = new WaitForSeconds(1f);
+   // WaitForSeconds waitFor1s = new WaitForSeconds(1f);
     WaitForSeconds waitFor2s = new WaitForSeconds(2f);
     #endregion
 

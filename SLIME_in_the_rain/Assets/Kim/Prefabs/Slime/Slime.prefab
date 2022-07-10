@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 1043725623419329987}
   m_Layer: 0
   m_Name: Slime
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,18 +264,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skinnedMesh: {fileID: 7986647109903513227}
-  myStats:
-    HP: 0
-    coolTime: 0
-    moveSpeed: 0
-    attackSpeed: 0
-    attackPower: 0
-    defensePower: 0
   weaponPos: {fileID: 2042308865249296537}
   currentWeapon: {fileID: 0}
   weaponLayer:
     serializedVersion: 2
     m_Bits: 64
+  dashTime: 1
+  currentDashTime: 0
+  target: {fileID: 0}
+  isAttacking: 0
+  isStealth: 0
+  statManager: {fileID: 0}
 --- !u!95 &7986647109907712075
 Animator:
   serializedVersion: 4
