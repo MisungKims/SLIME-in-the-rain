@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class Earthworm : Boss
 {
+    #region 변수
     private float chaseCount;
     private float maxCount = 3f;
 
@@ -17,7 +18,20 @@ public class Earthworm : Boss
 
     [SerializeField]
     private Transform projectilePos;
+    #endregion
 
+    #region 유니티 함수
+    protected override void Awake()
+    {
+        base.Awake();
+
+        minAtkTime = 0.5f;
+        maxAtkTime = 1.5f;
+    }
+    #endregion
+
+    #region 코루틴
+    // 슬라임을 추적
     protected override IEnumerator Chase()
     {
         while (target && isChasing && !isStun)
@@ -26,7 +40,7 @@ public class Earthworm : Boss
             atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
             if (atkRangeColliders.Length > 0)
             {
-                if(!isAttacking) StartCoroutine(ShortAttack());
+                if (!isAttacking) StartCoroutine(ShortAttack());
 
                 nav.SetDestination(target.position);
                 chaseCount = 0;
@@ -38,10 +52,9 @@ public class Earthworm : Boss
 
                 chaseCount += Time.deltaTime;
 
-                // 슬라임을 쫓아다님
                 nav.SetDestination(target.position);
 
-               // 3초가 지나면 투사체 발사
+                // 3초가 지나면 투사체 발사
                 if (chaseCount >= maxCount)
                 {
                     yield return StartCoroutine(LongAttack());
@@ -56,7 +69,7 @@ public class Earthworm : Boss
     {
         chaseCount = 0;
         IsAttacking = true;
-        
+
         while (isAttacking)
         {
             anim.SetInteger("attack", 0);
@@ -64,7 +77,7 @@ public class Earthworm : Boss
             PlayAnim(EMonsterAnim.attack);
 
             yield return new WaitForSeconds(0.5f);
-            
+
             DamageSlime(0);
 
             // 랜덤한 시간동안 대기
@@ -94,11 +107,13 @@ public class Earthworm : Boss
 
         IsAttacking = false;
     }
+    #endregion
 
+    #region 함수
     private void GetProjectile()
     {
         // 투사체 발사
-        EarthwormProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent< EarthwormProjectile>();
+        EarthwormProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent<EarthwormProjectile>();
         projectile.earthworm = this;
 
         projectile.transform.position = projectilePos.position;
@@ -110,4 +125,5 @@ public class Earthworm : Boss
 
         projectile.transform.eulerAngles = lookRot;
     }
+    #endregion
 }

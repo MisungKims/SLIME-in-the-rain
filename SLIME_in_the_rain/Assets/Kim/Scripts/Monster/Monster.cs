@@ -19,6 +19,7 @@ public enum EMonsterAnim
     run,
     attack,
     hit,
+    idleBattle,
     stun,
     die
 }
@@ -62,13 +63,15 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     // 공격 후 대기 시간
     protected float randAtkTime;
-    protected float minAtkTime = 1f;
-    protected float maxAtkTime = 3f;
+    protected float minAtkTime = 0.3f;
+    protected float maxAtkTime = 1.5f;
 
     // 스턴
     protected bool isStun = false;
 
     protected bool isDie;
+
+    protected bool doDamaged; // 슬라임에게 데미지를 입혔는지?
 
     // 캐싱
     private StatManager statManager;
@@ -103,6 +106,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         slime = Slime.Instance;
 
         nav.speed = stats.moveSpeed;
+        nav.stoppingDistance = stats.attackRange;
     }
     #endregion
 
@@ -125,10 +129,9 @@ public abstract class Monster : MonoBehaviour, IDamage
                 IsAttacking = false;
                 PlayAnim(EMonsterAnim.run);
             }
-
+            
             // 슬라임을 쫓아다님
             nav.SetDestination(target.position);
-
             yield return null;
         }
     }
@@ -139,16 +142,12 @@ public abstract class Monster : MonoBehaviour, IDamage
         while (isAttacking)
         {
             // 공격 방식을 랜덤으로 실행
-            PlayAnim(EMonsterAnim.idle);
-
-            yield return new WaitForSeconds(0.1f);
-
             randAttack = Random.Range(0, attackTypeCount);
             anim.SetInteger("attack", randAttack);
 
-            Debug.Log(randAttack);
-
             PlayAnim(EMonsterAnim.attack);
+
+            yield return new WaitForSeconds(0.1f);
 
             DamageSlime(randAttack);
 
@@ -163,7 +162,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         string name = "Base Layer." + state;
 
-        if (state == "3")
+        if (state == "3")       // 공격 상태일 때
         {
             name = "Attack " + anim.GetInteger("attack");
         }
@@ -172,9 +171,13 @@ public abstract class Monster : MonoBehaviour, IDamage
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
             {
-                if(currentAnim.Equals(EMonsterAnim.attack)) anim.SetInteger("attack", -1);
-
-                PlayAnim(EMonsterAnim.idle);
+                // 공격이 끝났을 때 공격 상태를 없음(-1)으로 변경
+                if (currentAnim.Equals(EMonsterAnim.attack))
+                {
+                    doDamaged = false;
+                    anim.SetInteger("attack", -1);
+                }
+                PlayAnim(EMonsterAnim.idleBattle);
                 break;
             }
             yield return null;
@@ -244,7 +247,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     // 죽음
-    void Die()
+    protected virtual void Die()
     {
         isDie = true;
 
@@ -297,8 +300,11 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 슬라임에게 데미지를 입힘
     public void DamageSlime(int atkType)
     {
-        if (!target) return;
+        if (!target && doDamaged) return;
 
+        Debug.Log("Damaged");
+
+        doDamaged = true;
         slime.Damaged(stats, atkType);
     }
 
@@ -327,24 +333,19 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 애니메이션 플레이
     protected void PlayAnim(EMonsterAnim animState)
     {
-        
         int state = (int)animState;
         currentAnim = animState;
 
         if (!(animState.Equals(EMonsterAnim.attack)))
         {
-            anim.SetInteger("attack", -1);
+            anim.SetInteger("attack", -1);          // 공격 상태를 없음(-1)으로 변경
         }
-
 
         anim.SetInteger("animation", state);
 
-
-        //반복해야하는 애니메이션이 아니라면, 애니메이션이 끝난 후 상태를 Idle로 변경
+        // 반복해야하는 애니메이션이 아니라면 (ex. 공격), 애니메이션이 끝난 후 상태를 Idle로 변경
         if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.hit)
         {
-           // Debug.Log(animState + " " + anim.GetInteger("attack"));
-
             StartCoroutine(CheckAnimEnd(state.ToString()));
         }
     }

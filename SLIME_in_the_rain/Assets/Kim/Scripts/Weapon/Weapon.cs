@@ -52,8 +52,8 @@ public class Weapon : MonoBehaviour
 
     // ½ºÅ³
     public bool isCanSkill = true;
-    private int currentCoolTime;
-    public int CurrentCoolTime { get { return currentCoolTime; } }
+    private float currentCoolTime;
+    public int CurrentCoolTime { get { return (int)currentCoolTime; } }
 
     // Ä³½Ì
     private WaitForSeconds waitForDash;
@@ -110,11 +110,11 @@ public class Weapon : MonoBehaviour
         isCanSkill = false;
 
         currentCoolTime = (int)slime.Stat.coolTime;
-        for (int i = 0; i < slime.Stat.coolTime; i++)
+        while (currentCoolTime > 0f)
         {
-            yield return waitFor1s;
+            currentCoolTime -= Time.deltaTime;
 
-            currentCoolTime--;
+            yield return null;
         }
 
         isCanSkill = true;
