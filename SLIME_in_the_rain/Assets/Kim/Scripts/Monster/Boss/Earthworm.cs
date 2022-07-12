@@ -20,15 +20,15 @@ public class Earthworm : Boss
     private Transform projectilePos;
     #endregion
 
-    #region 유니티 함수
-    protected override void Awake()
-    {
-        base.Awake();
+    //#region 유니티 함수
+    //protected override void Awake()
+    //{
+    //    base.Awake();
 
-        minAtkTime = 0.5f;
-        maxAtkTime = 1.5f;
-    }
-    #endregion
+    //    minAtkTime = 0.5f;
+    //    maxAtkTime = 1.5f;
+    //}
+    //#endregion
 
     #region 코루틴
     // 슬라임을 추적
@@ -42,7 +42,6 @@ public class Earthworm : Boss
             {
                 if (!isAttacking) StartCoroutine(ShortAttack());
 
-                nav.SetDestination(target.position);
                 chaseCount = 0;
             }
             else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 3초? 후에 원거리 공격
@@ -52,8 +51,6 @@ public class Earthworm : Boss
 
                 chaseCount += Time.deltaTime;
 
-                nav.SetDestination(target.position);
-
                 // 3초가 지나면 투사체 발사
                 if (chaseCount >= maxCount)
                 {
@@ -61,36 +58,37 @@ public class Earthworm : Boss
                 }
             }
 
+            if (!isAttacking) nav.SetDestination(target.position);
+
             yield return null;
         }
     }
 
+    // 단거리 공격 코루틴
     private IEnumerator ShortAttack()
     {
+        nav.SetDestination(target.position);
+        transform.LookAt(target);
+
         chaseCount = 0;
         IsAttacking = true;
 
-        while (isAttacking)
-        {
-            anim.SetInteger("attack", 0);
+        anim.SetInteger("attack", 0);
 
-            PlayAnim(EMonsterAnim.attack);
+        PlayAnim(EMonsterAnim.attack);
 
-            yield return new WaitForSeconds(0.5f);
+        // 랜덤한 시간동안 대기
+        randAtkTime = Random.Range(minAtkTime, maxAtkTime);
+        yield return new WaitForSeconds(randAtkTime);
 
-            DamageSlime(0);
-
-            // 랜덤한 시간동안 대기
-            randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-            yield return new WaitForSeconds(randAtkTime);
-        }
+        IsAttacking = false;
     }
 
+    // 원거리 공격 (투사체 발사) 코루틴
     private IEnumerator LongAttack()
     {
         chaseCount = 0;
         IsAttacking = true;
-        nav.SetDestination(target.position);
         nav.SetDestination(transform.position);
         transform.LookAt(target);
 

@@ -93,30 +93,6 @@ public class GeneralMonster : Monster
                     prePos = transform.position;
                     yield return null;
                 }
-               
-
-                //prePos = transform.position;
-
-                //while (distance > 0.1f && !stop)
-                //{
-                //    Debug.Log(this.name);
-
-                //    if(transform.position.Equals(prePos))
-                //    {
-                //        stop = true;
-                //    }    
-
-                //    prePos = transform.position;
-
-                //    yield return null;
-                //}
-
-                // 일정시간 가만히
-                //PlayAnim(EMonsterAnim.idle);
-                //Debug.Log(this.name + "idle");
-
-                //randTime = Random.Range(2f, 4f);
-                //yield return new WaitForSeconds(randTime);
             }
 
             yield return null;
@@ -163,8 +139,6 @@ public class GeneralMonster : Monster
         }
     }
     #endregion
-
-
 
     #region 함수
     // 체력바 활성화
