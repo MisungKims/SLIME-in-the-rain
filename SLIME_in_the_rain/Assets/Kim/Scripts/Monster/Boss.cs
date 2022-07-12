@@ -6,9 +6,20 @@ using UnityEngine.UI;
 public class Boss : Monster
 {
     #region º¯¼ö
+    // Ã¼·Â¹Ù
     [SerializeField]
     private Slider hpBar;
 
+    // Á©¸® µå·Ó
+    private int randJellyCount;
+    private int minJellyCnt = 8;
+    private int maxJellyCnt = 15;
+
+
+    private GameObject jelly;
+    private Vector3 jellyPos;
+
+    // Ä³½Ì
     private WaitForSeconds waitFor6s = new WaitForSeconds(6f);
     #endregion
 
@@ -37,6 +48,25 @@ public class Boss : Monster
     public override void HideHPBar()
     {
         hpBar.gameObject.SetActive(false);
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        // Á©¸® µå·Ó
+        randJellyCount = Random.Range(minJellyCnt, maxJellyCnt);
+        for (int i = 0; i < randJellyCount; i++)
+        {
+            jelly = objectPoolingManager.Get(EObjectFlag.jelly);
+
+            jellyPos = transform.position;
+            jellyPos.x += Random.Range(-1f, 1f);
+            jellyPos.y += 3f;
+            jellyPos.z += Random.Range(-1f, 1f);
+
+            jelly.transform.position = jellyPos;
+        }
     }
     #endregion
 }

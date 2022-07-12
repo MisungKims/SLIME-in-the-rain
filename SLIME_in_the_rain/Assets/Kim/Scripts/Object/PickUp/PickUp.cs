@@ -13,8 +13,12 @@ public abstract class PickUp : MonoBehaviour
     #region 변수
     private Slime slime;
 
+    private Rigidbody rigid;
+
+    private float force = 250.0f;
+
     // 슬라임 감지에 필요한 변수
-   protected float velocity;
+    protected float velocity;
     protected float acceleration = 0.2f;
     protected float distance;
     protected Vector3 dir;
@@ -23,6 +27,19 @@ public abstract class PickUp : MonoBehaviour
     #endregion
 
     #region 유니티 함수
+    private void Awake()
+    {
+        rigid = GetComponent<Rigidbody>();
+    }
+
+    private void OnEnable()
+    {
+        if(rigid)
+        {
+            rigid.AddForce(transform.up * force, ForceMode.Force);
+            rigid.useGravity = true;
+        }
+    }
 
     protected virtual void Start()
     {
@@ -49,7 +66,7 @@ public abstract class PickUp : MonoBehaviour
             offset = slime.transform.position - transform.position;
             distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
 
-            // 거리가 1과 같거나 작을 때 슬라임의 위치로 이동
+            // 거리가 1과 같거나 작을 때 슬라임의 위치로 이동 (따라다님)
             if (distance <= 1.0f)
             {
                 targetPos = Vector3.zero;
