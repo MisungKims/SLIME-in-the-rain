@@ -23,6 +23,16 @@ public class Boss : Monster
     private WaitForSeconds waitFor6s = new WaitForSeconds(6f);
     #endregion
 
+    #region 유니티 함수
+    protected override void Awake()
+    {
+        base.Awake();
+
+        minAtkTime = 0.5f;
+        maxAtkTime = 1.5f;
+    }
+    #endregion
+
     #region 코루틴
     protected override IEnumerator DieCoroutine()
     {

@@ -72,6 +72,9 @@ public class Slime : MonoBehaviour
 
     public bool isStealth;      // 은신 중인지?
 
+    // 데미지
+    private bool isStun;
+
 
     //////// 이동
     enum AnimState { idle, move, dash, damaged, die }     // 애니메이션의 상태
@@ -206,6 +209,17 @@ public class Slime : MonoBehaviour
         dashDistance = originDashDistance;
         isCanDash = true;
     }
+
+    // 스턴 코루틴
+    IEnumerator DoStun(float stunTime)
+    {
+        isStun = true;
+        PlayAnim(AnimState.damaged);
+
+        yield return new WaitForSeconds(stunTime);
+
+        isStun = false;
+    }
     #endregion
 
     #region 함수
@@ -229,7 +243,7 @@ public class Slime : MonoBehaviour
     // 슬라임의 움직임
     void Move()
     {
-        if (isAttacking || isDash) return;
+        if (isAttacking || isDash || isStun) return;
 
         float dirX = Input.GetAxis("Horizontal");
         float dirZ = Input.GetAxis("Vertical");
@@ -246,7 +260,8 @@ public class Slime : MonoBehaviour
 
                 rigid.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
-            rigid.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
+
+            transform.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {
@@ -278,7 +293,8 @@ public class Slime : MonoBehaviour
     // 대시
     public void Dash()
     {
-        if (!isCanDash)
+        // 대시를 할 수 없을 때 return
+        if (!isCanDash || isStun)
         {
             isDash = false;
             return;
@@ -459,7 +475,11 @@ public class Slime : MonoBehaviour
     // 스턴
     public void Stun(float stunTime)
     {
-        
+        StartCoroutine(DoStun(stunTime));
+
+        Debug.Log("Stun");
     }
+
+   
 #endregion
 }

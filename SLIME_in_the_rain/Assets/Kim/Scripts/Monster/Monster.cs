@@ -77,7 +77,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     private StatManager statManager;
     protected ObjectPoolingManager objectPoolingManager;
     protected MonsterManager monsterManager;
-    private Slime slime;
+    protected Slime slime;
     private DamageText damageText;
 
     private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
@@ -121,17 +121,17 @@ public abstract class Monster : MonoBehaviour, IDamage
             atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
             if (atkRangeColliders.Length > 0 && !isAttacking)
             {
-                IsAttacking = true;
                 StartCoroutine(Attack());
             }
             else if(atkRangeColliders.Length <= 0)
             {
-                IsAttacking = false;
+                // 슬라임을 쫓아다님
+                nav.SetDestination(target.position);
+
+                if (!doDamaged) IsAttacking = false;
                 PlayAnim(EMonsterAnim.run);
             }
             
-            // 슬라임을 쫓아다님
-            nav.SetDestination(target.position);
             yield return null;
         }
     }
@@ -139,22 +139,22 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 공격 
     private IEnumerator Attack()
     {
-        while (isAttacking)
-        {
-            // 공격 방식을 랜덤으로 실행
-            randAttack = Random.Range(0, attackTypeCount);
-            anim.SetInteger("attack", randAttack);
+        nav.SetDestination(transform.position);
+        transform.LookAt(target);
 
-            PlayAnim(EMonsterAnim.attack);
+        IsAttacking = true;
 
-            yield return new WaitForSeconds(0.1f);
+        // 공격 방식을 랜덤으로 실행 (TODO : 확률)
+        randAttack = Random.Range(0, attackTypeCount);
+        anim.SetInteger("attack", randAttack);
 
-            DamageSlime(randAttack);
+        PlayAnim(EMonsterAnim.attack);
 
-            // 랜덤한 시간동안 대기
-            randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-            yield return new WaitForSeconds(randAtkTime);
-        }
+        // 랜덤한 시간동안 대기
+        randAtkTime = Random.Range(minAtkTime, maxAtkTime);
+        yield return new WaitForSeconds(randAtkTime);
+
+        IsAttacking = false;
     }
 
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
@@ -169,17 +169,29 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         while (true)
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName(name) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(name))
             {
-                // 공격이 끝났을 때 공격 상태를 없음(-1)으로 변경
-                if (currentAnim.Equals(EMonsterAnim.attack))
+                if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
                 {
-                    doDamaged = false;
-                    anim.SetInteger("attack", -1);
+                    // 공격이 끝났을 때 공격 상태를 없음(-1)으로 변경
+                    if (currentAnim.Equals(EMonsterAnim.attack))
+                    {
+                        doDamaged = false;
+                        anim.SetInteger("attack", -1);
+                    }
+                    PlayAnim(EMonsterAnim.idleBattle);
+                    break;
                 }
-                PlayAnim(EMonsterAnim.idleBattle);
-                break;
+                else 
+                {
+                    if (currentAnim.Equals(EMonsterAnim.attack) && !doDamaged)
+                    {
+                        yield return new WaitForSeconds(0.1f);
+                        DamageSlime(randAttack);     // 공격 애니메이션 실행 시 슬라임이 데미지 입도록
+                    }
+                }
             }
+
             yield return null;
         }
     }
@@ -298,9 +310,9 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     #region 공격
     // 슬라임에게 데미지를 입힘
-    public void DamageSlime(int atkType)
+    public virtual void DamageSlime(int atkType)
     {
-        if (!target && doDamaged) return;
+        if (!target) return;
 
         Debug.Log("Damaged");
 
