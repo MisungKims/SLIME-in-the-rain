@@ -67,11 +67,14 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected float maxAtkTime = 1.5f;
 
     // 스턴
+    protected bool isHit = false;
+
     protected bool isStun = false;
 
-    protected bool isDie;
+    protected bool isDie = false;
 
-    protected bool doDamaged; // 슬라임에게 데미지를 입혔는지?
+    protected bool doDamage; // 슬라임에게 데미지를 입혔는지?
+
 
     // 캐싱
     private StatManager statManager;
@@ -117,21 +120,26 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         while (target && isChasing && !isStun)
         {
-            // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
-            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-            if (atkRangeColliders.Length > 0 && !isAttacking)
+            if(!isHit)
             {
-                StartCoroutine(Attack());
-            }
-            else if(atkRangeColliders.Length <= 0)
-            {
-                // 슬라임을 쫓아다님
-                nav.SetDestination(target.position);
+                // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
+                atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+                if (atkRangeColliders.Length > 0 && !isAttacking)
+                {
+                    StartCoroutine(Attack());
+                }
+                else if (atkRangeColliders.Length <= 0)
+                {
+                    // 슬라임을 쫓아다님
+                    nav.SetDestination(target.position);
 
-                if (!doDamaged) IsAttacking = false;
-                PlayAnim(EMonsterAnim.run);
+                    if (!doDamage) IsAttacking = false;
+                    PlayAnim(EMonsterAnim.run);
+                }
+
+                yield return null;
             }
-            
+
             yield return null;
         }
     }
@@ -176,17 +184,23 @@ public abstract class Monster : MonoBehaviour, IDamage
                     // 공격이 끝났을 때 공격 상태를 없음(-1)으로 변경
                     if (currentAnim.Equals(EMonsterAnim.attack))
                     {
-                        doDamaged = false;
                         anim.SetInteger("attack", -1);
+                        Debug.Log("false : " + doDamage);
+                        doDamage = false;
+                    }
+                    else if (currentAnim.Equals(EMonsterAnim.hit))
+                    {
+                        isHit = false;
                     }
                     PlayAnim(EMonsterAnim.idleBattle);
                     break;
                 }
                 else 
                 {
-                    if (currentAnim.Equals(EMonsterAnim.attack) && !doDamaged)
+                    if (currentAnim.Equals(EMonsterAnim.attack) && !doDamage)
                     {
                         yield return new WaitForSeconds(0.1f);
+                        
                         DamageSlime(randAttack);     // 공격 애니메이션 실행 시 슬라임이 데미지 입도록
                     }
                 }
@@ -230,6 +244,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
+            isHit = true;
             if (!isStun) PlayAnim(EMonsterAnim.hit);
             TryStartChase();               // 슬라임 따라다니기 시작
         }
@@ -242,6 +257,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if (HaveDamage(statManager.GetSkillDamage()))
         {
+            isHit = true;
             if (!isStun) PlayAnim(EMonsterAnim.hit);
             TryStartChase();               // 슬라임 따라다니기 시작
         }
@@ -281,7 +297,9 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 데미지를 입음
     bool HaveDamage(float damage)
     {
-        if (stats.HP - damage <= 0)
+        float result = stats.HP - damage;
+
+        if (result <= 0)             // 죽음
         {
             stats.HP = 0;
             ShowDamage(damage);
@@ -290,7 +308,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
         else
         {
-            stats.HP -= damage;
+            stats.HP = result;
             ShowDamage(damage); 
             return true;
         }
@@ -312,12 +330,15 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 슬라임에게 데미지를 입힘
     public virtual void DamageSlime(int atkType)
     {
-        if (!target) return;
+        if (!target && doDamage) return;
 
-        Debug.Log("Damaged");
+        if(!doDamage)
+        {
+            Debug.Log("damage : " + doDamage);
 
-        doDamaged = true;
-        slime.Damaged(stats, atkType);
+            doDamage = true;
+            slime.Damaged(stats, atkType);
+        }
     }
 
     // 슬라임 추적 시도
@@ -355,11 +376,16 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         anim.SetInteger("animation", state);
 
-        // 반복해야하는 애니메이션이 아니라면 (ex. 공격), 애니메이션이 끝난 후 상태를 Idle로 변경
+        // 반복해야하는 애니메이션이 아니라면(ex.공격), 애니메이션이 끝난 후 상태를 Idle로 변경
         if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.hit)
         {
             StartCoroutine(CheckAnimEnd(state.ToString()));
         }
+
+        //if (state == (int)EMonsterAnim.attack)
+        //{
+        //    StartCoroutine(CheckAnimEnd(state.ToString()));
+        //}
     }
     #endregion
 }
