@@ -60,7 +60,7 @@ public class GeneralMonster : Monster
     {
         while (true)
         {
-            if(!isChasing && !isStun && !isDie)
+            if(!isChasing && !isStun && !isDie && !isHit)
             {
                 // 일정시간 가만히
                 nav.SetDestination(transform.position);

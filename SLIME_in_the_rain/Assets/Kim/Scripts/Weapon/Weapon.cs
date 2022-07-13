@@ -88,10 +88,15 @@ public class Weapon : MonoBehaviour
             yield return null;
         }
 
+        ChangeWeapon();
+        ///////////////여기에 추가(무기 바꾼거)
+    }
+
+    public void ChangeWeapon()
+    {
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
         UseRune();
-        ///////////////여기에 추가(무기 바꾼거)
     }
 
     // 대시 쿨타임 코루틴

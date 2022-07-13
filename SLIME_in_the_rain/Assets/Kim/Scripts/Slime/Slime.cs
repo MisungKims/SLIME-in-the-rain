@@ -409,6 +409,21 @@ public class Slime : MonoBehaviour
         }
     }
 
+    // 인벤토리에서 클릭 시 무기 장착
+    public void EquipWeapon(Weapon weapon)
+    {
+        if (currentWeapon)
+        {
+            currentWeapon.gameObject.layer = 6;
+            ObjectPoolingManager.Instance.Set(currentWeapon);
+            currentWeapon = null;
+        }
+
+        weapon.ChangeWeapon();
+
+       // ChangeWeapon(weapon);
+    }
+
     // 무기 변경
     public void ChangeWeapon(Weapon weapon)
     {
