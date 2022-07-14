@@ -20,16 +20,6 @@ public class Earthworm : Boss
     private Transform projectilePos;
     #endregion
 
-    //#region 유니티 함수
-    //protected override void Awake()
-    //{
-    //    base.Awake();
-
-    //    minAtkTime = 0.5f;
-    //    maxAtkTime = 1.5f;
-    //}
-    //#endregion
-
     #region 코루틴
     // 슬라임을 추적
     protected override IEnumerator Chase()
