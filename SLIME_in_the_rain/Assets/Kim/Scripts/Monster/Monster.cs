@@ -1,7 +1,7 @@
 /**
  * @brief 몬스터 스크립트
  * @author 김미성
- * @date 22-07-06
+ * @date 22-07-12
  */
 
 using System.Collections;
@@ -83,7 +83,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected Slime slime;
     private DamageText damageText;
 
-    private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
+    protected WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     
     #endregion
 
@@ -145,7 +145,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     // 공격 
-    private IEnumerator Attack()
+    protected IEnumerator Attack()
     {
         nav.SetDestination(transform.position);
         transform.LookAt(target);
@@ -353,6 +353,9 @@ public abstract class Monster : MonoBehaviour, IDamage
         if (!isChasing)
         {
             isChasing = true;
+
+            if (!slime) slime = Slime.Instance;
+
             target = slime.transform;
             StartCoroutine(Chase());
         }
