@@ -25,6 +25,7 @@ public class Sword : Short
     private float angleRange = 90f;
     Vector3 direction;
     float dotValue = 0f;
+
     #endregion
 
     #region 유니티 함수
@@ -49,7 +50,7 @@ public class Sword : Short
     // 일정 시간동안 이속이 증가
     IEnumerator IncrementSpeed(Slime slime)
     {
-        StatManager statManager = slime.statManager;
+      //  StatManager statManager = slime.statManager;
 
         originSpeed = statManager.myStats.moveSpeed;
         statManager.myStats.moveSpeed += dashSpeed;
