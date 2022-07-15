@@ -461,27 +461,7 @@ public class Slime : MonoBehaviour
     //}
 
 
-    //// 슬라임의 평타에 데미지를 입음
-    //public void AutoAtkDamaged()
-    //{
-    //    PlayAnim(AnimState.damaged);
-    //    Debug.Log("AutoAtkDamaged");
-    //    // 대미지 = 몬스터 공격력 * (1 - 방어율)
-    //    // 방어율 = 방어력 / (1 + 방어력)
-
-    //    //float damageReduction = stat.defensePower / (1 + stat.defensePower);
-    //    //stat.HP -= amount * (1 - damageReduction);
-
-    //    //
-    //}
-
-    //// 슬라임의스킬에 데미지를 입음
-    //public void SkillDamaged()
-    //{
-    //    PlayAnim(AnimState.damaged);
-    //    Debug.Log("SkillDamaged");
-    //}
-
+    // 데미지를 입음
     public void Damaged(Stats monsterStats, int atkType)
     {
         PlayAnim(AnimState.damaged);
@@ -494,7 +474,5 @@ public class Slime : MonoBehaviour
 
         Debug.Log("Stun");
     }
-
-   
 #endregion
 }
