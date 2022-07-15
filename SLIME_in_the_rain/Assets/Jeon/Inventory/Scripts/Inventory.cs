@@ -25,8 +25,7 @@ public class Inventory : MonoBehaviour
 
     public delegate void OnChangedItem();
     public OnChangedItem onChangedItem;
-
-
+    
    public List<Item> items = new List<Item>();
 
     private int slotCount;
@@ -43,6 +42,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void RemoveItem(int _index)
+    {
+        items.RemoveAt(_index);
+        onChangedItem.Invoke();
+    }
+
     #region 유니티메소드
     private void Awake()
     {
@@ -55,8 +60,7 @@ public class Inventory : MonoBehaviour
     }
     void Start()
     {
-       
-       SlotCount = 4;   
+       SlotCount = 4;
     }
 
     #endregion

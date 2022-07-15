@@ -11,16 +11,32 @@ public enum ItemType
 [System.Serializable]
 public class Item
 {
+    public Item(ItemType _itemType, string _itemName, string _itemExplain) { itemType = _itemType; itemName = _itemName; itemExplain = _itemExplain;}
     public ItemType itemType;
-    public string itemName;
+    public string itemName, itemExplain;
+
     public Sprite itemIcon;
     public GameObject itemGB;
+    public List<ItemEffect> efts = new List<ItemEffect>();
 
-    public Material itemMaterial;
 
-
-    public bool Use()
+    public bool Use(int _slotNum)
     {
-        return false;
+        bool isUsed = false;
+        if (efts.Count > 0)
+        {
+
+            foreach (ItemEffect eft in efts)
+            {
+               
+                    isUsed = eft.ExecuteRole(_slotNum);
+
+            }
+            return isUsed;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using TMPro;
 
 public class FieldItems : PickUp
 {
     #region 변수
     public Item item;
-    public MeshRenderer gb;
-    Inventory inventory;
+    public GameObject gb;
+    bool isFind = false;
+  
+   
     Slime slime;
+    Inventory inventory;
+    InventoryUI inventoryUI;
     [SerializeField]
-    FadeOutText warningText;
+    public FadeOutText warningText;
+
+    public TextMeshProUGUI wT;
     #endregion
 
     #region 유니티 함수
@@ -18,13 +26,11 @@ public class FieldItems : PickUp
     {
         inventory = Inventory.Instance;
         slime = Slime.Instance;
-        //jellyManager = JellyManager.Instance;
-        //objectPoolingManager = ObjectPoolingManager.Instance;
-
+        inventoryUI = InventoryUI.Instance;
         base.Start();
     }
 
-#endregion
+    #endregion
 
     #region 함수
     /// <summary>
@@ -32,39 +38,116 @@ public class FieldItems : PickUp
     /// </summary>
     public override void Get()
     {
-        if (inventory.items.Count < inventory.SlotCount)
+        if (inventory.items.Count < inventory.SlotCount) //인벤토리 공간 있을때
         {
-            inventory.items.Add(item);
-            if (inventory.onChangedItem != null)
+            switch (item.itemType) //아이템 타입에 따라
             {
-
-                inventory.onChangedItem.Invoke();
+                case ItemType.weapon:
+                    if (slime.currentWeapon == null)
+                    {
+                        wT.text = "무기가 아직 없습니다.";
+                        fullBag();
+                    }
+                    else
+                    {
+                        addItem();
+                    }
+                    break;
+                case ItemType.gelatin:
+                    isFind = false;
+                    for (int i = 0; i < inventory.items.Count; i++)
+                    {
+                        if (inventory.items[i].itemName == item.itemName)
+                        {
+                            findSame();
+                        }
+                    }
+                    if (!isFind)
+                    {
+                        addItem();
+                    }
+                    break;
+                default:
+                    break;
             }
-            this.gameObject.SetActive(false);
+        }
+        else if (inventory.items.Count == inventory.SlotCount && item.itemType == ItemType.gelatin)
+        {
+            isFind = false;
+            for (int i = 0; i < inventory.items.Count; i++)
+            {
+                if (inventory.items[i].itemName == item.itemName)
+                {
+                    findSame();
+                    break;
+                }
+            }
+            wT.text = "인벤토리가 가득 찼습니다.";
+            fullBag();
         }
         else
         {
-            velocity = -velocity;
-            targetPos = Vector3.zero;
-            targetPos.x = transform.position.x + (dir.x * velocity);
-            targetPos.y = transform.position.y;
-            targetPos.z = transform.position.z + (dir.z * velocity);
-
-            transform.position = targetPos;
-
-            if (warningText.gameObject.activeSelf) warningText.isAgain = true;
-            else warningText.gameObject.SetActive(true);
+            wT.text = "인벤토리가 가득 찼습니다.";
+            fullBag();
         }
+
+        inventoryUI.RedrawSlotUI();
+    }
+
+
+    void addItem()
+    {
+        inventory.items.Add(item);
+        inventoryUI.slots[inventoryUI.index].itemCount = 1;
+
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
+        inventoryUI.index++;
+        this.gameObject.SetActive(false);
+    }
+
+    void fullBag()
+    {
+        velocity = -velocity;
+        targetPos = Vector3.zero;
+        targetPos.x = transform.position.x + (dir.x * velocity);
+        targetPos.y = transform.position.y;
+        targetPos.z = transform.position.z + (dir.z * velocity);
+        transform.position = targetPos;
+       
+        if (warningText.gameObject.activeSelf) warningText.isAgain = true;
+        else warningText.gameObject.SetActive(true);
+    }
+
+    void findSame()
+    {
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == item.itemName)
+            {
+                inventoryUI.slots[i].SetSlotCount();
+                isFind = true;
+                break;
+            }
+        }
+        this.gameObject.SetActive(false);
+
     }
 
     public void SetItem(Item _item) //아이템 셋팅
     {
         item.itemName = _item.itemName;
         item.itemType = _item.itemType;
-        item.itemIcon = _item.itemIcon;
+        item.itemExplain = _item.itemExplain;
+
         item.itemGB = _item.itemGB;
-        item.itemMaterial = _item.itemMaterial;
-        gb.material = item.itemMaterial;
+        item.itemIcon = _item.itemIcon;
+
+        item.efts = _item.efts;
+
+        GameObject.Instantiate(item.itemGB, this.transform.position, Quaternion.identity).transform.parent = transform;
     }
 
     #endregion

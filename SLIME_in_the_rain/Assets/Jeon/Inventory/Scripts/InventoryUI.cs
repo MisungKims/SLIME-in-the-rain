@@ -7,11 +7,26 @@ using TMPro;
 public class InventoryUI : MonoBehaviour
 {
     #region 변수
+    #region 싱글톤
+    private static InventoryUI instance = null;
+    public static InventoryUI Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
+
     Inventory inven; //인벤토리
     [SerializeField]
     private Button ExpansionButton; //인벤확장버튼
     [SerializeField]
-    private Slot[] slots;
+    public Slot[] slots;
     public Transform slotHolder;
 
     [Header ("GbUI")] 
@@ -21,7 +36,7 @@ public class InventoryUI : MonoBehaviour
     public GameObject DissolutionUI;
 
     private JellyManager jellyManager;
-
+    public int index = 0;
     public TextMeshProUGUI JellyTextC; //젤리
     #region onOffBool
     bool activeInventory = false;
@@ -62,6 +77,16 @@ public class InventoryUI : MonoBehaviour
             DissolutionUI.SetActive(activeDissolution);
             JellyTextC.text = jellyManager.JellyCount.ToString();
     }
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     #endregion
 
     #region 메소드
@@ -69,6 +94,7 @@ public class InventoryUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
+            slots[i].slotNum = i;
             if (i < inven.SlotCount)
             {
                 slots[i].GetComponent<Button>().interactable = true;
@@ -89,22 +115,22 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    #region 버튼 온오프
-    public void OnOffStats()
+    #region 버튼 온오프 관리
+    void OnOffStats()
     {
         activeStatsUI = !activeStatsUI;
    
         activeCombination = false;
         activeDissolution = false;
     }
-    public void OnOffCombination()
+    void OnOffCombination()
     {
         activeCombination = !activeCombination;
 
         activeStatsUI = false;
         activeDissolution = false;
     }
-    public void OnOffDissolution()
+    void OnOffDissolution()
     {
         activeDissolution = !activeDissolution;
  
@@ -115,7 +141,7 @@ public class InventoryUI : MonoBehaviour
    
 
 
-    void RedrawSlotUI()
+   public void RedrawSlotUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
@@ -127,5 +153,7 @@ public class InventoryUI : MonoBehaviour
             slots[i].UpdateSlotUI();
         }
     }
+
+
     #endregion
 }
