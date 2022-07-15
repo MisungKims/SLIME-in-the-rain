@@ -16,7 +16,7 @@ public class Orc : Boss
     public override void DamageSlime(int atkType)
     {
         base.DamageSlime(atkType);
-        Debug.Log(atkType);
+       // Debug.Log(atkType);
 
        if(atkType == 1) slime.Stun(stunTime);       // 두번째 공격은 스턴
     }

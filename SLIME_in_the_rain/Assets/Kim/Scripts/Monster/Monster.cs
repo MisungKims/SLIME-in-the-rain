@@ -185,7 +185,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                     if (currentAnim.Equals(EMonsterAnim.attack))
                     {
                         anim.SetInteger("attack", -1);
-                        Debug.Log("false : " + doDamage);
+                        //Debug.Log("false : " + doDamage);
                         doDamage = false;
                     }
                     else if (currentAnim.Equals(EMonsterAnim.hit))
@@ -334,7 +334,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if(!doDamage)
         {
-            Debug.Log("damage : " + doDamage);
+           // Debug.Log("damage : " + doDamage);
 
             doDamage = true;
             slime.Damaged(stats, atkType);
