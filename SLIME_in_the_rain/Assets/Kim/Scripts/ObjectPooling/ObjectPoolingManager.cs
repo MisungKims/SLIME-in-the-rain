@@ -1,7 +1,7 @@
 /**
  * @brief 오브젝트 풀링
  * @author 김미성
- * @date 22-06-27
+ * @date 22-07-18
  */
 
 using System.Collections;
@@ -122,6 +122,11 @@ public class ObjectPoolingManager : MonoBehaviour
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
+        if(flag.Equals(EObjectFlag.gelatin))
+        {
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
+        }
+
         return tempGb;
     }
 
@@ -141,6 +146,11 @@ public class ObjectPoolingManager : MonoBehaviour
         else         // 큐에 더이상 없으면 새로 생성
         {
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
+        }
+
+        if (flag.Equals(EObjectFlag.gelatin))
+        {
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
         }
 
         tempGb.transform.position = pos;
