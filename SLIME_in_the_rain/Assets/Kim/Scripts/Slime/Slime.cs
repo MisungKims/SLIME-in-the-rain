@@ -87,7 +87,6 @@ public class Slime : MonoBehaviour
     private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
 
-    [SerializeField]
     public StatManager statManager;
 
     #endregion

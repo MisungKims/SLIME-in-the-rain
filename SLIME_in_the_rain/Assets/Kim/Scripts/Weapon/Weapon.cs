@@ -57,7 +57,6 @@ public class Weapon : MonoBehaviour
 
     // Ä³½Ì
     private WaitForSeconds waitForDash;
-    private WaitForSeconds waitFor1s = new WaitForSeconds(1f);
 
     protected StatManager statManager;
     #endregion

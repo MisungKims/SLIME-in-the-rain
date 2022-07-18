@@ -34,6 +34,8 @@ public class Short : Weapon
         {
             //Debug.DrawRay(slime.transform.position, slime.transform.forward * hit.distance, Color.red);
 
+            Debug.Log(hit.transform.name);
+
             if (hit.transform.CompareTag("DamagedObject"))
             {
                 Damage(hit.transform, isSkill);          // 데미지를 입힘

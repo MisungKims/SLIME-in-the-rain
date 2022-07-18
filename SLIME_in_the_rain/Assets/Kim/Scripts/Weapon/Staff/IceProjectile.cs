@@ -16,7 +16,7 @@ public class IceProjectile : StaffProjectile
     #endregion
 
     #region 유니티 함수
-    private void OnEnable()
+    protected override void OnEnable()
     {
         stunTime = 1f;
     }

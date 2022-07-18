@@ -1159,8 +1159,8 @@ GameObject:
   - component: {fileID: 3181719511261407630}
   - component: {fileID: 3181719511261407631}
   - component: {fileID: 3181719511261407625}
-  - component: {fileID: 1474794668511901500}
   - component: {fileID: 3181719511261407624}
+  - component: {fileID: 1474794668511901500}
   m_Layer: 8
   m_Name: Spider
   m_TagString: DamagedObject
@@ -1255,20 +1255,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &1474794668511901500
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3276254418422737917}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.79
-  m_Height: 1.24
-  m_Direction: 1
-  m_Center: {x: 0.032702424, y: 0.48225665, z: 0}
 --- !u!54 &3181719511261407624
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1285,6 +1271,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!136 &1474794668511901500
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276254418422737917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.79
+  m_Height: 1.24
+  m_Direction: 1
+  m_Center: {x: 0.032702424, y: 0.48225665, z: 0}
 --- !u!1 &3276256965812074643
 GameObject:
   m_ObjectHideFlags: 0

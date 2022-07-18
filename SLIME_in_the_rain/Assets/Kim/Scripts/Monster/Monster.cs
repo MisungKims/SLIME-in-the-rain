@@ -43,6 +43,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     private EMonsterAnim currentAnim;
 
+    private Collider monsterCollider;
 
     // 공격
     protected Collider[] atkRangeColliders;       // 공격 범위 감지 콜라이더
@@ -86,17 +87,19 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     
     #endregion
-
+    
     #region 유니티 함수
     protected virtual void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        monsterCollider = GetComponent<Collider>();
     }
 
     protected virtual void OnEnable()
     {
         isDie = false;
+        monsterCollider.isTrigger = false;
 
         PlayAnim(EMonsterAnim.idle);
     }
@@ -278,6 +281,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected virtual void Die()
     {
         isDie = true;
+        monsterCollider.isTrigger = true;
 
         // 슬라임 따라다니기를 중지
         isChasing = false;
