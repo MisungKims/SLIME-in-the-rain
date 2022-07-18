@@ -14,15 +14,21 @@ public class MoneyBox : MonoBehaviour, IDamage
     int randObj;
 
     private Animator anim;
+    private Collider objCollider;
 
     private GameObject pickUpObj;
     #endregion
 
     #region 유니티 함수
 
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
+        objCollider = GetComponent<Collider>();
+    }
+
+    private void Start()
+    {
         objectPoolingManager = ObjectPoolingManager.Instance;
     }
 
@@ -36,7 +42,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         {
             yield return null;
         }
-
+        objCollider.isTrigger = true;
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }
 
