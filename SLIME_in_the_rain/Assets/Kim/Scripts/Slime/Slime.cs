@@ -143,7 +143,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (!isAttacking && currentWeapon && Input.GetMouseButtonDown(0))
+            if (!isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
             {
                 isAttacking = true;
 
@@ -309,7 +309,7 @@ public class Slime : MonoBehaviour
     // 스킬을 사용할 수 있는지?
     bool IsCanSkill()
     {
-        if (!isAttacking && currentWeapon && currentWeapon.isCanSkill && Input.GetMouseButtonDown(1))
+        if (!isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
         {
             return true;
         }

@@ -90,8 +90,9 @@ public class ItemDatabase : MonoBehaviour
 
         for (int i = 0; i < pos.Length; i++)//아이템 생성 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
         {
-            GameObject go = Instantiate(fieldItemPrefab, pos[i],Quaternion.identity);
-            go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(0, AllitemDB.Count)]); 
+            ObjectPoolingManager.Instance.Get(EObjectFlag.gelatin, pos[i]);
+            // GameObject go = Instantiate(fieldItemPrefab, pos[i],Quaternion.identity);
+            // go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(0, AllitemDB.Count)]); 
         }
     }
 

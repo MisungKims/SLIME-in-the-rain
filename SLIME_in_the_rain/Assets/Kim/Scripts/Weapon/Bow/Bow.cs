@@ -59,7 +59,7 @@ public class Bow : Weapon
         // 부채꼴로 화살을 발사
 
         float angle = 45;           // 각도
-        float interval = 10f;       // 간격
+        float interval = 5f;       // 간격
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {

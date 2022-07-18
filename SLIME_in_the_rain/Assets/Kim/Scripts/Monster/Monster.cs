@@ -76,6 +76,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool doDamage; // 슬라임에게 데미지를 입혔는지?
 
+    string animName;
 
     // 캐싱
     private StatManager statManager;
@@ -113,6 +114,11 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         nav.speed = stats.moveSpeed;
         nav.stoppingDistance = stats.attackRange;
+    }
+
+    private void Update()
+    {
+        if (isDie) PlayAnim(EMonsterAnim.die);
     }
     #endregion
 
@@ -171,31 +177,32 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
     public IEnumerator CheckAnimEnd(string state)
     {
-        string name = "Base Layer." + state;
+        animName = "Base Layer." + state;
 
         if (state == "3")       // 공격 상태일 때
         {
-            name = "Attack " + anim.GetInteger("attack");
+            animName = "Attack " + anim.GetInteger("attack");
         }
 
         while (true)
         {
-            if (anim.GetCurrentAnimatorStateInfo(0).IsName(name))
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(animName))
             {
                 if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
                 {
-                    // 공격이 끝났을 때 공격 상태를 없음(-1)으로 변경
-                    if (currentAnim.Equals(EMonsterAnim.attack))
+                    if (currentAnim.Equals(EMonsterAnim.attack))    // 공격이 끝났을 때 공격 상태를 없음(-1)으로 변경
                     {
                         anim.SetInteger("attack", -1);
-                        //Debug.Log("false : " + doDamage);
                         doDamage = false;
                     }
                     else if (currentAnim.Equals(EMonsterAnim.hit))
                     {
                         isHit = false;
                     }
-                    PlayAnim(EMonsterAnim.idleBattle);
+
+                    if (isDie) PlayAnim(EMonsterAnim.die);
+                    else PlayAnim(EMonsterAnim.idleBattle);
+
                     break;
                 }
                 else 
@@ -206,6 +213,8 @@ public abstract class Monster : MonoBehaviour, IDamage
                         
                         DamageSlime(randAttack);     // 공격 애니메이션 실행 시 슬라임이 데미지 입도록
                     }
+
+                    if (isDie) PlayAnim(EMonsterAnim.die);
                 }
             }
 
@@ -248,6 +257,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
             isHit = true;
+           
             if (!isStun) PlayAnim(EMonsterAnim.hit);
             TryStartChase();               // 슬라임 따라다니기 시작
         }
@@ -261,6 +271,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         if (HaveDamage(statManager.GetSkillDamage()))
         {
             isHit = true;
+           
             if (!isStun) PlayAnim(EMonsterAnim.hit);
             TryStartChase();               // 슬라임 따라다니기 시작
         }
@@ -292,8 +303,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         target = null;
 
         HideHPBar();
-
-        PlayAnim(EMonsterAnim.die);
 
         StartCoroutine(DieCoroutine());
     }
@@ -376,14 +385,21 @@ public abstract class Monster : MonoBehaviour, IDamage
         int state = (int)animState;
         currentAnim = animState;
 
+        anim.SetInteger("animation", state);
+
+        if (isDie)
+        {
+            return;
+        }
+
         if (!(animState.Equals(EMonsterAnim.attack)))
         {
             anim.SetInteger("attack", -1);          // 공격 상태를 없음(-1)으로 변경
         }
 
-        anim.SetInteger("animation", state);
+        //anim.SetInteger("animation", state);
 
-        // 반복해야하는 애니메이션이 아니라면(ex.공격), 애니메이션이 끝난 후 상태를 Idle로 변경
+        //// 반복해야하는 애니메이션이 아니라면(ex.공격), 애니메이션이 끝난 후 상태를 Idle로 변경
         if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.hit)
         {
             StartCoroutine(CheckAnimEnd(state.ToString()));

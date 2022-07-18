@@ -11,6 +11,9 @@ using UnityEngine;
 public class Jelly : PickUp
 {
     #region º¯¼ö
+    [SerializeField]
+    private int jellyAmount = 50;
+
     // Ä³½Ì
     JellyManager jellyManager;
     ObjectPoolingManager objectPoolingManager;
@@ -32,7 +35,7 @@ public class Jelly : PickUp
     // Á©¸® È¹µæ
     public override void Get()
     {
-        jellyManager.JellyCount++;
+        jellyManager.JellyCount += jellyAmount;
 
         objectPoolingManager.Set(this.gameObject, EObjectFlag.jelly);       // ¿ÀºêÁ§Æ® Ç®¿¡ ¹ÝÈ¯
     }
