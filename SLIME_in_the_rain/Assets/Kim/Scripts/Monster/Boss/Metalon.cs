@@ -12,7 +12,7 @@ public class Metalon : Boss
 {
     #region 변수
     private float chaseCount;
-    private float maxCount = 10f;
+    private float maxCount = 5f;
 
     [SerializeField]
     private GameObject[] spiders = new GameObject[3];
@@ -32,7 +32,7 @@ public class Metalon : Boss
                 atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
                 if (atkRangeColliders.Length > 0)
                 {
-                    if (!isAttacking) StartCoroutine(Attack());
+                    if (!isAttacking && canAttack) StartCoroutine(Attack());
 
                     chaseCount = 0;
                 }
@@ -60,6 +60,8 @@ public class Metalon : Boss
     // 원거리 공격 (거미 새끼 생성) 코루틴
     private IEnumerator LongAttack()
     {
+        canAttack = false;
+
         PlayAnim(EMonsterAnim.idleBattle);
 
         chaseCount = 0;

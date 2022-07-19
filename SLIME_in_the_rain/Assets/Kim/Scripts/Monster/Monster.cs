@@ -62,6 +62,12 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected int randAttack;      // 공격 방법
 
+    [HideInInspector]
+    public int projectileAtk;
+
+    protected bool canAttack = true;
+
+
     // 공격 후 대기 시간
     protected float randAtkTime;
     protected float minAtkTime = 0.3f;
@@ -75,6 +81,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected bool isDie = false;
 
     protected bool doDamage; // 슬라임에게 데미지를 입혔는지?
+
+    protected bool noDamage = false;        // 데미지를 입힐 필요가 없는지?
 
     string animName;
 
@@ -133,12 +141,14 @@ public abstract class Monster : MonoBehaviour, IDamage
             {
                 // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
                 atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-                if (atkRangeColliders.Length > 0 && !isAttacking)
+                if (atkRangeColliders.Length > 0 && !isAttacking && canAttack)
                 {
                     StartCoroutine(Attack());
                 }
                 else if (atkRangeColliders.Length <= 0)
                 {
+                    if(!canAttack) canAttack = true;
+
                     // 슬라임을 쫓아다님
                     nav.SetDestination(target.position);
 
@@ -154,8 +164,10 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     // 공격 
-    protected IEnumerator Attack()
+    protected virtual IEnumerator Attack()
     {
+        canAttack = false;
+
         nav.SetDestination(transform.position);
         transform.LookAt(target);
 
@@ -181,7 +193,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if (state == "3")       // 공격 상태일 때
         {
-            animName = "Attack " + anim.GetInteger("attack");
+            animName = "Base Layer." + "Attack " + anim.GetInteger("attack");
         }
 
         while (true)
@@ -194,6 +206,8 @@ public abstract class Monster : MonoBehaviour, IDamage
                     {
                         anim.SetInteger("attack", -1);
                         doDamage = false;
+
+                        canAttack = true;
                     }
                     else if (currentAnim.Equals(EMonsterAnim.hit))
                     {
@@ -207,7 +221,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                 }
                 else 
                 {
-                    if (currentAnim.Equals(EMonsterAnim.attack) && !doDamage)
+                    if (currentAnim.Equals(EMonsterAnim.attack) && !doDamage && !noDamage)
                     {
                         yield return new WaitForSeconds(0.1f);
                         
@@ -347,7 +361,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if(!doDamage)
         {
-           // Debug.Log("damage : " + doDamage);
+            Debug.Log("damaged");
 
             doDamage = true;
             slime.Damaged(stats, atkType);
