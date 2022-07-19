@@ -6,6 +6,8 @@ public class MoneyBox : MonoBehaviour, IDamage
 {
     #region º¯¼ö
 
+    private bool isDamaged;
+
     private ObjectPoolingManager objectPoolingManager;
     Vector3 spawnPos;
 
@@ -32,6 +34,11 @@ public class MoneyBox : MonoBehaviour, IDamage
         objectPoolingManager = ObjectPoolingManager.Instance;
     }
 
+    private void OnEnable()
+    {
+        isDamaged = false;
+        objCollider.enabled = true;
+    }
     #endregion
     
     IEnumerator TakeDamaged()
@@ -42,7 +49,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         {
             yield return null;
         }
-        objCollider.isTrigger = true;
+        //objCollider.isTrigger = true;
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }
 
@@ -52,6 +59,12 @@ public class MoneyBox : MonoBehaviour, IDamage
     // Á©¸® È¤Àº Á©¶óÆ¾ ½ºÆù
     void SpawnObject()
     {
+        if (isDamaged) return;
+
+        objCollider.enabled = false;
+
+        isDamaged = true;
+
         randObj = Random.Range(jellyIndex, gelatinIndex + 1);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾À» Á¤ÇÔ
 
         spawnPos = this.transform.position;

@@ -17,7 +17,8 @@ public enum EProjectileFlag     // ≈ıªÁ√º Flag
     fireSkill,
     dagger,
     sword,
-    earthworm
+    earthworm,
+    spider
 }
 
 public class Projectile : MonoBehaviour

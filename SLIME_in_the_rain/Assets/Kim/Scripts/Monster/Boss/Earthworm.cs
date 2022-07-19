@@ -20,6 +20,13 @@ public class Earthworm : Boss
     private Transform projectilePos;
     #endregion
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        projectileAtk = 1;
+    }
+
     #region 코루틴
     // 슬라임을 추적
     protected override IEnumerator Chase()
@@ -32,7 +39,7 @@ public class Earthworm : Boss
                 atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
                 if (atkRangeColliders.Length > 0)
                 {
-                    if (!isAttacking) StartCoroutine(ShortAttack());
+                    if (!isAttacking && canAttack) StartCoroutine(ShortAttack());
 
                     chaseCount = 0;
                 }
@@ -60,6 +67,8 @@ public class Earthworm : Boss
     // 단거리 공격 코루틴
     private IEnumerator ShortAttack()
     {
+        canAttack = false;
+
         nav.SetDestination(target.position);
         transform.LookAt(target);
 
@@ -80,10 +89,14 @@ public class Earthworm : Boss
     // 원거리 공격 (투사체 발사) 코루틴
     private IEnumerator LongAttack()
     {
+        canAttack = false;
+
         chaseCount = 0;
         IsAttacking = true;
         nav.SetDestination(transform.position);
         transform.LookAt(target);
+
+        noDamage = true;        // 이 공격은 슬라임이 투사체에 맞았을 때 데미지를 입어야하므로 noDamage를 true로 변경
 
         // 애니메이션 실행
         anim.SetInteger("attack", 1);
@@ -97,6 +110,7 @@ public class Earthworm : Boss
         yield return new WaitForSeconds(0.5f);
 
         IsAttacking = false;
+        noDamage = false;
     }
     #endregion
 
@@ -104,8 +118,8 @@ public class Earthworm : Boss
     private void GetProjectile()
     {
         // 투사체 발사
-        EarthwormProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent<EarthwormProjectile>();
-        projectile.earthworm = this;
+        MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent<MonsterProjectile>();
+        projectile.monster = this;
 
         projectile.transform.position = projectilePos.position;
         projectile.transform.LookAt(target);
