@@ -30,6 +30,8 @@ public abstract class PickUp : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+
+        slime = Slime.Instance;
     }
 
     private void OnEnable()
@@ -39,14 +41,10 @@ public abstract class PickUp : MonoBehaviour
             rigid.AddForce(transform.up * force, ForceMode.Force);
             rigid.useGravity = true;
         }
-    }
-
-    protected virtual void Start()
-    {
-        slime = Slime.Instance;
 
         StartCoroutine(DetectSlime());
     }
+
     #endregion
 
     #region 코루틴
@@ -56,6 +54,8 @@ public abstract class PickUp : MonoBehaviour
     /// <returns></returns>
     IEnumerator DetectSlime()
     {
+        slime = Slime.Instance;
+
         // 슬라임과의 거리를 탐지
         while (true)
         {
