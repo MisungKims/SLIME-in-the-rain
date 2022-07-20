@@ -13,7 +13,7 @@ public class Dagger : Short
 {
     #region 변수
     //private float maxDistance = 0.8f;               // 평타 공격 범위
-    private float dashDistance = 2f;
+    private float addDashDistance = 2;
 
     // 스킬
     private float skillDuration = 5f;        // 스킬 지속시간
@@ -83,7 +83,7 @@ public class Dagger : Short
     // 대시 코루틴
     IEnumerator DashCorutine()
     {
-        slime.DashDistance = dashDistance;
+        slime.DashDistance += addDashDistance;
         slime.Dash();           // 일반 대시
 
         yield return new WaitForSeconds(0.07f);        // 대시가 끝날 때까지 대기

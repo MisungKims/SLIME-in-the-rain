@@ -1,3 +1,9 @@
+/**
+ * @brief 재화 스폰 박스
+ * @author 김미성
+ * @date 22-07-20
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +22,6 @@ public class MoneyBox : MonoBehaviour, IDamage
     int randObj;
 
     private Animator anim;
-    private Collider objCollider;
 
     private GameObject pickUpObj;
     #endregion
@@ -26,7 +31,6 @@ public class MoneyBox : MonoBehaviour, IDamage
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        objCollider = GetComponent<Collider>();
     }
 
     private void Start()
@@ -37,7 +41,6 @@ public class MoneyBox : MonoBehaviour, IDamage
     private void OnEnable()
     {
         isDamaged = false;
-        objCollider.enabled = true;
     }
     #endregion
     
@@ -49,7 +52,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         {
             yield return null;
         }
-        //objCollider.isTrigger = true;
+
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }
 
@@ -61,8 +64,6 @@ public class MoneyBox : MonoBehaviour, IDamage
     {
         if (isDamaged) return;
 
-        objCollider.enabled = false;
-
         isDamaged = true;
 
         randObj = Random.Range(jellyIndex, gelatinIndex + 1);       // 랜덤으로 젤리, 젤라틴을 정함
@@ -70,7 +71,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         spawnPos = this.transform.position;
         spawnPos.y += 0.5f;
         pickUpObj = objectPoolingManager.Get((EObjectFlag)randObj, spawnPos);
-
+       
         StartCoroutine(TakeDamaged());
     }
 

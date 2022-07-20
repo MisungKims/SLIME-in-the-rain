@@ -78,7 +78,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool isStun = false;
 
-    protected bool isDie = false;
+    public bool isDie = false;
 
     protected bool doDamage; // 슬라임에게 데미지를 입혔는지?
 
@@ -268,6 +268,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
+
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
             isHit = true;
@@ -282,6 +284,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.2f));
+
         if (HaveDamage(statManager.GetSkillDamage()))
         {
             isHit = true;
@@ -295,6 +299,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     public virtual void Stun(float stunTime)
     {
         if (isDie) return;
+
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.23f));
 
         if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
         {
