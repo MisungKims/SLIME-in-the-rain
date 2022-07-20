@@ -79,8 +79,8 @@ public class Projectile : MonoBehaviour
     // 데미지를 입힘
     protected virtual void DoDamage(Collider other, bool isSkill)
     {
-        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
-
+        HideProjectile(other);
+       
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
@@ -93,6 +93,19 @@ public class Projectile : MonoBehaviour
                 RuneManager.Instance.UseAttackRune(other.gameObject);
             }
         }
+    }
+
+    // 투사체가 사라짐
+    protected void HideProjectile(Collider other)
+    {
+        if (other.transform.gameObject.layer == 8)
+        {
+            if (!other.GetComponent<Monster>().isDie)
+            {
+                ObjectPoolingManager.Instance.Set(this.gameObject, flag);
+            }
+        }
+        else ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
     #endregion
 }

@@ -26,9 +26,10 @@ public class Arrow : Projectile
     // 데미지를 입힘
     protected override void DoDamage(Collider other, bool isSkill)
     {
+        // 관통화살이 아니면 사라짐
         if (!isPenetrate)
         {
-            ObjectPoolingManager.Instance.Set(this.gameObject, flag);           // 관통화살이 아니면 사라짐
+            HideProjectile(other);
         }
         
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
