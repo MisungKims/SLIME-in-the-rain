@@ -31853,7 +31853,7 @@ MonoBehaviour:
     initCount: 5
   - copyObj: {fileID: 6386964482441723752, guid: 101b1c7319ae1494b850601e958fff93, type: 3}
     parent: {fileID: 120943675}
-    initCount: 5
+    initCount: 50
   - copyObj: {fileID: 4631997835977516517, guid: b99551b5603218e458e58198cb78a78a, type: 3}
     parent: {fileID: 1666215556}
     initCount: 10
@@ -41561,6 +41561,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   projectileAtk: 0
+  isDie: 0
   hpBar: {fileID: 661840989}
 --- !u!1 &1687795802115504069
 GameObject:
@@ -44547,7 +44548,7 @@ MonoBehaviour:
     moveSpeed: 1
     attackSpeed: 0
     attackPower: 0
-    attackRange: 2
+    attackRange: 5
     defensePower: 0
     hitCount: 0
     increasesDamage: 0
@@ -44555,6 +44556,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   projectileAtk: 0
+  isDie: 0
   hpBar: {fileID: 661840989}
   spiders:
   - {fileID: 3276254419874658719}
@@ -45547,7 +45549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3276254418422737917, guid: 7577a6e61b581ee47a03d2f9203de539, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3277522006881494811, guid: 7577a6e61b581ee47a03d2f9203de539, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -46628,7 +46630,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4850899340696274076
 Transform:
   m_ObjectHideFlags: 0
@@ -46754,6 +46756,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   projectileAtk: 0
+  isDie: 0
   hpBar: {fileID: 661840989}
   projectilePos: {fileID: 2068590052}
 --- !u!1 &5362899305160907554

@@ -21,12 +21,10 @@ public class Jelly : PickUp
 
     #region 유니티 함수
 
-    protected override void Start()
+    private void Start()
     {
         jellyManager = JellyManager.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
-
-        base.Start();
     }
     #endregion
 

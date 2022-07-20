@@ -22,12 +22,11 @@ public class FieldItems : PickUp
     #endregion
 
     #region 유니티 함수
-    protected override void Start()
+    private void Start()
     {
         inventory = Inventory.Instance;
         slime = Slime.Instance;
         inventoryUI = InventoryUI.Instance;
-        base.Start();
     }
 
     #endregion

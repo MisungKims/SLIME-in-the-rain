@@ -111,6 +111,8 @@ public abstract class Monster : MonoBehaviour, IDamage
         monsterCollider.isTrigger = false;
 
         PlayAnim(EMonsterAnim.idle);
+
+        stats.HP = stats.maxHP;
     }
 
    void Start()
@@ -124,10 +126,10 @@ public abstract class Monster : MonoBehaviour, IDamage
         nav.stoppingDistance = stats.attackRange;
     }
 
-    private void Update()
-    {
-        if (isDie) PlayAnim(EMonsterAnim.die);
-    }
+    //private void Update()
+    //{
+    //    if (isDie) PlayAnim(EMonsterAnim.die);
+    //}
     #endregion
 
     #region 코루틴
@@ -212,6 +214,8 @@ public abstract class Monster : MonoBehaviour, IDamage
                     else if (currentAnim.Equals(EMonsterAnim.hit))
                     {
                         isHit = false;
+
+                        canAttack = true;
                     }
 
                     if (isDie) PlayAnim(EMonsterAnim.die);
@@ -255,6 +259,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 3초 뒤 오브젝트 비활성화
     protected virtual IEnumerator DieCoroutine()
     {
+        PlayAnim(EMonsterAnim.die);
+
         yield return waitFor3s;
 
         this.gameObject.SetActive(false);
