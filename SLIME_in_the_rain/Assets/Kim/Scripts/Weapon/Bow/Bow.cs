@@ -44,6 +44,7 @@ public class Bow : Weapon
         base.AutoAttack(targetPos);         // 평타 애니메이션 재생
 
         Arrow arrow = GetProjectile(targetPos);
+
         lookRot = arrow.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
@@ -79,7 +80,10 @@ public class Bow : Weapon
         Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero).GetComponent<Arrow>();
         if (weaponRuneInfos[0].isActive) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
 
-        arrow.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
+        arrow.transform.forward = targetPos;        // 화살 생성 뒤 마우스 방향을 바라봄
+        //arrow.dir = targetPos;
+        Debug.Log("bow : " + targetPos);
+        //arrow.transform.LookAt(targetPos);      
 
         return arrow;
     }

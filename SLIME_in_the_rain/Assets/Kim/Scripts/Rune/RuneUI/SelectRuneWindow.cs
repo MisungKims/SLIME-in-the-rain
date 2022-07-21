@@ -60,6 +60,7 @@ public class SelectRuneWindow : MonoBehaviour
 
     // 캐싱
     private RuneManager runeManager;
+    private JellyManager jellyManager;
     #endregion
 
     #region 유니티 함수
@@ -82,7 +83,9 @@ public class SelectRuneWindow : MonoBehaviour
     private void Start()
     {
         runeManager = RuneManager.Instance;
-        JellyManager.Instance.JellyCount = 200; // 나중에 지우기 
+        jellyManager = JellyManager.Instance;
+
+        jellyManager.JellyCount = 200; // 나중에 지우기 
     }
     #endregion
 
@@ -98,9 +101,11 @@ public class SelectRuneWindow : MonoBehaviour
     // 버튼 초기화
     public void SetButtons()
     {
+        if (!runeManager) runeManager = RuneManager.Instance;
+
         for (int i = 0; i < runeButtons.Length; i++)
         {
-            runeButtons[i].SetUI(RuneManager.Instance.GetRandomRune());
+            runeButtons[i].SetUI(runeManager.GetRandomRune());
         }
     }
 
@@ -108,7 +113,7 @@ public class SelectRuneWindow : MonoBehaviour
     public void Reroll()
     {
         // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때
-        if (JellyManager.Instance.JellyCount < 100 || rerollCount <= 0)
+        if (jellyManager.JellyCount < 100 || rerollCount <= 0)
         {
             // 젤리 부족 경고창을 띄움
             if (warningText.gameObject.activeSelf) warningText.isAgain = true;
@@ -119,7 +124,7 @@ public class SelectRuneWindow : MonoBehaviour
 
         SetButtons();
 
-        JellyManager.Instance.JellyCount -= 100;            // 젤리 100개 회수
+        jellyManager.JellyCount -= 100;            // 젤리 100개 회수
 
         RerollCount--;
     }

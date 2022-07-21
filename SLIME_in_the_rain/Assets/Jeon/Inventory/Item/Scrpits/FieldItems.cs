@@ -156,15 +156,18 @@ public class FieldItems : PickUp
     // 인벤토리에 아이템 추가
     public void AddInventory()
     {
-        if (!FindSame())
+        if (!FindSame())        // 인벤토리에 이 아이템이 없으면
         {
-            AddItem();
+            addItem();          // 새로 추가
         }
     }
 
     // 인벤토리에서 같은 아이템을 찾아 카운트를 증가시킴
     private bool FindSame()
     {
+        if (!inventory) inventory = Inventory.Instance;
+        if (!inventoryUI) inventoryUI = InventoryUI.Instance;
+
         isFind = false;
 
         for (int i = 0; i < inventory.items.Count; i++)
@@ -179,20 +182,6 @@ public class FieldItems : PickUp
         this.gameObject.SetActive(false);
 
         return isFind;
-    }
-
-    // 인벤토리에 아이템 추가
-    private void AddItem()
-    {
-        inventory.items.Add(item);
-        inventoryUI.slots[inventoryUI.index].itemCount = 1;
-
-        if (inventory.onChangedItem != null)
-        {
-            inventory.onChangedItem.Invoke();
-        }
-        inventoryUI.index++;
-        this.gameObject.SetActive(false);
     }
     #endregion
 }
