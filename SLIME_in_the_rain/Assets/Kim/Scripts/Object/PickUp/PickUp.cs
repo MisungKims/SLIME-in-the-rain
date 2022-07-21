@@ -17,6 +17,8 @@ public abstract class PickUp : MonoBehaviour
 
     private float force = 250.0f;
 
+    public bool canDetect = true;
+
     // 슬라임 감지에 필요한 변수
     protected float velocity;
     protected float acceleration = 0.2f;
@@ -42,6 +44,7 @@ public abstract class PickUp : MonoBehaviour
             rigid.useGravity = true;
         }
 
+        canDetect = true;
         StartCoroutine(DetectSlime());
     }
 
@@ -57,7 +60,7 @@ public abstract class PickUp : MonoBehaviour
         slime = Slime.Instance;
 
         // 슬라임과의 거리를 탐지
-        while (true)
+        while (canDetect)
         {
             dir = (slime.transform.position - transform.position).normalized;
 

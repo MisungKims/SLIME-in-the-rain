@@ -19,6 +19,7 @@ public class FieldItems : PickUp
     public FadeOutText warningText;
 
     public TextMeshProUGUI wT;
+
     #endregion
 
     #region 유니티 함수
@@ -149,5 +150,49 @@ public class FieldItems : PickUp
         GameObject.Instantiate(item.itemGB, this.transform.position, Quaternion.identity).transform.parent = transform;
     }
 
+
+    //////////////////////// 추가
+    
+    // 인벤토리에 아이템 추가
+    public void AddInventory()
+    {
+        if (!FindSame())
+        {
+            AddItem();
+        }
+    }
+
+    // 인벤토리에서 같은 아이템을 찾아 카운트를 증가시킴
+    private bool FindSame()
+    {
+        isFind = false;
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == item.itemName)
+            {
+                inventoryUI.slots[i].SetSlotCount();
+                isFind = true;
+                break;
+            }
+        }
+        this.gameObject.SetActive(false);
+
+        return isFind;
+    }
+
+    // 인벤토리에 아이템 추가
+    private void AddItem()
+    {
+        inventory.items.Add(item);
+        inventoryUI.slots[inventoryUI.index].itemCount = 1;
+
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
+        inventoryUI.index++;
+        this.gameObject.SetActive(false);
+    }
     #endregion
 }
