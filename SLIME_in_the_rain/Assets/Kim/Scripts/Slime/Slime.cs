@@ -49,7 +49,7 @@ public class Slime : MonoBehaviour
     private float detectRadius = 1.1f;      // 무기를 감지할 범위
 
     Collider[] colliders;
-
+    Outline outline;
 
     //////// 대시
     [Header("------------ 대시")]
@@ -353,7 +353,9 @@ public class Slime : MonoBehaviour
     }
 
     #endregion
+   // List<Collider> lastCollider = new List<Collider>();
 
+    Collider lastCollider;
     #region 무기
     // 주변에 있는 무기 감지
     void DetectWeapon()
@@ -362,6 +364,7 @@ public class Slime : MonoBehaviour
 
         if (colliders.Length == 1)      // 감지한 무기가 한 개일 때
         {
+            lastCollider = colliders[0];
             EquipWeapon(0);
         }
         else if (colliders.Length > 1)
@@ -382,22 +385,41 @@ public class Slime : MonoBehaviour
                 }
             }
 
+            // Outline을 꺼야하는 오브젝트는 끔
+            if(!lastCollider.Equals(colliders[minIndex]))
+            {
+                outline = lastCollider.GetComponent<Outline>();
+                outline.enabled = false;
+                lastCollider = colliders[minIndex];
+            }
+
             EquipWeapon(minIndex);
+        }
+        else
+        {
+            if(lastCollider)            // 아무것도 감지하지 않을 때 오브젝트의 아웃라인 끄기
+            {
+                outline = lastCollider.GetComponent<Outline>();
+                outline.enabled = false;
+                lastCollider = null;
+            }
         }
     }
 
-    // 감지한 무기 장착
+    // 감지한 무기 G 키를 눌러 장착
     void EquipWeapon(int index)
     {
+        if (lastCollider)
+        {
+            outline = lastCollider.GetComponent<Outline>();
+            outline.enabled = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.G))
         {
-            if (currentWeapon)
-            {
-                currentWeapon.gameObject.layer = 6;
-                ObjectPoolingManager.Instance.Set(currentWeapon);
-                currentWeapon = null;
-            }
+            RemoveCurrentWeapon();
 
+            outline.enabled = false;
             colliders[index].SendMessage("DoAttach", SendMessageOptions.DontRequireReceiver);
         }
     }
@@ -405,16 +427,20 @@ public class Slime : MonoBehaviour
     // 인벤토리에서 클릭 시 무기 장착
     public void EquipWeapon(Weapon weapon)
     {
+        RemoveCurrentWeapon();
+
+        weapon.ChangeWeapon();
+    }
+
+    // 현재 무기를 없앰
+    void RemoveCurrentWeapon()
+    {
         if (currentWeapon)
         {
             currentWeapon.gameObject.layer = 6;
             ObjectPoolingManager.Instance.Set(currentWeapon);
             currentWeapon = null;
         }
-
-        weapon.ChangeWeapon();
-
-       // ChangeWeapon(weapon);
     }
 
     // 무기 변경
@@ -422,12 +448,15 @@ public class Slime : MonoBehaviour
     {
         currentWeapon = weapon;
 
+        // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;
         currentWeapon.transform.localPosition = Vector3.zero;
 
-        statManager.ChangeStats(currentWeapon);            // 변경한 무기의 스탯으로 변경
+        // 변경한 무기의 스탯으로 변경
+        statManager.ChangeStats(currentWeapon);
 
-        ChangeMaterial();               // 슬라임의 색 변경
+        // 슬라임의 색 변경
+        ChangeMaterial();              
     }
 
     // 슬라임의 색(머터리얼) 변경

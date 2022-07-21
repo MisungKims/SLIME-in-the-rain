@@ -84,6 +84,7 @@ public class Earthworm : Boss
         yield return new WaitForSeconds(randAtkTime);
 
         IsAttacking = false;
+        canAttack = true;
     }
 
     // 원거리 공격 (투사체 발사) 코루틴
@@ -110,6 +111,7 @@ public class Earthworm : Boss
         yield return new WaitForSeconds(0.5f);
 
         IsAttacking = false;
+        canAttack = true;
         noDamage = false;
     }
     #endregion

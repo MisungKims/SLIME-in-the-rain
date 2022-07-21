@@ -126,10 +126,10 @@ public abstract class Monster : MonoBehaviour, IDamage
         nav.stoppingDistance = stats.attackRange;
     }
 
-    //private void Update()
-    //{
-    //    if (isDie) PlayAnim(EMonsterAnim.die);
-    //}
+    private void Update()
+    {
+        if (isDie) PlayAnim(EMonsterAnim.die);
+    }
     #endregion
 
     #region 코루틴
@@ -154,7 +154,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                     // 슬라임을 쫓아다님
                     nav.SetDestination(target.position);
 
-                    if (!doDamage) IsAttacking = false;
+                    if (!doDamage) IsAttacking = false;         // 데미지를 입히는 중일 때 공격할 수 없도록
                     PlayAnim(EMonsterAnim.run);
                 }
 
@@ -186,6 +186,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         yield return new WaitForSeconds(randAtkTime);
 
         IsAttacking = false;
+        canAttack = true;
     }
 
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
@@ -208,15 +209,13 @@ public abstract class Monster : MonoBehaviour, IDamage
                     {
                         anim.SetInteger("attack", -1);
                         doDamage = false;
-
-                        canAttack = true;
                     }
                     else if (currentAnim.Equals(EMonsterAnim.hit))
                     {
                         isHit = false;
-
-                        canAttack = true;
                     }
+
+                    canAttack = true;
 
                     if (isDie) PlayAnim(EMonsterAnim.die);
                     else PlayAnim(EMonsterAnim.idleBattle);
@@ -259,7 +258,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 3초 뒤 오브젝트 비활성화
     protected virtual IEnumerator DieCoroutine()
     {
-        PlayAnim(EMonsterAnim.die);
+       // PlayAnim(EMonsterAnim.die);
 
         yield return waitFor3s;
 
@@ -413,10 +412,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         anim.SetInteger("animation", state);
 
-        if (isDie)
-        {
-            return;
-        }
+        if (isDie) return;
 
         if (!(animState.Equals(EMonsterAnim.attack)))
         {
