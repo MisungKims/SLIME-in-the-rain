@@ -95,10 +95,4 @@ public class ItemDatabase : MonoBehaviour
             // go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(0, AllitemDB.Count)]); 
         }
     }
-
-    // ·£´ý Á©¶óÆ¾ÀÇ DB ¹ÝÈ¯ (Kim)
-    public Item RandomGelatin()
-    {
-        return AllitemDB[Random.Range(0, 15)];
-    }
 }

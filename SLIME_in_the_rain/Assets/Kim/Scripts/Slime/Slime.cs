@@ -82,6 +82,8 @@ public class Slime : MonoBehaviour
 
     Vector3 direction;                  // 이동 방향
 
+    public bool canMove = true;
+
 
     //////// 캐싱
     private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
@@ -236,7 +238,7 @@ public class Slime : MonoBehaviour
     // 슬라임의 움직임
     void Move()
     {
-        if (isAttacking || isDash || isStun) return;
+        if (!canMove || isAttacking || isDash || isStun) return;
 
         float dirX = Input.GetAxis("Horizontal");
         float dirZ = Input.GetAxis("Vertical");
@@ -268,7 +270,7 @@ public class Slime : MonoBehaviour
     // 스페이스바 누르면 앞으로 대시
     void SpaceBar()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDash)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove)
         {
             isDash = true;
 
