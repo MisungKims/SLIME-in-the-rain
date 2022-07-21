@@ -18,12 +18,35 @@ public class GetGelatinWindow : MonoBehaviour
             gelatinNameTxt.text = gelatinName;
         }
     }
+    
+    [SerializeField]
+    private TextMeshProUGUI gelatinDescTxt;
+    private string gelatinDesc;
+    public string GelatinDesc
+    {
+        set
+        {
+            gelatinDesc = value;
+            gelatinDescTxt.text = gelatinDesc;
+        }
+    }
+
+    [SerializeField]
+    private Image gelatinImage;
     #endregion
+
 
     #region ÇÔ¼ö
     public void SetUI()
     {
+        //FieldItems gelatin = ObjectPoolingManager.Instance.Get(EObjectFlag.gelatin).GetComponent<FieldItems>();
+        //gelatin.gameObject.SetActive(false);
 
+        Item item = ItemDatabase.Instance.RandomGelatin();
+
+        GelatinName = item.itemName;
+        GelatinDesc = item.itemExplain;
+        gelatinImage.sprite = item.itemIcon;
     }
 
     // È¹µæ ¹öÆ° Å¬¸¯½Ã

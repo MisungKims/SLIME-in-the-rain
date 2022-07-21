@@ -148,7 +148,7 @@ public class ObjectPoolingManager : MonoBehaviour
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
-        if (flag.Equals(EObjectFlag.gelatin))
+        if (flag.Equals(EObjectFlag.gelatin))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
         {
             tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
         }

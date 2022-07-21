@@ -33,6 +33,8 @@ public class SelectRuneWindow : MonoBehaviour
 
     [SerializeField]
     private Canvas GetGelatinCanvas;     // Á©¶óÆ¾ È¹µæ Äµ¹ö½º
+    [SerializeField]
+    private GetGelatinWindow GetGelatinWindow;     // Á©¶óÆ¾ È¹µæ Äµ¹ö½º
 
     [SerializeField]
     private RuneButton[] runeButtons = new RuneButton[3];           // ·é ¼±ÅÃ ¹öÆ° ¹è¿­
@@ -122,11 +124,11 @@ public class SelectRuneWindow : MonoBehaviour
         RerollCount--;
     }
 
-    // ·£´ý Á©¶óÆ¾ Áö±Þ
+    // ·£´ý Á©¶óÆ¾ Áö±ÞÃ¢ º¸¿©ÁÜ
     public void GetGelatin()
     {
-        // TODO : ·£´ý Á©¶óÆ¾ Áö±Þ
         GetGelatinCanvas.enabled = true;
+        GetGelatinWindow.SetUI();
     }
 
     // ·é ¼±ÅÃÃ¢À» ´Ý±â

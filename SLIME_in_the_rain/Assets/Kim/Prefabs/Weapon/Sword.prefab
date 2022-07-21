@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1191005057179352862}
   - component: {fileID: 7204189787398559287}
+  - component: {fileID: -292552373472322295}
   - component: {fileID: 1191005057179352863}
   - component: {fileID: 7608006544007247196}
   m_Layer: 6
@@ -65,14 +66,29 @@ MonoBehaviour:
     isActive: 0
   slimeMat: {fileID: 2100000, guid: ea276de0b83b4174e9f1781af1309886, type: 2}
   weaponType: 1
-  monsterLayer:
-    serializedVersion: 2
-    m_Bits: 256
   wName: "\uBB34\uAE30\uC5C6\uC74C"
   wColor: "\uAE30\uBCF8\uC0C9"
   wSkill: "\uC2A4\uD0AC\uC5C6\uC74C"
   anim: {fileID: 1191005057179352863}
   isCanSkill: 1
+--- !u!114 &-292552373472322295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191005057179352833}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.8458111, b: 0, a: 1}
+  outlineWidth: 1.5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!95 &1191005057179352863
 Animator:
   serializedVersion: 4

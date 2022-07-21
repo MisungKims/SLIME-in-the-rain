@@ -96,5 +96,9 @@ public class ItemDatabase : MonoBehaviour
         }
     }
 
-
+    // ·£´ý Á©¶óÆ¾ÀÇ DB ¹ÝÈ¯ (Kim)
+    public Item RandomGelatin()
+    {
+        return AllitemDB[Random.Range(0, 15)];
+    }
 }
