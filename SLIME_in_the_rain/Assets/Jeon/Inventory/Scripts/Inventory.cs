@@ -72,13 +72,7 @@ public class Inventory : MonoBehaviour
     // 인벤토리에 공간이 없으면 true 반환
     public bool IsFull()
     {
-        if (items.Count < SlotCount)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        if (items.Count < SlotCount) return false;
+        else return true;
     }
 }

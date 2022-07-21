@@ -63,6 +63,8 @@ public class Slime : MonoBehaviour
 
 
     //////// 공격
+    private Camera cam;
+
     Vector3 mousePos;
 
     Vector3 targetPos;
@@ -107,6 +109,7 @@ public class Slime : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        cam = Camera.main;
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 
@@ -314,20 +317,33 @@ public class Slime : MonoBehaviour
             return false;
         }
     }
-
+   
     // 마우스로 클릭한 위치를 바라봄
     void LookAtMousePos()
     {
-        mousePos = Input.mousePosition;
-        mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        // 오브젝트를 클릭하지 않았을 때는 마우스 위치를 바라보고,
-        // 오브젝트를 클릭했을 때는 오브젝트 위치를 바라봄
-        if (!IsHitObject())        
-            targetPos = Camera.main.ScreenToWorldPoint(mousePos);
+        RaycastHit hitResult;
+        if(Physics.Raycast(ray, out hitResult))
+        {
+            targetPos = new Vector3(hitResult.point.x, transform.position.y, hitResult.point.z) - transform.position;
+            transform.forward = targetPos;
 
-        targetPos.y = transform.position.y;
-        transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
+            Debug.Log("slime : " + targetPos);
+        }
+
+        // mousePos = Input.mousePosition;
+        //// mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
+
+        // // 오브젝트를 클릭하지 않았을 때는 마우스 위치를 바라보고,
+        // // 오브젝트를 클릭했을 때는 오브젝트 위치를 바라봄
+        // //if (!IsHitObject())        
+        // //    targetPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        // targetPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        // targetPos.y = transform.position.y;
+        // transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
     }
 
     // 오브젝트를 클릭했는지?
@@ -338,7 +354,8 @@ public class Slime : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.CompareTag("DamagedObject") || hit.transform.CompareTag("Land"))
+            Debug.Log(hit.transform.name);
+            if (hit.transform.CompareTag("DamagedObject"))
             {
                 targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
 

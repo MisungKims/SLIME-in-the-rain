@@ -137,7 +137,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 감지된 슬라임을 쫓음
     protected virtual IEnumerator Chase()
     {
-        while (target && isChasing && !isStun)
+        while (target && isChasing && !isStun && !slime.isStealth)
         {
             if(!isHit)
             {
@@ -412,25 +412,22 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         anim.SetInteger("animation", state);
 
-        if (isDie) return;
+        if (isDie)
+        {
+            nav.SetDestination(transform.position);
+            return;
+        }
 
         if (!(animState.Equals(EMonsterAnim.attack)))
         {
             anim.SetInteger("attack", -1);          // 공격 상태를 없음(-1)으로 변경
         }
 
-        //anim.SetInteger("animation", state);
-
         //// 반복해야하는 애니메이션이 아니라면(ex.공격), 애니메이션이 끝난 후 상태를 Idle로 변경
         if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.hit)
         {
             StartCoroutine(CheckAnimEnd(state.ToString()));
         }
-
-        //if (state == (int)EMonsterAnim.attack)
-        //{
-        //    StartCoroutine(CheckAnimEnd(state.ToString()));
-        //}
     }
     #endregion
 }

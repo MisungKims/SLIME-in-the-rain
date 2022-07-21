@@ -35,6 +35,8 @@ public class Projectile : MonoBehaviour
 
     public bool isSkill;
 
+    public Vector3 dir;
+
     // 캐싱
    // WaitForSeconds waitFor1s = new WaitForSeconds(1f);
     WaitForSeconds waitFor2s = new WaitForSeconds(2f);
@@ -73,7 +75,9 @@ public class Projectile : MonoBehaviour
     #region 함수
     protected virtual void Move()
     {
+        //transform.Translate(dir * Time.deltaTime * speed);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+       // Debug.Log("pro : " + transform.forward);
     }
 
     // 데미지를 입힘

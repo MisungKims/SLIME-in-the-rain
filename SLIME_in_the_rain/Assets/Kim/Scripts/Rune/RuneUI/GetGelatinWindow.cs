@@ -35,34 +35,45 @@ public class GetGelatinWindow : MonoBehaviour
     private Image gelatinImage;
 
     private Item item;
+
+    // 캐싱
+    private ItemDatabase itemDatabase;
+    private Inventory inventory;
+    private ObjectPoolingManager objectPoolingManager;
     #endregion
 
+    private void Start()
+    {
+        itemDatabase = ItemDatabase.Instance;
+        inventory = Inventory.Instance;
+        objectPoolingManager = ObjectPoolingManager.Instance;
+    }
 
     #region 함수
     // 랜덤 젤라틴의 데이터를 가져와 UI 설정
     public void SetUI()
     {
-        item = ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)];
+        item = itemDatabase.AllitemDB[Random.Range(0, 15)];
 
         GelatinName = item.itemName;
         GelatinDesc = item.itemExplain;
         gelatinImage.sprite = item.itemIcon;
     }
 
-    // 획득 버튼 클릭시
+    // 획득 버튼 클릭시 인벤토리에 젤라틴 추가
     public void GetButton()
     {
-        if (Inventory.Instance.IsFull())        // 인벤토리에 공간이 없을 때
+        if (inventory.IsFull())        // 인벤토리에 공간이 없을 때
         {
 
         }
         else
         {
-            FieldItems gelatin = ObjectPoolingManager.Instance.Get(EObjectFlag.gelatin).GetComponent<FieldItems>();
+            FieldItems gelatin = objectPoolingManager.Get(EObjectFlag.gelatin).GetComponent<FieldItems>();
+
             gelatin.canDetect = false;
             gelatin.SetItem(item);
-
-            
+            gelatin.AddInventory();
         }
     }
     #endregion
