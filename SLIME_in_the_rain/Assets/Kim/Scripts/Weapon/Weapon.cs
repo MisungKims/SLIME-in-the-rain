@@ -46,6 +46,11 @@ public class Weapon : MonoBehaviour
     protected enum AnimState { idle, autoAttack, skill }     // 애니메이션의 상태
     protected AnimState animState = AnimState.idle;
 
+    private Camera cam;
+    private Vector3 hitPos;
+    protected Vector3 targetPos;
+
+
     // 대시
     protected float dashCoolTime;
     protected bool isDash = false;
@@ -57,18 +62,23 @@ public class Weapon : MonoBehaviour
 
     // 캐싱
     private WaitForSeconds waitForDash;
+    private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
 
     protected StatManager statManager;
     #endregion
 
     #region 유니티 함수
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         slime = Slime.Instance;
         statManager = StatManager.Instance;
+        cam = Camera.main;
 
         waitForDash = new WaitForSeconds(dashCoolTime);
+    }
 
+    protected virtual void Start()
+    {
         PlayAnim(AnimState.idle);
     }
 
@@ -88,7 +98,6 @@ public class Weapon : MonoBehaviour
         }
 
         ChangeWeapon();
-        ///////////////여기에 추가(무기 바꾼거)
     }
 
     public void ChangeWeapon()
@@ -127,6 +136,10 @@ public class Weapon : MonoBehaviour
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
     public IEnumerator CheckAnimEnd(string state)
     {
+        LookAtMousePos();
+
+        yield return waitForRotate;
+
         string name = "Base Layer." + state;
         while (true)
         {
@@ -150,8 +163,30 @@ public class Weapon : MonoBehaviour
         this.wSkill = s;
     }
 
+    // 마우스 클릭 위치를 바라봄
+    void LookAtMousePos()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit hitResult;
+        if (Physics.Raycast(ray, out hitResult))
+        {
+            hitPos = hitResult.point;
+            hitPos.y = transform.position.y;
+
+           targetPos = hitPos - transform.position;
+
+            slime.transform.forward = targetPos;
+
+            if (hitResult.transform.gameObject.layer == 8)
+            {
+                slime.target = hitResult.transform;        // 몬스터 레이어면 target을 설정 (유도 룬을 위해)
+            }
+        }
+    }
+
     // 평타
-    protected virtual void AutoAttack(Vector3 targetPos)
+    protected virtual void AutoAttack()
     {
         PlayAnim(AnimState.autoAttack);
 
@@ -159,11 +194,11 @@ public class Weapon : MonoBehaviour
     }
 
     // 스킬
-    protected virtual void Skill(Vector3 targetPos)
+    protected virtual void Skill()
     {
-        RuneManager.Instance.UseSkillRune();
-
         PlayAnim(AnimState.skill);
+
+        RuneManager.Instance.UseSkillRune();
 
         StartCoroutine(CheckAnimEnd("Skill"));
 

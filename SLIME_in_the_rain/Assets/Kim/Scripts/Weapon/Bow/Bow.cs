@@ -17,8 +17,10 @@ public class Bow : Weapon
     #endregion
 
     #region 유니티 함수
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);
         dashCoolTime = 2f;
@@ -39,11 +41,11 @@ public class Bow : Weapon
 
     #region 함수
     // 평타
-    protected override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack()
     {
-        base.AutoAttack(targetPos);         // 평타 애니메이션 재생
+        base.AutoAttack();         // 평타 애니메이션 재생
 
-        Arrow arrow = GetProjectile(targetPos);
+        Arrow arrow = GetProjectile(this.targetPos);
 
         lookRot = arrow.transform.eulerAngles;
         lookRot.x = 0;
@@ -53,9 +55,9 @@ public class Bow : Weapon
     }
 
     // 스킬
-    protected override void Skill(Vector3 targetPos)
+    protected override void Skill()
     {
-        base.Skill(targetPos);
+        base.Skill();
 
         // 부채꼴로 화살을 발사
 
@@ -64,7 +66,7 @@ public class Bow : Weapon
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            Arrow arrow = GetProjectile(targetPos);
+            Arrow arrow = GetProjectile(this.targetPos);
             lookRot = arrow.transform.eulerAngles;
             lookRot.x = 0;
             lookRot.y += y + 180;
@@ -80,10 +82,7 @@ public class Bow : Weapon
         Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero).GetComponent<Arrow>();
         if (weaponRuneInfos[0].isActive) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
 
-        arrow.transform.forward = targetPos;        // 화살 생성 뒤 마우스 방향을 바라봄
-        //arrow.dir = targetPos;
-        Debug.Log("bow : " + targetPos);
-        //arrow.transform.LookAt(targetPos);      
+        arrow.transform.forward = this.targetPos;        // 화살 생성 뒤 마우스 방향을 바라봄
 
         return arrow;
     }

@@ -13,9 +13,9 @@ public class Short : Weapon
 
     #region 함수
     // 평타
-    protected override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack()
     {
-        base.AutoAttack(targetPos);
+        base.AutoAttack();
 
         DoDamage(false);
 

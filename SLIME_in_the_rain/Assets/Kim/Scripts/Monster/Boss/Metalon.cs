@@ -11,9 +11,6 @@ using UnityEngine;
 public class Metalon : Boss
 {
     #region 변수
-    private float chaseCount;
-    private float maxCount = 5f;
-
     private float spawnBabyTime = 5f;
     private bool canSpawnBaby = true;
 
@@ -86,44 +83,6 @@ public class Metalon : Boss
         canSpawnBaby = true;
     }
 
-    //// 슬라임을 추적
-    //protected override IEnumerator Chase()
-    //{
-    //    while (target && isChasing && !isStun)
-    //    {
-    //        if (!isHit)
-    //        {
-    //            // 몬스터의 공격 범위 안에 슬라임이 있다면 단거리 공격 시작
-    //            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-    //            if (atkRangeColliders.Length > 0)
-    //            {
-    //                if (!isAttacking && canAttack) StartCoroutine(Attack());
-
-    //                chaseCount = 0;
-    //            }
-    //            else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 6초? 후에 원거리 공격
-    //            {
-    //                if (!canAttack) canAttack = true;
-
-    //                IsAttacking = false;
-    //                PlayAnim(EMonsterAnim.run);
-
-    //                chaseCount += Time.deltaTime;
-
-    //                // 3초가 지나면 투사체 발사
-    //                if (chaseCount >= maxCount)
-    //                {
-    //                    yield return StartCoroutine(LongAttack());
-    //                }
-    //            }
-
-    //            if (!isAttacking) nav.SetDestination(target.position);
-    //        }
-
-    //        yield return null;
-    //    }
-    //}
-
     // 원거리 공격 (거미 새끼 생성) 코루틴
     private IEnumerator LongAttack()
     {
@@ -131,7 +90,6 @@ public class Metalon : Boss
 
         PlayAnim(EMonsterAnim.idleBattle);
 
-        chaseCount = 0;
         IsAttacking = true;
         nav.SetDestination(transform.position);
         transform.LookAt(target);

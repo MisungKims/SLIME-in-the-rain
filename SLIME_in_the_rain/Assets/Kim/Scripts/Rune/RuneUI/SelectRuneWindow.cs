@@ -115,9 +115,7 @@ public class SelectRuneWindow : MonoBehaviour
         // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때
         if (jellyManager.JellyCount < 100 || rerollCount <= 0)
         {
-            // 젤리 부족 경고창을 띄움
-            if (warningText.gameObject.activeSelf) warningText.isAgain = true;
-            else warningText.gameObject.SetActive(true);
+            warningText.ShowText();   // 젤리 부족 경고창을 띄움
 
             return;     
         }

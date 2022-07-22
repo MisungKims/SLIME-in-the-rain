@@ -11,8 +11,10 @@ public class IceStaff : Staff
     #endregion
 
     #region 유니티 함수
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         weaponType = EWeaponType.iceStaff;
         projectileFlag = EProjectileFlag.ice;
         skillProjectileFlag = EProjectileFlag.iceSkill;

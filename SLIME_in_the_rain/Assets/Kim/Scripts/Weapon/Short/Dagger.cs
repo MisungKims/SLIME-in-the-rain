@@ -29,8 +29,10 @@ public class Dagger : Short
     public Slime slime2; // 나주엥 지우기
 
     #region 유니티 함수
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         weaponType = EWeaponType.dagger;
         angle = new Vector3(90f, 0, 90f);
         dashCoolTime = 0.5f;
@@ -97,7 +99,7 @@ public class Dagger : Short
 
     #region 함수
     // 스킬
-    protected override void Skill(Vector3 targetPos)
+    protected override void Skill()
     {
         //RuneManager.Instance.UseAttackRune();
         RuneManager.Instance.UseSkillRune();
