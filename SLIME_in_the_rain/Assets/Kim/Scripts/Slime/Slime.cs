@@ -63,18 +63,13 @@ public class Slime : MonoBehaviour
 
 
     //////// 공격
-    private Camera cam;
-
-    Vector3 mousePos;
-
-    Vector3 targetPos;
     public Transform target;
 
     public bool isAttacking;   // 평타 중인지?
 
     public bool isStealth;      // 은신 중인지?
 
-    // 데미지
+    //////// 데미지
     private bool isStun;
 
 
@@ -82,13 +77,11 @@ public class Slime : MonoBehaviour
     enum AnimState { idle, move, dash, damaged, die }     // 애니메이션의 상태
     AnimState animState = AnimState.idle;
 
-    Vector3 direction;                  // 이동 방향
+    private Vector3 direction;                  // 이동 방향
 
     public bool canMove = true;
 
-
     //////// 캐싱
-    private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
 
     public StatManager statManager;
@@ -109,7 +102,6 @@ public class Slime : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        cam = Camera.main;
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 
@@ -152,11 +144,7 @@ public class Slime : MonoBehaviour
             {
                 isAttacking = true;
 
-                LookAtMousePos();
-
-                yield return waitForRotate;         // 0.01초 대기
-
-                currentWeapon.SendMessage("AutoAttack", targetPos, SendMessageOptions.DontRequireReceiver);
+                currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
 
                 yield return new WaitForSeconds(stat.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
@@ -176,11 +164,7 @@ public class Slime : MonoBehaviour
             {
                 isAttacking = true;
 
-                LookAtMousePos();
-
-                yield return waitForRotate;         // 0.01초 대기
-
-                currentWeapon.SendMessage("Skill", targetPos, SendMessageOptions.DontRequireReceiver);
+                currentWeapon.SendMessage("Skill", SendMessageOptions.DontRequireReceiver);
 
                 yield return waitForAttack;         // 0.2초 대기
 
@@ -318,62 +302,7 @@ public class Slime : MonoBehaviour
         }
     }
    
-    // 마우스로 클릭한 위치를 바라봄
-    void LookAtMousePos()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-        RaycastHit hitResult;
-        if(Physics.Raycast(ray, out hitResult))
-        {
-            targetPos = new Vector3(hitResult.point.x, transform.position.y, hitResult.point.z) - transform.position;
-            transform.forward = targetPos;
-
-            Debug.Log("slime : " + targetPos);
-        }
-
-        // mousePos = Input.mousePosition;
-        //// mousePos.z = 10f;    // 마우스와 슬라임 사이의 간격
-
-        // // 오브젝트를 클릭하지 않았을 때는 마우스 위치를 바라보고,
-        // // 오브젝트를 클릭했을 때는 오브젝트 위치를 바라봄
-        // //if (!IsHitObject())        
-        // //    targetPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-        // targetPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-        // targetPos.y = transform.position.y;
-        // transform.LookAt(targetPos);            // 마우스의 위치를 바라봄
-    }
-
-    // 오브젝트를 클릭했는지?
-    bool IsHitObject()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            Debug.Log(hit.transform.name);
-            if (hit.transform.CompareTag("DamagedObject"))
-            {
-                targetPos = hit.transform.position;         // 슬라임이 바라볼 위치
-
-                if (hit.transform.gameObject.layer == 8)        // 몬스터 레이어면 target을 설정 (유도를 위해)
-                {
-                    target = hit.transform;
-                }
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     #endregion
-   // List<Collider> lastCollider = new List<Collider>();
-
     Collider lastCollider;
     #region 무기
     // 주변에 있는 무기 감지

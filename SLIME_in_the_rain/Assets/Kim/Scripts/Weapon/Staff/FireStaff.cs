@@ -5,8 +5,10 @@ using UnityEngine;
 public class FireStaff : Staff
 {
     #region 유니티 함수
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         weaponType = EWeaponType.fireStaff;
         projectileFlag = EProjectileFlag.fire;
         skillProjectileFlag = EProjectileFlag.fireSkill;

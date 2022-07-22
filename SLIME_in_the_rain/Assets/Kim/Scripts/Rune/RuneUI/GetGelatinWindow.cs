@@ -7,8 +7,9 @@ using TMPro;
 public class GetGelatinWindow : MonoBehaviour
 {
     #region 변수
+    // 젤라틴의 이름
     [SerializeField]
-    private TextMeshProUGUI gelatinNameTxt;
+    private TextMeshProUGUI gelatinNameTxt;         
     private string gelatinName;
     public string GelatinName
     {
@@ -19,6 +20,7 @@ public class GetGelatinWindow : MonoBehaviour
         }
     }
     
+    // 젤라틴 설명
     [SerializeField]
     private TextMeshProUGUI gelatinDescTxt;
     private string gelatinDesc;
@@ -31,15 +33,22 @@ public class GetGelatinWindow : MonoBehaviour
         }
     }
 
+    // 젤라틴 이미지
     [SerializeField]
     private Image gelatinImage;
 
+    // 랜덤 젤라틴 아이템
     private Item item;
+
+    // 인벤토리 가득 참 경고창
+    [SerializeField]
+    private FadeOutText warningText;     
 
     // 캐싱
     private ItemDatabase itemDatabase;
     private Inventory inventory;
     private ObjectPoolingManager objectPoolingManager;
+    private SelectRuneWindow selectRuneWindow;
     #endregion
 
     private void Start()
@@ -47,6 +56,7 @@ public class GetGelatinWindow : MonoBehaviour
         itemDatabase = ItemDatabase.Instance;
         inventory = Inventory.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
+        selectRuneWindow = SelectRuneWindow.Instance;
     }
 
     #region 함수
@@ -65,15 +75,18 @@ public class GetGelatinWindow : MonoBehaviour
     {
         if (inventory.IsFull())        // 인벤토리에 공간이 없을 때
         {
-
+            warningText.ShowText();   // 경고창을 띄움
         }
         else
         {
+            // 인벤토리에 공간이 있으면 젤라틴을 인벤토리에 추가
             FieldItems gelatin = objectPoolingManager.Get(EObjectFlag.gelatin).GetComponent<FieldItems>();
 
             gelatin.canDetect = false;
             gelatin.SetItem(item);
             gelatin.AddInventory();
+
+            selectRuneWindow.CloseWindow();
         }
     }
     #endregion

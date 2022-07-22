@@ -11,7 +11,7 @@ using UnityEngine;
 public abstract class PickUp : MonoBehaviour
 {
     #region º¯¼ö
-    private Slime slime;
+    protected Slime slime;
 
     private Rigidbody rigid;
 

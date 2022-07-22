@@ -75,9 +75,7 @@ public class Projectile : MonoBehaviour
     #region 함수
     protected virtual void Move()
     {
-        //transform.Translate(dir * Time.deltaTime * speed);
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-       // Debug.Log("pro : " + transform.forward);
     }
 
     // 데미지를 입힘

@@ -11,8 +11,7 @@ public class FieldItems : PickUp
     public GameObject gb;
     bool isFind = false;
   
-   
-    Slime slime;
+    //////////slime ¾ø¾Ö±â
     Inventory inventory;
     InventoryUI inventoryUI;
     [SerializeField]
@@ -26,7 +25,6 @@ public class FieldItems : PickUp
     private void Start()
     {
         inventory = Inventory.Instance;
-        slime = Slime.Instance;
         inventoryUI = InventoryUI.Instance;
     }
 

@@ -29,8 +29,10 @@ public class Sword : Short
     #endregion
 
     #region 유니티 함수
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;
         dashCoolTime = 1f;
@@ -63,9 +65,9 @@ public class Sword : Short
 
     #region 함수
     // 스킬
-    protected override void Skill(Vector3 targetPos)
+    protected override void Skill()
     {
-        base.Skill(targetPos);
+        base.Skill();
 
         DoSkillDamage();
 

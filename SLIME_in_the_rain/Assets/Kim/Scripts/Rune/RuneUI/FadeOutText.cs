@@ -69,4 +69,11 @@ public class FadeOutText : MonoBehaviour
         gameObject.SetActive(false);
     }
     #endregion
+
+    // 텍스트를 보여줌
+    public void ShowText()
+    {
+        if (gameObject.activeSelf) isAgain = true;
+        else gameObject.SetActive(true);
+    }
 }

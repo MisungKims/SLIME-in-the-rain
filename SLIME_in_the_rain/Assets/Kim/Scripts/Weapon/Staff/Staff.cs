@@ -25,19 +25,19 @@ public class Staff : Weapon
 
     #region 함수
     // 평타
-    protected override void AutoAttack(Vector3 targetPos)
+    protected override void AutoAttack()
     {
-        base.AutoAttack(targetPos);
+        base.AutoAttack();
 
         GetProjectile(projectileFlag, targetPos, false);
     }
 
     // 스킬
-    protected override void Skill(Vector3 targetPos)
+    protected override void Skill()
     {
-        base.Skill(targetPos);
+        base.Skill();
 
-        GetProjectile(skillProjectileFlag, targetPos, true);
+        GetProjectile(skillProjectileFlag, this.targetPos, true);
     }
 
     // 대시

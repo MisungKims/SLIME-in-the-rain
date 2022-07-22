@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class Boss : Monster
 {
     #region 변수
+    // 보스의 이름
+    [SerializeField]
+    protected string bossName;
+    public string BossName { get { return bossName; } }
+
     // 체력바
     [SerializeField]
     private Slider hpBar;
@@ -14,7 +19,6 @@ public class Boss : Monster
     private int randJellyCount;
     private int minJellyCnt = 8;
     private int maxJellyCnt = 15;
-
 
     private GameObject jelly;
     private Vector3 jellyPos;
