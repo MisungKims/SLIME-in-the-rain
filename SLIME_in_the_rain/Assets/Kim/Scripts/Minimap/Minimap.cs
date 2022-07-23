@@ -38,6 +38,9 @@ public class Minimap : MonoBehaviour
 
     Dictionary<MinimapWorldObject, MinimapIcon> miniMapWorldObjectLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
 
+    [SerializeField]
+    private RectTransform range;
+
     public void Awake()
     {
         if (null == instance)
@@ -52,9 +55,42 @@ public class Minimap : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+       // CalcuateTransformationMatrix();
+    }
+
+    private void Update()
+    {
+        UpdateMinimapIcons();
+    }
+
+    void UpdateMinimapIcons()
+    {
+        foreach (var kvp in miniMapWorldObjectLookup)
+        {
+            var minimapWorldObject = kvp.Key;
+            var minimapIcon = kvp.Value;
+
+            var mapPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
+            minimapIcon.rectTransform.anchoredPosition = mapPosition;
+
+            var rotation = minimapWorldObject.transform.rotation.eulerAngles * -1;
+            minimapIcon.iconRectTransform.localRotation = Quaternion.AngleAxis(rotation.y, Vector3.forward);
+        }
+    }
+
+    Vector2 WorldPositionTomapPostion(Vector3 worldPos)
+    {
+        var pos = new Vector2(worldPos.x, worldPos.z);
+      //  return pos;
+        return transformationMatrix.MultiplyPoint3x4(pos);
+    }
+
     public void RegisterMinimapWorldObject(MinimapWorldObject minimapWorldObject)
     {
         var miniMapIcon = Instantiate(miniMapIconPrefab);
+        miniMapIcon.transform.SetParent(contentRectTransform);
         miniMapIcon.SetIcon(minimapWorldObject.Icon);
         miniMapIcon.SetColor(minimapWorldObject.IconColor);
         miniMapIcon.SetText(minimapWorldObject.text);
@@ -65,12 +101,12 @@ public class Minimap : MonoBehaviour
     void CalcuateTransformationMatrix()
     {
         var miniMapDimensions = contentRectTransform.rect.size;
-        var terrainDimensions = new Vector2(terrain.terrainData.size.x, terrain.terrainData.size.z);
-
+        var terrainDimensions = range.sizeDelta;
+        
         var scaleRatio = miniMapDimensions / terrainDimensions;
         var transition = -miniMapDimensions / 2;
 
         transformationMatrix = Matrix4x4.TRS(transition, Quaternion.identity, scaleRatio);
-
     }
+
 }
