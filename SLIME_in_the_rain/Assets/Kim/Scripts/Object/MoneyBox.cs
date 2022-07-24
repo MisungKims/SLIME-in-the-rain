@@ -15,11 +15,11 @@ public class MoneyBox : MonoBehaviour, IDamage
     private bool isDamaged;
 
     private ObjectPoolingManager objectPoolingManager;
-    Vector3 spawnPos;
+    private Vector3 spawnPos;
 
-    int jellyIndex = (int)EObjectFlag.jelly;
-    int gelatinIndex = (int)EObjectFlag.gelatin;
-    int randObj;
+    private int jellyIndex = (int)EObjectFlag.jelly;
+    private int gelatinIndex = (int)EObjectFlag.gelatin;
+    private int randObj;
 
     private Animator anim;
 

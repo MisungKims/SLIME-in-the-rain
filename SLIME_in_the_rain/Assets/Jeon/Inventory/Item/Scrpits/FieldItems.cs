@@ -11,7 +11,8 @@ public class FieldItems : PickUp
     public GameObject gb;
     bool isFind = false;
   
-    //////////slime 없애기
+    ////////// 추가 : slime 변수 없애기
+    
     Inventory inventory;
     InventoryUI inventoryUI;
     [SerializeField]

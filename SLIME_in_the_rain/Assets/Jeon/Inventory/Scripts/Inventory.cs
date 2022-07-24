@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
     #endregion
 
  
-    ////////////////////추가
+    //////////////////// 추가
     
     // 인벤토리에 공간이 없으면 true 반환
     public bool IsFull()

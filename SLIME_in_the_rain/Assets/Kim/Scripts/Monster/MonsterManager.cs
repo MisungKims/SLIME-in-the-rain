@@ -28,7 +28,7 @@ public class MonsterManager : MonoBehaviour
 
     // 몬스터가 돌아다닐 수 있는 범위
     [SerializeField]
-    public GameObject range;
+    private GameObject range;
     private BoxCollider rangeCollider;
     #endregion
 

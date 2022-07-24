@@ -1,7 +1,7 @@
 /**
  * @brief 슬라임 오브젝트
  * @author 김미성
- * @date 22-06-25
+ * @date 22-07-24
  */
 
 using System.Collections;
@@ -81,8 +81,12 @@ public class Slime : MonoBehaviour
 
     public bool canMove = true;
 
+    private bool isInWater = false;
+    private float decreaseHPAmount = 0.5f;  // 물 안에서 감소될 체력의 양
+
     //////// 캐싱
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
+    private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
 
     public StatManager statManager;
 
@@ -113,6 +117,7 @@ public class Slime : MonoBehaviour
         stat = statManager.myStats;
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
+        StartCoroutine(DecreaseHPInWater());
     }
 
     private void Update()
@@ -127,11 +132,11 @@ public class Slime : MonoBehaviour
         Move();
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, detectRadius);
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
+        else isInWater = false;
+    }
     #endregion
 
     #region 코루틴
@@ -202,6 +207,23 @@ public class Slime : MonoBehaviour
 
         isStun = false;
     }
+
+    // 물 위에 있으면 체력 감소
+    private IEnumerator DecreaseHPInWater()
+    {
+        while (true)
+        {
+            if (isInWater)
+            {
+                stat.HP -= decreaseHPAmount;
+
+                yield return waitFor2s;
+            }
+
+            yield return null;
+        }
+    }
+
     #endregion
 
     #region 함수
