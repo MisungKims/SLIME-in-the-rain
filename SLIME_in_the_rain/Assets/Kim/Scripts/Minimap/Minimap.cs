@@ -57,7 +57,7 @@ public class Minimap : MonoBehaviour
 
     private void Start()
     {
-       // CalcuateTransformationMatrix();
+      // CalcuateTransformationMatrix();
     }
 
     private void Update()
@@ -83,8 +83,8 @@ public class Minimap : MonoBehaviour
     Vector2 WorldPositionTomapPostion(Vector3 worldPos)
     {
         var pos = new Vector2(worldPos.x, worldPos.z);
-      //  return pos;
-        return transformationMatrix.MultiplyPoint3x4(pos);
+      //return pos;
+       return transformationMatrix.MultiplyPoint3x4(pos);
     }
 
     public void RegisterMinimapWorldObject(MinimapWorldObject minimapWorldObject)
@@ -101,7 +101,10 @@ public class Minimap : MonoBehaviour
     void CalcuateTransformationMatrix()
     {
         var miniMapDimensions = contentRectTransform.rect.size;
-        var terrainDimensions = range.sizeDelta;
+       // var terrainDimensions = range.sizeDelta;
+        var terrainDimensions = new Vector2(range.localScale.x, range.localScale.z);
+        
+       // Debug.Log(range.sizeDelta);
         
         var scaleRatio = miniMapDimensions / terrainDimensions;
         var transition = -miniMapDimensions / 2;

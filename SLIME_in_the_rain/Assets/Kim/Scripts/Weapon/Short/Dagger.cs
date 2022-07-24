@@ -17,7 +17,6 @@ public class Dagger : Short
 
     // 스킬
     private float skillDuration = 5f;        // 스킬 지속시간
-    private Material mat;                   // 투명도를 조절할 머터리얼
     private float alpha;
     private float maxAlpha = 1f;
     private float minAlpha = 0.6f;
