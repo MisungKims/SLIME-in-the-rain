@@ -12,7 +12,7 @@ public class FireStaff : Staff
         weaponType = EWeaponType.fireStaff;
         projectileFlag = EProjectileFlag.fire;
         skillProjectileFlag = EProjectileFlag.fireSkill;
-        dashCoolTime = 5f;
+        maxDashCoolTime = 5f;
     }
 
     protected override void Start()

@@ -416,6 +416,8 @@ public class Slime : MonoBehaviour
     {
         currentWeapon = weapon;
 
+        InDun_Canvas.Instance.changeWeapon();
+
         // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;
         currentWeapon.transform.localPosition = Vector3.zero;

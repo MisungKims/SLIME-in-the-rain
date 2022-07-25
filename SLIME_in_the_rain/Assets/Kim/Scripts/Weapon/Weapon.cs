@@ -52,13 +52,14 @@ public class Weapon : MonoBehaviour
 
 
     // 대시
-    protected float dashCoolTime;
+    public float dashCoolTime;
+    public float maxDashCoolTime;
     protected bool isDash = false;
 
     // 스킬
     public bool isCanSkill = true;
     private float currentCoolTime;
-    public int CurrentCoolTime { get { return (int)currentCoolTime; } }
+    public float CurrentCoolTime { get { return currentCoolTime; } }
 
     // 캐싱
     private WaitForSeconds waitForDash;
@@ -75,6 +76,12 @@ public class Weapon : MonoBehaviour
         cam = Camera.main;
 
         waitForDash = new WaitForSeconds(dashCoolTime);
+    }
+
+    private void OnEnable()
+    {
+        dashCoolTime = 0f;
+        currentCoolTime = 0f;
     }
 
     protected virtual void Start()
@@ -113,6 +120,14 @@ public class Weapon : MonoBehaviour
         isDash = true;
 
         yield return waitForDash;
+
+        dashCoolTime = maxDashCoolTime;
+        while (dashCoolTime > 0f)
+        {
+            dashCoolTime -= Time.deltaTime;
+
+            yield return null;
+        }
 
         isDash = false;
     }

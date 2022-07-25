@@ -2,55 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
-public class Town_Shop : MonoBehaviour
+public class Town_Shop : MonoBehaviour      //ì•„ì´í…œDBì™€ ì—°ê´€ë˜ëŠ” ìƒì  ê´€ë ¨ ìŠ¤í¬ë¦½íŠ¸
 {
-    public GameObject itemDatabase;
+    #region ë³€ìˆ˜
+    [SerializeField]
+    private Transform shopCanvas;          //ìƒì  ìº”ë²„ìŠ¤
+    [SerializeField]
+    private GameObject itemDB;              //ì•„ì´í…œDB
 
-    /// <summary>
-    ///    //»óÁ¡ ¿ä¼Ò
-    ///TextMeshProUGUI gelatinNameText; //Á©¶óÆ¾ ÀÌ¸§; ¾ÆÀÌÅÛ º£ÀÌ½º¿¡¼­ °¡Á®¿È
-    ///TextMeshProUGUI gelatinInfoText; //Á©¶óÆ¾ ¼³¸í; ¾ÆÀÌÅÛ º£ÀÌ½º¿¡¼­ °¡Á®¿È
-    ///TextMeshProUGUI jellyPriceText;  //°¡°İ; ·£´ı°ª
-    ///TextMeshProUGUI remainText;      //³²¾ÆÀÖ´Â °³¼ö; ·£´ı°ª
-    ///Image gelatinImage;              //Á©¶óÆ¾ ÀÌ¹ÌÁö
-    /// </summary>
-    public Transform shopCanvas;
-
-
-
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
-
+        //ìƒì  ë²„íŠ¼ë‚´ ì†ì„±ì„ ì•„ì´í…œDBì—ì„œ ëŒê³ ì˜¤ê¸°
         int categoryNum = 3;
-
-        //Debug.Log(itemDatabase.GetComponent<ItemDatabase>().AllitemDB[0].itemInfo);
-
-        Transform[] categorys = new Transform[categoryNum];
-        ItemDatabase gelatin = itemDatabase.GetComponent<ItemDatabase>();
+        Transform[] updates = new Transform[categoryNum];
+        ItemDatabase gelatin = itemDB.GetComponent<ItemDatabase>();
 
         for (int i = 0; i < categoryNum; i++)
         {
-            categorys[i] = shopCanvas.GetChild(3+i).GetChild(3);    //Shop->Category->CategoryDB
+            //Shop -> ShopBtn -> ë’¤ì—ì„œ 2ë²ˆì§¸
+            updates[i] = shopCanvas.GetChild(1+i).GetChild(shopCanvas.GetChild(1+i).childCount - 2);    
+            //Debug.Log(updates[i]);
+    
         }
 
-        for (int i = 0, ranValue,index = 0; i < categoryNum; i++,index = 0)
+        for (int i = 0, index = 0, ranValue = 0; i < categoryNum; i++, index = 0)
         {
-            //Á©¶óÆ¾¸¸ »Ì±â
-            while (true)
-            {   
-                ranValue = Random.Range(0, itemDatabase.GetComponent<ItemDatabase>().AllitemDB.Count - 1);
-                if (itemDatabase.GetComponent<ItemDatabase>().AllitemDB[ranValue].itemType == ItemType.gelatin) break;
+            while (true)     //ì ¤ë¼í‹´ë§Œ ë°›ìŒ   --->   ìœ ë™ì ì¸ í…œ DBë¥¼ ìœ„í•´
+            {
+                ranValue = Random.Range(0, gelatin.AllitemDB.Count - 1);
+                //Debug.Log(gelatin.AllitemDB.Count);                   //â€»ìŠ¤í¬ë¦½íŠ¸ inventoryUIë³´ë‹¤ ëŠ¦ê²Œ ì‹¤í–‰ ë¼ì•¼í•¨
+                if (gelatin.AllitemDB[ranValue].itemType == gelatin.AllitemDB[1].itemType) break;     //0ë²ˆ ì•„ì´í…œ í™•ì¸; ì ¤ë¼í‹´ì¼ë•Œ
             }
-            categorys[i].GetChild(index).GetComponent<TextMeshProUGUI>().text = gelatin.AllitemDB[ranValue].itemExplain;    //TextMeshProUGUI gelatinNameText
+            //ìƒì  ë²„íŠ¼ ê´€ë¦¬
+            updates[i].GetChild(index).GetComponent<TextMeshProUGUI>().text = gelatin.AllitemDB[ranValue].itemExplain;    //ì ¤ë¼í‹´ ì´ë¦„
             ++index;
-            //categorys[i].GetChild(++index).GetComponent<TextMeshProUGUI>().text = gelatin.AllitemDB[ranValue].;           //Á©¶óÆ¾ ¿É¼Ç ¹Ş¾Æ¿À±â
-            categorys[i].GetChild(++index).GetComponent<TextMeshProUGUI>().text = Random.Range(10, 30).ToString();          //ÆÇ¸Å ±İ¾× (·£´ı: 10 ~ 30)
-            categorys[i].GetChild(++index).GetComponent<TextMeshProUGUI>().text = Random.Range(1, 5).ToString();            //³²Àº ¼ö (·£´ı: 1 ~ 5)
-            categorys[i].GetChild(++index).GetComponent<Image>().sprite = gelatin.AllitemDB[ranValue].itemIcon;             //Image gelatinImage
+            //updates[i].GetChild(++index).GetComponent<TextMeshProUGUI>().text = gelatin.AllitemDB[ranValue].;           //ì ¤ë¼í‹´ ì •ë³´
+            updates[i].GetChild(++index).GetComponent<TextMeshProUGUI>().text = Random.Range(10, 30).ToString();          //ê°€ê²© (ëœë¤: 10 ~ 30)
+            updates[i].GetChild(++index).GetComponent<TextMeshProUGUI>().text = Random.Range(1, 5).ToString();            //ë‚¨ì€ ìˆ˜ (ëœë¤: 1 ~ 5)
+            updates[i].GetChild(++index).GetComponent<Image>().sprite = gelatin.AllitemDB[ranValue].itemIcon;             //Image gelatinImage
         }
     }
-
 }

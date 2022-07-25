@@ -18,7 +18,7 @@ public class IceStaff : Staff
         weaponType = EWeaponType.iceStaff;
         projectileFlag = EProjectileFlag.ice;
         skillProjectileFlag = EProjectileFlag.iceSkill;
-        dashCoolTime = 5f;
+        maxDashCoolTime = 5f;
     }
 
     protected override void Start()

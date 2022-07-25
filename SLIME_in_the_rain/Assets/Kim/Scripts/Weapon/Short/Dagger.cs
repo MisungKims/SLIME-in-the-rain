@@ -34,7 +34,7 @@ public class Dagger : Short
 
         weaponType = EWeaponType.dagger;
         angle = new Vector3(90f, 0, 90f);
-        dashCoolTime = 0.5f;
+        maxDashCoolTime = 0.5f;
         flag = EProjectileFlag.dagger;
     }
 

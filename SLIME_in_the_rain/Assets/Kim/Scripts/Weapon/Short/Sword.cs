@@ -35,7 +35,7 @@ public class Sword : Short
 
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;
-        dashCoolTime = 1f;
+        maxDashCoolTime = 1f;
         flag = EProjectileFlag.sword;
     }
 

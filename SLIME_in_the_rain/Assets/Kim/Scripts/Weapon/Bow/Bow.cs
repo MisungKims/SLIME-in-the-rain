@@ -23,7 +23,7 @@ public class Bow : Weapon
 
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);
-        dashCoolTime = 2f;
+        maxDashCoolTime = 2f;
     }
 
     protected override void Start()
