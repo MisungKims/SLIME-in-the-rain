@@ -145,7 +145,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (!isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
+            if (canMove && !isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
             {
                 isAttacking = true;
 
@@ -185,15 +185,13 @@ public class Slime : MonoBehaviour
     {
         isCanDash = false;
 
-        PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
+       // PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
 
         rigid.AddForce(transform.forward * dashDistance, ForceMode.Impulse);
 
+        yield return new WaitForSeconds(1f);
+
         isDash = false;
-
-        yield return new WaitForSeconds(0.5f);
-
-        dashDistance = originDashDistance;
         isCanDash = true;
     }
 
@@ -314,7 +312,7 @@ public class Slime : MonoBehaviour
     // 스킬을 사용할 수 있는지?
     bool IsCanSkill()
     {
-        if (!isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
+        if (canMove && !isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
         {
             return true;
         }
