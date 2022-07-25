@@ -32,6 +32,10 @@ public class SelectRuneWindow : MonoBehaviour
     private GameObject panel;
 
     [SerializeField]
+    private Canvas runeCanvas;
+
+
+    [SerializeField]
     private Canvas GetGelatinCanvas;     // Á©¶óÆ¾ È¹µæ Äµ¹ö½º
     [SerializeField]
     private GetGelatinWindow GetGelatinWindow;     // Á©¶óÆ¾ È¹µæ Äµ¹ö½º
@@ -61,6 +65,7 @@ public class SelectRuneWindow : MonoBehaviour
     // Ä³½Ì
     private RuneManager runeManager;
     private JellyManager jellyManager;
+    private Slime slime;
     #endregion
 
     #region À¯´ÏÆ¼ ÇÔ¼ö
@@ -74,22 +79,30 @@ public class SelectRuneWindow : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-    private void OnEnable()
-    {
-        Init();
+
+        runeCanvas = transform.parent.parent.GetComponent<Canvas>();
     }
 
     private void Start()
     {
         runeManager = RuneManager.Instance;
         jellyManager = JellyManager.Instance;
+        slime = Slime.Instance;
 
         jellyManager.JellyCount = 200; // ³ªÁß¿¡ Áö¿ì±â 
     }
     #endregion
 
     #region ÇÔ¼ö
+    // ·é ¼±ÅÃ Ã¢À» ¿­±â
+    public void OpenWindow()
+    {
+        runeCanvas.enabled = true;
+        slime.canMove = false;
+
+        Init();
+    }
+
     // ·é ¼±ÅÃ Ã¢ ÃÊ±âÈ­
     void Init()
     {
@@ -137,7 +150,8 @@ public class SelectRuneWindow : MonoBehaviour
     // ·é ¼±ÅÃÃ¢À» ´Ý±â
     public void CloseWindow()
     {
-        panel.SetActive(false);
+        runeCanvas.enabled = false;
+        slime.canMove = true;
     }
     #endregion
 }
