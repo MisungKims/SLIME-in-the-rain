@@ -33,6 +33,8 @@ public class InDun_Canvas : MonoBehaviour
     public TextMeshProUGUI dashText;
 
     Weapon beforeWeapon;
+    float beforeMaxHP;
+    float beforeHP;
 
     private void Awake()
     {
@@ -59,13 +61,13 @@ public class InDun_Canvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hp.maxValue = statManager.myStats.maxHP;
-        hp.value = statManager.myStats.HP;
-
-        hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
-
         if (slime.currentWeapon)
         {
+            Debug.Log(statManager.myStats.HP);
+            //hp.maxValue = statManager.myStats.maxHP;
+            //hp.value = statManager.myStats.HP;
+            //hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
+
             skillCool.maxValue = (int)statManager.myStats.coolTime;
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
 
@@ -97,14 +99,44 @@ public class InDun_Canvas : MonoBehaviour
             {
                 dashText.text = " ";
             }
-        }
-       
+            Debug.Log(beforeWeapon);
 
+            //무기 바꿀 시 HP 비율대로 줄이거나 최대체력 넘지 않게
+            //if (beforeWeapon != slime.currentWeapon && beforeWeapon != null)
+            //{
+            //    changeWeapon();
+            //    //현재 무기 정보 저장
+            //    beforeWeapon = slime.currentWeapon;
+            //    beforeMaxHP = statManager.myStats.maxHP;
+            //    beforeHP = statManager.myStats.HP;
+
+            //}
+        }
+
+        
     }
+
 
     public void changeWeapon()
     {
-        beforeWeapon = slime.currentWeapon;
         Debug.Log(slime.currentWeapon);
+        //무기 변환시
+        if (beforeWeapon != slime.currentWeapon)
+        {
+            //새무기의 체력이 더 높을시 -> 비율대로 체력을 넣음
+            if (beforeMaxHP < statManager.myStats.maxHP)
+            {
+                statManager.myStats.HP = statManager.myStats.maxHP * ( beforeHP / beforeMaxHP);
+            }
+            //새무기의 체력이 더 낮을시 -> 최대 체력보단 피가 더 안참
+            else if(beforeMaxHP > statManager.myStats.maxHP)
+            {
+
+            }
+            //새무기의 체력이랑 같을땐 그대로
+        }
+
+
+
     }
 }
