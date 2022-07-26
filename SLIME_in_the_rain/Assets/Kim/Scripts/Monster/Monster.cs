@@ -89,6 +89,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 캐싱
     private StatManager statManager;
     protected ObjectPoolingManager objectPoolingManager;
+    protected UIObjectPoolingManager uiPoolingManager;
     protected MonsterManager monsterManager;
     protected Slime slime;
     private DamageText damageText;
@@ -119,6 +120,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         statManager = StatManager.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
+        uiPoolingManager = UIObjectPoolingManager.Instance;
         monsterManager = MonsterManager.Instance;
         slime = Slime.Instance;
 
@@ -357,7 +359,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        damageText = objectPoolingManager.Get(EObjectFlag.damageText, transform.position).GetComponent<DamageText>();
+        damageText = uiPoolingManager.Get(EUIFlag.damageText, transform.position).GetComponent<DamageText>();
         damageText.Damage = (int)damage;
 
         ShowHPBar();     // 체력바 설정

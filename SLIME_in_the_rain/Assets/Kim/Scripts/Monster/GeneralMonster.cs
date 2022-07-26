@@ -146,7 +146,7 @@ public class GeneralMonster : Monster
     {
         if (!hpBar)
         {
-            hpBar = objectPoolingManager.Get(EObjectFlag.hpBar).GetComponent<Slider>();
+            hpBar = uiPoolingManager.Get(EUIFlag.hpBar).GetComponent<Slider>();
             hpBar.maxValue = stats.maxHP;
 
             StartCoroutine(SetHPBarPos());
@@ -160,7 +160,7 @@ public class GeneralMonster : Monster
     {
         if (!hpBar) return;
 
-        objectPoolingManager.Set(hpBar.gameObject, EObjectFlag.hpBar);
+        uiPoolingManager.Set(hpBar.gameObject, EUIFlag.hpBar);
         hpBar = null;
     }
 

@@ -89,6 +89,7 @@ public class Slime : MonoBehaviour
     private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
 
     public StatManager statManager;
+    private InDun_Canvas inDun_Canvas;
 
     #endregion
 
@@ -416,7 +417,7 @@ public class Slime : MonoBehaviour
     {
         currentWeapon = weapon;
 
-        InDun_Canvas.Instance.changeWeapon();
+        if(InDun_Canvas.Instance) InDun_Canvas.Instance.changeWeapon();
 
         // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;

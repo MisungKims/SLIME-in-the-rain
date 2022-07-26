@@ -30,6 +30,9 @@ public class DamageText : FadeOutText
             text.color = red;
         }
     }
+
+
+    private UIObjectPoolingManager uiPoolingManager;
     #endregion
 
     #region 유니티 함수
@@ -38,6 +41,7 @@ public class DamageText : FadeOutText
         base.Awake();
 
         text = GetComponent<TextMeshProUGUI>();
+        uiPoolingManager = UIObjectPoolingManager.Instance;
     }
 
     protected override void OnEnable()
@@ -59,7 +63,7 @@ public class DamageText : FadeOutText
     {
         yield return StartCoroutine(FadeOut());
 
-        ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.damageText);
+        uiPoolingManager.Set(this.gameObject, EUIFlag.damageText);
     }
     #endregion
 }

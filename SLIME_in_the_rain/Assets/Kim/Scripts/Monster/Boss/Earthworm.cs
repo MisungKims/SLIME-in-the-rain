@@ -24,6 +24,9 @@ public class Earthworm : Boss
     {
         base.Awake();
 
+        bossName = "Áö··ÀÌ";
+        SetHPBar();
+
         projectileAtk = 1;
     }
 
