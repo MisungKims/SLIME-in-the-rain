@@ -43,15 +43,15 @@ public class ICamera : MonoBehaviour
     public void Focus_Slime()
     {
         vec3.x = slime.transform.position.x;
-        vec3.y = Camera.main.transform.position.y;
-        vec3.z = slime.transform.position.z - 28;
+        vec3.y = 10f;
+        vec3.z = slime.transform.position.z - 12f;
 
         Camera.main.transform.position = vec3;
     }
     public void Focus_Town(GameObject gameObject)
     {
         vec3.x = gameObject.transform.localPosition.x + 2f;
-        vec3.y = Camera.main.transform.position.y;
+        vec3.y = 10f;
         vec3.z = gameObject.transform.localPosition.z - 22.0f;
         Camera.main.transform.position =  vec3;
     }
