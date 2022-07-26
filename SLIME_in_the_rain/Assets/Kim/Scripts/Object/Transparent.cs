@@ -53,7 +53,7 @@ public class Transparent : MonoBehaviour
             distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
 
             // 오브젝트가 슬라임을 가릴 때 투명도 조절
-            if (distance < 5f)
+            if (distance < 3f)
             {
                 if (!isTransparent)
                 {

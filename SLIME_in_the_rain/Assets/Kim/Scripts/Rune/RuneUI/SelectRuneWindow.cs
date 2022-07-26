@@ -27,12 +27,8 @@ public class SelectRuneWindow : MonoBehaviour
         }
     }
     #endregion
-
     [SerializeField]
-    private GameObject panel;
-
-    [SerializeField]
-    private Canvas runeCanvas;
+    private Canvas runeCanvas;      // 이 창의 캔버스
 
 
     [SerializeField]

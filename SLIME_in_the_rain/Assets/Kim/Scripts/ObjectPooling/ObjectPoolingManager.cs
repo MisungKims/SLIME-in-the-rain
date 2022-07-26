@@ -40,15 +40,15 @@ public class ObjectPoolingManager : MonoBehaviour
     #region 유니티 함수
     void Awake()
     {
-        if (instance == null)
+        if (null == instance)
         {
             instance = this;
 
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            if (instance != this)
-                Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
 
         InitObject();

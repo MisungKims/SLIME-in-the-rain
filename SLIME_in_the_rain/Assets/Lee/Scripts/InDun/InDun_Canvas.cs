@@ -59,8 +59,8 @@ public class InDun_Canvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hp.maxValue = (int)statManager.myStats.maxHP;
-        hp.value = (int)statManager.myStats.HP;
+        hp.maxValue = statManager.myStats.maxHP;
+        hp.value = statManager.myStats.HP;
 
         hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
 
