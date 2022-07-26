@@ -15,7 +15,7 @@ public class Town_Shop : MonoBehaviour      //아이템DB와 연관되는 상점
 
     #endregion
     // Start is called before the first frame update
-    void Start()
+    void Start()                            //아이템베이스.cs 보다 늦게 실행 되어야함
     {
         //상점 버튼내 속성을 아이템DB에서 끌고오기
         int categoryNum = 3;
@@ -36,7 +36,7 @@ public class Town_Shop : MonoBehaviour      //아이템DB와 연관되는 상점
             {
                 ranValue = Random.Range(0, gelatin.AllitemDB.Count - 1);
                 //Debug.Log(gelatin.AllitemDB.Count);                   //※스크립트 inventoryUI보다 늦게 실행 돼야함
-                if (gelatin.AllitemDB[ranValue].itemType == gelatin.AllitemDB[1].itemType) break;     //0번 아이템 확인; 젤라틴일때
+                if (gelatin.AllitemDB[ranValue].itemType == gelatin.AllitemDB[0].itemType) break;     //0번 아이템 확인; 젤라틴일때
             }
             //상점 버튼 관리
             updates[i].GetChild(index).GetComponent<TextMeshProUGUI>().text = gelatin.AllitemDB[ranValue].itemExplain;    //젤라틴 이름
