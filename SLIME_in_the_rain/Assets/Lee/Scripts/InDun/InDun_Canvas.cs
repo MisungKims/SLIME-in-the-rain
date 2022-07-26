@@ -64,9 +64,9 @@ public class InDun_Canvas : MonoBehaviour
         if (slime.currentWeapon)
         {
             Debug.Log(statManager.myStats.HP);
-            //hp.maxValue = statManager.myStats.maxHP;
-            //hp.value = statManager.myStats.HP;
-            //hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
+            hp.maxValue = statManager.myStats.maxHP;
+            hp.value = statManager.myStats.HP;
+            hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
 
             skillCool.maxValue = (int)statManager.myStats.coolTime;
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
