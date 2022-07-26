@@ -21,6 +21,14 @@ public class Metalon : Boss
     private Transform[] spawnSpiderPos = new Transform[3];
     #endregion
 
+     protected override void Awake()
+    {
+        base.Awake();
+
+        bossName = "메탈론";
+        SetHPBar();
+    }
+
     #region 코루틴
     protected override IEnumerator Attack()
     {

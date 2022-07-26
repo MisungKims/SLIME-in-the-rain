@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
+using TMPro;
 
 public class Boss : Monster
 {
     #region 변수
     // 보스의 이름
-    [SerializeField]
     protected string bossName;
-    public string BossName { get { return bossName; } }
+    [SerializeField]
+    private TextMeshProUGUI bossNameText;
 
     // 체력바
     [SerializeField]
     private Slider hpBar;
+    [SerializeField]
+    private TextMeshProUGUI hPText;
+    StringBuilder sb = new StringBuilder();
 
     // 젤리 드롭
     private int randJellyCount;
@@ -47,16 +52,28 @@ public class Boss : Monster
     #endregion
 
     #region 함수
-
-    public override void ShowHPBar()
+    // HP바 세팅
+    protected void SetHPBar()
     {
         if (!hpBar.gameObject.activeSelf)
         {
             hpBar.gameObject.SetActive(true);
-            hpBar.maxValue = stats.maxHP;
         }
 
+        bossNameText.text = bossName;
+        hpBar.maxValue = stats.maxHP;
+        ShowHPBar();
+    }
+
+    public override void ShowHPBar()
+    {
         hpBar.value = stats.HP;
+
+        sb.Clear();
+        sb.Append(hpBar.value);
+        sb.Append("/");
+        sb.Append(hpBar.maxValue);
+        hPText.text = sb.ToString();
     }
 
     public override void HideHPBar()

@@ -13,20 +13,20 @@ public enum EObjectFlag
     shield,
     box,
     jelly,
-    gelatin,
-    damageText,
-    hpBar
+    gelatin
 }
 
 public class ObjectPoolingManager : MonoBehaviour
 {
     #region º¯¼ö
-    // ½Ì±ÛÅæ
+    #region ½Ì±ÛÅæ
     private static ObjectPoolingManager instance;
     public static ObjectPoolingManager Instance
     {
         get { return instance; }
     }
+    #endregion
+
 
 
     public List<ObjectPool> objectPoolingList = new List<ObjectPool>();

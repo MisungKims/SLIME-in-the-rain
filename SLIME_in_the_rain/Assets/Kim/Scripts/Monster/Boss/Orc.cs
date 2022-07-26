@@ -12,6 +12,14 @@ public class Orc : Boss
 {
     private float stunTime = 2f;        // 슬라임이 스턴할 시간
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        bossName = "오크";
+        SetHPBar();
+    }
+
     // 슬라임에게 데미지를 입힘
     public override void DamageSlime(int atkType)
     {
