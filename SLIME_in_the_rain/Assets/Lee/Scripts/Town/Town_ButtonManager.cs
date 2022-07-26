@@ -87,7 +87,7 @@ public class Town_ButtonManager : MonoBehaviour                                 
     //юс╫ц
     public void GoInDun()
     {
-        SceneManager.LoadScene("Scene_Develop");
+        SceneManager.LoadScene("Village");
     }
     public void ExitGame()
     {
