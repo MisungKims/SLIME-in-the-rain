@@ -55,7 +55,7 @@ public class Minimap : MonoBehaviour
 
     private void Start()
     {
-      // CalcuateTransformationMatrix();
+       CalcuateTransformationMatrix();
     }
 
     private void Update()
@@ -63,6 +63,7 @@ public class Minimap : MonoBehaviour
         UpdateMinimapIcons();
     }
 
+    // 아이콘의 위치 바꿈
     void UpdateMinimapIcons()
     {
         foreach (var kvp in miniMapWorldObjectLookup)
@@ -72,35 +73,34 @@ public class Minimap : MonoBehaviour
 
             var mapPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
             minimapIcon.rectTransform.anchoredPosition = mapPosition;
-
-            var rotation = minimapWorldObject.transform.rotation.eulerAngles * -1;
-            minimapIcon.iconRectTransform.localRotation = Quaternion.AngleAxis(rotation.y, Vector3.forward);
         }
     }
 
+    // 오브젝트의 위치를 가져옴
     Vector2 WorldPositionTomapPostion(Vector3 worldPos)
     {
         var pos = new Vector2(worldPos.x, worldPos.z);
-      //return pos;
+
        return transformationMatrix.MultiplyPoint3x4(pos);
     }
 
+    // 미니맵 아이콘 등록
     public void RegisterMinimapWorldObject(MinimapWorldObject minimapWorldObject)
     {
         var miniMapIcon = Instantiate(miniMapIconPrefab);
         miniMapIcon.transform.SetParent(contentRectTransform);
         miniMapIcon.SetIcon(minimapWorldObject.Icon);
         miniMapIcon.SetColor(minimapWorldObject.IconColor);
-        miniMapIcon.SetText(minimapWorldObject.text);
-        miniMapIcon.SetTextSize(minimapWorldObject.textSize);
         miniMapWorldObjectLookup[minimapWorldObject] = miniMapIcon;
     }
 
+    // 계산?
     void CalcuateTransformationMatrix()
     {
         var miniMapDimensions = contentRectTransform.rect.size;
        // var terrainDimensions = range.sizeDelta;
         var terrainDimensions = new Vector2(range.localScale.x, range.localScale.z);
+     //   var terrainDimensions = new Vector2(terrain.terrainData.size.x, terrain.terrainData.size.z);
         
        // Debug.Log(range.sizeDelta);
         
