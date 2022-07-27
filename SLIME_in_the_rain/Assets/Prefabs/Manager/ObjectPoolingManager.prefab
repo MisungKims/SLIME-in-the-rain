@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5274986369520382038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4400166486949634601}
+  m_Layer: 0
+  m_Name: Minimap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4400166486949634601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5274986369520382038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5920776838612137687}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5920776837618180052
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +192,7 @@ Transform:
   - {fileID: 5920776839000022371}
   - {fileID: 5920776837618180053}
   - {fileID: 5920776839535047007}
+  - {fileID: 4400166486949634601}
   m_Father: {fileID: 5920776839036307208}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -273,9 +305,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPoolingList:
-  - copyObj: {fileID: 2607716711939982652, guid: d4c7045ebfd7bd24485baa137637cc20, type: 3}
-    parent: {fileID: 7986647109915016079, guid: abfa34f3330bb0e43a9840ccf986c98b, type: 3}
-    initCount: 1
   - copyObj: {fileID: 8709288067124433773, guid: 2fa0e6b2e5ca1cd4db9b1e750d0f90ed, type: 3}
     parent: {fileID: 5920776838523766749}
     initCount: 5
@@ -285,6 +314,9 @@ MonoBehaviour:
   - copyObj: {fileID: 4631997835977516517, guid: b99551b5603218e458e58198cb78a78a, type: 3}
     parent: {fileID: 5920776839000022370}
     initCount: 50
+  - copyObj: {fileID: 9175642066711275924, guid: 3441886ee4e271e4fb81306a19e46c03, type: 3}
+    parent: {fileID: 5274986369520382038}
+    initCount: 15
   projectilePoolingList:
   - copyObj: {fileID: 5718012098248317006, guid: 60594843a958e134f983440a636f99a7, type: 3}
     parent: {fileID: 5920776838133343013}
