@@ -10,22 +10,18 @@ using UnityEngine;
 
 public class RandomPosition : MonoBehaviour
 {
-    private Vector3 spawnPosition;
-    private float randomX;
-    private float randomZ;
-
-    protected float minX;
-    protected float minZ;
-    protected float maxX;
-    protected float maxZ;
+    private static Vector3 spawnPosition;
+    private static float randomX;
+    private static float randomZ;
 
     // 범위 중에서 랜덤한 위치를 가져옴
-    protected Vector3 GetRandomPosition()
+    public static Vector3 GetRandomPosition(float minX, float maxX, float minZ, float maxZ, float y)
     {
         randomX = Random.Range(minX, maxX);
         randomZ = Random.Range(minZ, maxZ);
 
-        spawnPosition = new Vector3(randomX, 2.5f, randomZ);
+        spawnPosition = new Vector3(randomX, y, randomZ);
+
         return spawnPosition;
     }
 }

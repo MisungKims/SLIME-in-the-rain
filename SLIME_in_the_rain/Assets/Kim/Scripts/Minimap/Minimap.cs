@@ -41,6 +41,13 @@ public class Minimap : MonoBehaviour
     [SerializeField]
     private RectTransform range;
 
+    [SerializeField]
+    private float mul;
+
+    [SerializeField]
+    private float zoom;
+
+
     public void Awake()
     {
         if (null == instance)
@@ -53,14 +60,27 @@ public class Minimap : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-       CalcuateTransformationMatrix();
-    }
-
     private void Update()
     {
-        UpdateMinimapIcons();
+        MoveMinimap();
+        //UpdateMinimapIcons();
+    }
+
+    void MoveMinimap()
+    {
+        this.transform.localScale = Vector3.one * zoom;
+
+        foreach (var kvp in miniMapWorldObjectLookup)
+        {
+            var minimapWorldObject = kvp.Key;
+            var minimapIcon = kvp.Value;
+
+            Vector3 pos = minimapWorldObject.transform.position;
+            pos.y = pos.z;
+            pos.z = 0;
+
+            this.transform.localPosition = -pos * mul * zoom;
+        }
     }
 
     // 아이콘의 위치 바꿈
@@ -71,8 +91,8 @@ public class Minimap : MonoBehaviour
             var minimapWorldObject = kvp.Key;
             var minimapIcon = kvp.Value;
 
-            var mapPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
-            minimapIcon.rectTransform.anchoredPosition = mapPosition;
+            var iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
+            minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
         }
     }
 
@@ -81,33 +101,16 @@ public class Minimap : MonoBehaviour
     {
         var pos = new Vector2(worldPos.x, worldPos.z);
 
-       return transformationMatrix.MultiplyPoint3x4(pos);
+        return pos;
     }
 
     // 미니맵 아이콘 등록
     public void RegisterMinimapWorldObject(MinimapWorldObject minimapWorldObject)
     {
         var miniMapIcon = Instantiate(miniMapIconPrefab);
-        miniMapIcon.transform.SetParent(contentRectTransform);
+        miniMapIcon.transform.SetParent(this.transform);
         miniMapIcon.SetIcon(minimapWorldObject.Icon);
         miniMapIcon.SetColor(minimapWorldObject.IconColor);
         miniMapWorldObjectLookup[minimapWorldObject] = miniMapIcon;
     }
-
-    // 계산?
-    void CalcuateTransformationMatrix()
-    {
-        var miniMapDimensions = contentRectTransform.rect.size;
-       // var terrainDimensions = range.sizeDelta;
-        var terrainDimensions = new Vector2(range.localScale.x, range.localScale.z);
-     //   var terrainDimensions = new Vector2(terrain.terrainData.size.x, terrain.terrainData.size.z);
-        
-       // Debug.Log(range.sizeDelta);
-        
-        var scaleRatio = miniMapDimensions / terrainDimensions;
-        var transition = -miniMapDimensions / 2;
-
-        transformationMatrix = Matrix4x4.TRS(transition, Quaternion.identity, scaleRatio);
-    }
-
 }
