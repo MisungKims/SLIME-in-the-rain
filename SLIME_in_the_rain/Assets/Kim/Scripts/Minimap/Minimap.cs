@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Minimap : MonoBehaviour
 {
-
-    // https://www.youtube.com/watch?v=oIt9ZAQ_lU0
-
+    #region 변수
     #region 싱글톤
     private static Minimap instance = null;
     public static Minimap Instance
@@ -22,32 +21,47 @@ public class Minimap : MonoBehaviour
     }
     #endregion
 
-    [SerializeField]
-    Terrain terrain;
+    private bool isZoomIn = true;
 
     [SerializeField]
-    RectTransform scrollViewRectTransform;
+    private GameObject slimeIconZoomIn;    // 축소 상태에서 맵 중간에 놓일 슬라임의 아이콘
 
     [SerializeField]
-    RectTransform contentRectTransform;
+    private MinimapIcon miniMapIconPrefab;         // 생성할 아이콘 프리팹
+
+    private Dictionary<MinimapWorldObject, MinimapIcon> miniMapWorldObjectLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
+
 
     [SerializeField]
-    MinimapIcon miniMapIconPrefab;
+    private float mul = 8f;
 
-    Matrix4x4 transformationMatrix;
+   [SerializeField]
+    private float zoom = 2.3f;     // 줌인 할 배율
 
-    Dictionary<MinimapWorldObject, MinimapIcon> miniMapWorldObjectLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
-
-    [SerializeField]
-    private RectTransform range;
-
-    [SerializeField]
-    private float mul;
+    private MinimapWorldObject slimeObj;
+    private Vector3 slimePos;
 
     [SerializeField]
-    private float zoom;
+    private Mask mask;
+   [SerializeField]
+    private RectTransform maskTransform;
+    [SerializeField]
+    private RectTransform mapTransform;
+    [SerializeField]
+    private RectTransform zoomInTransform;      // 줌인 했을 때의 Mask 크기
+    [SerializeField]
+    private RectTransform zoomOutTransform;      // 줌아웃 했을 때의 Mask 크기
 
 
+    // 캐싱
+    private MinimapWorldObject minimapWorldObject;
+    private MinimapIcon minimapIcon;
+    private Vector2 iconPosition;
+
+    private MinimapIcon newIcon;
+    #endregion
+
+    #region 유니티 함수
     public void Awake()
     {
         if (null == instance)
@@ -58,29 +72,65 @@ public class Minimap : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        ZoomIn();
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            if (isZoomIn) ZoomOut();
+            else ZoomIn();
+        }
+
         MoveMinimap();
-        //UpdateMinimapIcons();
+        UpdateMinimapIcons();
+    }
+    #endregion
+
+    #region 함수
+    // 축소
+    void ZoomIn()
+    {
+        isZoomIn = true;
+        slimeIconZoomIn.SetActive(true);
+        mask.enabled = true;
+
+        maskTransform.anchoredPosition = zoomInTransform.anchoredPosition;
+        maskTransform.sizeDelta = zoomInTransform.sizeDelta;
+        mapTransform.anchoredPosition = Vector2.zero;
     }
 
+    // 확대
+    void ZoomOut()
+    {
+        isZoomIn = false;
+        slimeIconZoomIn.SetActive(false);
+        mask.enabled = false;
+
+        maskTransform.anchoredPosition = zoomOutTransform.anchoredPosition;
+        maskTransform.sizeDelta = zoomOutTransform.sizeDelta;
+        mapTransform.anchoredPosition = Vector2.zero;
+    }
+
+    // 축소 상태일 때 미니맵 자체를 움직임
     void MoveMinimap()
     {
-        this.transform.localScale = Vector3.one * zoom;
-
-        foreach (var kvp in miniMapWorldObjectLookup)
+        if (isZoomIn)
         {
-            var minimapWorldObject = kvp.Key;
-            var minimapIcon = kvp.Value;
+            this.transform.localScale = Vector3.one * zoom;
 
-            Vector3 pos = minimapWorldObject.transform.position;
-            pos.y = pos.z;
-            pos.z = 0;
+            slimePos = slimeObj.transform.position;
+            slimePos.y = slimePos.z;
+            slimePos.z = 0;
 
-            this.transform.localPosition = -pos * mul * zoom;
+            this.transform.localPosition = -slimePos * mul * zoom;
         }
+        else
+        {
+            this.transform.localScale = Vector3.one;
+        } 
     }
 
     // 아이콘의 위치 바꿈
@@ -88,11 +138,25 @@ public class Minimap : MonoBehaviour
     {
         foreach (var kvp in miniMapWorldObjectLookup)
         {
-            var minimapWorldObject = kvp.Key;
-            var minimapIcon = kvp.Value;
+            minimapWorldObject = kvp.Key;
 
-            var iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
-            minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
+            if (isZoomIn)       // 축소상태 일때에는 슬라임의 아이콘이 아닌 것만 위치 변경
+            {
+                if (!minimapWorldObject.Equals(slimeObj))
+                {
+                    minimapIcon = kvp.Value;
+
+                    iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
+                    minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
+                }
+            }
+            else
+            {
+                minimapIcon = kvp.Value;
+
+                iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
+                minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
+            }
         }
     }
 
@@ -105,12 +169,17 @@ public class Minimap : MonoBehaviour
     }
 
     // 미니맵 아이콘 등록
-    public void RegisterMinimapWorldObject(MinimapWorldObject minimapWorldObject)
+    public void RegisterMinimapWorldObject(MinimapWorldObject obj)
     {
-        var miniMapIcon = Instantiate(miniMapIconPrefab);
-        miniMapIcon.transform.SetParent(this.transform);
-        miniMapIcon.SetIcon(minimapWorldObject.Icon);
-        miniMapIcon.SetColor(minimapWorldObject.IconColor);
-        miniMapWorldObjectLookup[minimapWorldObject] = miniMapIcon;
+        //MinimapIcon miniMapIcon = Instantiate(miniMapIconPrefab);
+        //newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon).GetComponent<MinimapIcon>();
+        newIcon = Instantiate(miniMapIconPrefab);
+        newIcon.transform.SetParent(this.transform);
+        newIcon.SetIcon(obj.Icon);
+        newIcon.SetColor(obj.IconColor);
+        miniMapWorldObjectLookup[obj] = newIcon;
+
+        if (obj.CompareTag("Slime")) slimeObj = obj;
     }
+    #endregion
 }

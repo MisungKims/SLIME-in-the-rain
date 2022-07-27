@@ -61,6 +61,7 @@ public class Slime : MonoBehaviour
     public bool isDash { get; set; }                // 대시 중인지?
     bool isCanDash;     // 대시 가능한지?
 
+    public GameObject shield;
 
     //////// 공격
     public Transform target;
@@ -109,6 +110,7 @@ public class Slime : MonoBehaviour
 
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        shield.SetActive(false);
 
         isCanDash = true;
     }

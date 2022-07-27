@@ -10,10 +10,10 @@ using UnityEngine;
 
 public enum EObjectFlag
 {
-    shield,
     box,
     jelly,
-    gelatin
+    gelatin,
+    minimapIcon
 }
 
 public class ObjectPoolingManager : MonoBehaviour
@@ -165,6 +165,8 @@ public class ObjectPoolingManager : MonoBehaviour
     {
         int index = (int)flag;
         gb.SetActive(false);
+
+        if(flag.Equals(EObjectFlag.minimapIcon)) gb.transform.SetParent(objectPoolingList[index].parent.transform);     // 미니맵 아이콘은 부모 변경 필요
 
         objectPoolingList[index].queue.Enqueue(gb);
     }
