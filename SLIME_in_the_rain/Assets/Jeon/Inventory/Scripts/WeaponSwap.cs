@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class WeaponSwap : MonoBehaviour
 {
-    public ItemWeaponSwap swap;
+    /*public ItemSwap swap;
     public EWeaponType e;
 
 
     private void Start()
     {
-       e= swap.eWeaponType;
-    }
+       e = swap.eWeaponType;
+    }*/
 }

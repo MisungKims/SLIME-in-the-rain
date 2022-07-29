@@ -22,7 +22,7 @@ public class InventoryUI : MonoBehaviour
     }
     #endregion
 
-    Inventory inven; //인벤토리
+    Inventory inventory; //인벤토리
     [SerializeField]
     private Button ExpansionButton; //인벤확장버튼
     [SerializeField]
@@ -36,13 +36,12 @@ public class InventoryUI : MonoBehaviour
     public GameObject DissolutionUI;
 
     private JellyManager jellyManager;
-    public int index = 0;
     public TextMeshProUGUI JellyTextC; //젤리
     #region onOffBool
-    bool activeInventory = false;
-    bool activeStatsUI = false;
-    bool activeCombination = false;
-    bool activeDissolution = false;
+   public bool activeInventory = false;
+   public bool activeStatsUI = false;
+   public bool activeCombination = false;
+   public bool activeDissolution = false;
     #endregion
     #endregion
 
@@ -50,15 +49,17 @@ public class InventoryUI : MonoBehaviour
     #region 유니티 메소드
     private void Start()
     {
-        inven = Inventory.Instance;
+        inventory = Inventory.Instance;
+        jellyManager = JellyManager.Instance;
         slots = slotHolder.GetComponentsInChildren<Slot>();
-        inven.onSlotCountChange += SlotChange;
-        inven.onChangedItem += RedrawSlotUI;
+        inventory.onSlotCountChange += SlotChange;
+        inventory.onChangedItem += RedrawSlotUI;
         inventroyPanel.SetActive(activeInventory);
         statsUI.SetActive(activeStatsUI);
         CombinationUI.SetActive(activeCombination);
         DissolutionUI.SetActive(activeDissolution);
-        jellyManager = JellyManager.Instance;
+
+      
     }
     private void Update()
     {
@@ -95,7 +96,7 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].slotNum = i;
-            if (i < inven.SlotCount)
+            if (i < inventory.SlotCount)
             {
                 slots[i].GetComponent<Button>().interactable = true;
             }
@@ -108,8 +109,8 @@ public class InventoryUI : MonoBehaviour
 
     public  void ExpansionSlot() //슬롯 추가
     {
-        inven.SlotCount++;
-        if (inven.SlotCount >= 28)
+        inventory.SlotCount++;
+        if (inventory.SlotCount >= 28)
         {
             ExpansionButton.interactable = false;
         }
@@ -147,9 +148,9 @@ public class InventoryUI : MonoBehaviour
         {
             slots[i].RemoveSlot();
         }
-        for (int i = 0; i < inven.items.Count; i++)
+        for (int i = 0; i < inventory.items.Count; i++)
         {
-            slots[i].item = inven.items[i];
+            slots[i].item = inventory.items[i];
             slots[i].UpdateSlotUI();
         }
     }

@@ -90,7 +90,7 @@ public class Slime : MonoBehaviour
     private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
 
     public StatManager statManager;
-    private InDun_Canvas inDun_Canvas;
+    private ICanvas _Canvas;
 
     #endregion
 
@@ -419,7 +419,7 @@ public class Slime : MonoBehaviour
     {
         currentWeapon = weapon;
 
-       if(InDun_Canvas.Instance) InDun_Canvas.Instance.changeWeapon();
+
 
         // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;
@@ -427,6 +427,9 @@ public class Slime : MonoBehaviour
 
         // 변경한 무기의 스탯으로 변경
         statManager.ChangeStats(currentWeapon);
+
+        //변경된 스탯 적용
+        if (ICanvas.Instance) ICanvas.Instance.changeWeapon();
 
         // 슬라임의 색 변경
         ChangeMaterial();              

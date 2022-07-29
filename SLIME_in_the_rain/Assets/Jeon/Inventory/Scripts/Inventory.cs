@@ -50,6 +50,17 @@ public class Inventory : MonoBehaviour
 
 
     #region 유니티메소드
+    private void Update()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].itemCount == 0)
+            {
+                RemoveItem(i);
+            }
+        }
+       
+    }
     private void Awake()
     {
         if (instance != null)
@@ -58,6 +69,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         instance = this;
+
     }
     void Start()
     {

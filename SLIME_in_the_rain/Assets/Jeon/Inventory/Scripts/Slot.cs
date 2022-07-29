@@ -10,20 +10,18 @@ public class Slot : MonoBehaviour,IPointerUpHandler
 {
     public int slotNum;
     public Item item;
-    public int itemCount = 1;
-   
-    private Inventory inventory;
+    public Button button;
 
     [SerializeField]
-    private GameObject itemCountImage;
+    public GameObject itemCountImage;
     [SerializeField]
     private TextMeshProUGUI itemCountText;
     public Image itemIcon;
 
-
+  
     private void Start()
     {
-        inventory = Inventory.Instance;
+        button = this.transform.GetComponent<Button>();
     }
 
     public void UpdateSlotUI()
@@ -34,35 +32,32 @@ public class Slot : MonoBehaviour,IPointerUpHandler
         if (item.itemType == ItemType.gelatin)
         {
         itemCountImage.SetActive(true);
-        itemCountText.text = itemCount.ToString();
+        itemCountText.text = Inventory.Instance.items[slotNum].itemCount.ToString();
         }
     }
 
-    public void SetSlotCount()
+    public void SetSlotCount() //개수 추가
     {
-        itemCount++;
-        itemCountText.text = itemCount.ToString();
+        Inventory.Instance.items[slotNum].itemCount++;
+        itemCountText.text = Inventory.Instance.items[slotNum].itemCount.ToString();
     }
 
-    private void ClearSlot()
+    public void RemoveSlot() //제거 함수
     {
         item = null;
-        itemIcon.sprite = null;
         itemCountImage.SetActive(false);
-    }
-
-    public void RemoveSlot()
-    {
-        item = null;
         itemIcon.gameObject.SetActive(false);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData) //클릭시 사용
     {
-        bool isUse = item.Use(slotNum);
-        if (isUse)
+        if (item != null)
         {
-            Inventory.Instance.RemoveItem(slotNum);
+            bool isUse = item.Use(slotNum);
+            if (isUse)
+            {
+                Inventory.Instance.RemoveItem(slotNum);
+            }
         }
     }
 

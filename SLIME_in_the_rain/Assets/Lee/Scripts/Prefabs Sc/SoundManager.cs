@@ -19,8 +19,6 @@ public class SoundManager : MonoBehaviour
     #region 유니티 함수(Start)
     private void Start()
     {
-        Debug.Log(this);
-
         //슬라이더 초기설정
         masterAudioSlider.GetComponent<Slider>().onValueChanged.AddListener(delegate { MasterAudioControl(); });
 

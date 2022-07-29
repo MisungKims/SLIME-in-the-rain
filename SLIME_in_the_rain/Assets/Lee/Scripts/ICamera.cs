@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//나중에 수정할때 카메라 좌표 대입식 말고 좌표를 이동하는 식으로 바꾸기
 public class ICamera : MonoBehaviour
 {
     #region 변수
@@ -44,23 +46,16 @@ public class ICamera : MonoBehaviour
     {
         vec3.x = slime.transform.position.x;
         vec3.y = 10f;
-        vec3.z = slime.transform.position.z - 12f;
+        vec3.z = slime.transform.position.z - 10f;
 
         Camera.main.transform.position = vec3;
     }
-    public void Focus_Town(GameObject gameObject)
+    public void Focus_Tower(GameObject gameObject)
     {
-        vec3.x = gameObject.transform.localPosition.x + 2f;
+        vec3.x = gameObject.transform.position.x - 6f;
         vec3.y = 10f;
-        vec3.z = gameObject.transform.localPosition.z - 22.0f;
+        vec3.z = gameObject.transform.position.z - 8f;
         Camera.main.transform.position =  vec3;
     }
-    public void Focus_Obj(GameObject gameObject)
-    {
-        vec3.x = slime.transform.position.x;
-        vec3.y = Camera.main.transform.position.y;
-        vec3.z = slime.transform.position.z - 28;
 
-        Camera.main.transform.position = vec3;
-    }
 }

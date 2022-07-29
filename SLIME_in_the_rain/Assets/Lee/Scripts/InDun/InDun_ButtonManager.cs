@@ -63,10 +63,10 @@ public class InDun_ButtonManager : MonoBehaviour                                
 
 
     //юс╫ц
-    public void GoInDun()
-    {
-        SceneManager.LoadScene("Village");
-    }
+    //public void GoInDun()
+    //{
+    //    SceneManager.LoadScene("Village");
+    //}
     public void ExitGame()
     {
         Application.Quit();

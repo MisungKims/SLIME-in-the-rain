@@ -146,18 +146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4e6e5c63ad18549a078ae28e62be92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canDetect: 1
   item:
     itemType: 0
     itemName: 
     itemExplain: 
+    itemCount: 0
     itemIcon: {fileID: 0}
     itemGB: {fileID: 0}
-    efts:
-    - {fileID: 11400000, guid: 5f976ddb05948f444958c166e157f6df, type: 2}
-    - {fileID: 11400000, guid: defc3b380fe48bd4bb5cdf7732b4f048, type: 2}
-    - {fileID: 11400000, guid: a5cb365a626acd341b4f536341e12d6b, type: 2}
-    - {fileID: 11400000, guid: 41830080d24b02f48bd86ef261e44e98, type: 2}
-    - {fileID: 11400000, guid: f9dc5aeeeb89bb845a8f782a3ce8a586, type: 2}
+    efts: []
   gb: {fileID: 0}
   warningText: {fileID: 5108714130637276477}
   wT: {fileID: 5108714130637276475}
