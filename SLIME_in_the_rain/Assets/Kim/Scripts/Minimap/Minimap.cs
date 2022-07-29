@@ -218,7 +218,19 @@ public class Minimap : MonoBehaviour
                 iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
 
                 // 아이콘이 범위를 벗어나지 못하도록
-                if (iconPosition.x < zoomOutRange * -1) iconPosition.x = zoomOutRange * -1;
+                if (iconPosition.x < zoomOutRange * -1)
+                {
+                    Vector3 newPos = Vector3.zero;
+                    newPos.x = zoomOutRange * -1;
+                    newPos.y = minimapWorldObject.transform.position.y;
+                    newPos.z = minimapWorldObject.transform.position.z;
+
+                    Debug.Log(newPos);
+
+
+                    minimapWorldObject.transform.position = newPos;
+                    iconPosition.x = zoomOutRange * -1;
+                }
                 else if (iconPosition.x > zoomOutRange) iconPosition.x = zoomOutRange;
 
                 if (iconPosition.y < zoomOutRange * -1) iconPosition.y = zoomOutRange * -1;
