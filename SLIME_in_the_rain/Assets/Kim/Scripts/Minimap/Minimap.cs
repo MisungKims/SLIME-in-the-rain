@@ -135,7 +135,7 @@ public class Minimap : MonoBehaviour
         {
             this.transform.localScale = Vector3.one * zoom;
 
-           slimePos = IsOutRange(WorldPositionToMapPostion(slimeObj.transform.position));
+            slimePos = IsOutRange(WorldPositionToMapPostion(slimeObj.transform.position));
 
             this.transform.localPosition = -slimePos * mul * zoom;
 
@@ -146,7 +146,7 @@ public class Minimap : MonoBehaviour
                 slimeIconZoomOut.SetActive(false);
 
                 slimeIconRect.anchoredPosition = Vector2.zero;
-            } 
+            }
         }
         else
         {
@@ -202,7 +202,7 @@ public class Minimap : MonoBehaviour
                 else
                 {
                     // 슬라임의 아이콘이 범위를 벗어날 때는 중앙 아이콘을 비활성화 후, 직접 아이콘이 움직이도록
-                    if (isOutRangeX || isOutRangeY)        
+                    if (isOutRangeX || isOutRangeY)
                     {
                         slimeIconZoomIn.SetActive(false);
                         slimeIconZoomOut.SetActive(true);
@@ -220,7 +220,7 @@ public class Minimap : MonoBehaviour
     {
         tempPos = minimapWorldObject.transform.position;
 
-        // 아이콘의 위치가 범위를 벗어났을 때, 미니맵의 범위 안을 벗어나지 못하도록 오브젝트의 위치를 고정
+        // 아이콘의 위치가 범위를 벗어났을 때, 미니맵의 범위 안을 벗어나지 못하도록
 
         if (tempPos.x < zoomOutRange * -1) tempPos.x = zoomOutRange * -1;
         else if (tempPos.x > zoomOutRange) tempPos.x = zoomOutRange;
