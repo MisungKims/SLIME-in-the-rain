@@ -24,6 +24,9 @@ public class Transparent : MonoBehaviour
     // 슬라임 감지에 필요한 변수
     private float distance;
     private Vector3 offset;
+
+    [SerializeField]
+    private float detectDistance = 3f;
     #endregion
 
     #region 유니티 함수
@@ -53,7 +56,7 @@ public class Transparent : MonoBehaviour
             distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
 
             // 오브젝트가 슬라임을 가릴 때 투명도 조절
-            if (distance < 3f)
+            if (distance < detectDistance)
             {
                 if (!isTransparent)
                 {

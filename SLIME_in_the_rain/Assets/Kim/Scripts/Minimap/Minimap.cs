@@ -30,7 +30,7 @@ public class Minimap : MonoBehaviour
     [SerializeField]
     private MinimapIcon miniMapIconPrefab;         // 생성할 아이콘 프리팹
 
-    private Dictionary<MinimapWorldObject, MinimapIcon> miniMapWorldObjectLookup = new Dictionary<MinimapWorldObject, MinimapIcon>();
+    private Dictionary<MinimapWorldObject, MinimapIcon> miniMapObjectDic = new Dictionary<MinimapWorldObject, MinimapIcon>();
 
 
     [SerializeField]
@@ -47,6 +47,7 @@ public class Minimap : MonoBehaviour
     // 슬라임이 미니맵의 범위를 벗어났는지?
     private bool isOutRangeX;
     private bool isOutRangeY;
+    private Vector3 tempPos;
 
     private MinimapWorldObject slimeObj;
     private GameObject slimeIconZoomOut;
@@ -134,10 +135,11 @@ public class Minimap : MonoBehaviour
         {
             this.transform.localScale = Vector3.one * zoom;
 
-           slimePos = IsOutRange(WorldPositionTomapPostion(slimeObj.transform.position));
+           slimePos = IsOutRange(WorldPositionToMapPostion(slimeObj.transform.position));
 
             this.transform.localPosition = -slimePos * mul * zoom;
 
+            // 아이콘이 범위를 벗어나지 않았을 때에는 아이콘의 위치를 항상 중간으로 고정
             if (!isOutRangeX && !isOutRangeY)
             {
                 slimeIconZoomIn.SetActive(true);
@@ -152,29 +154,29 @@ public class Minimap : MonoBehaviour
         } 
     }
 
+    // 아이콘이 범위를 벗어났을 경우
     Vector2 IsOutRange(Vector2 pos)
     {
-        // 아이콘이 범위를 벗어났을 경우
         if (pos.x < zoomInRange * -1)
         {
-            pos.x = zoomInRange * -1.01f;
+            pos.x = zoomInRange * -1.001f;
             isOutRangeX = true;
         }
         else if (pos.x > zoomInRange)
         {
-            pos.x = zoomInRange * 1.01f;
+            pos.x = zoomInRange * 1.001f;
             isOutRangeX = true;
         }
         else isOutRangeX = false;
 
         if (pos.y < zoomInRange * -1)
         {
-            pos.y = zoomInRange * -1.01f;
+            pos.y = zoomInRange * -1.001f;
             isOutRangeY = true;
         }
         else if (pos.y > zoomInRange)
         {
-            pos.y = zoomInRange * 1.01f;
+            pos.y = zoomInRange * 1.001f;
             isOutRangeY = true;
         }
         else isOutRangeY = false;
@@ -185,80 +187,68 @@ public class Minimap : MonoBehaviour
     // 아이콘의 위치 바꿈
     void UpdateMinimapIcons()
     {
-        foreach (var kvp in miniMapWorldObjectLookup)
+        foreach (var kvp in miniMapObjectDic)
         {
             minimapWorldObject = kvp.Key;
+            minimapIcon = kvp.Value;
 
-            if (isZoomIn)       // 축소상태 일때에는 슬라임의 아이콘이 아닌 것만 위치 변경
+            if (isZoomIn)       // 축소상태 일때
             {
-                if (!minimapWorldObject.Equals(slimeObj))
+                if (!minimapWorldObject.Equals(slimeObj))           // 슬라임의 아이콘이 아닌 것만 위치 변경 (슬라임 아이콘은 중앙에 고정되기 때문)
                 {
-                    minimapIcon = kvp.Value;
-
-                    iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
+                    iconPosition = WorldPositionToMapPostion(minimapWorldObject.transform.position);
                     minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
                 }
                 else
                 {
-                    if (isOutRangeX || isOutRangeY)
+                    // 슬라임의 아이콘이 범위를 벗어날 때는 중앙 아이콘을 비활성화 후, 직접 아이콘이 움직이도록
+                    if (isOutRangeX || isOutRangeY)        
                     {
                         slimeIconZoomIn.SetActive(false);
                         slimeIconZoomOut.SetActive(true);
 
-                        minimapIcon = kvp.Value;
-
-                        iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
-                        minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
+                        SetIconPos();           // 아이콘의 위치 조정
                     }
                 }
             }
-            else
-            {
-                minimapIcon = kvp.Value;
-                iconPosition = WorldPositionTomapPostion(minimapWorldObject.transform.position);
-
-                // 아이콘이 범위를 벗어나지 못하도록
-                if (iconPosition.x < zoomOutRange * -1)
-                {
-                    Vector3 newPos = Vector3.zero;
-                    newPos.x = zoomOutRange * -1;
-                    newPos.y = minimapWorldObject.transform.position.y;
-                    newPos.z = minimapWorldObject.transform.position.z;
-
-                    Debug.Log(newPos);
-
-
-                    minimapWorldObject.transform.position = newPos;
-                    iconPosition.x = zoomOutRange * -1;
-                }
-                else if (iconPosition.x > zoomOutRange) iconPosition.x = zoomOutRange;
-
-                if (iconPosition.y < zoomOutRange * -1) iconPosition.y = zoomOutRange * -1;
-                else if (iconPosition.y > zoomOutRange) iconPosition.y = zoomOutRange;
-
-                minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
-            }
+            else SetIconPos();           // 아이콘의 위치 조정
         }
     }
 
-    // 오브젝트의 위치를 가져옴
-    Vector2 WorldPositionTomapPostion(Vector3 worldPos)
+    // 아이콘의 위치를 조정
+    void SetIconPos()
     {
-        var pos = new Vector2(worldPos.x, worldPos.z);
+        tempPos = minimapWorldObject.transform.position;
 
-        return pos;
+        // 아이콘의 위치가 범위를 벗어났을 때, 미니맵의 범위 안을 벗어나지 못하도록 오브젝트의 위치를 고정
+
+        if (tempPos.x < zoomOutRange * -1) tempPos.x = zoomOutRange * -1;
+        else if (tempPos.x > zoomOutRange) tempPos.x = zoomOutRange;
+
+        if (tempPos.z < zoomOutRange * -1) tempPos.z = zoomOutRange * -1;
+        else if (tempPos.z > zoomOutRange) tempPos.z = zoomOutRange;
+
+        minimapWorldObject.transform.parent.position = tempPos;
+
+        iconPosition = WorldPositionToMapPostion(minimapWorldObject.transform.position);
+        minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
+    }
+
+    // 오브젝트의 위치를 Vector2로 반환
+    Vector2 WorldPositionToMapPostion(Vector3 worldPos)
+    {
+        return new Vector2(worldPos.x, worldPos.z);
     }
 
     // 미니맵 아이콘 등록
+    // TODO : 씬이 넘어갈 때 미니맵 아이콘을 오브젝트 풀링에 다시 넣어줘야함
     public void RegisterMinimapWorldObject(MinimapWorldObject obj)
     {
-        //MinimapIcon miniMapIcon = Instantiate(miniMapIconPrefab);
         newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon).GetComponent<MinimapIcon>();
-        //newIcon = Instantiate(miniMapIconPrefab);
         newIcon.transform.SetParent(this.transform);
         newIcon.SetIcon(obj.Icon);
         newIcon.SetColor(obj.IconColor);
-        miniMapWorldObjectLookup[obj] = newIcon;
+        miniMapObjectDic[obj] = newIcon;
 
         if (obj.CompareTag("Slime"))
         {
