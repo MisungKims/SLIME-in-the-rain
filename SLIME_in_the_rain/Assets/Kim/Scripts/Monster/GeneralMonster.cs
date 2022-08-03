@@ -19,8 +19,8 @@ public class GeneralMonster : Monster
     private float distance;
     private float randTime;
 
-    private Vector3 prePos;
-    private bool stop;
+    //private Vector3 prePos;
+    //private bool stop;
 
     // 추적
     private bool takeDamage;            // 데미지를 입었는지?
@@ -33,9 +33,11 @@ public class GeneralMonster : Monster
     private WaitForSeconds waitFor1s = new WaitForSeconds(1f);
 
     // 체력바
+    private GameObject hpBarObject;
     private Slider hpBar;
-    private Vector3 hpBarPos;
+    private Vector3 hpBarPos = new Vector3(0, -0.65f, 0);
 
+    private Camera mainCam;
     #endregion
 
     #region 유니티 함수
@@ -44,6 +46,7 @@ public class GeneralMonster : Monster
         base.Awake();
 
         addCountAmount = 10f;
+        mainCam = Camera.main;
     }
 
     protected override void OnEnable()
@@ -78,7 +81,7 @@ public class GeneralMonster : Monster
                 nav.SetDestination(randPos);
                 PlayAnim(EMonsterAnim.walk);
 
-                prePos = transform.position;
+              //  prePos = transform.position;
 
                 randTime = Random.Range(2f, 4f);            // 일정 시간동안 걷기
                 while (randTime >= 0f)
@@ -90,7 +93,7 @@ public class GeneralMonster : Monster
                         nav.SetDestination(transform.position);
                         randTime = 0f;
                     }
-                    prePos = transform.position;
+                   // prePos = transform.position;
                     yield return null;
                 }
             }
@@ -128,12 +131,9 @@ public class GeneralMonster : Monster
     // 체력바의 위치를 조절하는 코루틴
     IEnumerator SetHPBarPos()
     {
-        while (hpBar)
+        while (hpBarObject)
         {
-            hpBarPos = transform.position;
-            hpBarPos.y += 1.5f;
-
-            hpBar.transform.position = hpBarPos;
+            hpBarObject.transform.position = mainCam.WorldToScreenPoint(transform.position + hpBarPos);
 
             yield return null;
         }
@@ -146,7 +146,8 @@ public class GeneralMonster : Monster
     {
         if (!hpBar)
         {
-            hpBar = uiPoolingManager.Get(EUIFlag.hpBar).GetComponent<Slider>();
+            hpBarObject = uiPoolingManager.Get(EUIFlag.hpBar);
+            hpBar = hpBarObject.transform.GetChild(0).GetComponent<Slider>();
             hpBar.maxValue = stats.maxHP;
 
             StartCoroutine(SetHPBarPos());
@@ -160,7 +161,7 @@ public class GeneralMonster : Monster
     {
         if (!hpBar) return;
 
-        uiPoolingManager.Set(hpBar.gameObject, EUIFlag.hpBar);
+        uiPoolingManager.Set(hpBarObject, EUIFlag.hpBar);
         hpBar = null;
     }
 
