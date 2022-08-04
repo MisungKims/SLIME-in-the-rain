@@ -1,3 +1,9 @@
+/**
+ * @brief ¹Ì´Ï¸Ê
+ * @author ±è¹Ì¼º
+ * @date 22-08-04
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -248,6 +254,7 @@ public class Minimap : MonoBehaviour
         newIcon.transform.SetParent(this.transform);
         newIcon.SetIcon(obj.Icon);
         newIcon.SetColor(obj.IconColor);
+        newIcon.rectTransform.localScale = Vector3.one * 0.2f;
         miniMapObjectDic[obj] = newIcon;
 
         if (obj.CompareTag("Slime"))

@@ -29,7 +29,7 @@ public class MonsterManager : MonoBehaviour
     // 몬스터가 돌아다닐 수 있는 범위
     [SerializeField]
     private GameObject range;
-    private BoxCollider rangeCollider;
+    private Collider rangeCollider;
     #endregion
 
     #region 유니티 함수
@@ -44,7 +44,7 @@ public class MonsterManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        rangeCollider = range.GetComponent<BoxCollider>();
+        rangeCollider = range.GetComponent<Collider>();
     }
     #endregion
 

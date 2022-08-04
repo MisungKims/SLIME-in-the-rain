@@ -331,6 +331,10 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         HideHPBar();
 
+        MapManager.Instance.DieMonster(this);
+
+        
+
         StartCoroutine(DieCoroutine());
     }
 
