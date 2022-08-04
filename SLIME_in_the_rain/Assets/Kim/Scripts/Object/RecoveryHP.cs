@@ -8,16 +8,30 @@ public class RecoveryHP : MonoBehaviour
     private Slime slime;
     private Outline outline;
 
-    private StatManager statManager;
+    [SerializeField]
+    private float speed = 0.08f;        // HP 회복 속도
+
+    private bool isUsed = false;
 
     // 슬라임 감지에 필요한 변수
     private float distance;
     Vector3 offset;
+
+    // 캐싱
+    private StatManager statManager;
+    private WaitForSeconds waitForSeconds;
     #endregion
 
     #region 유니티 함수
     private void Awake()
     {
+        waitForSeconds = new WaitForSeconds(speed);
+    }
+
+    private void OnEnable()
+    {
+        isUsed = false;
+
         StartCoroutine(DetectSlime());
     }
 
@@ -25,10 +39,7 @@ public class RecoveryHP : MonoBehaviour
     #endregion
 
     #region 코루틴
-    /// <summary>
-    /// 슬라임 탐지 코루틴
-    /// </summary>
-    /// <returns></returns>
+    // 슬라임 탐지 코루틴
     IEnumerator DetectSlime()
     {
         outline = GetComponent<Outline>();
@@ -36,19 +47,18 @@ public class RecoveryHP : MonoBehaviour
         statManager = StatManager.Instance;
 
         // 슬라임과의 거리를 탐지
-        while (true)
+        while (!isUsed)
         {
             offset = slime.transform.position - transform.position;
             distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
 
             if (distance < 2f)
             {
-                if (!outline.enabled) outline.enabled = true;
+                if (!outline.enabled) outline.enabled = true;           // 거리가 가까울 때 외곽선 표시
 
-                if (Input.GetKeyDown(KeyCode.G))
+                if (Input.GetKeyDown(KeyCode.G))                // G키를 누르면 HP 회복
                 {
                     StartCoroutine(Recovery());
-                    Debug.Log("G");
                 }
             }
             else
@@ -63,11 +73,14 @@ public class RecoveryHP : MonoBehaviour
     // 최대 체력까지 회복
     IEnumerator Recovery()
     {
+        isUsed = true;
+        outline.enabled = false;
+
         while (statManager.myStats.HP < statManager.myStats.maxHP)
         {
-            statManager.AddHP(0.1f);
+            statManager.AddHP(1f);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return waitForSeconds;
         }
 
         statManager.myStats.HP = statManager.myStats.maxHP;

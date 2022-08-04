@@ -6107,6 +6107,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4759893833732784568, guid: 1c4c135d620833e49aec301257daef14, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4759893834178730865, guid: 1c4c135d620833e49aec301257daef14, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -6115,6 +6119,14 @@ PrefabInstance:
       propertyPath: mul
       value: 8.18
       objectReference: {fileID: 0}
+    - target: {fileID: 4759893834178730871, guid: 1c4c135d620833e49aec301257daef14, type: 3}
+      propertyPath: zoomInRange
+      value: 17.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4759893834178730871, guid: 1c4c135d620833e49aec301257daef14, type: 3}
+      propertyPath: zoomOutRange
+      value: 23.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4759893834259512373, guid: 1c4c135d620833e49aec301257daef14, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6125,11 +6137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4759893834380504781, guid: 1c4c135d620833e49aec301257daef14, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4759893834380504781, guid: 1c4c135d620833e49aec301257daef14, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4759893834737199259, guid: 1c4c135d620833e49aec301257daef14, type: 3}
       propertyPath: m_AnchorMax.x
