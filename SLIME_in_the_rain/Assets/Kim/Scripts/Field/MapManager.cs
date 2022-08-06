@@ -1,6 +1,6 @@
 /**
- * @brief ¸Ê ¸Å´ÏÀú
- * @author ±è¹Ì¼º
+ * @brief ë§µ ë§¤ë‹ˆì €
+ * @author ê¹€ë¯¸ì„±
  * @date 22-07-24
  */
 
@@ -10,106 +10,27 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    #region º¯¼ö
-    #region ½Ì±ÛÅæ
-    private static MapManager instance = null;
-    public static MapManager Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
-
+    #region ë³€ìˆ˜
+   
     [SerializeField]
     private Transform slimeSpawnPos;
 
-    [Header("-------------- MoneyBox")]
-    [SerializeField]
-    private bool isSpawnBox;        // ÀçÈ­ ¹Ú½º¸¦ ½ºÆùÇÒ °ÍÀÎÁö?
-
-    private int objCount;       // ¿ÀºêÁ§Æ®ÀÇ °³¼ö
-    [SerializeField]
-    private int minObjCount = 2;
-    [SerializeField]
-    private int maxObjCount = 5;
-
-    [SerializeField]
-    private float minX;
-    [SerializeField]
-    private float maxX;
-    [SerializeField]
-    private float minZ;
-    [SerializeField]
-    private float maxZ;
-
-    [Header("-------------- Map")]
-    public List<Monster> monsters = new List<Monster>();
-
-    // Ä³½Ì
-    private ObjectPoolingManager objectPoolingManager;
+    // ìºì‹±
+    protected ObjectPoolingManager objectPoolingManager;
     #endregion
-
 
     protected virtual void Awake()
     {
-        if (null == instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
         objectPoolingManager = ObjectPoolingManager.Instance;
 
         Slime.Instance.transform.position = slimeSpawnPos.position;
-
-
-    }
-
-    private IEnumerator Start()
-    {
-        yield return null;
-
-        SpawnBox();
-    }
-
-    // ÀçÈ­¹Ú½º¸¦ ½ºÆù
-    private void SpawnBox()
-    {
-        if (!isSpawnBox) return;
-
-        objCount = Random.Range(minObjCount, maxObjCount);
-        for (int i = 0; i < objCount; i++)
-        {
-            objectPoolingManager.Get(EObjectFlag.box, RandomPosition.GetRandomPosition(minX, maxX, minZ, maxZ, 2));
-        }
-    }
-
-    // ¸ó½ºÅÍ°¡ Á×¾úÀ» ¶§ ¸ó½ºÅÍ ¸®½ºÆ®¿¡¼­ ÇØ´ç ¸ó½ºÅÍ¸¦ Á¦°Å
-    public void DieMonster(Monster monster)
-    {
-        if (!monsters.Contains(monster)) return;
-
-        monsters.Remove(monster);
-
-        if (monsters.Count <= 0)            // ¸ğµç ¸ó½ºÅÍ°¡ Á×¾úÀ¸¸é ¸Ê Å¬¸®¾î
-        {
-            ClearMap();
-        }
     }
 
     // TODO:
-    // ¸Ê Å¬¸®¾î (Ãâ±¸ ³ª¿Àµµ·Ï)
-    void ClearMap()
+    // ë§µ í´ë¦¬ì–´
+    protected void ClearMap()
     {
+        Debug.Log("Clear Map");
         // SceneDesign.Instance.mapClear = true;
     }
 }

@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class GeneralMonster : Monster
 {
@@ -18,6 +19,7 @@ public class GeneralMonster : Monster
     private Vector3 offset;
     private float distance;
     private float randTime;
+    private bool isStop = false;
 
     //private Vector3 prePos;
     //private bool stop;
@@ -61,46 +63,49 @@ public class GeneralMonster : Monster
     // 몬스터가 던전을 돌아다님
     IEnumerator Move()
     {
+        dungeonManager = DungeonManager.Instance;
+
         while (true)
         {
             if(!isChasing && !isStun && !isDie && !isHit)
             {
-                // 일정시간 가만히
                 nav.SetDestination(transform.position);
                 PlayAnim(EMonsterAnim.idle);
 
-                randTime = Random.Range(2f, 6f);
-                yield return new WaitForSeconds(randTime);
-                
-
                 // 랜덤한 위치로 이동
-                randPos = monsterManager.GetRandomPosition();
-                offset = transform.position - randPos;
-                distance = offset.sqrMagnitude;         // 몬스터와 랜덤한 위치 사이의 거리
-
-                nav.SetDestination(randPos);
-                PlayAnim(EMonsterAnim.walk);
-
-              //  prePos = transform.position;
-
-                randTime = Random.Range(2f, 4f);            // 일정 시간동안 걷기
-                while (randTime >= 0f)
+                if (RandomPosition.GetRandomNavPoint(Vector3.zero, dungeonManager.mapRange, out randPos))
                 {
-                    randTime -= Time.deltaTime;
-
-                    if (distance < 0.1f)
+                    nav.SetDestination(randPos);
+                    PlayAnim(EMonsterAnim.walk);
+                    
+                    isStop = false;
+                    while (!isStop)
                     {
-                        nav.SetDestination(transform.position);
-                        randTime = 0f;
+                        offset = transform.position - randPos;
+                        distance = offset.sqrMagnitude;         // 몬스터와 랜덤한 위치 사이의 거리
+
+                        if (distance < 1f)
+                        {
+                            nav.SetDestination(transform.position);
+                            PlayAnim(EMonsterAnim.idle);
+
+                            randTime = Random.Range(2f, 6f);
+                            yield return new WaitForSeconds(randTime);
+
+                            isStop = true;
+                        }
+
+                        yield return null;
                     }
-                   // prePos = transform.position;
-                    yield return null;
+                    
                 }
             }
 
             yield return null;
         }
     }
+
+
 
     // 슬라임 추적을 시작하고 시간이 지나도 공격을 못하면 추적 중지
     IEnumerator ChaseTimeCount()

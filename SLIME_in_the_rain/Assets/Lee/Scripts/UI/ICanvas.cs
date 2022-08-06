@@ -142,7 +142,7 @@ public class ICanvas : MonoBehaviour
             else
             {
                 skillText.text = " ";
-                Debug.Log("-" + slime.currentWeapon.weaponType);
+               // Debug.Log("-" + slime.currentWeapon.weaponType);
                 skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
             }
         
