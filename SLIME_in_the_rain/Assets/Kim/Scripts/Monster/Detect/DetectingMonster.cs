@@ -12,7 +12,6 @@ using UnityEditor;  // OnDrawGizmos
 public class DetectingMonster : GeneralMonster
 {
     #region 변수
-
     // 슬라임 감지
     Collider[] fanColliders;         // 부채꼴 감지 콜라이더
 

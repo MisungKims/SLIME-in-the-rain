@@ -1,3 +1,9 @@
+/**
+ * @brief º¸½º ¸Ê ¸Å´ÏÀú
+ * @author ±è¹Ì¼º
+ * @date 22-08-06
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +14,9 @@ public class BossMapManager : MapManager
     [SerializeField]
     private Boss boss;
 
+    // Ä³½Ì
     private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     #endregion
-
 
     protected override void Awake()
     {
@@ -30,5 +36,6 @@ public class BossMapManager : MapManager
         yield return waitFor3s;
 
         SelectRuneWindow.Instance.OpenWindow();
+        ClearMap();
     }
 }

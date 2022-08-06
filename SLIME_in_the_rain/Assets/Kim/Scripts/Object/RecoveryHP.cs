@@ -1,3 +1,9 @@
+/**
+ * @brief 체력 회복 오브젝트
+ * @author 김미성
+ * @date 22-08-06
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +17,20 @@ public class RecoveryHP : MonoBehaviour
     [SerializeField]
     private float speed = 0.08f;        // HP 회복 속도
 
-    private bool isUsed = false;
+    private bool isUsed = false;        // 이 오브젝트를 사용했는지?
+    public bool IsUsed { get { return isUsed; } }
 
     // 슬라임 감지에 필요한 변수
     private float distance;
     Vector3 offset;
+
+    // 파티클 오브젝트
+    [SerializeField]
+    private GameObject myParticle;
+    [SerializeField]
+    private GameObject slimeParticle;
+
+    private Vector3 slimeParticlePos;
 
     // 캐싱
     private StatManager statManager;
@@ -26,6 +41,9 @@ public class RecoveryHP : MonoBehaviour
     private void Awake()
     {
         waitForSeconds = new WaitForSeconds(speed);
+
+        myParticle.SetActive(false);
+        slimeParticle.SetActive(false);
     }
 
     private void OnEnable()
@@ -76,6 +94,10 @@ public class RecoveryHP : MonoBehaviour
         isUsed = true;
         outline.enabled = false;
 
+        myParticle.SetActive(true);
+        slimeParticle.SetActive(true);
+        StartCoroutine(SetParticlePos());
+
         while (statManager.myStats.HP < statManager.myStats.maxHP)
         {
             statManager.AddHP(1f);
@@ -84,6 +106,24 @@ public class RecoveryHP : MonoBehaviour
         }
 
         statManager.myStats.HP = statManager.myStats.maxHP;
+
+        yield return new WaitForSeconds(1f);
+
+        myParticle.SetActive(false);
+        slimeParticle.SetActive(false);
+    }
+
+    // 파티클이 슬라임을 따라다니도록
+    IEnumerator SetParticlePos()
+    {
+        while (slimeParticle.activeSelf)
+        {
+            slimeParticlePos = slime.transform.position;
+            slimeParticlePos.y = 1.94f;
+            slimeParticle.transform.position = slimeParticlePos;
+
+            yield return null;
+        }
     }
     #endregion
 }

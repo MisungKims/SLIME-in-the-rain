@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 using UnityEditor;  // OnDrawGizmos
 
 // 몬스터의 애니메이션 상태
@@ -90,7 +89,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     private StatManager statManager;
     protected ObjectPoolingManager objectPoolingManager;
     protected UIObjectPoolingManager uiPoolingManager;
-    protected MonsterManager monsterManager;
+    protected DungeonManager dungeonManager;
     protected Slime slime;
     private DamageText damageText;
 
@@ -121,7 +120,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         statManager = StatManager.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
         uiPoolingManager = UIObjectPoolingManager.Instance;
-        monsterManager = MonsterManager.Instance;
+        dungeonManager = DungeonManager.Instance;
         slime = Slime.Instance;
 
         nav.speed = stats.moveSpeed;
@@ -331,9 +330,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         HideHPBar();
 
-        MapManager.Instance.DieMonster(this);
-
-        
+        dungeonManager.DieMonster(this);
 
         StartCoroutine(DieCoroutine());
     }
@@ -405,6 +402,9 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
     }
     #endregion
+
+   
+
 
     public abstract void ShowHPBar();       // 체력바 활성화
     public abstract void HideHPBar();       // 체력바 비활성화
