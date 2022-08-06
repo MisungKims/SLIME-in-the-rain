@@ -48,7 +48,7 @@ public class MapManager : MonoBehaviour
     [SerializeField]
     private float maxZ;
 
-    [Header("-------------- MoneyBox")]
+    [Header("-------------- Map")]
     public List<Monster> monsters = new List<Monster>();
 
     // Ä³½Ì
