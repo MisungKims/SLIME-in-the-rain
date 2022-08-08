@@ -464,6 +464,16 @@ public class Slime : MonoBehaviour
     // 데미지를 입음
     public void Damaged(Stats monsterStats, int atkType)
     {
+        TakeDamage();
+    }
+
+    public void Damaged(float damageAmount)
+    {
+        TakeDamage();
+    }
+
+    private void TakeDamage()
+    {
         PlayAnim(AnimState.damaged);
     }
 
