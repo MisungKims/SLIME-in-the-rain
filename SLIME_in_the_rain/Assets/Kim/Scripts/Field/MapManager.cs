@@ -13,7 +13,7 @@ public class MapManager : MonoBehaviour
     #region 변수
    
     [SerializeField]
-    private Transform slimeSpawnPos;
+    protected Transform slimeSpawnPos;
 
     // 캐싱
     protected ObjectPoolingManager objectPoolingManager;
