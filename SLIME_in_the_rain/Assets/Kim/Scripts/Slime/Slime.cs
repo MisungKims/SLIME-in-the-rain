@@ -83,6 +83,8 @@ public class Slime : MonoBehaviour
     public bool canMove = true;
 
     private bool isInWater = false;
+    public bool IsInWater { get { return isInWater; } }
+
     private float decreaseHPAmount = 0.5f;  // 물 안에서 감소될 체력의 양
 
     //////// 캐싱
