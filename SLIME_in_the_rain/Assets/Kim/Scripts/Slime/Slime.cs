@@ -359,7 +359,7 @@ public class Slime : MonoBehaviour
             }
 
             // Outline을 꺼야하는 오브젝트는 끔
-            if(!lastCollider.Equals(colliders[minIndex]))
+            if(lastCollider && !lastCollider.Equals(colliders[minIndex]))
             {
                 outline = lastCollider.GetComponent<Outline>();
                 outline.enabled = false;
