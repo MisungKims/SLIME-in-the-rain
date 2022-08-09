@@ -27,16 +27,23 @@ public class StatsUIManager : MonoBehaviour
     public TextMeshProUGUI weaponColorC;
     public TextMeshProUGUI weaponSkillC;
     [Header("스탯UI")]
+    public Image weaponI;
     public TextMeshProUGUI statHPC;
     public TextMeshProUGUI statATKC;
     public TextMeshProUGUI statDEFC;
     public TextMeshProUGUI statATKSPDC;
     public TextMeshProUGUI statMOVESPDC;
     public TextMeshProUGUI statCOOLC;
+    [Header("툴팁")]
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI countText;
+    public TextMeshProUGUI optionText;
+
 
     private Slime slime;
     private StatManager statManager;
     private Stats nowStats;
+
     #endregion
 
     #region 유니티 메소드
@@ -83,7 +90,20 @@ public class StatsUIManager : MonoBehaviour
     }
     void inputStatsUI() //최종 출력ui
     {
-        statHPC.text = statManager.myStats.HP.ToString();
+        if (slime.currentWeapon != null)
+        {
+            for (int i = 0; i < ItemDatabase.Instance.AllitemDB.Count; i++)
+            {
+                if (slime.currentWeapon.wName == ItemDatabase.Instance.AllitemDB[i].itemExplain)
+                {
+                weaponI.sprite = ItemDatabase.Instance.AllitemDB[i].itemIcon;
+                break;
+                }
+            }
+        } 
+    
+        
+        statHPC.text = statManager.myStats.HP.ToString() + " / " + statManager.myStats.maxHP.ToString();
         statATKC.text = statManager.myStats.attackPower.ToString();
         statDEFC.text = statManager.myStats.defensePower.ToString();
         statATKSPDC.text = statManager.myStats.attackSpeed.ToString();

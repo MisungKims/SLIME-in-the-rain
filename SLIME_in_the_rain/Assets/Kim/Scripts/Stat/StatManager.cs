@@ -60,13 +60,7 @@ public class StatManager : MonoBehaviour
     #endregion
 
     #region 함수
-    // 스탯 초기화
-    void InitStats()
-    {
-        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
-        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
-    }
+    
 
     // amount 만큼 증가값을 반환
     // ex) HP 30% 증가값
@@ -115,11 +109,11 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon != null)
         {
-            myStats.maxHP = currentWeapon.stats.maxHP + extraStats.maxHP;            // 무기를 가진 상태라면, 무기의 스탯 값에서 계산
+            myStats.maxHP = currentWeapon.stats.maxHP + extraStats.maxHP + gelatinStat.maxHP;            // 무기를 가진 상태라면, 무기의 스탯 값에서 계산
         }
         else
         {
-            myStats.maxHP = originStats.maxHP + extraStats.maxHP;
+            myStats.maxHP = originStats.maxHP + extraStats.maxHP + gelatinStat.maxHP;
         }
     }
 
@@ -145,11 +139,11 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.coolTime = currentWeapon.stats.coolTime + extraStats.coolTime;
+            myStats.coolTime = currentWeapon.stats.coolTime + extraStats.coolTime + gelatinStat.coolTime;
         }
         else
         {
-            myStats.coolTime = originStats.coolTime + extraStats.coolTime;
+            myStats.coolTime = originStats.coolTime + extraStats.coolTime + gelatinStat.coolTime;
         }
     }
 
@@ -161,28 +155,34 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.moveSpeed = currentWeapon.stats.moveSpeed + extraStats.moveSpeed;
+            myStats.moveSpeed = currentWeapon.stats.moveSpeed + extraStats.moveSpeed + gelatinStat.moveSpeed;
         }
         else
         {
-            myStats.moveSpeed = originStats.moveSpeed + extraStats.moveSpeed;
+            myStats.moveSpeed = originStats.moveSpeed + extraStats.moveSpeed + gelatinStat.moveSpeed;
         }
     }
 
     // 공속 스탯 변경
     public void AddAttackSpeed(float amount)
     {
-        extraStats.attackSpeed += amount;
+        extraStats.attackSpeed += amount*0.01f;
 
         currentWeapon = slime.currentWeapon;
         if (currentWeapon != null)
         {
-            myStats.attackSpeed = currentWeapon.stats.attackSpeed + extraStats.attackSpeed;
+            myStats.attackSpeed = currentWeapon.stats.attackSpeed - extraStats.attackSpeed - gelatinStat.attackSpeed;
         }
         else
         {
-            myStats.attackSpeed = originStats.attackSpeed + extraStats.attackSpeed;
+            myStats.attackSpeed = originStats.attackSpeed - extraStats.attackSpeed - gelatinStat.attackSpeed;
         }
+
+        if (myStats.attackSpeed <= 0)
+        {
+            myStats.attackSpeed = 0.001f;
+        }
+
     }
 
     // 공격력 스탯 변경
@@ -193,11 +193,11 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.attackPower = currentWeapon.stats.attackPower + extraStats.attackPower;
+            myStats.attackPower = currentWeapon.stats.attackPower + extraStats.attackPower + gelatinStat.attackPower;
         }
         else
         {
-            myStats.attackPower = originStats.attackPower + extraStats.attackPower;
+            myStats.attackPower = originStats.attackPower + extraStats.attackPower + gelatinStat.attackPower;
         }
     }
 
@@ -209,11 +209,11 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.attackRange = currentWeapon.stats.attackRange * extraStats.attackRange;
+            myStats.attackRange = currentWeapon.stats.attackRange * (extraStats.attackRange + gelatinStat.attackPower);
         }
         else
         {
-            myStats.attackRange = originStats.attackRange * extraStats.attackRange;
+            myStats.attackRange = originStats.attackRange * (extraStats.attackRange + gelatinStat.attackPower);
         }
     }
 
@@ -225,11 +225,11 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.defensePower = currentWeapon.stats.defensePower + extraStats.defensePower;
+            myStats.defensePower = currentWeapon.stats.defensePower + extraStats.defensePower+ gelatinStat.defensePower;
         }
         else
         {
-            myStats.defensePower = originStats.defensePower + extraStats.defensePower;
+            myStats.defensePower = originStats.defensePower + extraStats.defensePower + gelatinStat.defensePower;
         }
     }
 
@@ -289,4 +289,139 @@ public class StatManager : MonoBehaviour
         return damage;
     }
     #endregion
+
+    /////추가
+    /// add함수, 모든 스탯 함수에 gelatinStat.(); 추가하기.
+    public Stats gelatinStat;           // 젤라틴 스탯
+
+    // 스탯 초기화
+    void InitStats()
+    {
+        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
+        gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
+    }
+
+
+
+    public void AddGelatinMaxHP(float amount)
+    {
+        gelatinStat.maxHP = amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon != null)
+        {
+            myStats.maxHP = currentWeapon.stats.maxHP + extraStats.maxHP + gelatinStat.maxHP;            // 무기를 가진 상태라면, 무기의 스탯 값에서 계산
+        }
+        else
+        {
+            myStats.maxHP = originStats.maxHP + extraStats.maxHP + gelatinStat.maxHP;
+        }
+    }
+
+
+    // 쿨타임 스탯 변경
+    public void AddGelatinCoolTime(float amount)
+    {
+        gelatinStat.coolTime = amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.coolTime = currentWeapon.stats.coolTime + extraStats.coolTime + gelatinStat.coolTime;
+        }
+        else
+        {
+            myStats.coolTime = originStats.coolTime + extraStats.coolTime + gelatinStat.coolTime;
+        }
+    }
+
+    // 이속 스탯 변경
+    public void AddGelatinMoveSpeed(float amount)
+    {
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            gelatinStat.moveSpeed = currentWeapon.stats.moveSpeed * amount*0.01f;
+            myStats.moveSpeed = currentWeapon.stats.moveSpeed + extraStats.moveSpeed + gelatinStat.moveSpeed;
+        }
+        else
+        {
+            gelatinStat.moveSpeed = originStats.moveSpeed * amount * 0.01f;
+            myStats.moveSpeed = originStats.moveSpeed + extraStats.moveSpeed + gelatinStat.moveSpeed;
+        }
+    }
+
+    // 공속 스탯 변경
+    public void AddGelatinAttackSpeed(float amount)
+    {
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon != null)
+        {
+            gelatinStat.attackSpeed = currentWeapon.stats.attackSpeed * amount*0.01f;
+            myStats.attackSpeed = currentWeapon.stats.attackSpeed - extraStats.attackSpeed - gelatinStat.attackSpeed;
+
+        }
+        else
+        {
+            gelatinStat.attackSpeed = originStats.attackSpeed * amount * 0.01f;
+            myStats.attackSpeed = originStats.attackSpeed - extraStats.attackSpeed - gelatinStat.attackSpeed;
+        }
+        if (myStats.attackSpeed <= 0)
+        {
+            myStats.attackSpeed = 0.001f;
+        }
+
+    }
+
+    // 공격력 스탯 변경
+    public void AddGelatinAttackPower(float amount)
+    {
+        gelatinStat.attackPower = amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.attackPower = currentWeapon.stats.attackPower + extraStats.attackPower + gelatinStat.attackPower;
+        }
+        else
+        {
+            myStats.attackPower = originStats.attackPower + extraStats.attackPower+ gelatinStat.attackPower;
+        }
+    }
+
+    // 공격 범위 스탯 변경
+    public void MultipleGelatinAttackRange(float amount)
+    {
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            gelatinStat.attackRange = currentWeapon.stats.attackRange * amount*0.01f;
+            myStats.attackRange = currentWeapon.stats.attackRange * (extraStats.attackRange+gelatinStat.attackRange);
+        }
+        else
+        {
+            gelatinStat.attackRange = originStats.attackRange * amount*0.01f;
+            myStats.attackRange = originStats.attackRange * (extraStats.attackRange + gelatinStat.attackRange);
+        }
+    }
+
+    // 방어력 스탯 변경
+    public void AddGelatinDefensePower(float amount)
+    {
+        gelatinStat.defensePower = amount;
+
+        currentWeapon = slime.currentWeapon;
+        if (currentWeapon)
+        {
+            myStats.defensePower = currentWeapon.stats.defensePower + extraStats.defensePower + gelatinStat.defensePower;
+        }
+        else
+        {
+            myStats.defensePower = originStats.defensePower + extraStats.defensePower + gelatinStat.defensePower;
+        }
+    }
+
+
 }

@@ -273,7 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -440,14 +440,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9968fbd3ce2074c4f9c376c9daf88390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotNum: 0
   item:
     itemType: 0
     itemName: 
     itemExplain: 
-    itemCount: 
+    itemCount: 0
     itemIcon: {fileID: 0}
     itemGB: {fileID: 0}
-  itemCount: 0
+    efts: []
+  button: {fileID: 0}
   itemCountImage: {fileID: 3060320803245310053}
   itemCountText: {fileID: 3964202908988455891}
   itemIcon: {fileID: 9011563962622961231}

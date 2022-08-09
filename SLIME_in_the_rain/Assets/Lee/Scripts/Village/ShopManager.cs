@@ -118,7 +118,7 @@ public class ShopManager : MonoBehaviour        //아이템DB 쓰는거라 그보다 늦게 
     //버튼내 아이템 이름으로 아이템 찾기
     public Item FindItem(string str)
     {
-        Item item = new Item(ItemType.gelatin, string.Empty, string.Empty);
+       // Item item = new Item(ItemType.gelatin, string.Empty, string.Empty);
         for (int i = 0; i < itemDB.AllitemDB.Count; i++)
         {
             if (itemDB.AllitemDB[i].itemExplain == str)

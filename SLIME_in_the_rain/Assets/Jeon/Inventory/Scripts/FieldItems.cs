@@ -147,8 +147,15 @@ public class FieldItems : PickUp
 
         item.efts = _item.efts;
         item.itemCount = _item.itemCount;
-      
 
+        item.maxHp = _item.maxHp;
+        item.coolTime = _item.coolTime;
+        item.moveSpeed = _item.moveSpeed;
+        item.atkSpeed = _item.atkSpeed;
+        item.atkPower = _item.atkPower;
+        item.atkRange = _item.atkRange;
+        item.defPower = _item.defPower;
+        item.increase = _item.increase;
         GameObject.Instantiate(item.itemGB, this.transform.position, Quaternion.identity).transform.parent = transform;
     }
 
@@ -164,7 +171,14 @@ public class FieldItems : PickUp
         item.efts = _item.efts;
         item.itemCount = _item.itemCount;
 
-
+        item.maxHp = _item.maxHp;
+        item.coolTime = _item.coolTime;
+        item.moveSpeed = _item.moveSpeed;
+        item.atkSpeed = _item.atkSpeed;
+        item.atkPower = _item.atkPower;
+        item.atkRange = _item.atkRange;
+        item.defPower = _item.defPower;
+        item.increase = _item.increase;
     }
 
 

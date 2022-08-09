@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class Slot : MonoBehaviour,IPointerUpHandler
+public class Slot : MonoBehaviour,IPointerUpHandler,IPointerEnterHandler,IPointerExitHandler
 {
     public int slotNum;
     public Item item;
@@ -18,13 +18,12 @@ public class Slot : MonoBehaviour,IPointerUpHandler
     private TextMeshProUGUI itemCountText;
     public Image itemIcon;
 
-  
     private void Start()
     {
         button = this.transform.GetComponent<Button>();
     }
 
-    public void UpdateSlotUI()
+    public void UpdateSlotUI() //개수, 이미지 업데이트(Redraw)
     {
         itemIcon.sprite = item.itemIcon;
         itemIcon.gameObject.SetActive(true);
@@ -61,4 +60,23 @@ public class Slot : MonoBehaviour,IPointerUpHandler
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (button.interactable&&slotNum < Inventory.Instance.items.Count)
+        {
+            InventoryUI.Instance.ShowTooltip(item);
+            InventoryUI.Instance.tooltip.transform.position = this.transform.position+Vector3.right*100+ Vector3.down*100;
+        }
+       
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (button.interactable && InventoryUI.Instance.tooltip.activeSelf == true)
+        {
+            InventoryUI.Instance.tooltip.SetActive(false);
+        }
+    }
+
+   
 }

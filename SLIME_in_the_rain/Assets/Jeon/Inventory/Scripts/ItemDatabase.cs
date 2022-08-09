@@ -57,7 +57,7 @@ public class ItemDatabase : MonoBehaviour
             {
                 r0 = ItemType.weapon;
             }
-            AllitemDB.Add(new Item(r0, row[1], row[2]));
+            AllitemDB.Add(new Item(r0, row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]));
         }
         
         for (int i = 0; i < AllitemDB.Count; i++)//itemdb 이미지 동기화
@@ -102,17 +102,22 @@ public class ItemDatabase : MonoBehaviour
                         AllitemDB[i].efts.Add(itemEffect[j]);
                     }
                 }
-
-                
             }
         }
 
-        for (int i = 0; i < pos.Length; i++)//아이템 생성 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
-        {
-            GameObject go = Instantiate(fieldItemPrefab, pos[i],Quaternion.identity);
-            go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(10, AllitemDB.Count)]); 
-        }
+        
     }
 
+   /* public void monsterDrop(int _round,int _range1, int _range2, Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
+    {
+        int count = Random.Range(0, _round+1);
+        float ranRAddPos = Random.Range(0, 0.1f);
+        float ranFAddPos = Random.Range(0, 0.1f);
+        for (int i = 0; i < count; i++)
+        {
+            GameObject go = Instantiate(fieldItemPrefab, _pos+(Vector3.right* ranRAddPos)+(Vector3.forward*ranFAddPos), Quaternion.identity);
+            go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(_range1, _range2)]);
+        }
+    }*/
 
 }
