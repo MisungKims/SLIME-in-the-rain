@@ -28,7 +28,7 @@ public class MapManager : MonoBehaviour
 
     // TODO:
     // 맵 클리어
-    public void ClearMap()
+    public virtual void ClearMap()
     {
         Debug.Log("Clear Map");
         // SceneDesign.Instance.mapClear = true;

@@ -27,8 +27,6 @@ public class ObjectPoolingManager : MonoBehaviour
     }
     #endregion
 
-
-
     public List<ObjectPool> objectPoolingList = new List<ObjectPool>();
 
     public List<ObjectPool> projectilePoolingList = new List<ObjectPool>();
