@@ -4,7 +4,6 @@
  * @date 22-07-24
  */
 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,10 +39,9 @@ public class GetMoneyMap : MapManager
     }
 
     // 캐싱
-    private ObjectPoolingManager objectPoolingManager;
     #endregion
 
-
+    #region 코루틴
     private IEnumerator Start()
     {
         yield return null;
@@ -76,4 +74,5 @@ public class GetMoneyMap : MapManager
 
         ClearMap();
     }
+    #endregion
 }
