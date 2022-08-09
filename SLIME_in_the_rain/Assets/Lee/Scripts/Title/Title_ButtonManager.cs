@@ -11,10 +11,16 @@ public class Title_ButtonManager : MonoBehaviour
                                 //설정
                                 //종료
 
+    //캐싱
+    SceneDesign Iscene;
+
 
 
     private void Start()
     {
+        //singleton
+        Iscene = SceneDesign.Instance;
+
         int i = 0;
         buttons[i++].onClick.AddListener(delegate { StartButton(); });  //시작
         buttons[i++].onClick.AddListener(delegate { SettingButton(); });  //설정
@@ -23,7 +29,7 @@ public class Title_ButtonManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene("Town");
+        SceneManager.LoadScene(1);
     }
 
     public void SettingButton()
