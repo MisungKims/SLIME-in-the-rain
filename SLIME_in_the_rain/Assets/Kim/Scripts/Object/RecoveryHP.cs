@@ -11,6 +11,7 @@ using UnityEngine;
 public class RecoveryHP : MonoBehaviour
 {
     #region 변수
+  
     private Slime slime;
     private Outline outline;
 
@@ -24,7 +25,16 @@ public class RecoveryHP : MonoBehaviour
     private float distance;
     Vector3 offset;
 
+    // 메시
+    [Header("--------- Mesh")]
+    [SerializeField]
+    private Material redMat;
+    [SerializeField]
+    private Material blackMat;
+    private MeshRenderer meshRenderer;
+
     // 파티클 오브젝트
+    [Header("--------- Particle")]
     [SerializeField]
     private GameObject myParticle;
     [SerializeField]
@@ -40,6 +50,9 @@ public class RecoveryHP : MonoBehaviour
     #region 유니티 함수
     private void Awake()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.material = redMat;
+
         waitForSeconds = new WaitForSeconds(speed);
 
         myParticle.SetActive(false);
@@ -109,6 +122,7 @@ public class RecoveryHP : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        meshRenderer.material = blackMat;
         myParticle.SetActive(false);
         slimeParticle.SetActive(false);
     }

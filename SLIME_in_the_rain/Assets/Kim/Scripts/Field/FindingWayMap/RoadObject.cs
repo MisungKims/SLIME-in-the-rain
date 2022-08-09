@@ -60,4 +60,16 @@ public class RoadObject : MonoBehaviour
         }
     }
     #endregion
+
+    public void ChangeMesh(bool isRoad)
+    {
+        if (isRoad)
+        {
+            meshFilter.mesh = roadMesh;    // 길 Mesh로 변경
+        }
+        else
+        {
+            meshFilter.mesh = trapMesh;    // 길 Mesh로 변경
+        }
+    }
 }

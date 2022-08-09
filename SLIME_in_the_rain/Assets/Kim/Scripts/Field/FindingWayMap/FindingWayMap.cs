@@ -52,9 +52,25 @@ public class FindingWayMap : MapManager
     private Transform RoadObject;
 
     [SerializeField]
-    private List<MapArray> mapArrays = new List<MapArray>();      //열에 해당되는 이름
+    private List<MapArray> mapArrays = new List<MapArray>();      // Road 오브젝트의 배열
 
-    Stack<GameObject> roadStack = new Stack<GameObject>();
+    private List<GameObject> roadList = new List<GameObject>();
+
+    // 카메라
+    private Camera mainCam;
+    [SerializeField]
+    private Camera movingCamera;
+    [SerializeField]
+    private Transform startCamPos;
+    [SerializeField]
+    private Transform endCamPos;
+
+    private bool canMoveCam = true;
+    private Vector3 offset;
+    private float distance;
+
+    [SerializeField]
+    private GameObject wall;
 
     // 캐싱
     private Slime slime;
@@ -75,17 +91,68 @@ public class FindingWayMap : MapManager
         base.Awake();
 
         slime = Slime.Instance;
+        mainCam = Camera.main;
+
+        movingCamera.enabled = true;
+        movingCamera.transform.localPosition = startCamPos.localPosition;
+
+        wall.SetActive(false);
 
         isClear = false;
 
         InitArray();
         SetMap();
 
+        StartCoroutine(ShowRoad());
+        
         StartCoroutine(DetectFall());
     }
     #endregion
 
     #region 코루틴
+
+    // 씬이 시작될 때 길을 알려줌
+    IEnumerator ShowRoad()
+    {
+        slime.canMove = false;
+        canMoveCam = true;
+        StartCoroutine(MoveCamera());
+
+        for (int i = 0; i < roadList.Count; i++)
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            roadList[i].GetComponent<RoadObject>().ChangeMesh(true);
+        }
+
+        yield return new WaitForSeconds(1.5f);
+
+        canMoveCam = false;
+        for (int i = 0; i < roadList.Count; i++)
+        {
+            roadList[i].GetComponent<RoadObject>().ChangeMesh(false);
+        }
+    }
+
+    // 카메라가 앞으로 움직임
+    IEnumerator MoveCamera()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        offset = movingCamera.transform.localPosition - endCamPos.localPosition;
+        distance = offset.sqrMagnitude;
+
+        while (distance > 0.5f && canMoveCam)
+        {
+            movingCamera.transform.localPosition = Vector3.Lerp(movingCamera.transform.localPosition, endCamPos.localPosition, Time.deltaTime * 0.3f);
+
+            yield return null;
+        }
+
+        movingCamera.enabled = false;
+        slime.canMove = true;
+    }
+
     // 슬라임이 떨어지면 초기 위치로 이동
     IEnumerator DetectFall()
     {
@@ -128,12 +195,12 @@ public class FindingWayMap : MapManager
         // 시작점과 끝점을 랜덤으로 설정
         startIdx = Random.Range(0, width);
 
-        mapArrays[width - 1].map[startIdx].tag = roadTag;       // 시작점
+        GameObject obj = mapArrays[width - 1].map[startIdx];
+        obj.tag = roadTag;       // 시작점
+        roadList.Add(obj);
 
         w = width - 1;      // 행
         h = startIdx;       // 열
-
-        Debug.Log(w + " " + h);
 
         // 랜덤으로 길을 생성
         while (w > 0)
@@ -159,27 +226,27 @@ public class FindingWayMap : MapManager
                 {
                     obj = mapArrays[w].map[--h].gameObject;
 
-                    if (roadStack.Contains(obj))
+                    if (roadList.Contains(obj))
                     {
                         h++;
                         break;
                     }
 
                     obj.tag = roadTag;
-                    roadStack.Push(obj);
+                    roadList.Add(obj);
                 }
                 break;
             case EDirection.forward:
                 obj = mapArrays[--w].map[h].gameObject;
 
-                if (roadStack.Contains(obj))
+                if (roadList.Contains(obj))
                 {
                     w--;
                     break;
                 }
 
                 obj.tag = roadTag;
-                roadStack.Push(obj);
+                roadList.Add(obj);
 
                 break;
             case EDirection.right:
@@ -187,7 +254,7 @@ public class FindingWayMap : MapManager
                 {
                     obj = mapArrays[w].map[++h].gameObject;
 
-                    if (roadStack.Contains(obj))
+                    if (roadList.Contains(obj))
                     {
 
                         h--;
@@ -195,11 +262,19 @@ public class FindingWayMap : MapManager
                     }
 
                     obj.tag = roadTag;
-                    roadStack.Push(obj);
+                    roadList.Add(obj);
                 }
 
                 break;
         }
+    }
+
+    // 맵 클리어 시 호출
+    public override void ClearMap()
+    {
+        base.ClearMap();
+
+        wall.SetActive(true);
     }
     #endregion
 }
