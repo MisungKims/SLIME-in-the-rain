@@ -187,7 +187,7 @@ public class Weapon : MonoBehaviour
     // 마우스 클릭 위치를 바라봄
     void LookAtMousePos()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hitResult;
         if (Physics.Raycast(ray, out hitResult))
@@ -261,6 +261,13 @@ public class Weapon : MonoBehaviour
         animState = state;
 
         anim.SetInteger("animation", (int)animState);
+    }
+
+    private Camera GetCamera()
+    {
+        if(!cam) cam = Camera.main;
+
+        return cam;
     }
     #endregion
 }

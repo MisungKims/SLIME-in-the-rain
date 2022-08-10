@@ -13,7 +13,7 @@ public class GetMoneyMap : MapManager
 {
     #region º¯¼ö
     private int jellyIndex = (int)EObjectFlag.jelly;
-    private int fieldItemIndex = (int)EObjectFlag.fieldItem;
+    private int gelatinIndex = (int)EObjectFlag.gelatin;
     private int randObj;
 
     [Header("-------------- Get Money Map")]
@@ -52,19 +52,18 @@ public class GetMoneyMap : MapManager
 
         for (int i = 0; i < objCount; i++)
         {
-            randObj = Random.Range(jellyIndex, fieldItemIndex + 1);       // ·£´ýÀ¸·Î Á©¸®, ÇÊµå ¾ÆÀÌÅÛ(Á©¶óÆ¾, ¹«±â)¸¦ Á¤ÇÏ¿© ¸Ê¿¡ °¡Á®¿È
+            randObj = Random.Range(jellyIndex, gelatinIndex + 1);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾À» Á¤ÇÏ¿© ¸Ê¿¡ °¡Á®¿È
 
             RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
             randPos.y = 2;
-            if(randObj == jellyIndex) objectPoolingManager.Get((EObjectFlag)randObj, randPos);
-
+            objectPoolingManager.Get((EObjectFlag)randObj, randPos);
         }
     }
 
     // ½Ã°£À» ¼¼´Â ÄÚ·çÆ¾
     IEnumerator TimeCount()
     {
-        Second = 60;
+        Second = 30;
 
         while (second > 0)
         {

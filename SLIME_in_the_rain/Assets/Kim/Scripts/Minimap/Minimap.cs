@@ -254,7 +254,7 @@ public class Minimap : MonoBehaviour
     // TODO : 씬이 넘어갈 때 미니맵 아이콘을 오브젝트 풀링에 다시 넣어줘야함
     public void RegisterMinimapWorldObject(MinimapWorldObject obj)
     {
-        newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon).GetComponent<MinimapIcon>();
+        newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon, Vector3.zero).GetComponent<MinimapIcon>();
         newIcon.transform.SetParent(this.transform);
         newIcon.SetIcon(obj.Icon);
         newIcon.SetColor(obj.IconColor);

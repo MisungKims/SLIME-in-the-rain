@@ -18,7 +18,7 @@ public class MoneyBox : MonoBehaviour, IDamage
     private Vector3 spawnPos;
 
     private int jellyIndex = (int)EObjectFlag.jelly;
-    private int fieldItemIndex = (int)EObjectFlag.fieldItem;
+    private int gelatinIndex = (int)EObjectFlag.gelatin;
     private int randObj;
 
     private Animator anim;
@@ -66,12 +66,27 @@ public class MoneyBox : MonoBehaviour, IDamage
 
         isDamaged = true;
 
-        randObj = Random.Range(jellyIndex, fieldItemIndex + 1);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾À» Á¤ÇÔ
+        // TODO : °¡ÁßÄ¡ ·£´ý
+        randObj = Random.Range(0, 3);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾, ¹«±â¸¦ Á¤ÇÔ
 
         spawnPos = this.transform.position;
         spawnPos.y += 0.5f;
-        pickUpObj = objectPoolingManager.Get((EObjectFlag)randObj, spawnPos);
-       
+        
+        switch (randObj)
+        {
+            case 0:     // Á©¸®
+                pickUpObj = objectPoolingManager.Get(EObjectFlag.jelly, spawnPos);
+                break;
+            case 1:     // Á©¶óÆ¾
+                pickUpObj = objectPoolingManager.Get(EObjectFlag.gelatin, spawnPos);
+                break;
+            case 2:     // ¹«±â
+                pickUpObj = objectPoolingManager.Get(EObjectFlag.weapon, spawnPos);
+                break;
+            default:
+                break;
+        }
+
         StartCoroutine(TakeDamaged());
     }
 
