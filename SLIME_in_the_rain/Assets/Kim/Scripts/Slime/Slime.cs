@@ -190,11 +190,13 @@ public class Slime : MonoBehaviour
     {
         isCanDash = false;
 
-       // PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
+        PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
 
         rigid.AddForce(transform.forward * dashDistance, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
+
+        PlayAnim(AnimState.idle);       // 대시 애니메이션 실행
 
         isDash = false;
         isCanDash = true;
@@ -420,8 +422,6 @@ public class Slime : MonoBehaviour
     public void ChangeWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
-
-
 
         // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;

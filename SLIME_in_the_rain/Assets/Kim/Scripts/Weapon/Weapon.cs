@@ -33,7 +33,9 @@ public class Weapon : MonoBehaviour
     protected Vector3 angle = Vector3.zero;
 
     float attachSpeed = 10f;
+    float equipTime;
 
+    private Outline outline;
 
     //무기UI Text 변수
     public string wName = "무기없음";
@@ -74,6 +76,7 @@ public class Weapon : MonoBehaviour
         slime = Slime.Instance;
         statManager = StatManager.Instance;
         cam = Camera.main;
+        outline = GetComponent<Outline>();
 
         waitForDash = new WaitForSeconds(dashCoolTime);
     }
@@ -95,11 +98,14 @@ public class Weapon : MonoBehaviour
     // 무기 장착 코루틴
     IEnumerator AttachToSlime()
     {
+        outline.enabled = false;
         gameObject.layer = 7;       // 장착된 무기는 슬라임이 탐지하지 못하도록 레이어 변경
 
-        while (Vector3.Distance(transform.position, slime.weaponPos.position) >= 0.1f)
+        equipTime = 0.5f;
+        while (Vector3.Distance(transform.position, slime.weaponPos.position) >= 0.1f && equipTime > 0f)
         {
             transform.position = Vector3.Lerp(transform.position, slime.weaponPos.position, Time.deltaTime * attachSpeed);
+            equipTime -= Time.deltaTime;
 
             yield return null;
         }

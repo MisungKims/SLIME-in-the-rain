@@ -30,7 +30,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected int attackTypeCount;
 
     protected Animator anim;
-    protected NavMeshAgent nav;
+    public NavMeshAgent nav;
+    private Rigidbody rb;
 
     [SerializeField]
     protected Stats stats;
@@ -66,6 +67,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool canAttack = true;
 
+    private bool isInGround;
 
     // 공격 후 대기 시간
     protected float randAtkTime;
@@ -100,6 +102,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     #region 유니티 함수
     protected virtual void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         monsterCollider = GetComponent<Collider>();
@@ -131,9 +134,41 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) PlayAnim(EMonsterAnim.die);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Land"))
+        {
+            isInGround = true;
+        }
+    }
     #endregion
 
     #region 코루틴
+    // 슬라임의 공격에 의해 점프
+    public IEnumerator Jump()
+    {
+        isChasing = false;
+        nav.enabled = false;
+
+        rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+
+        isInGround = false;
+
+        yield return StartCoroutine(IsInGround());      // 땅에 닿을 때 까지 기다림
+
+        nav.enabled = true;
+        TryStartChase();
+    }
+
+    // 공중에 떠있을 동안 실행
+    private IEnumerator IsInGround()
+    {
+        while (!isInGround)
+        {
+            yield return null;
+        }
+    }    
 
     // 감지된 슬라임을 쫓음
     protected virtual IEnumerator Chase()
@@ -153,7 +188,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                     if(!canAttack) canAttack = true;
 
                     // 슬라임을 쫓아다님
-                    nav.SetDestination(target.position);
+                    if(nav.enabled) nav.SetDestination(target.position);
 
                     if (!doDamage) IsAttacking = false;         // 데미지를 입히는 중일 때 공격할 수 없도록
                     PlayAnim(EMonsterAnim.run);
@@ -332,7 +367,22 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         dungeonManager.DieMonster(this);
 
+        objectPoolingManager.Get(EObjectFlag.fieldItem, transform.position);
+
         StartCoroutine(DieCoroutine());
+    }
+
+    public void monsterDrop(int _round, int _range1, int _range2, Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
+    {
+        int count = Random.Range(0, _round + 1);
+        float ranRAddPos = Random.Range(0, 0.1f);
+        float ranFAddPos = Random.Range(0, 0.1f);
+        for (int i = 0; i < count; i++)
+        {
+            Item item = ItemDatabase.Instance.AllitemDB[Random.Range(_range1, _range2)];
+            Vector3 itemPos = _pos + (Vector3.right * ranRAddPos) + (Vector3.forward * ranFAddPos);
+            objectPoolingManager.GetFieldItem(item, itemPos);
+        }
     }
 
     // 데미지를 입음
@@ -404,8 +454,6 @@ public abstract class Monster : MonoBehaviour, IDamage
     #endregion
 
    
-
-
     public abstract void ShowHPBar();       // 체력바 활성화
     public abstract void HideHPBar();       // 체력바 비활성화
 
