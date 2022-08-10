@@ -88,7 +88,7 @@ public class ItemDatabase : MonoBehaviour
                 {
                     if (AllitemDB[i].itemName == itemEffect[j].name)
                     {
-                        itemEffect[j].weapon = ObjectPoolingManager.Instance.Get(itemEffect[j].eWeaponType).GetComponent<Weapon>();
+                        //itemEffect[j].weapon = ObjectPoolingManager.Instance.Get(itemEffect[j].eWeaponType).GetComponent<Weapon>();
                         AllitemDB[i].efts.Add(itemEffect[j]);
                     }
                 }

@@ -136,7 +136,7 @@ public class SceneDesign : MonoBehaviour
         }
         else if (nowSceneIndex == 1)  //[마을 -> 던전] 무조건 일반 던전
         {
-            next = 10;
+            next = 2;
             //next = Random.Range(s_nomal, SceneManager.sceneCount-1);
 
         }
