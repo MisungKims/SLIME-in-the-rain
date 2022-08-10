@@ -80,10 +80,9 @@ public class GetGelatinWindow : MonoBehaviour
         else
         {
             // 인벤토리에 공간이 있으면 젤라틴을 인벤토리에 추가
-            FieldItems gelatin = objectPoolingManager.Get(EObjectFlag.gelatin).GetComponent<FieldItems>();
-
+            FieldItems gelatin = objectPoolingManager.GetFieldItem(item, Vector3.zero).GetComponent<FieldItems>();
+            
             gelatin.canDetect = false;
-            gelatin.SetItem(item);
             gelatin.AddInventory();
 
             selectRuneWindow.CloseWindow();

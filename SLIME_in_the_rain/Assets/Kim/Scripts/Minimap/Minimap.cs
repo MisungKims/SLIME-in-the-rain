@@ -89,6 +89,10 @@ public class Minimap : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        // 슬라임의 아이콘은 직접 등록
+        MinimapWorldObject slimeMinimap = Slime.Instance.transform.GetChild(3).GetComponent<MinimapWorldObject>();
+        RegisterMinimapWorldObject(slimeMinimap);
+
         slimeIconRect = slimeIconZoomIn.GetComponent<RectTransform>();
         slimeIconRect.anchoredPosition = Vector2.zero;
         slimeIconRect.localScale *= zoom;

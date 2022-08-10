@@ -12,7 +12,7 @@ public enum EObjectFlag
 {
     box,
     jelly,
-    gelatin,
+    fieldItem,
     minimapIcon
 }
 
@@ -120,9 +120,9 @@ public class ObjectPoolingManager : MonoBehaviour
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
-        if(flag.Equals(EObjectFlag.gelatin))
+        if(flag.Equals(EObjectFlag.fieldItem))
         {
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, ItemDatabase.Instance.AllitemDB.Count)]);
         }
 
         return tempGb;
@@ -146,11 +146,35 @@ public class ObjectPoolingManager : MonoBehaviour
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
-        if (flag.Equals(EObjectFlag.gelatin))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
+        if (flag.Equals(EObjectFlag.fieldItem))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
         {
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, ItemDatabase.Instance.AllitemDB.Count)]);
         }
 
+        tempGb.transform.position = pos;
+
+        return tempGb;
+    }
+
+    /// <summary>
+    /// 오브젝트를 반환
+    /// </summary>
+    public GameObject GetFieldItem(Item item, Vector3 pos)
+    {
+        int index = (int)EObjectFlag.fieldItem;
+        GameObject tempGb;
+
+        if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
+        {
+            tempGb = objectPoolingList[index].queue.Dequeue();
+            tempGb.SetActive(true);
+        }
+        else         // 큐에 더이상 없으면 새로 생성
+        {
+            tempGb = Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
+        }
+
+        tempGb.GetComponent<FieldItems>().SetItem(item);
         tempGb.transform.position = pos;
 
         return tempGb;
