@@ -32,7 +32,7 @@ public class SelectRuneWindow : MonoBehaviour
 
 
     [SerializeField]
-    private Canvas GetGelatinCanvas;     // Á©¶óÆ¾ È¹µæ Äµ¹ö½º
+    private GameObject GetGelatinPanel;     // Á©¶óÆ¾ È¹µæ ÆÇ³Ú
     [SerializeField]
     private GetGelatinWindow GetGelatinWindow;     // Á©¶óÆ¾ È¹µæ Äµ¹ö½º
 
@@ -104,7 +104,7 @@ public class SelectRuneWindow : MonoBehaviour
     {
         SetButtons();
         RerollCount = rerollMaxCount;
-        GetGelatinCanvas.enabled = false;
+        GetGelatinPanel.SetActive(false);
     }
 
     // ¹öÆ° ÃÊ±âÈ­
@@ -139,7 +139,7 @@ public class SelectRuneWindow : MonoBehaviour
     // ·£´ý Á©¶óÆ¾ Áö±ÞÃ¢ º¸¿©ÁÜ
     public void GetGelatin()
     {
-        GetGelatinCanvas.enabled = true;
+        GetGelatinPanel.SetActive(true);
         GetGelatinWindow.SetUI();
     }
 
