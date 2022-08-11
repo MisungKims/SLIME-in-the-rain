@@ -423,9 +423,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-       // damageText = uiPoolingManager.Get(EUIFlag.damageText, transform.position).GetComponent<DamageText>();
        damageText = uiPoolingManager.Get(EUIFlag.damageText, cam.WorldToScreenPoint(transform.position)).GetComponent<DamageText>();
-       
         damageText.Damage = (int)damage;
 
         ShowHPBar();     // 체력바 설정
