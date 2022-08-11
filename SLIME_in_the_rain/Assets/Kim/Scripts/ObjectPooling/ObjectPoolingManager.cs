@@ -36,6 +36,13 @@ public class ObjectPoolingManager : MonoBehaviour
     public List<ObjectPool> weaponPoolingList = new List<ObjectPool>();
 
     private ItemDatabase itemDatabase;
+
+    [SerializeField]
+    private Transform objectParent;
+    [SerializeField]
+    private Transform projectileParent;
+    [SerializeField]
+    private Transform weaponParent;
     #endregion
 
     #region 유니티 함수
@@ -277,6 +284,45 @@ public class ObjectPoolingManager : MonoBehaviour
     }
 
 
+    // 오브젝트 풀링 리스트의 모든 오브젝트를 비활성화
+    public void AllSet()
+    {
+        // 오브젝트
+        Transform[] childArr;
+        for (int i = 0; i < objectParent.childCount; i++)
+        {
+            childArr = objectParent.GetChild(i).GetComponentsInChildren<Transform>();
+            for (int j = 1; j < childArr.Length; j++)
+            {
+                Set(childArr[j].gameObject, (EObjectFlag)i);
+            }
+        }
+
+        // 투사체
+        for (int i = 0; i < projectileParent.childCount; i++)
+        {
+            childArr = projectileParent.GetChild(i).GetComponentsInChildren<Transform>();
+            for (int j = 1; j < childArr.Length; j++)
+            {
+                Set(childArr[j].gameObject, (EProjectileFlag)i);
+            }
+        }
+
+        // 무기
+        childArr = weaponParent.GetComponentsInChildren<Transform>();
+        if (childArr != null)
+        {
+            for (int i = 1; i < childArr.Length; i++)
+            {
+                if (childArr[i] != transform && childArr[i].gameObject.activeSelf)
+                {
+                    Set(childArr[i].GetComponent<Weapon>());
+                }
+            }
+        }
+    }
+
+
     public FieldItems Get2(string type)
     {
         GameObject tempGb;
@@ -305,22 +351,6 @@ public class ObjectPoolingManager : MonoBehaviour
         return tempfield;
     }
 
-    public void AllSet()
-    {
-        Transform[] childArr = transform.GetChild(0).gameObject.GetComponentsInChildren<Transform>();
 
-        //Transform[] childArr = gameObject.GetComponentsInChildren<Transform>();
-
-        //if (childArr != null)
-        //{
-        //    for (int i = 1; i < childArr.Length; i++)
-        //    {
-        //        if(childArr[i] != transform && childArr[i].gameObject.activeSelf)
-        //        {
-        //            childArr[i].gameObject.
-        //        }
-        //    }
-        //}
-    }
     #endregion
 }

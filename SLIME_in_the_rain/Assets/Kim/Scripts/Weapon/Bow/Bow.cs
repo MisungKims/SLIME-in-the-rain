@@ -94,7 +94,7 @@ public class Bow : Weapon
 
         if (canDash)
         {
-            slime.DashDistance += addDashDistance;
+            slime.DashDistance = slime.originDashDistance + addDashDistance;
             slime.Dash();           // 일반 대시
         }
 

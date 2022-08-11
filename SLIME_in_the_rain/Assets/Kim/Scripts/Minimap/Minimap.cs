@@ -267,5 +267,20 @@ public class Minimap : MonoBehaviour
             slimeIconZoomOut = newIcon.gameObject;
         }
     }
+
+    public void RemoveMinimapIcon(MinimapWorldObject obj)
+    {
+        foreach (var kvp in miniMapObjectDic)
+        {
+            minimapWorldObject = kvp.Key;
+            minimapIcon = kvp.Value;
+
+            if (minimapWorldObject.Equals(obj))
+            {
+                ObjectPoolingManager.Instance.Set(minimapIcon.gameObject, EObjectFlag.minimapIcon);
+                break;
+            }
+        }
+    }
     #endregion
 }

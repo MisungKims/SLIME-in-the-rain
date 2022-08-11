@@ -20,6 +20,7 @@ public class GeneralMonster : Monster
     private float distance;
     private float randTime;
     private bool isStop = false;
+    private int mapRange;
 
     //private Vector3 prePos;
     //private bool stop;
@@ -49,6 +50,9 @@ public class GeneralMonster : Monster
 
         addCountAmount = 10f;
         mainCam = Camera.main;
+
+        if(DungeonManager.Instance) mapRange = DungeonManager.Instance.mapRange;
+        else mapRange = 8;
     }
 
     protected override void OnEnable()
@@ -64,8 +68,6 @@ public class GeneralMonster : Monster
     // 몬스터가 던전을 돌아다님
     IEnumerator Move()
     {
-        dungeonManager = DungeonManager.Instance;
-
         while (true)
         {
             if(!isChasing && !isStun && !isDie && !isHit)
@@ -74,7 +76,7 @@ public class GeneralMonster : Monster
                 PlayAnim(EMonsterAnim.idle);
 
                 // 랜덤한 위치로 이동
-                if (RandomPosition.GetRandomNavPoint(Vector3.zero, dungeonManager.mapRange, out randPos))
+                if (RandomPosition.GetRandomNavPoint(Vector3.zero, mapRange, out randPos))
                 {
                     nav.SetDestination(randPos);
                     PlayAnim(EMonsterAnim.walk);
