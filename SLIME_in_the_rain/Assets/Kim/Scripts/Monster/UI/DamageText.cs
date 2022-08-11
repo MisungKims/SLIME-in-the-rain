@@ -16,6 +16,8 @@ public class DamageText : FadeOutText
 
     private TextMeshProUGUI text;
 
+    private Camera cam;
+
    // Color32 color = new Color32(255, 255, 255, 255);
     Color32 red = new Color32(164, 11, 0, 255);
 
@@ -30,8 +32,6 @@ public class DamageText : FadeOutText
             text.color = red;
         }
     }
-
-
     private UIObjectPoolingManager uiPoolingManager;
     #endregion
 
@@ -40,6 +40,7 @@ public class DamageText : FadeOutText
     {
         base.Awake();
 
+        cam = Camera.main;
         text = GetComponent<TextMeshProUGUI>();
         uiPoolingManager = UIObjectPoolingManager.Instance;
     }
@@ -48,12 +49,14 @@ public class DamageText : FadeOutText
     {
         base.OnEnable();
 
-        transform.position = Vector3.zero;
+       transform.position = Vector3.zero;
     }
 
     void Update()
     {
-        transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));         // 위로 올라감
+        Vector3 pos = cam.WorldToScreenPoint(Vector3.up * moveSpeed * Time.deltaTime);
+        //transform.Translate(cam.WorldToScreenPoint(Vector3.up * moveSpeed * Time.deltaTime));         // 위로 올라감
+        //transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));         // 위로 올라감
     }
     #endregion
 

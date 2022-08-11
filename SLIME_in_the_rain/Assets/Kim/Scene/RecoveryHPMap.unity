@@ -2031,6 +2031,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7087188331302944529, guid: 1c4c135d620833e49aec301257daef14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c4c135d620833e49aec301257daef14, type: 3}
 --- !u!1 &1645346654
@@ -2779,6 +2783,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6b375b4a23421d140aa1497db540bf7c, type: 3}
   IconColor: {r: 1, g: 0.815904, b: 0, a: 1}
+  isSlime: 0
 --- !u!33 &3163204768242362793
 MeshFilter:
   m_ObjectHideFlags: 0

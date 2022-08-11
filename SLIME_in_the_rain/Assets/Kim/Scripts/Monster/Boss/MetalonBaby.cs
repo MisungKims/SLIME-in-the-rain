@@ -51,10 +51,12 @@ public class MetalonBaby : Monster
     {
         while (hpBar)
         {
-            hpBarPos = transform.position;
-            hpBarPos.y += 1.5f;
+            hpBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + hpBarPos);
 
-            hpBar.transform.position = hpBarPos;
+            //hpBarPos = transform.position;
+            //hpBarPos.y += 1.5f;
+
+            //hpBar.transform.position = hpBarPos;
 
             yield return null;
         }

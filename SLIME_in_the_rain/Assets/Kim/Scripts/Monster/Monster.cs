@@ -98,7 +98,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected DungeonManager dungeonManager;
     protected Slime slime;
     private DamageText damageText;
-
+    private Camera cam;
     protected WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     
     #endregion
@@ -110,6 +110,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         monsterCollider = GetComponent<Collider>();
+        cam = Camera.main;
     }
 
     protected virtual void OnEnable()
@@ -422,7 +423,9 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        damageText = uiPoolingManager.Get(EUIFlag.damageText, transform.position).GetComponent<DamageText>();
+       // damageText = uiPoolingManager.Get(EUIFlag.damageText, transform.position).GetComponent<DamageText>();
+       damageText = uiPoolingManager.Get(EUIFlag.damageText, cam.WorldToScreenPoint(transform.position)).GetComponent<DamageText>();
+       
         damageText.Damage = (int)damage;
 
         ShowHPBar();     // 체력바 설정
