@@ -157,8 +157,6 @@ public class Weapon : MonoBehaviour
     // 애니메이션이 종료되었는지 확인 후 Idle로 상태 변경
     public IEnumerator CheckAnimEnd(string state)
     {
-        LookAtMousePos();
-
         yield return waitForRotate;
 
         string name = "Base Layer." + state;
@@ -185,7 +183,7 @@ public class Weapon : MonoBehaviour
     }
 
     // 마우스 클릭 위치를 바라봄
-    void LookAtMousePos()
+    public void LookAtMousePos()
     {
         Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
 
@@ -209,6 +207,7 @@ public class Weapon : MonoBehaviour
     // 평타
     protected virtual void AutoAttack()
     {
+        LookAtMousePos();
         PlayAnim(AnimState.autoAttack);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
@@ -217,6 +216,7 @@ public class Weapon : MonoBehaviour
     // 스킬
     protected virtual void Skill()
     {
+        LookAtMousePos();
         PlayAnim(AnimState.skill);
 
         RuneManager.Instance.UseSkillRune();

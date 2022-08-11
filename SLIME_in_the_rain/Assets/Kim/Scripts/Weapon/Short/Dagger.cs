@@ -22,7 +22,7 @@ public class Dagger : Short
     private float minAlpha = 0.6f;
 
     // 돌진 베기
-    private float detectRadius = 0.6f;
+    private float detectRadius = 1f;
     #endregion
 
     public Slime slime2; // 나주엥 지우기
@@ -84,7 +84,7 @@ public class Dagger : Short
     // 대시 코루틴
     IEnumerator DashCorutine()
     {
-        slime.DashDistance += addDashDistance;
+        slime.DashDistance = slime.originDashDistance + addDashDistance;
         slime.Dash();           // 일반 대시
 
         yield return new WaitForSeconds(0.07f);        // 대시가 끝날 때까지 대기
@@ -138,8 +138,9 @@ public class Dagger : Short
         }
     }
     #endregion
-}
-    // 유니티 에디터에 부채꼴을 그려줄 메소드
+
+#if UNITY_EDITOR
+    //유니티 에디터에 부채꼴을 그려줄 메소드
     //private void OnDrawGizmos()
     //{
     //    Transform slimeTransform = slime2.transform;
@@ -150,11 +151,13 @@ public class Dagger : Short
     //    Handles.DrawSolidArc(slimeTransform.position, Vector3.up, slimeTransform.forward, -angleRange / 2, detectRadius);
     //}
 
-//    void OnDrawGizmosSelected()
-//    {
-//        Transform slimeTransform = slime2.transform;
+    //void OnDrawGizmosSelected()
+    //{
+    //    Transform slimeTransform = slime2.transform;
 
-//        Gizmos.color = new Color(0f, 0f, 1f, 0.2f);
-//        Gizmos.DrawSphere(slimeTransform.position, detectRadius);
-//    }
-//}
+    //    Gizmos.color = new Color(0f, 0f, 1f, 0.2f);
+    //    Gizmos.DrawSphere(slimeTransform.position, detectRadius);
+    //}
+}
+#endif
+

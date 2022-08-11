@@ -53,11 +53,10 @@ public class Slime : MonoBehaviour
 
     //////// 대시
     [Header("------------ 대시")]
+    public float originDashDistance = 6.5f;
     private float dashDistance = 6.5f;
-    public float dashCoolTime = 1f;
     public float DashDistance { get { return dashDistance; } set { dashDistance = value; } }
-    public float dashTime = 1f;        // 대시 지속 시간
-    public float currentDashTime;
+    public float dashTime = 0.6f;        // 대시 지속 시간
     public bool isDash { get; set; }                // 대시 중인지?
     bool isCanDash;     // 대시 가능한지?
 
@@ -90,6 +89,7 @@ public class Slime : MonoBehaviour
     //////// 캐싱
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
     private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
+    private WaitForSeconds waitForDash;
 
     public StatManager statManager;
     private ICanvas _Canvas;
@@ -110,6 +110,7 @@ public class Slime : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        waitForDash = new WaitForSeconds(dashTime);
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         shield.SetActive(false);
@@ -123,13 +124,12 @@ public class Slime : MonoBehaviour
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
+        StartCoroutine(SpaceBar());
     }
 
     private void Update()
     {
         DetectWeapon();
-
-        SpaceBar();
     }
 
     void FixedUpdate()
@@ -185,6 +185,29 @@ public class Slime : MonoBehaviour
         }
     }
 
+    // 스페이스바 누르면 앞으로 대시
+    IEnumerator SpaceBar()
+    {
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove)
+            {
+                isDash = true;
+
+                if (currentWeapon)
+                {
+                    currentWeapon.SendMessage("Dash", this, SendMessageOptions.DontRequireReceiver);
+                }
+                else
+                {
+                    Dash();
+                }
+            }
+            yield return null;
+        }
+        
+    }
+
     // 대시 코루틴
     IEnumerator DoDash()
     {
@@ -192,11 +215,15 @@ public class Slime : MonoBehaviour
 
         PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
 
-        rigid.AddForce(transform.forward * dashDistance, ForceMode.Impulse);
+        rigid.velocity = transform.forward * dashDistance;
 
-        yield return new WaitForSeconds(0.6f);
+        yield return waitForDash;
+
+        //rigid.velocity = transform.forward;
 
         PlayAnim(AnimState.idle);       // 대시 애니메이션 실행
+
+        dashDistance = originDashDistance;
 
         isDash = false;
         isCanDash = true;
@@ -267,7 +294,7 @@ public class Slime : MonoBehaviour
             {
                 float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
-                rigid.rotation = Quaternion.Euler(0, angle, 0);         // 회전
+                transform.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
 
             transform.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
@@ -280,24 +307,6 @@ public class Slime : MonoBehaviour
         PlayAnim(animState);
     }
 
-
-    // 스페이스바 누르면 앞으로 대시
-    void SpaceBar()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove)
-        {
-            isDash = true;
-
-            if (currentWeapon)
-            {
-                currentWeapon.SendMessage("Dash", this, SendMessageOptions.DontRequireReceiver);
-            }
-            else
-            {
-                Dash();
-            }
-        }
-    }
 
     // 대시
     public void Dash()

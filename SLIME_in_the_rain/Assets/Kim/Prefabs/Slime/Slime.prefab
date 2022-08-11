@@ -224,15 +224,14 @@ MonoBehaviour:
   weaponLayer:
     serializedVersion: 2
     m_Bits: 64
-  dashCoolTime: 1
-  dashTime: 1
+  dashTime: 0.6
   currentDashTime: 0
   shield: {fileID: 8152000300535682231}
   target: {fileID: 0}
   isAttacking: 0
   isStealth: 0
   canMove: 1
-  statManager: {fileID: 4135562328590183208, guid: ca43ef6b138eeb2488198dcc44961ccd, type: 3}
+  statManager: {fileID: 0}
 --- !u!95 &7547151028129720503
 Animator:
   serializedVersion: 4

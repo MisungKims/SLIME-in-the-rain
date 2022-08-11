@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
     protected virtual void Awake()
     {
         objectPoolingManager = ObjectPoolingManager.Instance;
+        objectPoolingManager.AllSet();      // 씬이 변경될 때마다
 
         Slime.Instance.transform.position = slimeSpawnPos.position;
     }

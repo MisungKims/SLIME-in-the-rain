@@ -87,6 +87,10 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     string animName;
 
+    // 미니맵
+    [SerializeField]
+    private MinimapWorldObject minimapObj;
+
     // 캐싱
     private StatManager statManager;
     protected ObjectPoolingManager objectPoolingManager;
@@ -116,6 +120,8 @@ public abstract class Monster : MonoBehaviour, IDamage
         PlayAnim(EMonsterAnim.idle);
 
         stats.HP = stats.maxHP;
+
+        StartCoroutine(IsDie());
     }
 
    void Start()
@@ -128,11 +134,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         nav.speed = stats.moveSpeed;
         nav.stoppingDistance = stats.attackRange;
-    }
-
-    private void Update()
-    {
-        if (isDie) PlayAnim(EMonsterAnim.die);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -294,11 +295,20 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 3초 뒤 오브젝트 비활성화
     protected virtual IEnumerator DieCoroutine()
     {
-       // PlayAnim(EMonsterAnim.die);
-
         yield return waitFor3s;
 
         this.gameObject.SetActive(false);
+    }
+
+    // 죽었을 때 즉시 죽는 애니메이션 실행
+    private IEnumerator IsDie()
+    {
+        while (!isDie)
+        {
+            yield return null;
+        }
+
+        PlayAnim(EMonsterAnim.die);
     }
     #endregion
 
@@ -365,7 +375,9 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         HideHPBar();
 
-        dungeonManager.DieMonster(this);
+        Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
+
+        if (DungeonManager.Instance) DungeonManager.Instance.DieMonster(this);
 
         objectPoolingManager.Get(EObjectFlag.gelatin, transform.position);
 
@@ -452,8 +464,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
     }
     #endregion
-
-   
+ 
     public abstract void ShowHPBar();       // 체력바 활성화
     public abstract void HideHPBar();       // 체력바 비활성화
 
@@ -483,5 +494,6 @@ public abstract class Monster : MonoBehaviour, IDamage
             StartCoroutine(CheckAnimEnd(state.ToString()));
         }
     }
+
     #endregion
 }

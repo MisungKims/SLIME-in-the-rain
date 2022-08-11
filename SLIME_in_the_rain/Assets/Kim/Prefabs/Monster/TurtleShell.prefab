@@ -1095,6 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackTypeCount: 2
+  nav: {fileID: 0}
   stats:
     maxHP: 3
     HP: 2
@@ -1111,6 +1112,7 @@ MonoBehaviour:
     m_Bits: 520
   projectileAtk: 0
   isDie: 0
+  minimapObj: {fileID: 821382719015729363}
 --- !u!195 &1324639378343059604
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1270,6 +1272,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1822a14ca98b6541adbf37cf294d1b4, type: 3}
+--- !u!114 &821382719015729363 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5445362414456486834, guid: b1822a14ca98b6541adbf37cf294d1b4, type: 3}
+  m_PrefabInstance: {fileID: 4681478037708112737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947c3ea4d7ac71a43847b947e83158c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5096810201433728662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 453863724267726327, guid: b1822a14ca98b6541adbf37cf294d1b4, type: 3}
