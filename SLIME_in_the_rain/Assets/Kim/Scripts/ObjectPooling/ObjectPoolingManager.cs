@@ -307,7 +307,9 @@ public class ObjectPoolingManager : MonoBehaviour
 
     public void AllSet()
     {
-        Transform[] childArr = gameObject.GetComponentsInChildren<Transform>();
+        Transform[] childArr = transform.GetChild(0).gameObject.GetComponentsInChildren<Transform>();
+
+        //Transform[] childArr = gameObject.GetComponentsInChildren<Transform>();
 
         //if (childArr != null)
         //{
