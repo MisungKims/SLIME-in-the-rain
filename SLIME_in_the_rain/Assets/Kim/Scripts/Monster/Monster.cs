@@ -367,7 +367,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         dungeonManager.DieMonster(this);
 
-        objectPoolingManager.Get(EObjectFlag.fieldItem, transform.position);
+        objectPoolingManager.Get(EObjectFlag.gelatin, transform.position);
 
         StartCoroutine(DieCoroutine());
     }

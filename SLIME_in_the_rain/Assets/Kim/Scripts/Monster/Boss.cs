@@ -89,14 +89,14 @@ public class Boss : Monster
         randJellyCount = Random.Range(minJellyCnt, maxJellyCnt);
         for (int i = 0; i < randJellyCount; i++)
         {
-            jelly = objectPoolingManager.Get(EObjectFlag.jelly);
-
+            
             jellyPos = transform.position;
             jellyPos.x += Random.Range(-1f, 1f);
             jellyPos.y += 3f;
             jellyPos.z += Random.Range(-1f, 1f);
 
-            jelly.transform.position = jellyPos;
+            objectPoolingManager.Get(EObjectFlag.jelly, jellyPos);
+            //jelly.transform.position = jellyPos;
         }
     }
     #endregion

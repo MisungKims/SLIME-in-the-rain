@@ -12,9 +12,11 @@ public enum EObjectFlag
 {
     box,
     jelly,
-    fieldItem,
-    minimapIcon
+    gelatin,
+    minimapIcon,
+    weapon          // 무조건 맨 뒤에 있어야 함
 }
+
 
 public class ObjectPoolingManager : MonoBehaviour
 {
@@ -33,6 +35,7 @@ public class ObjectPoolingManager : MonoBehaviour
     
     public List<ObjectPool> weaponPoolingList = new List<ObjectPool>();
 
+    private ItemDatabase itemDatabase;
     #endregion
 
     #region 유니티 함수
@@ -52,6 +55,8 @@ public class ObjectPoolingManager : MonoBehaviour
         InitObject();
         InitProjectile();
         InitWeapon();
+
+        itemDatabase = ItemDatabase.Instance;
     }
     #endregion
 
@@ -105,35 +110,12 @@ public class ObjectPoolingManager : MonoBehaviour
     /// <summary>
     /// 오브젝트를 반환
     /// </summary>
-    public GameObject Get(EObjectFlag flag)
-    {
-        int index = (int)flag;
-        GameObject tempGb;
-
-        if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
-        {
-            tempGb = objectPoolingList[index].queue.Dequeue();
-            tempGb.SetActive(true);
-        }
-        else         // 큐에 더이상 없으면 새로 생성
-        {
-            tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
-        }
-
-        if(flag.Equals(EObjectFlag.fieldItem))
-        {
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, ItemDatabase.Instance.AllitemDB.Count)]);
-        }
-
-        return tempGb;
-    }
-
-    /// <summary>
-    /// 오브젝트를 반환
-    /// </summary>
     public GameObject Get(EObjectFlag flag, Vector3 pos)
     {
-        int index = (int)flag;
+        int index;
+        if (flag.Equals(EObjectFlag.weapon)) index = (int)EObjectFlag.gelatin;
+        else index = (int)flag;
+
         GameObject tempGb;
 
         if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
@@ -146,10 +128,15 @@ public class ObjectPoolingManager : MonoBehaviour
             tempGb = GameObject.Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
-        if (flag.Equals(EObjectFlag.fieldItem))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
+        if (flag.Equals(EObjectFlag.gelatin))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
         {
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, ItemDatabase.Instance.AllitemDB.Count)]);
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
         }
+        else if (flag.Equals(EObjectFlag.weapon))       // 반환하려는 오브젝트가 무기일 때 아이템 설정 필요
+        {
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(16, 20)]);
+        }
+
 
         tempGb.transform.position = pos;
 
@@ -157,11 +144,11 @@ public class ObjectPoolingManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 오브젝트를 반환
+    /// 필드아이템 오브젝트를 반환
     /// </summary>
     public GameObject GetFieldItem(Item item, Vector3 pos)
     {
-        int index = (int)EObjectFlag.fieldItem;
+        int index = (int)EObjectFlag.gelatin;
         GameObject tempGb;
 
         if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
@@ -174,11 +161,17 @@ public class ObjectPoolingManager : MonoBehaviour
             tempGb = Instantiate(objectPoolingList[index].copyObj, objectPoolingList[index].parent.transform);
         }
 
-        tempGb.GetComponent<FieldItems>().SetItem(item);
+        if (item != null)
+            tempGb.GetComponent<FieldItems>().SetItem(item);
+        else
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
+
+        
         tempGb.transform.position = pos;
 
         return tempGb;
     }
+
 
     /// <summary>
     /// 다 쓴 오브젝트를 큐에 돌려줌
@@ -312,5 +305,20 @@ public class ObjectPoolingManager : MonoBehaviour
         return tempfield;
     }
 
+    public void AllSet()
+    {
+        Transform[] childArr = gameObject.GetComponentsInChildren<Transform>();
+
+        //if (childArr != null)
+        //{
+        //    for (int i = 1; i < childArr.Length; i++)
+        //    {
+        //        if(childArr[i] != transform && childArr[i].gameObject.activeSelf)
+        //        {
+        //            childArr[i].gameObject.
+        //        }
+        //    }
+        //}
+    }
     #endregion
 }
