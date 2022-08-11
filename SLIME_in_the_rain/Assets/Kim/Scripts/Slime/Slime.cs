@@ -92,7 +92,7 @@ public class Slime : MonoBehaviour
     private WaitForSeconds waitForDash;
 
     public StatManager statManager;
-    private ICanvas _Canvas;
+    private MainCanvas mainCanvas;
 
     #endregion
 
@@ -441,7 +441,7 @@ public class Slime : MonoBehaviour
         statManager.ChangeStats(currentWeapon);
 
         //변경된 스탯 적용
-        if (ICanvas.Instance) ICanvas.Instance.changeWeapon();
+        if (MainCanvas.Instance) MainCanvas.Instance.changeWeapon();
 
         // 슬라임의 색 변경
         ChangeMaterial();              

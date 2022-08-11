@@ -12,6 +12,8 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
     public List<GameObject> canvasList;
     [Header("---- ¼³Á¤ ----")]
     public Button settingIcon;
+
+    bool isSettingCanvasOn = false;
     #endregion
 
 
@@ -22,6 +24,10 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
         ///onClick
         //¼¼ÆÃ ¹öÆ°
         settingIcon.onClick.AddListener(delegate { SettingButton(); });
+        for (int i = 0; i < canvasList.Count; i++)
+        {
+            canvasList[i].gameObject.SetActive(false);
+        }
     }
 
 
@@ -36,6 +42,7 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
                 if (canvasList[i].activeSelf)
                 {
                     canvasList[i].SetActive(false);
+                    
                     break;
                 }
                 //±âº» È­¸é ÀÏ¶§ ESC ´©¸£¸é ¼³Á¤Ã¢ ¶ä
@@ -56,7 +63,9 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
     #region ÇÔ¼ö
     void SettingButton()
     {
+        //PlayerPrefs.GetString();
         canvasList[canvasList.Count - 1].SetActive(true);
+        
     }
 
     #endregion

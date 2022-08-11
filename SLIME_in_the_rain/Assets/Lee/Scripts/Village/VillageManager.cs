@@ -6,16 +6,12 @@ public class VillageManager : MonoBehaviour
 {
 
     #region 변수
-    
-    //private
-    GameObject ShopCanvas;
-    GameObject TowerCanvas;
+    public GameObject ShopCanvas;
+    public GameObject TowerCanvas;
 
     //singletons
     Slime slime;
     ICamera _camera;
-    ICanvas canvas;
-
     #endregion
 
     #region 유니티 함수
@@ -25,10 +21,6 @@ public class VillageManager : MonoBehaviour
         //singletons
         slime = Slime.Instance;
         _camera = ICamera.Instance;
-        canvas = ICanvas.Instance;
-
-        ShopCanvas = canvas.transform.Find("Shop").gameObject;
-        TowerCanvas = canvas.transform.Find("Tower").gameObject;
 
         //슬라임 초기 위치
         Vector3 startPos = Vector3.zero;

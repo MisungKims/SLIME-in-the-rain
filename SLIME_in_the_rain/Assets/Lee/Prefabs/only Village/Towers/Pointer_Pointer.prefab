@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 946035349}
   - component: {fileID: 249848087785480434}
   - component: {fileID: 8255156412840480308}
-  - component: {fileID: 2286645318191211228}
+  - component: {fileID: 4294442144724563810}
+  - component: {fileID: 1863865378330723275}
   - component: {fileID: 7707399973016621554}
   - component: {fileID: 4369549708599100735}
   m_Layer: 0
@@ -86,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2286645318191211228
+--- !u!114 &4294442144724563810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 946035350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f654e1f12b0f6e46b3e0ffef6749999, type: 3}
+  m_Script: {fileID: 11500000, guid: 74876b5283b1c7045ad4a9ceec2f8711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EmptyList:
@@ -109,9 +110,12 @@ MonoBehaviour:
   - {fileID: 4627980362503807203, guid: b1a3e6a604bd6d744a88bf32f3d415ee, type: 3}
   CoolTimeList:
   - {fileID: 225849565280867118, guid: 4106dd0059c2c184e90432c6dad8e9bf, type: 3}
+  - {fileID: 8874947660400262988, guid: 1e641759fa7b6614f868b4c6188773ed, type: 3}
   MoveSpeedList:
-  - {fileID: 8874947660400262988, guid: 0d16e851286031448b7812eb88b20df9, type: 3}
+  - {fileID: 8874947660400262988, guid: d327844e5d687e745b08c439ad3ba173, type: 3}
+  - {fileID: 6952428924953372069, guid: 86de3f0c21084994894a6cd9dab7935c, type: 3}
   AttackSpeedList:
+  - {fileID: 8874947660400262988, guid: 0d16e851286031448b7812eb88b20df9, type: 3}
   - {fileID: 7564264191902034204, guid: 752f9d898fa2fe04db4f6323e7a2cd26, type: 3}
   AttackPowerList:
   - {fileID: 3282662119154919927, guid: ea6532a6b641b6d4ba11b7edbec35699, type: 3}
@@ -126,6 +130,20 @@ MonoBehaviour:
   InventorySlotList:
   - {fileID: 1243124303019499094, guid: b9363ec074a59624ca7691506357392e, type: 3}
   - {fileID: 1891210765279404376, guid: b6d12cf72039d794c9e66ddbba5b90d1, type: 3}
+--- !u!114 &1863865378330723275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946035350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9609b52b019c243b559faadd3a8e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onStay: 0
+  thisName: 
 --- !u!114 &7707399973016621554
 MonoBehaviour:
   m_ObjectHideFlags: 0

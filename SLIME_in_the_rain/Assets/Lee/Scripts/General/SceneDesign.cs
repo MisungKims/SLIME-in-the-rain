@@ -21,20 +21,26 @@ public class SceneDesign : MonoBehaviour
     }
     #endregion
     public int randomPercent;
-    //int s_title;
+    
+    [Header("스테이지 카테고리 별 시작 인덱스 입력")]
     public int s_village;
-    public int s_boss;     //2번부터 보스
-    public int s_bonus;    //확정 되면 ㄱㄱ
-    public int s_nomal;    //확정 되면 ㄱㄱ
+    public int s_boss;     
+    public int s_nomal;    
+    public int s_gimmick;   
+    public int s_bonus;    
     public bool mapClear = false;
     public bool FinalClear = false;
     public int nowSceneIndex;
     public int next;
     public int mapCounting;
 
+    [Header(" ")]
     //private
+    [SerializeField]
     int bossCount;
+    [SerializeField]
     int bossLevel;
+    [SerializeField]
     bool goBoss = false;
     #endregion
 
@@ -113,31 +119,33 @@ public class SceneDesign : MonoBehaviour
     public int NextScene()
     {
         
-        if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
+        if (goBoss)                             //[던전 -> 보스] 로 가야하면 보스맵 얼림
         {
-            next = bossLevel + 1;       // 2,3,4
+            next = bossLevel + 1;               // 2,3,4
         }
-        else if (nowSceneIndex >= s_bonus)   //[던전 -> 보스] 로 가는거 제외, 일반맵 클리어시 다음맵으로
+        else if (nowSceneIndex >= s_nomal)      //모든 던전 클리어시 다음맵으로
         {
             int ran = Random.Range(0, 100);
-            if (ran < randomPercent)      //70%확률로 일반맵
+            if (ran < randomPercent)            //70%확률로 일반맵
             {
-                next = Random.Range(s_nomal, SceneManager.sceneCount-1);
+                next = Random.Range(s_nomal, s_gimmick - 1);
+            }
+            else if(ran < 90)
+            {
+                next = Random.Range(s_gimmick, s_bonus - 1);
             }
             else
             {
-                next = Random.Range(s_bonus, s_nomal - 1);
+                next = Random.Range(s_bonus, SceneManager.sceneCountInBuildSettings - 1);
             }
         }
         else if (nowSceneIndex >= s_boss)  //[보스맵 2, 3 -> 던전]  무조건 일반 던전
         {
-            next = 1;
-            //next = Random.Range(s_nomal, SceneManager.sceneCount);
+            next = Random.Range(s_nomal, SceneManager.sceneCountInBuildSettings - 1);
         }
         else if (nowSceneIndex == 1)  //[마을 -> 던전] 무조건 일반 던전
         {
-            next = 2;
-            //next = Random.Range(s_nomal, SceneManager.sceneCount-1);
+            next = Random.Range(s_nomal, SceneManager.sceneCountInBuildSettings - 1);
 
         }
         else if (nowSceneIndex == 0)   // 타이틀->마을
