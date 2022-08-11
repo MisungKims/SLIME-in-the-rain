@@ -12,13 +12,10 @@ using TMPro;
 public class DamageText : FadeOutText
 {
     #region 변수
-    private float moveSpeed = 2f;
+    private float moveSpeed = 200f;
 
     private TextMeshProUGUI text;
 
-    private Camera cam;
-
-   // Color32 color = new Color32(255, 255, 255, 255);
     Color32 red = new Color32(164, 11, 0, 255);
 
     private int damage;
@@ -40,7 +37,6 @@ public class DamageText : FadeOutText
     {
         base.Awake();
 
-        cam = Camera.main;
         text = GetComponent<TextMeshProUGUI>();
         uiPoolingManager = UIObjectPoolingManager.Instance;
     }
@@ -54,9 +50,7 @@ public class DamageText : FadeOutText
 
     void Update()
     {
-        Vector3 pos = cam.WorldToScreenPoint(Vector3.up * moveSpeed * Time.deltaTime);
-        //transform.Translate(cam.WorldToScreenPoint(Vector3.up * moveSpeed * Time.deltaTime));         // 위로 올라감
-        //transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));         // 위로 올라감
+       transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));         // 위로 올라감
     }
     #endregion
 

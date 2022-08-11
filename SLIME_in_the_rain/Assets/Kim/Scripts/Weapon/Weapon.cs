@@ -52,7 +52,6 @@ public class Weapon : MonoBehaviour
     private Vector3 hitPos;
     protected Vector3 targetPos;
 
-
     // ´ë½Ã
     public float dashCoolTime;
     public float maxDashCoolTime;

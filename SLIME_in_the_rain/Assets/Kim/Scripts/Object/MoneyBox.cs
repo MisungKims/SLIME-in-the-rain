@@ -17,8 +17,8 @@ public class MoneyBox : MonoBehaviour, IDamage
     private ObjectPoolingManager objectPoolingManager;
     private Vector3 spawnPos;
 
-    private int jellyIndex = (int)EObjectFlag.jelly;
-    private int gelatinIndex = (int)EObjectFlag.gelatin;
+    //private int jellyIndex = (int)EObjectFlag.jelly;
+    //private int gelatinIndex = (int)EObjectFlag.gelatin;
     private int randObj;
 
     private Animator anim;

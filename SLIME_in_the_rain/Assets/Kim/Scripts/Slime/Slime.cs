@@ -431,6 +431,7 @@ public class Slime : MonoBehaviour
     public void ChangeWeapon(Weapon weapon)
     {
         currentWeapon = weapon;
+        currentWeapon.gameObject.layer = 7;
 
         // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;
@@ -489,6 +490,8 @@ public class Slime : MonoBehaviour
     // 스턴
     public void Stun(float stunTime)
     {
+        UIObjectPoolingManager.Instance.ShowStunText();
+
         StartCoroutine(DoStun(stunTime));
 
         Debug.Log("Stun");

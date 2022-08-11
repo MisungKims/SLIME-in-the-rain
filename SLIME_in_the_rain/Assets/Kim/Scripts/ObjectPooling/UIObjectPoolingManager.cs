@@ -20,6 +20,9 @@ public class UIObjectPoolingManager : MonoBehaviour
     #endregion
 
     public List<ObjectPool> uiPoolingList = new List<ObjectPool>();
+
+    public FadeOutText stunText;
+    public FadeOutText noItemText;
     #endregion
 
     #region 유니티 함수
@@ -77,8 +80,7 @@ public class UIObjectPoolingManager : MonoBehaviour
 
         return tempGb;
     }
-
-
+    
     /// <summary>
     /// 오브젝트를 반환
     /// </summary>
@@ -111,6 +113,18 @@ public class UIObjectPoolingManager : MonoBehaviour
         gb.SetActive(false);
 
         uiPoolingList[index].queue.Enqueue(gb);
+    }
+
+    // 기절 텍스트 보여줌
+    public void ShowStunText()
+    {
+        stunText.ShowText();
+    }
+
+    // 기절 텍스트 보여줌
+    public void ShowNoItemText()
+    {
+        noItemText.ShowText();
     }
     #endregion
 }
