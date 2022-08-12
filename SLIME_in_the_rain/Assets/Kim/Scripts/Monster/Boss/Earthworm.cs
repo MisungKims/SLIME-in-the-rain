@@ -78,7 +78,8 @@ public class Earthworm : Boss
         chaseCount = 0;
         IsAttacking = true;
 
-        anim.SetInteger("attack", 0);
+        randAttack = 0;
+        anim.SetInteger("attack", randAttack);
 
         PlayAnim(EMonsterAnim.attack);
 
@@ -103,7 +104,8 @@ public class Earthworm : Boss
         noDamage = true;        // 이 공격은 슬라임이 투사체에 맞았을 때 데미지를 입어야하므로 noDamage를 true로 변경
 
         // 애니메이션 실행
-        anim.SetInteger("attack", 1);
+        randAttack = 1;
+        anim.SetInteger("attack", randAttack);
         PlayAnim(EMonsterAnim.attack);
 
         yield return new WaitForSeconds(0.5f);

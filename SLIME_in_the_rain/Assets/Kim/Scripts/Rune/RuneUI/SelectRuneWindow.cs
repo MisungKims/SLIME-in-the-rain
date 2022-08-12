@@ -84,8 +84,6 @@ public class SelectRuneWindow : MonoBehaviour
         runeManager = RuneManager.Instance;
         jellyManager = JellyManager.Instance;
         slime = Slime.Instance;
-
-        jellyManager.JellyCount = 200; // 나중에 지우기 
     }
     #endregion
 
