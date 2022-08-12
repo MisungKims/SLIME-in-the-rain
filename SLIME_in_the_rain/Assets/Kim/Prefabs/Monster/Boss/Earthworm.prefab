@@ -56,10 +56,10 @@ MonoBehaviour:
   attackTypeCount: 2
   nav: {fileID: 0}
   stats:
-    maxHP: 2
-    HP: 2
+    maxHP: 5
+    HP: 5
     coolTime: 0
-    moveSpeed: 1
+    moveSpeed: 1.2
     attackSpeed: 0
     attackPower: 0
     attackRange: 2
@@ -72,6 +72,7 @@ MonoBehaviour:
   projectileAtk: 0
   isDie: 0
   minimapObj: {fileID: 5504095940615669373}
+  detectRange: 5
   bossNameText: {fileID: 0}
   hpBar: {fileID: 0}
   hPText: {fileID: 0}

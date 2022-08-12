@@ -14,6 +14,9 @@ public class BossMapManager : MapManager
     [SerializeField]
     private Boss boss;
 
+    //[SerializeField]
+    //private BossCamera bossCamera;
+
     // Ä³½Ì
     private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     #endregion
@@ -23,7 +26,14 @@ public class BossMapManager : MapManager
         base.Awake();
 
         StartCoroutine(IsDie());
+
+
     }
+
+    //IEnumerator Show()
+    //{
+    //    yield return StartCoroutine(bossCamera.MoveCam());
+    //}
 
     // º¸½º°¡ Á×À¸¸é ·é ¼±ÅÃ Ã¢À» º¸¿©ÁÜ
     IEnumerator IsDie()

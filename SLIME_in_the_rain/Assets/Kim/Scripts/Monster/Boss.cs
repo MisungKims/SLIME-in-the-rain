@@ -99,14 +99,14 @@ public class Boss : Monster
     // HP¹Ù ¼¼ÆÃ
     protected void SetHPBar()
     {
-        //if (!hpBar.gameObject.activeSelf)
-        //{
-        //    hpBar.gameObject.SetActive(true);
-        //}
+        if (!hpBar.gameObject.activeSelf)
+        {
+            hpBar.gameObject.SetActive(true);
+        }
 
-        //bossNameText.text = bossName;
-        //hpBar.maxValue = stats.maxHP;
-        //ShowHPBar();
+        bossNameText.text = bossName;
+        hpBar.maxValue = stats.maxHP;
+        ShowHPBar();
     }
 
     public override void ShowHPBar()
