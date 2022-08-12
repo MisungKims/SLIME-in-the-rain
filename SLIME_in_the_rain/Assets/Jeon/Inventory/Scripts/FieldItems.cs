@@ -210,7 +210,7 @@ public class FieldItems : PickUp
         {
             if (inventory.items[i].itemName == item.itemName)
             {
-                inventoryUI.slots[i].SetSlotCount();
+                inventory.items[i].itemCount++;
                 isFind = true;
                 break;
             }

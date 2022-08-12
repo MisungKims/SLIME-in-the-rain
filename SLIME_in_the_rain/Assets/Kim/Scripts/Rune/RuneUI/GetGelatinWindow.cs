@@ -63,7 +63,7 @@ public class GetGelatinWindow : MonoBehaviour
     // 랜덤 젤라틴의 데이터를 가져와 UI 설정
     public void SetUI()
     {
-        item = itemDatabase.AllitemDB[Random.Range(0, 15)];
+        item = ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)];
 
         GelatinName = item.itemName;
         GelatinDesc = item.itemExplain;

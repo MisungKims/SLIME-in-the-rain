@@ -73,11 +73,11 @@ public class PotalCollider : MonoBehaviour
             }
         }
 
-        else if (next >= sceneDesign.s_gimmick)     //±‚πÕπÊ
-        {
-            ColorUtility.TryParseHtmlString("#FFA61E50", out color);
-            particle = Instantiate(ParticleList[2]);
-        }
+        //else if (next >= sceneDesign.s_gimmick)     //±‚πÕπÊ
+        //{
+        //    ColorUtility.TryParseHtmlString("#FFA61E50", out color);
+        //    particle = Instantiate(ParticleList[2]);
+        //}
         else if (next >= sceneDesign.s_nomal)       //¿œπ›∏ 
         {
             ColorUtility.TryParseHtmlString("#FFFFFF50", out color);
