@@ -11,8 +11,6 @@ public class FieldItems : PickUp
     public GameObject gb;
     bool isFind = false;
   
-    ////////// 추가 : slime 변수 없애기
-    
     Inventory inventory;
     InventoryUI inventoryUI;
     [SerializeField]
@@ -20,6 +18,8 @@ public class FieldItems : PickUp
 
     public TextMeshProUGUI wT;
 
+    ///추가
+    private UIObjectPoolingManager uIObjectPoolingManager;
     #endregion
 
     #region 유니티 함수
@@ -27,6 +27,8 @@ public class FieldItems : PickUp
     {
         inventory = Inventory.Instance;
         inventoryUI = InventoryUI.Instance;
+
+        uIObjectPoolingManager = UIObjectPoolingManager.Instance;
     }
 
     #endregion
@@ -44,7 +46,8 @@ public class FieldItems : PickUp
                 case ItemType.weapon:
                     if (slime.currentWeapon == null)
                     {
-                        wT.text = "무기가 아직 없습니다.";
+                        uIObjectPoolingManager.ShowNoWeaponText();
+                        //wT.text = "무기가 아직 없습니다.";
                         fullBag();
                     }
                     else
@@ -81,12 +84,14 @@ public class FieldItems : PickUp
                     break;
                 }
             }
-            wT.text = "인벤토리가 가득 찼습니다.";
+            uIObjectPoolingManager.ShowNoInventoryText();
+            //wT.text = "인벤토리가 가득 찼습니다.";
             fullBag();
         }
         else
         {
-            wT.text = "인벤토리가 가득 찼습니다.";
+            uIObjectPoolingManager.ShowNoInventoryText();
+            //wT.text = "인벤토리가 가득 찼습니다.";
             fullBag();
         }
 
@@ -117,8 +122,8 @@ public class FieldItems : PickUp
         targetPos.z = transform.position.z + (dir.z * velocity);
         transform.position = targetPos;
        
-        if (warningText.gameObject.activeSelf) warningText.isAgain = true;
-        else warningText.gameObject.SetActive(true);
+        //if (warningText.gameObject.activeSelf) warningText.isAgain = true;
+        //else warningText.gameObject.SetActive(true);
     }
 
     void findSame()

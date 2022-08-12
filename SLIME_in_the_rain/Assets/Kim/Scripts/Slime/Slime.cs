@@ -432,6 +432,7 @@ public class Slime : MonoBehaviour
     {
         currentWeapon = weapon;
         currentWeapon.gameObject.layer = 7;
+        currentWeapon.GetComponent<Outline>().enabled = false;
 
         // 무기의 위치 설정
         currentWeapon.transform.parent = weaponPos;
