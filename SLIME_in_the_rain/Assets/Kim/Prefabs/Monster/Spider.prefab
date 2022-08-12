@@ -1187,7 +1187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3270640347998897615}
-  - component: {fileID: 1330944600409440024}
+  - component: {fileID: 8258507521972698940}
   - component: {fileID: 3181719511261407631}
   - component: {fileID: 3181719511261407625}
   - component: {fileID: 3181719511261407624}
@@ -1218,7 +1218,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1330944600409440024
+--- !u!114 &8258507521972698940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1227,10 +1227,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3276254418422737917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3fc7e4bd93f8145af9b669eff04836, type: 3}
+  m_Script: {fileID: 11500000, guid: 3fdf6834e9a11ac499f694919cf33805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTypeCount: 3
+  attackTypeCount: 2
   nav: {fileID: 0}
   stats:
     maxHP: 2
@@ -1239,18 +1239,16 @@ MonoBehaviour:
     moveSpeed: 1.3
     attackSpeed: 0
     attackPower: 0
-    attackRange: 0.7
+    attackRange: 1.7
     defensePower: 0
     hitCount: 0
     increasesDamage: 0
   slimeLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 520
   projectileAtk: 0
   isDie: 0
   minimapObj: {fileID: 1374831501507178216}
-  detectRange: 2
-  projectilePos: {fileID: 5919064716529016758}
 --- !u!95 &3181719511261407631
 Animator:
   serializedVersion: 4

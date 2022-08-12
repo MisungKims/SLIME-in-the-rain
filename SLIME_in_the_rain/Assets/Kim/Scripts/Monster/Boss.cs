@@ -4,10 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
 using TMPro;
+using UnityEditor;  // OnDrawGizmos
 
 public class Boss : Monster
 {
     #region 변수
+    // 슬라임 감지
+    Collider[] fanColliders;         // 부채꼴 감지 콜라이더
+
+    [SerializeField]
+    private float detectRange = 2f;
+    private float angleRange = 90f;
+    Vector3 direction;
+    float dotValue = 0f;
+
     // 보스의 이름
     protected string bossName;
     [SerializeField]
@@ -40,6 +50,13 @@ public class Boss : Monster
         minAtkTime = 0.5f;
         maxAtkTime = 1.5f;
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        StartCoroutine(DetectSlime());          // 슬라임 감지 시작
+    }
     #endregion
 
     #region 코루틴
@@ -49,20 +66,47 @@ public class Boss : Monster
 
         this.gameObject.SetActive(false);
     }
+
+    // 부채꼴 범위 안에 들어온 슬라임을 감지하는 코루틴
+    IEnumerator DetectSlime()
+    {
+        while (!isDie)
+        {
+            // 원 안에 들어온 슬라임 콜라이더를 구하여 공격
+            fanColliders = Physics.OverlapSphere(transform.position, detectRange, slimeLayer);
+
+            if (fanColliders.Length > 0)
+            {
+                dotValue = Mathf.Cos(Mathf.Deg2Rad * (angleRange / 2));                // 각도에 대한 코사인값
+                direction = fanColliders[0].transform.position - transform.position;      // 몬스터에서 슬라임을 보는 벡터
+
+                if (direction.magnitude < detectRange)         // 탐지한 오브젝트와 부채꼴의 중심점의 거리를 비교 
+                {
+                    // 탐지한 오브젝트가 각도안에 들어왔으면 쫓기 시작
+                    if (Vector3.Dot(direction.normalized, transform.forward) > dotValue)
+                    {
+                        if (!isChasing) TryStartChase();
+                    }
+                }
+            }
+
+            yield return null;
+        }
+    }
     #endregion
 
     #region 함수
     // HP바 세팅
     protected void SetHPBar()
     {
-        if (!hpBar.gameObject.activeSelf)
-        {
-            hpBar.gameObject.SetActive(true);
-        }
+        //if (!hpBar.gameObject.activeSelf)
+        //{
+        //    hpBar.gameObject.SetActive(true);
+        //}
 
-        bossNameText.text = bossName;
-        hpBar.maxValue = stats.maxHP;
-        ShowHPBar();
+        //bossNameText.text = bossName;
+        //hpBar.maxValue = stats.maxHP;
+        //ShowHPBar();
     }
 
     public override void ShowHPBar()
@@ -96,8 +140,18 @@ public class Boss : Monster
             jellyPos.z += Random.Range(-1f, 1f);
 
             objectPoolingManager.Get(EObjectFlag.jelly, jellyPos);
-            //jelly.transform.position = jellyPos;
         }
     }
     #endregion
+
+#if UNITY_EDITOR
+    // 유니티 에디터에 부채꼴을 그려줄 메소드
+    private void OnDrawGizmos()
+    {
+        Handles.color = new Color(0f, 0f, 1f, 0.2f);
+        // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, detectRange);
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, detectRange);
+    }
+#endif
 }

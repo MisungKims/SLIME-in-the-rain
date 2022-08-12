@@ -1259,8 +1259,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 301953753197558404}
-  - component: {fileID: 392843359893081321}
   - component: {fileID: 392843359893081324}
+  - component: {fileID: 8051489508994962596}
   - component: {fileID: 392843359893081320}
   - component: {fileID: 392843359893081322}
   - component: {fileID: 2672090478289778765}
@@ -1289,38 +1289,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -27.893002, z: 0}
---- !u!114 &392843359893081321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299002898205889676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8cb3cd7e1e157c41863bff70f824384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackTypeCount: 2
-  nav: {fileID: 0}
-  stats:
-    maxHP: 3
-    HP: 3
-    coolTime: 0
-    moveSpeed: 1
-    attackSpeed: 0
-    attackPower: 0
-    attackRange: 1
-    defensePower: 0
-    hitCount: 0
-    increasesDamage: 0
-  slimeLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  projectileAtk: 0
-  isDie: 0
-  minimapObj: {fileID: 7025621262038096773}
-  detectRange: 2.5
 --- !u!95 &392843359893081324
 Animator:
   serializedVersion: 4
@@ -1341,6 +1309,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8051489508994962596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299002898205889676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdf6834e9a11ac499f694919cf33805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackTypeCount: 2
+  nav: {fileID: 0}
+  stats:
+    maxHP: 3
+    HP: 3
+    coolTime: 0
+    moveSpeed: 1
+    attackSpeed: 0
+    attackPower: 0
+    attackRange: 1
+    defensePower: 0
+    hitCount: 0
+    increasesDamage: 0
+  slimeLayer:
+    serializedVersion: 2
+    m_Bits: 520
+  projectileAtk: 0
+  isDie: 0
+  minimapObj: {fileID: 7025621262038096773}
 --- !u!195 &392843359893081320
 NavMeshAgent:
   m_ObjectHideFlags: 0

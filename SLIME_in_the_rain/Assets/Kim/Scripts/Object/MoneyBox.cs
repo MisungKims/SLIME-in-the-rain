@@ -17,13 +17,18 @@ public class MoneyBox : MonoBehaviour, IDamage
     private ObjectPoolingManager objectPoolingManager;
     private Vector3 spawnPos;
 
-    //private int jellyIndex = (int)EObjectFlag.jelly;
-    //private int gelatinIndex = (int)EObjectFlag.gelatin;
     private int randObj;
 
     private Animator anim;
 
     private GameObject pickUpObj;
+
+    [SerializeField]
+    private GameObject destroyBox;
+
+    // 미니맵
+    [SerializeField]
+    private MinimapWorldObject minimapObj;
     #endregion
 
     #region 유니티 함수
@@ -48,10 +53,16 @@ public class MoneyBox : MonoBehaviour, IDamage
     {
         anim.SetBool("TakeDamaged", true);
 
+        yield return new WaitForSeconds(1f);
+
+        destroyBox.SetActive(false);
+
         while (pickUpObj.activeSelf)
         {
             yield return null;
         }
+
+        Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
 
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }

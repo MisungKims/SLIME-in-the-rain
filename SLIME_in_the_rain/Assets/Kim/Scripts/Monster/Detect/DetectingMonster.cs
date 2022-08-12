@@ -68,7 +68,7 @@ public class DetectingMonster : GeneralMonster
     }
     #endregion
 
-
+#if UNITY_EDITOR
     // 유니티 에디터에 부채꼴을 그려줄 메소드
     private void OnDrawGizmos()
     {
@@ -77,4 +77,5 @@ public class DetectingMonster : GeneralMonster
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, detectRange);
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, detectRange);
     }
+#endif
 }

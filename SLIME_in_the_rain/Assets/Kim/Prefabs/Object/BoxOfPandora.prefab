@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6b375b4a23421d140aa1497db540bf7c, type: 3}
   IconColor: {r: 1, g: 0.8832253, b: 0, a: 1}
+  isSlime: 0
 --- !u!1 &8709288065298309317
 GameObject:
   m_ObjectHideFlags: 0
@@ -5631,6 +5632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a672d4902042c4eaa979cf42699f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyBox: {fileID: 8709288068895055709}
+  minimapObj: {fileID: 7540308542978048959}
 --- !u!95 &8759383465235279009
 Animator:
   serializedVersion: 4

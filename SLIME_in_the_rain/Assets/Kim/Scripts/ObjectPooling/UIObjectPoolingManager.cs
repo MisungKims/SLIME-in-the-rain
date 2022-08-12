@@ -22,7 +22,11 @@ public class UIObjectPoolingManager : MonoBehaviour
     public List<ObjectPool> uiPoolingList = new List<ObjectPool>();
 
     public FadeOutText stunText;
-    public FadeOutText noItemText;
+    public FadeOutText noInventoryText;
+    public FadeOutText noWeaponText;
+
+    private Vector3 originPos = Vector3.up * -279;
+    private Vector3 upPos = Vector3.up * -230;
     #endregion
 
     #region 유니티 함수
@@ -121,10 +125,32 @@ public class UIObjectPoolingManager : MonoBehaviour
         stunText.ShowText();
     }
 
-    // 기절 텍스트 보여줌
-    public void ShowNoItemText()
+    // 인벤토리에 공간 없음 텍스트 보여줌
+    public void ShowNoInventoryText()
     {
-        noItemText.ShowText();
+        noInventoryText.ShowText();
+        SetTextPosition(noInventoryText.gameObject, noWeaponText.gameObject);
+    }
+
+    // 무기 없음 텍스트 보여줌
+    public void ShowNoWeaponText()
+    {
+        noWeaponText.ShowText();
+        SetTextPosition(noWeaponText.gameObject, noInventoryText.gameObject);
+    }
+
+    // 텍스트의 위치 설정
+    private void SetTextPosition(GameObject textObject, GameObject otherText)
+    {
+        // 다른 텍스트가 활성화 되어있을 때, 그 텍스트의 위치에 따라 textObject의 위치 설정
+        if (otherText.activeSelf)
+        {
+            if (otherText.GetComponent<RectTransform>().anchoredPosition.Equals(originPos))     
+                textObject.GetComponent<RectTransform>().anchoredPosition = upPos;
+            else if (otherText.GetComponent<RectTransform>().anchoredPosition.Equals(upPos))
+                textObject.GetComponent<RectTransform>().anchoredPosition = originPos;
+        }
+        else textObject.GetComponent<RectTransform>().anchoredPosition = originPos;
     }
     #endregion
 }

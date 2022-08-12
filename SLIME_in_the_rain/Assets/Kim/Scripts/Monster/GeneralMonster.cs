@@ -22,9 +22,6 @@ public class GeneralMonster : Monster
     private bool isStop = false;
     private int mapRange;
 
-    //private Vector3 prePos;
-    //private bool stop;
-
     // 추적
     private bool takeDamage;            // 데미지를 입었는지?
     private bool isCounting;            // 추적 카운팅을 시작했는지?
