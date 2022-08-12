@@ -49,40 +49,16 @@ public class SceneDesign : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
         bossLevel = 0;
         
     }
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)     //sceneLoaded 델리게이트
-    {
-        NowScene();
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
-    }
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        nowSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        mapClearCount();
     }
     #endregion
-
-    void NowScene()
-    {
-        nowSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (nowSceneIndex == 1)
-        {
-            mapClear = true;
-        }
-    }
 
     public void mapClearCount()
     {
@@ -90,23 +66,27 @@ public class SceneDesign : MonoBehaviour
         {
             bossCount = 0;  //보스카운터 0으로 초기화
             mapCounting = 0;
+            mapClear = true;
         }
         //마을이 아닐때 맵클리어시
-        else if (mapClear)   
+        else
         {
-            if(bossLevel == 3)      //3번째 보스 죽였을때
+            if (mapClear)
             {
-                FinalClear = true;
+                if (bossLevel == 3)      //3번째 보스 죽였을때
+                {
+                    FinalClear = true;
+                }
+                bossCount++;
+                mapCounting++;
+                Debug.Log(bossCount);
             }
-            bossCount++;
-            mapCounting++;
-            Debug.Log(bossCount);
-        }
-        if(bossCount == 5)  //맵 5개 클리어하면 보스방 열림
-        {
-            goBoss = true;
-            bossCount = 0;
-            bossLevel++;
+            if (bossCount == 5)  //맵 5개 클리어하면 보스방 열림
+            {
+                goBoss = true;
+                bossCount = 0;
+                bossLevel++;
+            }
         }
     }
 

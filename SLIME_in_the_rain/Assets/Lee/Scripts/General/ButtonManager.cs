@@ -38,10 +38,6 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
         ///onClick
         //¼¼ÆÃ ¹öÆ°
         settingIcon.onClick.AddListener(delegate { SettingButton(); });
-        for (int i = 0; i < canvasList.Count; i++)
-        {
-            canvasList[i].gameObject.SetActive(false);
-        }
 
 
         //Å¸ÀÌÆ² È­¸éÀÏ ¶§
@@ -63,7 +59,7 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            for (int i = canvasList.Count - 1 , unenable  = 0; i > -1; i--)     //¸ÞÀÎ(0), ¼¼ÆÃ ¾ÆÀÌÄÜ(¸¶Áö¸·) ²¨Áö¸é ¾ÈµÊ  ,,, ÀÎº¥Åä¸®(1)Àº ÇÏÀ§ ÀÚ½Ä¸¸ ²¨Áö°Ô ÇØ¾ßÇÔ
+            for (int i = 0, unenable  = 0; i <canvasList.Count ; i++)     //¸ÞÀÎ(0), ¼¼ÆÃ ¾ÆÀÌÄÜ(¸¶Áö¸·) ²¨Áö¸é ¾ÈµÊ  ,,, ÀÎº¥Åä¸®(1)Àº ÇÏÀ§ ÀÚ½Ä¸¸ ²¨Áö°Ô ÇØ¾ßÇÔ
             {
                 //Ã¢ÀÌ ÇÏ³ª¶óµµ ¶°ÀÖÀ¸¸é ESC ´­·¶À»¶§ ±× Ã¢À» ´ÝÀ½
                 if (canvasList[i].activeSelf)
@@ -79,7 +75,7 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
                 }
                 if (unenable == canvasList.Count)
                 {
-                    canvasList[canvasList.Count - 2].SetActive(true);
+                    canvasList[1].SetActive(true);
                 }
             }
         }
@@ -87,11 +83,10 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
 #endregion
 
 
-#region ÇÔ¼ö
+    #region ÇÔ¼ö
     void SettingButton()
     {
-        //PlayerPrefs.GetString();
-        canvasList[canvasList.Count - 2].SetActive(true);
+        canvasList[1].SetActive(true);
     }
     void TitleSettingButtons()
     {
@@ -174,6 +169,6 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
         SceneManager.LoadScene(0);
     }
 
-#endregion
+    #endregion
 
 }
