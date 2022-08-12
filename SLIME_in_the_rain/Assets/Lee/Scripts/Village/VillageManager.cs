@@ -12,6 +12,7 @@ public class VillageManager : MonoBehaviour
     //singletons
     Slime slime;
     ICamera _camera;
+    SceneDesign sceneDesign;
     #endregion
 
     #region 유니티 함수
@@ -21,6 +22,7 @@ public class VillageManager : MonoBehaviour
         //singletons
         slime = Slime.Instance;
         _camera = ICamera.Instance;
+        sceneDesign = SceneDesign.Instance;
 
         //슬라임 초기 위치
         Vector3 startPos = Vector3.zero;
@@ -48,6 +50,14 @@ public class VillageManager : MonoBehaviour
             _camera.Focus_Slime();
         }
         #endregion
+        if (slime.currentWeapon != null)
+        {
+            sceneDesign.mapClear = true;
+        }
+    }
+    private void OnDisable()
+    {
+        sceneDesign.resetScene();
     }
     #endregion
 

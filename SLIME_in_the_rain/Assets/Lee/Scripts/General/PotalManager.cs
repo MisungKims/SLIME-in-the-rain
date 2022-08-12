@@ -6,15 +6,18 @@ using UnityEngine.SceneManagement;
 public class PotalManager : MonoBehaviour
 {
     //public
-    public GameObject potalPrefab;
     [Header("포탈 생성할 좌표를 가진 빈 오브젝트(회전각 맞추세요)")]
     public List<GameObject> parentObj;
+    [Header(" ")]
+    public GameObject potalPrefab;
+    [Header("보스/일반/기믹/추가보너스")]
+    public List<GameObject> ParticleList;
 
     //private
-    int now;
     Vector3 vec3;
 
     //bool
+    bool potalMake = false;
     bool doCollision = false;
 
     //singleton
@@ -25,18 +28,17 @@ public class PotalManager : MonoBehaviour
     {
         //singleton
         sceneDesign = SceneDesign.Instance;
-
-        now = sceneDesign.nowSceneIndex;
-        PotalCreate();
+        sceneDesign.mapClear = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sceneDesign.mapClear)
+        if (sceneDesign.mapClear && !potalMake)
         {
-            PotalGateOpen();
-            sceneDesign.mapClear = false;
+            PotalCreate();
+            sceneDesign.MapCount();
+            potalMake = true;
             doCollision = true;
         }
         if(doCollision)
@@ -48,8 +50,7 @@ public class PotalManager : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.G))
                     {
-                        SceneManager.LoadScene(sceneDesign.next);
-                        
+                        SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
                     }
                 }
             }
@@ -60,6 +61,7 @@ public class PotalManager : MonoBehaviour
     {
         for (int i = 0; i < parentObj.Count; i++)
         {
+            //인스턴스포탈 제작
             GameObject ipotal;
             ipotal = Instantiate(potalPrefab, parentObj[i].transform);
             vec3.x = 0;
@@ -68,17 +70,53 @@ public class PotalManager : MonoBehaviour
             ipotal.transform.localPosition = vec3;
             ipotal.transform.rotation = parentObj[i].transform.rotation;
             ipotal.transform.localScale = Vector3.one;
+            ipotal.GetComponent<PotalCollider>().next = sceneDesign.NextScene(SceneManager.GetActiveScene().buildIndex);
+            //포탈의 색상 정해줌
+            Coloring(ipotal, ipotal.GetComponent<PotalCollider>().next);
         }
 
     }
-    void PotalGateOpen()
+    public void Coloring(GameObject gameObject, int next)
     {
-        for (int i = 0; i < parentObj.Count; i++)
+        GameObject particle = new GameObject();
+        Color color;
+        ColorUtility.TryParseHtmlString("#FFFFFF50", out color);
+        int BonusIndex = sceneDesign.s_bonus;
+        if (next >= BonusIndex)
         {
-            GameObject ipotal = parentObj[i].transform.GetChild(0).gameObject;
-            ipotal.GetComponent<MeshRenderer>().enabled = true;
-            ipotal.GetComponent<CapsuleCollider>().enabled = true;
-            ipotal.transform.GetChild(1).gameObject.SetActive(true);
+            if (next == BonusIndex)                //회복방
+            {
+                ColorUtility.TryParseHtmlString("#FA6EF350", out color);
+                particle = Instantiate(ParticleList[3]);
+            }
+            else if (next == ++BonusIndex)       //골드방
+            {
+                ColorUtility.TryParseHtmlString("#FFE90050", out color);
+                particle = Instantiate(ParticleList[4]);
+            }
         }
+        else if (next >= sceneDesign.s_gimmick)             //기믹방
+        {
+            ColorUtility.TryParseHtmlString("#6642FF50", out color);
+            particle = Instantiate(ParticleList[2]);
+        }
+        else if (next >= sceneDesign.s_nomal)               //일반맵
+        {
+            ColorUtility.TryParseHtmlString("#FFFFFF50", out color);
+            particle = Instantiate(ParticleList[1]);
+        }
+        else                                                //보스맵
+        {
+            ColorUtility.TryParseHtmlString("#FF797950", out color);
+            particle = Instantiate(ParticleList[0]);
+        }
+
+        gameObject.GetComponent<Renderer>().material.color = color;
+        color.a = 1;
+        gameObject.transform.GetChild(0).GetComponent<Outline>().OutlineColor = color;
+        gameObject.transform.GetChild(0).GetComponent<Outline>().enabled = false;
+        particle.transform.parent = gameObject.transform;
+        particle.transform.position = gameObject.transform.position + Vector3.down;
+        particle.transform.localScale = Vector3.one * 0.1f;
     }
 }
