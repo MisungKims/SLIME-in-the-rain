@@ -108,6 +108,13 @@ public class Projectile : MonoBehaviour
                 ObjectPoolingManager.Instance.Set(this.gameObject, flag);
             }
         }
+        else if(other.GetComponent<MoneyBox>())         // 재화박스는 부서지지 않은 박스에서만
+        {
+            if (!other.GetComponent<MoneyBox>().isDamaged)
+            {
+                ObjectPoolingManager.Instance.Set(this.gameObject, flag);
+            }
+        }
         else ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
     #endregion

@@ -10,21 +10,33 @@ using UnityEngine;
 
 public class RecoveryHPMap : MapManager
 {
+    #region ΩÃ±€≈Ê
+    private static RecoveryHPMap instance = null;
+    public static RecoveryHPMap Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
+
     [SerializeField]
     private RecoveryHP recoveryHPObject;
 
-    private void Start()
+    protected override void Awake()
     {
-        StartCoroutine(DetectUsed());
-    }
-
-    IEnumerator DetectUsed()
-    {
-        while (!recoveryHPObject.IsUsed)
+        if (null == instance)
         {
-            yield return null;
+            instance = this;
         }
-
-        ClearMap();
-    }    
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -486,6 +486,7 @@ public class Slime : MonoBehaviour
     private void TakeDamage()
     {
         PlayAnim(AnimState.damaged);
+        statManager.AddHP(-2);
     }
 
     // Ω∫≈œ

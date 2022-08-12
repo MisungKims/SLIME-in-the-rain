@@ -25,6 +25,7 @@ public class Metalon : Boss
     {
         base.Awake();
 
+        canAir = false;
         bossName = "메탈론";
         SetHPBar();
     }
@@ -54,13 +55,23 @@ public class Metalon : Boss
             if(randAttack == 2) anim.SetInteger("attack", 0);
             else anim.SetInteger("attack", randAttack);
         }
-        
+
+        //// 공격 애니메이션이 끝날 때 까지 대기
+        //while (!canAttack)
+        //{
+        //    yield return null;
+        //}
+
         // 랜덤한 시간동안 대기
         randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        yield return new WaitForSeconds(randAtkTime);
+        while (randAtkTime > 0 && isInRange)
+        {
+            randAtkTime -= Time.deltaTime;
+
+            yield return null;
+        }
 
         IsAttacking = false;
-        canAttack = true;
     }
 
     // 새끼 거미가 전부 죽어야 다시 소환할 수 있음

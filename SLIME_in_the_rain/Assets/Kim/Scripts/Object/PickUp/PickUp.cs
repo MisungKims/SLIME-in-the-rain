@@ -25,7 +25,9 @@ public abstract class PickUp : MonoBehaviour
     protected float distance;
     protected Vector3 dir;
     protected Vector3 targetPos;
-    Vector3 offset;
+    private Vector3 offset;
+
+    private Vector3 pos;
     #endregion
 
     #region 유니티 함수
@@ -38,7 +40,7 @@ public abstract class PickUp : MonoBehaviour
 
     private void OnEnable()
     {
-        if(rigid)
+        if (rigid)
         {
             rigid.AddForce(transform.up * force, ForceMode.Force);
             rigid.useGravity = true;
@@ -48,6 +50,18 @@ public abstract class PickUp : MonoBehaviour
         StartCoroutine(DetectSlime());
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (rigid && other.transform.CompareTag("Land"))
+        {
+            rigid.useGravity = false;
+            rigid.constraints = RigidbodyConstraints.FreezeAll;
+
+            pos = transform.position;
+            pos.y = 2;
+            transform.position = pos;
+        }
+    }
     #endregion
 
     #region 코루틴

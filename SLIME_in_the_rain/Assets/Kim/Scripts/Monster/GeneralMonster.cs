@@ -76,7 +76,7 @@ public class GeneralMonster : Monster
                 if (RandomPosition.GetRandomNavPoint(Vector3.zero, mapRange, out randPos))
                 {
                     nav.SetDestination(randPos);
-                    PlayAnim(EMonsterAnim.walk);
+                    //PlayAnim(EMonsterAnim.walk);
                     
                     isStop = false;
                     while (!isStop)
@@ -87,7 +87,7 @@ public class GeneralMonster : Monster
                         if (distance < 1f)
                         {
                             nav.SetDestination(transform.position);
-                            PlayAnim(EMonsterAnim.idle);
+                            //PlayAnim(EMonsterAnim.idle);
 
                             randTime = Random.Range(2f, 6f);
                             yield return new WaitForSeconds(randTime);
@@ -198,7 +198,7 @@ public class GeneralMonster : Monster
 
             HideHPBar();
 
-            PlayAnim(EMonsterAnim.idle);
+            //PlayAnim(EMonsterAnim.idle);
         }
     }
     #endregion

@@ -72,6 +72,13 @@ public class FindingWayMap : MapManager
     [SerializeField]
     private GameObject wall;
 
+    // 맵 설명 텍스트
+    [SerializeField]
+    private GameObject descText;
+    private Vector2 startTextPos = new Vector2(0, 55);
+    private Vector2 endTextPos = new Vector2(0, -30);
+    private RectTransform textTransform;
+
     // 캐싱
     private Slime slime;
     #endregion
@@ -106,17 +113,27 @@ public class FindingWayMap : MapManager
         StartCoroutine(ShowRoad());
         
         StartCoroutine(DetectFall());
+
+        descText.SetActive(true);
+        textTransform = descText.GetComponent<RectTransform>();
+        textTransform.anchoredPosition = startTextPos;
     }
     #endregion
 
     #region 코루틴
 
+
     // 씬이 시작될 때 길을 알려줌
     IEnumerator ShowRoad()
     {
+        yield return new WaitForSeconds(0.5f);
+
+        GameObject smallHP = MainCanvas.Instance.hpSlime.transform.parent.gameObject;
+        smallHP.SetActive(false);
         slime.canMove = false;
         canMoveCam = true;
         StartCoroutine(MoveCamera());
+        StartCoroutine(ShowDescText());
 
         for (int i = 0; i < roadList.Count; i++)
         {
@@ -125,8 +142,9 @@ public class FindingWayMap : MapManager
             roadList[i].GetComponent<RoadObject>().ChangeMesh(true);
         }
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.8f);
 
+        smallHP.SetActive(true);
         canMoveCam = false;
         for (int i = 0; i < roadList.Count; i++)
         {
@@ -139,19 +157,58 @@ public class FindingWayMap : MapManager
     {
         yield return new WaitForSeconds(0.5f);
 
-        offset = movingCamera.transform.localPosition - endCamPos.localPosition;
-        distance = offset.sqrMagnitude;
-
-        while (distance > 0.5f && canMoveCam)
+        while (canMoveCam)
         {
             movingCamera.transform.localPosition = Vector3.Lerp(movingCamera.transform.localPosition, endCamPos.localPosition, Time.deltaTime * 0.3f);
 
             yield return null;
         }
 
+        canMoveCam = false;
         movingCamera.enabled = false;
         slime.canMove = true;
     }
+
+    // 맵 설명 텍스트
+    IEnumerator ShowDescText()
+    {
+        // 텍스트가 내려옴
+        offset = textTransform.anchoredPosition - endTextPos;
+        distance = offset.sqrMagnitude;
+
+        while (distance > 0.5f && canMoveCam)
+        {
+            offset = textTransform.anchoredPosition - endTextPos;
+            distance = offset.sqrMagnitude;
+
+            textTransform.anchoredPosition = Vector3.Lerp(textTransform.anchoredPosition, endTextPos, Time.deltaTime * 2f);
+
+            yield return null;
+        }
+
+        // 길이 다 보여질 때까지 대기
+        while (canMoveCam)
+        {
+            yield return null;
+        }
+
+        // 텍스트가 올라감
+        offset = textTransform.anchoredPosition - startTextPos;
+        distance = offset.sqrMagnitude;
+
+        while (distance > 0.5f)
+        {
+            offset = textTransform.anchoredPosition - startTextPos;
+            distance = offset.sqrMagnitude;
+
+            textTransform.anchoredPosition = Vector3.Lerp(textTransform.anchoredPosition, startTextPos, Time.deltaTime * 4f);
+
+            yield return null;
+        }
+
+        descText.SetActive(false);
+    }
+
 
     // 슬라임이 떨어지면 초기 위치로 이동
     IEnumerator DetectFall()
@@ -276,5 +333,12 @@ public class FindingWayMap : MapManager
 
         wall.SetActive(true);
     }
+
+
+    ///////////////////////////// 나중에 지우기
+    public void Clear()
+    {
+        slime.transform.position = new Vector3(7, 2, 10);
+    }    
     #endregion
 }

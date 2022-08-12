@@ -68,6 +68,16 @@ public class HitCountMap : MapManager
         }
     }
 
+    [Header("-------------- Description Text")]
+    // 맵 설명 텍스트
+    [SerializeField]
+    private GameObject descText;
+    private Vector2 startTextPos = new Vector2(0, 55);
+    private Vector2 endTextPos = new Vector2(0, -30);
+    private RectTransform textTransform;
+    private Vector3 offset;
+    private float distance;
+
     [Header("-------------- Object Pool")]
     [SerializeField]
     private ObjectPool particlePooling;     // 파티클 오브젝트 풀링
@@ -88,6 +98,15 @@ public class HitCountMap : MapManager
 
         InitObject();
         InitMap();
+
+        descText.SetActive(true);
+        textTransform = descText.GetComponent<RectTransform>();
+        textTransform.anchoredPosition = startTextPos;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(ShowDescText());
     }
 
     IEnumerator DisableProps()
@@ -99,6 +118,43 @@ public class HitCountMap : MapManager
             yield return new WaitForSeconds(0.4f);
         }
     }
+
+    // 맵 설명 텍스트
+    IEnumerator ShowDescText()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        // 텍스트가 내려옴
+        offset = textTransform.anchoredPosition - endTextPos;
+        distance = offset.sqrMagnitude;
+
+        while (distance > 0.5f)
+        {
+            offset = textTransform.anchoredPosition - endTextPos;
+            distance = offset.sqrMagnitude;
+
+            textTransform.anchoredPosition = Vector3.Lerp(textTransform.anchoredPosition, endTextPos, Time.deltaTime * 2f);
+
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        // 텍스트가 올라감
+        offset = textTransform.anchoredPosition - startTextPos;
+        distance = offset.sqrMagnitude;
+
+        while (distance > 0.5f)
+        {
+            offset = textTransform.anchoredPosition - startTextPos;
+            distance = offset.sqrMagnitude;
+
+            textTransform.anchoredPosition = Vector3.Lerp(textTransform.anchoredPosition, startTextPos, Time.deltaTime * 4f);
+
+            yield return null;
+        }
+    }
+
 
     #region 오브젝트 풀링
     // 파티클 오브젝트를 initCount 만큼 생성

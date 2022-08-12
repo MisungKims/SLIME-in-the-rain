@@ -12,7 +12,7 @@ public class MoneyBox : MonoBehaviour, IDamage
 {
     #region º¯¼ö
 
-    private bool isDamaged;
+    public bool isDamaged;
 
     private ObjectPoolingManager objectPoolingManager;
     private Vector3 spawnPos;
@@ -48,7 +48,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         isDamaged = false;
     }
     #endregion
-    
+
     IEnumerator TakeDamaged()
     {
         anim.SetBool("TakeDamaged", true);

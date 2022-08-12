@@ -42,21 +42,25 @@ public class Earthworm : Boss
                 atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
                 if (atkRangeColliders.Length > 0)
                 {
+                    isInRange = true;
                     if (!isAttacking && canAttack) StartCoroutine(ShortAttack());
 
                     chaseCount = 0;
                 }
                 else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 3초? 후에 원거리 공격
                 {
-                    IsAttacking = false;
-                    PlayAnim(EMonsterAnim.run);
-
-                    chaseCount += Time.deltaTime;
-
-                    // 3초가 지나면 투사체 발사
-                    if (chaseCount >= maxCount)
+                    isInRange = false;
+                    if (!isAttacking)
                     {
-                        yield return StartCoroutine(LongAttack());
+                        PlayAnim(EMonsterAnim.run);
+
+                        chaseCount += Time.deltaTime;
+
+                        // 3초가 지나면 투사체 발사
+                        if (chaseCount >= maxCount)
+                        {
+                            yield return StartCoroutine(LongAttack());
+                        }
                     }
                 }
 
@@ -83,12 +87,23 @@ public class Earthworm : Boss
 
         PlayAnim(EMonsterAnim.attack);
 
+        // 공격 애니메이션이 끝날 때 까지 대기
+        while (!canAttack)
+        {
+            yield return null;
+        }
+
         // 랜덤한 시간동안 대기
+        // 대기 중 공격 범위를 벗어나면 바로 쫓아감
         randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        yield return new WaitForSeconds(randAtkTime);
+        while (randAtkTime > 0 && isInRange)
+        {
+            randAtkTime -= Time.deltaTime;
+
+            yield return null;
+        }
 
         IsAttacking = false;
-        canAttack = true;
     }
 
     // 원거리 공격 (투사체 발사) 코루틴
@@ -118,6 +133,7 @@ public class Earthworm : Boss
         IsAttacking = false;
         canAttack = true;
         noDamage = false;
+        maxCount = Random.Range(3f, 6f);
     }
     #endregion
 

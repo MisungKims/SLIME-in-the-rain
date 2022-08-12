@@ -125,6 +125,8 @@ public class RecoveryHP : MonoBehaviour
         meshRenderer.material = blackMat;
         myParticle.SetActive(false);
         slimeParticle.SetActive(false);
+
+        RecoveryHPMap.Instance.ClearMap();
     }
 
     // 파티클이 슬라임을 따라다니도록

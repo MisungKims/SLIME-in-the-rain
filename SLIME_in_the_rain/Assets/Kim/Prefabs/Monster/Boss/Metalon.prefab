@@ -994,7 +994,7 @@ GameObject:
   - component: {fileID: 5095734514899709876}
   - component: {fileID: 5182501050310624134}
   - component: {fileID: 5182501050310624132}
-  - component: {fileID: 5182501050310624128}
+  - component: {fileID: 8845026421486382796}
   m_Layer: 8
   m_Name: Metalon
   m_TagString: DamagedObject
@@ -1136,10 +1136,10 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 122
   m_CollisionDetection: 0
---- !u!136 &5182501050310624128
-CapsuleCollider:
+--- !u!65 &8845026421486382796
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1148,10 +1148,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.1
-  m_Height: 4.1528354
-  m_Direction: 1
-  m_Center: {x: 0.111757904, y: 0.67423284, z: 0.2722026}
+  serializedVersion: 2
+  m_Size: {x: 3.6616845, y: 1.8, z: 4.2597275}
+  m_Center: {x: 0.010133482, y: 0.99, z: 0.28607288}
 --- !u!1 &5180091779043794792
 GameObject:
   m_ObjectHideFlags: 0

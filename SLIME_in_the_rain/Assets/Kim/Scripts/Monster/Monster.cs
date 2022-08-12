@@ -69,6 +69,8 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     private bool isInGround;
 
+    protected bool isInRange = false;
+
     // 공격 후 대기 시간
     protected float randAtkTime;
     protected float minAtkTime = 0.3f;
@@ -87,7 +89,11 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     string animName;
 
+    // 공중
+    private float airTime;
+    private float maxAirTime = 3f;
     private float jumpPower = 5f;
+    protected bool canAir = true;
 
     // 미니맵
     [SerializeField]
@@ -118,13 +124,11 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected virtual void OnEnable()
     {
         isDie = false;
-        monsterCollider.isTrigger = false;
-
-        PlayAnim(EMonsterAnim.idle);
+        if(canAir) monsterCollider.isTrigger = false;
 
         stats.HP = stats.maxHP;
 
-        StartCoroutine(IsDie());
+        StartCoroutine(Animation());
     }
 
    void Start()
@@ -149,30 +153,96 @@ public abstract class Monster : MonoBehaviour, IDamage
     #endregion
 
     #region 코루틴
+    private IEnumerator Animation()
+    {
+        while (true)
+        {
+            if (isDie)
+            {
+                PlayAnim(EMonsterAnim.die);
+            }
+            else if(!isAttacking)
+            {
+                if (isHit)
+                {
+                    if (isStun)
+                    {
+                        PlayAnim(EMonsterAnim.stun);
+                    }
+                    else
+                    {
+                        PlayAnim(EMonsterAnim.hit);
+                    }
+                }
+                else if (isChasing)
+                {
+                    if (nav.velocity.Equals(Vector3.zero))
+                    {
+                        PlayAnim(EMonsterAnim.idle);
+                    }
+                    else
+                    {
+                        PlayAnim(EMonsterAnim.run);
+                    }
+                }
+                else if (isInRange)
+                {
+                    if (nav.velocity.Equals(Vector3.zero))
+                    {
+                        PlayAnim(EMonsterAnim.idleBattle);
+                    }
+                    else
+                    {
+                        PlayAnim(EMonsterAnim.run);
+                    }
+                }
+                else
+                {
+                    if (nav.velocity.Equals(Vector3.zero))
+                    {
+                        PlayAnim(EMonsterAnim.idle);
+                    }
+                    else
+                    {
+                        PlayAnim(EMonsterAnim.walk);
+                    }
+                }
+            }
+            
+            yield return null;
+        }
+    }
+
     // 슬라임의 공격에 의해 점프
     public IEnumerator Jump()
     {
-        Debug.Log("jump");
-        isChasing = false;
-        isHit = true;
-        nav.enabled = false;
+        if(canAir)
+        {
+            isChasing = false;
+            isHit = true;
+            nav.enabled = false;
 
-        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
 
-        isInGround = false;
+            isInGround = false;
 
-        yield return StartCoroutine(IsInGround());      // 땅에 닿을 때 까지 기다림
+            yield return StartCoroutine(IsInGround());      // 땅에 닿을 때 까지 기다림
 
-        isHit = false;
-        nav.enabled = true;
-        TryStartChase();
+            isHit = false;
+            nav.enabled = true;
+            TryStartChase();
+        }
     }
 
+   
     // 공중에 떠있을 동안 실행
     private IEnumerator IsInGround()
     {
-        while (!isInGround)
+        airTime = maxAirTime;
+        while (!isInGround && airTime > 0)
         {
+            airTime -= Time.deltaTime;
+
             yield return null;
         }
     }    
@@ -188,17 +258,18 @@ public abstract class Monster : MonoBehaviour, IDamage
                 atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
                 if (atkRangeColliders.Length > 0 && !isAttacking && canAttack)
                 {
+                    isInRange = true;
                     StartCoroutine(Attack());
                 }
-                else if (atkRangeColliders.Length <= 0)
+                else if (atkRangeColliders.Length <= 0 && !isAttacking)
                 {
-                    if(!canAttack) canAttack = true;
+                    isInRange = false;
+                    if (!canAttack) canAttack = true;
 
                     // 슬라임을 쫓아다님
                     if(nav.enabled) nav.SetDestination(target.position);
 
                     if (!doDamage) IsAttacking = false;         // 데미지를 입히는 중일 때 공격할 수 없도록
-                    PlayAnim(EMonsterAnim.run);
                 }
 
                 yield return null;
@@ -224,9 +295,25 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         PlayAnim(EMonsterAnim.attack);
 
+        // 공격 애니메이션이 끝날 때 까지 대기
+        while (!canAttack)
+        {
+            yield return null;
+        }
+
         // 랜덤한 시간동안 대기
+        // 대기 중 공격 범위를 벗어나면 바로 쫓아감
         randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        yield return new WaitForSeconds(randAtkTime);
+        while (randAtkTime > 0 && isInRange)
+        {
+            randAtkTime -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        //// 랜덤한 시간동안 대기
+        //randAtkTime = Random.Range(minAtkTime, maxAtkTime);
+        //yield return new WaitForSeconds(randAtkTime);
 
         IsAttacking = false;
         canAttack = true;
@@ -259,10 +346,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                     }
 
                     canAttack = true;
-
-                    if (isDie) PlayAnim(EMonsterAnim.die);
-                    else PlayAnim(EMonsterAnim.idleBattle);
-
+                    PlayAnim(EMonsterAnim.idleBattle);
                     break;
                 }
                 else 
@@ -273,8 +357,6 @@ public abstract class Monster : MonoBehaviour, IDamage
                         
                         DamageSlime(randAttack);     // 공격 애니메이션 실행 시 슬라임이 데미지 입도록
                     }
-
-                    if (isDie) PlayAnim(EMonsterAnim.die);
                 }
             }
 
@@ -288,7 +370,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         isStun = true;
         if (isChasing) isChasing = false;
 
-        PlayAnim(EMonsterAnim.stun);
         nav.SetDestination(transform.position);
         
         yield return new WaitForSeconds(time);
@@ -306,16 +387,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         this.gameObject.SetActive(false);
     }
 
-    // 죽었을 때 즉시 죽는 애니메이션 실행
-    private IEnumerator IsDie()
-    {
-        while (!isDie)
-        {
-            yield return null;
-        }
-
-        PlayAnim(EMonsterAnim.die);
-    }
     #endregion
 
     #region 함수
@@ -331,7 +402,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         {
             isHit = true;
            
-            if (!isStun) PlayAnim(EMonsterAnim.hit);
             TryStartChase();               // 슬라임 따라다니기 시작
         }
     }
@@ -347,7 +417,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         {
             isHit = true;
            
-            if (!isStun) PlayAnim(EMonsterAnim.hit);
             TryStartChase();               // 슬라임 따라다니기 시작
         }
     }
@@ -407,7 +476,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     bool HaveDamage(float damage)
     {
         float result = stats.HP - damage;
-
+       
         if (result <= 0)             // 죽음
         {
             stats.HP = 0;
@@ -418,7 +487,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         else
         {
             stats.HP = result;
-            ShowDamage(damage); 
+            ShowDamage(damage);
             return true;
         }
     }
@@ -428,8 +497,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-       damageText = uiPoolingManager.Get(EUIFlag.damageText, cam.WorldToScreenPoint(transform.position)).GetComponent<DamageText>();
-        damageText.Damage = (int)damage;
+        damageText = uiPoolingManager.Get(EUIFlag.damageText, cam.WorldToScreenPoint(transform.position)).GetComponent<DamageText>();
+        damageText.Damage = damage;
 
         ShowHPBar();     // 체력바 설정
     }

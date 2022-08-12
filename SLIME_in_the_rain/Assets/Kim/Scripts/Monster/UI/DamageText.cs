@@ -18,13 +18,13 @@ public class DamageText : FadeOutText
 
     Color32 red = new Color32(164, 11, 0, 255);
 
-    private int damage;
-    public int Damage
+    private float damage;
+    public float Damage
     {
         set 
         { 
             damage = value; 
-            text.text = damage.ToString();
+            text.text = damage % 1 == 0 ? damage.ToString() : damage.ToString("f1");
 
             text.color = red;
         }

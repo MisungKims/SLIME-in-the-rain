@@ -13,6 +13,7 @@ public class MetalonBaby : Monster
 {
     #region 변수
     // 체력바
+    private GameObject hpBarObject;
     private Slider hpBar;
     private Vector3 hpBarPos;
 
@@ -20,6 +21,8 @@ public class MetalonBaby : Monster
 
     [SerializeField]
     private Transform projectilePos;
+
+    private Camera mainCam;
     #endregion
 
     #region 유니티 함수
@@ -27,6 +30,7 @@ public class MetalonBaby : Monster
     {
         base.Awake();
 
+        mainCam = Camera.main;
         projectileAtk = 2;
     }
 
@@ -49,14 +53,9 @@ public class MetalonBaby : Monster
     // 체력바의 위치를 조절하는 코루틴
     IEnumerator SetHPBarPos()
     {
-        while (hpBar)
+        while (hpBarObject)
         {
-            hpBar.transform.position = Camera.main.WorldToScreenPoint(transform.position + hpBarPos);
-
-            //hpBarPos = transform.position;
-            //hpBarPos.y += 1.5f;
-
-            //hpBar.transform.position = hpBarPos;
+            hpBarObject.transform.position = mainCam.WorldToScreenPoint(transform.position + hpBarPos);
 
             yield return null;
         }
@@ -76,11 +75,6 @@ public class MetalonBaby : Monster
         randAttack = Random.Range(0, attackTypeCount);
         anim.SetInteger("attack", randAttack);
 
-        if (randAttack == 2)
-        {
-            StartCoroutine(ProjectileAttack());        // 투사체 발사 공격
-        }
-
         PlayAnim(EMonsterAnim.attack);
 
         // 랜덤한 시간동안 대기
@@ -91,38 +85,13 @@ public class MetalonBaby : Monster
         noDamage = false;
     }
 
-    private IEnumerator ProjectileAttack()
-    {
-        noDamage = true;        // 이 공격은 슬라임이 투사체에 맞았을 때 데미지를 입어야하므로 noDamage를 true로 변경
-
-        yield return new WaitForSeconds(0.8f);
-
-        GetProjectile();
-    }
-
-    // 투사체 발사 공격
-    private void GetProjectile()
-    {
-        // 투사체 발사
-        MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.spider).GetComponent<MonsterProjectile>();
-        projectile.monster = this;
-
-        projectile.transform.position = projectilePos.position;
-        projectile.transform.LookAt(target);
-
-        lookRot = projectile.transform.eulerAngles;
-        lookRot.x = 0;
-        lookRot.z = 0;
-
-        projectile.transform.eulerAngles = lookRot;
-    }
-
     // 체력바 활성화
     public override void ShowHPBar()
     {
         if (!hpBar)
         {
-            hpBar = uiPoolingManager.Get(EUIFlag.hpBar).GetComponent<Slider>();
+            hpBarObject = uiPoolingManager.Get(EUIFlag.hpBar);
+            hpBar = hpBarObject.transform.GetChild(0).GetComponent<Slider>();
             hpBar.maxValue = stats.maxHP;
 
             StartCoroutine(SetHPBarPos());
@@ -136,7 +105,7 @@ public class MetalonBaby : Monster
     {
         if (!hpBar) return;
 
-        uiPoolingManager.Set(hpBar.gameObject, EUIFlag.hpBar);
+        uiPoolingManager.Set(hpBarObject, EUIFlag.hpBar);
         hpBar = null;
     }
 }
