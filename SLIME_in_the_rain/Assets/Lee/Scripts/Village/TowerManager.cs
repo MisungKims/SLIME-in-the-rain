@@ -107,10 +107,6 @@ public class TowerManager : MonoBehaviour
                 break;
         }
     }
-    public void Delete()
-    {
-        PlayerPrefs.DeleteAll();
-    }
     #endregion
 
 

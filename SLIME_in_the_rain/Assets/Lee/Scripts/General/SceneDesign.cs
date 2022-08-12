@@ -21,9 +21,8 @@ public class SceneDesign : MonoBehaviour
     }
     #endregion
     public int randomPercent;
-    
+
     [Header("스테이지 카테고리 별 시작 인덱스 입력")]
-    public int s_village;
     public int s_boss;     
     public int s_nomal;    
     public int s_gimmick;   
@@ -83,15 +82,11 @@ public class SceneDesign : MonoBehaviour
         {
             mapClear = true;
         }
-        if (nowSceneIndex == 2)       //나중에 지워야할 부분
-        {
-            mapClear = true;
-        }
     }
 
     public void mapClearCount()
     {
-        if (nowSceneIndex == s_village)   //마을이면
+        if (nowSceneIndex == 1)   //마을이면
         {
             bossCount = 0;  //보스카운터 0으로 초기화
             mapCounting = 0;
@@ -150,7 +145,7 @@ public class SceneDesign : MonoBehaviour
         }
         else if (nowSceneIndex == 0)   // 타이틀->마을
         {
-            next = s_village;
+            next = 1;
         }
         else
         {

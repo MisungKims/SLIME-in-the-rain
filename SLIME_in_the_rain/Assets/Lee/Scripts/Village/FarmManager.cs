@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Globalization;
 
 public class FarmManager : MonoBehaviour
 {
@@ -19,25 +20,25 @@ public class FarmManager : MonoBehaviour
 
     private void Start()
     {
-        level = PlayerPrefs.GetString(this.name + "level");
         LevelDefault();
-        TowerBuilding(int.Parse(level));
+        TowerBuilding(int.Parse(level, CultureInfo.InvariantCulture));
     }
     void LevelDefault()
     {
+
         if (this.name == "Empty")
         {
-            PlayerPrefs.SetString(this.name + "level", Random.Range(5, 15).ToString());
-            PlayerPrefs.GetString(this.name + "level");
+            string str = Random.Range(5, 15).ToString();
+            PlayerPrefs.SetString(this.name + "level", str);
         }
         else
         {
-            if (level == "")
+            if(!PlayerPrefs.HasKey(this.name + "level"))
             {
                 PlayerPrefs.SetString(this.name + "level", "0");
-                PlayerPrefs.GetString(this.name + "level");
             }
         }
+        level = PlayerPrefs.GetString(this.name + "level");
     }
     public void TowerBuilding(int makeNum)
     {
