@@ -88,7 +88,7 @@ public class DissolutionUI : MonoBehaviour
         Bag = GameObject.Find("Bag");
         slotNum = _slotNum;
 
-        SelectItem = inventory.items[_slotNum];
+        SelectItem = inventory.items[slotNum];
 
         SelectSlot = Bag.transform.GetChild(slotNum).GetComponent<Slot>();
 

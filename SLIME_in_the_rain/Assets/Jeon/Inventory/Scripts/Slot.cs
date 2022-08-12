@@ -65,7 +65,7 @@ public class Slot : MonoBehaviour,IPointerUpHandler,IPointerEnterHandler,IPointe
         if (button.interactable&&slotNum < Inventory.Instance.items.Count)
         {
             InventoryUI.Instance.ShowTooltip(item);
-            InventoryUI.Instance.tooltip.transform.position = this.transform.position+Vector3.right*100+ Vector3.down*100;
+            InventoryUI.Instance.tooltip.transform.position = this.transform.position+(Vector3.right+ Vector3.down)*200;
         }
        
     }

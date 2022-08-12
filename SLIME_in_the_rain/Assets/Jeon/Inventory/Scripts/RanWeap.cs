@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class RanWeap : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject[] pos = new GameObject[3];
+
+    
+
+    private void Start()
     {
-        
+        for (int i = 0; i < pos.Length; i++)
+        {
+           ItemDatabase.Instance.weaponDrop(pos[i].transform.position);
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

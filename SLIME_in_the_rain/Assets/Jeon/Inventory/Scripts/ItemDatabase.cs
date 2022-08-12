@@ -37,6 +37,8 @@ public class ItemDatabase : MonoBehaviour
     public List<ItemEffect> itemEffect = new List<ItemEffect>();
     public GameObject fieldItemPrefab;
     public Vector3[] pos;
+    int same1;
+    int same2;
 
     public TextAsset ItemDbT;
   
@@ -82,19 +84,6 @@ public class ItemDatabase : MonoBehaviour
         }
         for (int i = 0; i < AllitemDB.Count; i++) //efts 동기화
         {
-            if (AllitemDB[i].itemType == ItemType.weapon)
-            {
-                for (int j = 0; j < itemEffect.Count; j++)
-                {
-                    if (AllitemDB[i].itemName == itemEffect[j].name)
-                    {
-                        //itemEffect[j].weapon = ObjectPoolingManager.Instance.Get(itemEffect[j].eWeaponType).GetComponent<Weapon>();
-                        AllitemDB[i].efts.Add(itemEffect[j]);
-                    }
-                }
-            }
-            else
-            {
                 for (int j = 0; j < itemEffect.Count; j++)
                 {
                     if (AllitemDB[i].itemName == itemEffect[j].name)
@@ -102,22 +91,33 @@ public class ItemDatabase : MonoBehaviour
                         AllitemDB[i].efts.Add(itemEffect[j]);
                     }
                 }
-            }
+        }
+
+        for (int i = 0; i < pos.Length; i++)
+        {
+            GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
+            go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(0, 15)]);
         }
 
         
     }
 
-   /* public void monsterDrop(int _round,int _range1, int _range2, Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
+    public void monsterDrop(int _round, int _range1, int _range2, Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
     {
-        int count = Random.Range(0, _round+1);
+        int count = Random.Range(0, _round + 1);
         float ranRAddPos = Random.Range(0, 0.1f);
         float ranFAddPos = Random.Range(0, 0.1f);
         for (int i = 0; i < count; i++)
         {
-            GameObject go = Instantiate(fieldItemPrefab, _pos+(Vector3.right* ranRAddPos)+(Vector3.forward*ranFAddPos), Quaternion.identity);
+            GameObject go = Instantiate(fieldItemPrefab, _pos + (Vector3.right * ranRAddPos) + (Vector3.forward * ranFAddPos), Quaternion.identity);
             go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(_range1, _range2)]);
         }
-    }*/
+    }
+
+    public void weaponDrop(Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
+    {
+        GameObject go = ObjectPoolingManager.Instance.GetFieldItem(AllitemDB[Random.Range(15,20)] , _pos);
+    }
+
 
 }
