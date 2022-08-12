@@ -87,6 +87,8 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     string animName;
 
+    private float jumpPower = 5f;
+
     // 미니맵
     [SerializeField]
     private MinimapWorldObject minimapObj;
@@ -150,15 +152,18 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 슬라임의 공격에 의해 점프
     public IEnumerator Jump()
     {
+        Debug.Log("jump");
         isChasing = false;
+        isHit = true;
         nav.enabled = false;
 
-        rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
 
         isInGround = false;
 
         yield return StartCoroutine(IsInGround());      // 땅에 닿을 때 까지 기다림
 
+        isHit = false;
         nav.enabled = true;
         TryStartChase();
     }
@@ -248,7 +253,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                         anim.SetInteger("attack", -1);
                         doDamage = false;
                     }
-                    else if (currentAnim.Equals(EMonsterAnim.hit))
+                    else if (currentAnim.Equals(EMonsterAnim.hit) && isInGround)
                     {
                         isHit = false;
                     }
