@@ -55,7 +55,7 @@ public class GetMoneyMap : MapManager
             randObj = Random.Range(jellyIndex, gelatinIndex + 1);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾À» Á¤ÇÏ¿© ¸Ê¿¡ °¡Á®¿È
 
             RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
-            randPos.y = 2;
+            randPos.y = 3;
             objectPoolingManager.Get((EObjectFlag)randObj, randPos);
         }
     }

@@ -73,7 +73,7 @@ public class HitCountMap : MapManager
     [SerializeField]
     private GameObject descText;
     private Vector2 startTextPos = new Vector2(0, 55);
-    private Vector2 endTextPos = new Vector2(0, -30);
+    private Vector2 endTextPos = new Vector2(0, -10);
     private RectTransform textTransform;
     private Vector3 offset;
     private float distance;
@@ -98,10 +98,6 @@ public class HitCountMap : MapManager
 
         InitObject();
         InitMap();
-
-        descText.SetActive(true);
-        textTransform = descText.GetComponent<RectTransform>();
-        textTransform.anchoredPosition = startTextPos;
     }
 
     private void Start()
@@ -122,6 +118,10 @@ public class HitCountMap : MapManager
     // 맵 설명 텍스트
     IEnumerator ShowDescText()
     {
+        descText.SetActive(true);
+        textTransform = descText.GetComponent<RectTransform>();
+        textTransform.anchoredPosition = startTextPos;
+
         yield return new WaitForSeconds(0.5f);
 
         // 텍스트가 내려옴
