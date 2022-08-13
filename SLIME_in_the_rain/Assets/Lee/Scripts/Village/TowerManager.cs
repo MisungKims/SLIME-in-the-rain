@@ -65,37 +65,37 @@ public class TowerManager : MonoBehaviour
             case "MaxHP":
                 farmNameText.text = "Ã¼·Â ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ ÃÖ´ë Ã¼·Â ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "CoolTime":
                 farmNameText.text = "Äð°¨ ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ ÄðÅ¸ÀÓ °¨¼Ò ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "MoveSpeed":
                 farmNameText.text = "ÀÌ¼Ó ²É ³óÀå";
                 farmExplainText.text = "[ ÀÌµ¿¼Óµµ ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackSpeed":
                 farmNameText.text = "°ø¼Ó ²É ³óÀå";
                 farmExplainText.text = "[ °ø°Ý ¼Óµµ ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackPower":
                 farmNameText.text = "Èû ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ Èû ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackRange":
                 farmNameText.text = "»ç°Å¸® ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ »ç°Å¸® ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "DefensePower":
                 farmNameText.text = "¹æ¾î·Â ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ ¹æ¾î·Â ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)).ToString();
+                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "InventorySlot":
                 farmNameText.text = "ÀÎº¥ ½½·Ô È®Àå ±¤¼®";

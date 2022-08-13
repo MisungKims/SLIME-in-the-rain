@@ -74,51 +74,17 @@ public class MainCanvas : MonoBehaviour
         //hp 스탯 부르기
         beforeMaxHP = statManager.myStats.maxHP;
         beforeHP = statManager.myStats.HP;
+
+        if(!slime.currentWeapon)
+        {
+            skillCool.gameObject.SetActive(false);
+            dashCool.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        #region 기본 슬라임 대시 쿨타임 관련 스크립트 (주석)
-        //if(!slime.currentWeapon)    //무기 안들고있을때 
-        //{
-        //    float time = slime.dashCoolTime - (Time.time - startTime);
-        //    Debug.Log(time);
-        //    dashCool.maxValue = (int)slime.dashCoolTime;
-        //    if (dashReady)
-        //    {
-        //        dashCool.value = 0;
-        //        dashText.text = " ";
-        //        if (slime.isDash)
-        //        {
-        //            dashReady = false;
-        //        }
-        //    }
-        //    //대쉬
-        //    else
-        //    {
-        //        dashCool.value = time;
-        //        if (dashCool.value > 1)
-        //        {
-        //            dashText.text = ((int)dashCool.value).ToString();
-        //        }
-        //        else if (dashCool.value > 0)
-        //        {
-        //            dashText.text = ((float)dashCool.value).ToString("0.0");
-        //        }
-        //        else
-        //        {
-        //            startTime = Time.time;
-        //            dashReady = true;
-        //        }
-        //    }
-
-        //}
-        ////무기 스킬 쿨타임, HP바
-        //else    //if (slime.currentWeapon)
-        //{
-        #endregion
-        
         //HP 
         hp.maxValue = statManager.myStats.maxHP;    
         hp.value = statManager.myStats.HP;
@@ -127,8 +93,18 @@ public class MainCanvas : MonoBehaviour
         hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
         if (slime.currentWeapon)
         {
+            //스킬 아이콘 꺼져있으면 켜주기
+            if (!skillCool.gameObject.activeSelf)   skillCool.gameObject.SetActive(true);
+
             //스킬 쿨타임
-            skillCool.maxValue = (int)statManager.myStats.coolTime;
+            if (statManager.myStats.coolTime >= 1)
+            {
+                skillCool.maxValue = (int)statManager.myStats.coolTime;
+            }
+            else
+            {
+                skillCool.maxValue = statManager.myStats.coolTime;
+            }
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
 
             if (slime.currentWeapon.CurrentCoolTime > 1)
@@ -145,9 +121,19 @@ public class MainCanvas : MonoBehaviour
                 //Debug.Log("-" + slime.currentWeapon.weaponType);
                 skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
             }
-        
+
+            //스킬 아이콘 꺼져있으면 켜주기
+            if (!dashCool.gameObject.activeSelf) dashCool.gameObject.SetActive(true);
+
             //대쉬
-            dashCool.maxValue = (int)slime.currentWeapon.maxDashCoolTime;
+            if(slime.currentWeapon.maxDashCoolTime >= 1)
+            {
+                dashCool.maxValue = (int)slime.currentWeapon.maxDashCoolTime;
+            }
+            else
+            {
+                dashCool.maxValue = slime.currentWeapon.maxDashCoolTime;
+            }
             dashCool.value = slime.currentWeapon.dashCoolTime;
 
             if (slime.currentWeapon.dashCoolTime > 1)
@@ -167,9 +153,7 @@ public class MainCanvas : MonoBehaviour
         }
         //젤리
         jellyText.text = jellyManager.JellyCount.ToString();
-        #region 기본 슬라임 대시 관련 스크립트
-        //}
-        #endregion
+        
     }
     #endregion
 
