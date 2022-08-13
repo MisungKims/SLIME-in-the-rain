@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
 
 
-/// <summary>
-/// panel ¶ß´Â°Å °ü¸®
-/// </summary>
 public class VillageCanvas : MonoBehaviour
 {
     //public 
     public GameObject ShopCanvas;
     public GameObject TowerCanvas;
-
     public GameObject panel;
 
     private void Start()
