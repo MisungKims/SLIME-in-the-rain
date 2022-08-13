@@ -12,6 +12,7 @@ using TMPro;
 public class DamageText : FadeOutText
 {
     #region 변수
+    [SerializeField]
     private float moveSpeed = 200f;
 
     private TextMeshProUGUI text;
@@ -45,12 +46,12 @@ public class DamageText : FadeOutText
     {
         base.OnEnable();
 
-       transform.position = Vector3.zero;
+       //transform.position = Vector3.zero;
     }
 
     void Update()
     {
-       transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));         // 위로 올라감
+       transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);         // 위로 올라감
     }
     #endregion
 

@@ -77,25 +77,25 @@ public class MoneyBox : MonoBehaviour, IDamage
 
         isDamaged = true;
 
-        // TODO : °¡ÁßÄ¡ ·£´ý
-        randObj = Random.Range(0, 3);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾, ¹«±â¸¦ Á¤ÇÔ
+        // È®·ü¿¡ µû¶ó Á©¸®, Á©¶óÆ¾, ¹«±â¸¦ Á¤ÇÔ
+        randObj = Random.Range(0, 100);       
 
-        spawnPos = this.transform.position;
-        spawnPos.y += 0.5f;
+        spawnPos = transform.position;
         
-        switch (randObj)
+        if (randObj <= 40)  // Á©¸®
         {
-            case 0:     // Á©¸®
-                pickUpObj = objectPoolingManager.Get(EObjectFlag.jelly, spawnPos);
-                break;
-            case 1:     // Á©¶óÆ¾
-                pickUpObj = objectPoolingManager.Get(EObjectFlag.gelatin, spawnPos);
-                break;
-            case 2:     // ¹«±â
-                pickUpObj = objectPoolingManager.Get(EObjectFlag.weapon, spawnPos);
-                break;
-            default:
-                break;
+            spawnPos.y = 3f;
+            pickUpObj = objectPoolingManager.Get(EObjectFlag.jelly, spawnPos);
+        }
+        else if (randObj <= 80)     // Á©¶óÆ¾
+        {
+            spawnPos.y = 3f;
+            pickUpObj = objectPoolingManager.Get(EObjectFlag.gelatin, spawnPos);
+        }
+        else      // ¹«±â
+        {
+            spawnPos.y += 0.5f;
+            pickUpObj = objectPoolingManager.Get(EObjectFlag.weapon, spawnPos);
         }
 
         StartCoroutine(TakeDamaged());

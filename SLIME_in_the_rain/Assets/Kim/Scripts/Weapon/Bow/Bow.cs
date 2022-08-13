@@ -13,7 +13,8 @@ public class Bow : Weapon
     #region 변수
     Vector3 lookRot;
 
-    private float addDashDistance = 2f;
+    private float addDashDistance = 3f;
+    private float addDashTime = 0.05f;
     #endregion
 
     #region 유니티 함수
@@ -94,6 +95,7 @@ public class Bow : Weapon
 
         if (canDash)
         {
+            slime.DashTime = slime.originDashTime + addDashTime;
             slime.DashDistance = slime.originDashDistance + addDashDistance;
             slime.Dash();           // 일반 대시
         }

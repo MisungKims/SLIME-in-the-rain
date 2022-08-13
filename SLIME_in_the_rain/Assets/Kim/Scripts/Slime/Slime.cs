@@ -53,10 +53,17 @@ public class Slime : MonoBehaviour
 
     //////// 대시
     [Header("------------ 대시")]
-    public float originDashDistance = 6.5f;
-    private float dashDistance = 6.5f;
-    public float DashDistance { get { return dashDistance; } set { dashDistance = value; } }
-    public float dashTime = 0.6f;        // 대시 지속 시간
+    // 대시 거리
+    public float originDashDistance = 5.5f;
+    private float dashDistance;
+    public float DashDistance { set { dashDistance = value; } }
+
+    // 대시 지속 시간
+    public float originDashTime = 0.4f;
+    private float dashTime;
+    public float DashTime { set { dashTime = value; } }
+    private float currentDashTime;     
+    
     public bool isDash { get; set; }                // 대시 중인지?
     bool isCanDash;     // 대시 가능한지?
 
@@ -71,7 +78,7 @@ public class Slime : MonoBehaviour
 
     //////// 데미지
     private bool isStun;
-
+    private Vector3 waterUIPos;
 
     //////// 이동
     enum AnimState { idle, move, dash, damaged, die }     // 애니메이션의 상태
@@ -110,11 +117,12 @@ public class Slime : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        waitForDash = new WaitForSeconds(dashTime);
         rigid = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         shield.SetActive(false);
 
+        dashDistance = originDashDistance;
+        dashTime = originDashTime;
         isCanDash = true;
     }
 
@@ -214,16 +222,19 @@ public class Slime : MonoBehaviour
         isCanDash = false;
 
         PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
-
-        rigid.velocity = transform.forward * dashDistance;
-
-        yield return waitForDash;
-
-        //rigid.velocity = transform.forward;
-
+       
+        currentDashTime = dashTime;
+        while (currentDashTime > 0)
+        {
+            currentDashTime -= Time.deltaTime;
+            transform.position += transform.forward * dashDistance * Time.deltaTime;
+            yield return null;
+        }
+        
         PlayAnim(AnimState.idle);       // 대시 애니메이션 실행
 
         dashDistance = originDashDistance;
+        dashTime = originDashTime;
 
         isDash = false;
         isCanDash = true;
@@ -248,6 +259,10 @@ public class Slime : MonoBehaviour
             if (isInWater)
             {
                 stat.HP -= decreaseHPAmount;
+
+                waterUIPos = transform.position;
+                waterUIPos.y += 1f;
+                UIObjectPoolingManager.Instance.ShowInWaterText(Camera.main.WorldToScreenPoint(waterUIPos));
 
                 yield return waitFor2s;
             }

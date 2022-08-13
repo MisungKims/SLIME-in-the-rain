@@ -76,7 +76,7 @@ public class FindingWayMap : MapManager
     [SerializeField]
     private GameObject descText;
     private Vector2 startTextPos = new Vector2(0, 55);
-    private Vector2 endTextPos = new Vector2(0, -30);
+    private Vector2 endTextPos = new Vector2(0, -10);
     private RectTransform textTransform;
 
     // Ä³½Ì

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6386964482441723753}
   - component: {fileID: 7843985612837289298}
+  - component: {fileID: -996742643409490504}
   - component: {fileID: -849566530796569954}
   - component: {fileID: 6386964482441723755}
   - component: {fileID: 7843985612837289293}
@@ -50,6 +51,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canDetect: 1
   jellyAmount: 50
+--- !u!114 &-996742643409490504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6386964482441723752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb84139fa2a34e47a055c2555e49219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &-849566530796569954
 Rigidbody:
   m_ObjectHideFlags: 0

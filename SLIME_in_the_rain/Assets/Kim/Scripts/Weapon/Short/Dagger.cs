@@ -12,8 +12,7 @@ using UnityEditor;  // OnDrawGizmos
 public class Dagger : Short
 {
     #region 변수
-    //private float maxDistance = 0.8f;               // 평타 공격 범위
-    private float addDashDistance = 2;
+    private float addDashDistance = 2.5f;
 
     // 스킬
     private float skillDuration = 5f;        // 스킬 지속시간

@@ -13,54 +13,26 @@ public abstract class PickUp : MonoBehaviour
     #region 변수
     protected Slime slime;
 
-    private Rigidbody rigid;
-
-    private float force = 250.0f;
-
-    public bool canDetect = true;
-
     // 슬라임 감지에 필요한 변수
+    public bool canDetect = true;
     protected float velocity;
     protected float acceleration = 0.2f;
     protected float distance;
     protected Vector3 dir;
     protected Vector3 targetPos;
     private Vector3 offset;
-
-    private Vector3 pos;
     #endregion
 
     #region 유니티 함수
-    private void Awake()
+    protected virtual void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
-
         slime = Slime.Instance;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        if (rigid)
-        {
-            rigid.AddForce(transform.up * force, ForceMode.Force);
-            rigid.useGravity = true;
-        }
-
         canDetect = true;
         StartCoroutine(DetectSlime());
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (rigid && other.transform.CompareTag("Land"))
-        {
-            rigid.useGravity = false;
-            rigid.constraints = RigidbodyConstraints.FreezeAll;
-
-            pos = transform.position;
-            pos.y = 2;
-            transform.position = pos;
-        }
     }
     #endregion
 
@@ -84,7 +56,7 @@ public abstract class PickUp : MonoBehaviour
             distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
 
             // 거리가 1과 같거나 작을 때 슬라임의 위치로 이동 (따라다님)
-            if (distance <= 1.0f)
+            if (distance <= 1f)
             {
                 targetPos = Vector3.zero;
                 targetPos.x = transform.position.x + (dir.x * velocity);
