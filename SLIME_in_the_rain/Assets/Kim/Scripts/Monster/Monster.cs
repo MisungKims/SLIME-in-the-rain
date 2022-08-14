@@ -67,7 +67,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool canAttack = true;
 
-    private bool isInGround;
+    private bool isInGround = true;
 
     protected bool isInRange = false;
 
@@ -277,6 +277,8 @@ public abstract class Monster : MonoBehaviour, IDamage
 
             yield return null;
         }
+
+        isChasing = false;
     }
 
     // АјАн 

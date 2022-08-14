@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 321}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 20
+  controlID: 142
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 138
+  controlID: 73
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -392,7 +392,7 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
     m_HSlider: 0
-    m_VSlider: 0
+    m_VSlider: 1
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
       y: 21
       width: 1091
       height: 551
-    m_Scale: {x: 0.5101852, y: 0.5101852}
+    m_Scale: {x: 0.52962965, y: 0.52962965}
     m_Translation: {x: 545.5, y: 275.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -413,12 +413,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1069.2196
-      y: -540
-      width: 2138.4392
-      height: 1080
+      x: -1029.965
+      y: -520.1748
+      width: 2059.93
+      height: 1040.3496
     m_MinimalGUI: 1
-  m_defaultScale: 0.5101852
+  m_defaultScale: 0.52962965
   m_LastWindowPixelSize: {x: 1091, y: 572}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: -0, y: 0, z: -0, w: -1}
   m_Size:
     m_Target: 234.33293
     speed: 2
@@ -1241,23 +1241,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b2670000
-      m_LastClickedID: 26546
-      m_ExpandedIDs: a46effffd0b4ffff9ee3ffff1cfbffffb2670000
+      m_SelectedIDs: 1ccd0100
+      m_LastClickedID: 0
+      m_ExpandedIDs: 1c5cfeff406ffeff7285feffb898feff66a6feff56bbfeff7ed0fefff8d1feff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Text (TMP)
-        m_OriginalName: Text (TMP)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 58244
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -1308,21 +1308,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Lee/Scripts/Village
+    - Assets/Kim/Scene
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\WaveGun\Documents\Github\SLIME_in_the_rain\SLIME_in_the_rain
+  m_LastProjectPath: C:\MiSung\Work\GitHub\SLIME_in_the_rain\SLIME_in_the_rain
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 22}
     m_SelectedIDs: d2460100
     m_LastClickedID: 83666
-    m_ExpandedIDs: 00000000ae6f0000568e0000588e00005a8e00005c8e00005e8e0000608e0000628e0000648e0000668e0000688e00006a8e00006c8e00006e8e0000708e0000728e0000748e0000768e0000788e00007a8e00007c8e00007e8e0000808e0000828e0000848e0000868e0000888e00008a8e00008c8e00008e8e0000908e0000928e0000948e0000968e0000988e00009a8e00009c8e00009e8e0000a08e0000a28e0000a48e0000a68e0000a88e0000aa8e0000ac8e0000ae8e0000b08e0000b28e0000b48e0000b68e0000b88e0000ba8e0000bc8e0000be8e0000c08e0000c28e0000c48e0000c68e0000c88e0000ca8e0000cc8e0000ce8e0000d08e0000d28e0000d48e0000
+    m_ExpandedIDs: 00000000cc9100004a020100f0b30100f2b30100f4b30100f6b30100f8b30100fab30100fcb30100feb3010000b4010002b4010004b4010006b4010008b401000ab401000cb401000eb4010010b4010012b4010014b4010016b4010018b401001ab401001cb401001eb4010020b4010022b4010024b4010026b4010028b401002ab401002cb401002eb4010030b4010032b4010034b4010036b4010038b401003ab401003cb401003eb4010040b4010042b4010044b4010046b4010048b401004ab401004cb401004eb4010050b4010052b4010054b4010056b4010058b401005ab401005cb401005eb4010060b4010062b4010064b4010066b4010068b401006ab401006cb401006eb4010070b4010072b4010074b40100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1347,10 +1347,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 1606}
+    scrollPos: {x: 0, y: 420}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000ae6f0000568e0000588e00005a8e00005c8e00005e8e0000608e0000628e0000648e0000668e0000688e00006a8e00006c8e00006e8e0000708e0000728e0000748e0000768e0000788e00007a8e00007c8e00007e8e0000808e0000828e0000848e0000868e0000888e00008a8e00008c8e00008e8e0000908e0000928e0000948e0000968e0000988e00009a8e00009c8e00009e8e0000a08e0000a28e0000a48e0000a68e0000a88e0000aa8e0000ac8e0000ae8e0000b08e0000b28e0000b48e0000b68e0000b88e0000ba8e0000bc8e0000be8e0000c08e0000c28e0000c48e0000c68e0000c88e0000ca8e0000cc8e0000ce8e0000d08e0000d28e0000d48e00005a8f0000608f0000728f00005a940000
+    m_ExpandedIDs: ffffffff00000000cc9100004a020100f0b30100f2b30100f4b30100f6b30100f8b30100fab30100fcb30100feb3010000b4010002b4010004b4010006b4010008b401000ab401000cb4010010b4010012b4010014b4010018b401001ab401001cb401001eb4010020b4010022b4010024b4010026b4010028b401002ab401002cb401002eb4010030b4010032b4010034b4010036b4010038b401003ab401003cb401003eb4010040b4010042b4010046b4010048b401004ab401004cb401004eb4010050b4010052b4010054b4010056b4010058b401005ab401005cb401005eb4010060b4010062b4010064b4010066b4010068b4010072b4010074b40100d8b40100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

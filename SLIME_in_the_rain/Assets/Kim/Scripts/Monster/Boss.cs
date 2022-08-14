@@ -10,10 +10,10 @@ public class Boss : Monster
 {
     #region 변수
     // 슬라임 감지
-    Collider[] fanColliders;         // 부채꼴 감지 콜라이더
+    protected Collider[] fanColliders;         // 부채꼴 감지 콜라이더
 
     [SerializeField]
-    private float detectRange = 2f;
+    protected float detectRange = 2f;
     private float angleRange = 90f;
     Vector3 direction;
     float dotValue = 0f;
@@ -68,7 +68,7 @@ public class Boss : Monster
     }
 
     // 부채꼴 범위 안에 들어온 슬라임을 감지하는 코루틴
-    IEnumerator DetectSlime()
+    protected virtual IEnumerator DetectSlime()
     {
         while (!isDie)
         {

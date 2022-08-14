@@ -34,7 +34,7 @@ public class Orc : Boss
     // 슬라임을 추적
     protected override IEnumerator Chase()
     {
-        while (target && isChasing && !isStun)
+        while (target && isChasing && !isStun && !slime.isStealth)
         {
             if (!isHit)
             {
@@ -68,6 +68,8 @@ public class Orc : Boss
 
             yield return null;
         }
+
+        isChasing = false;
     }
 
     // 단거리 공격 코루틴
