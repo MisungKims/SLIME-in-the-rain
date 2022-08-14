@@ -12,11 +12,14 @@ public class PopcornObject : MonoBehaviour
 {
     private Rigidbody rigid;
     private Vector3 pos;
+    private float force = 250.0f;
 
     [SerializeField]
-    private float force = 250.0f;
+    private bool isChild = false;        // 어떤 오브젝트의 자식인지?
     [SerializeField]
     private float yPos = 2f;
+
+
 
     #region 유니티 함수
     private void Awake()
@@ -40,9 +43,25 @@ public class PopcornObject : MonoBehaviour
             rigid.useGravity = false;
             rigid.constraints = RigidbodyConstraints.FreezeAll;
 
-            pos = transform.position;
-            pos.y = yPos;
-            transform.position = pos;
+            if (isChild)           // 부모의 위치를 변경
+            {
+                pos = transform.parent.position;
+                pos.y = yPos;
+                transform.parent.position = pos;
+                transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                pos = transform.position;
+                pos.y = yPos;
+                transform.position = pos;
+            }
+           
+
+            //if (transform.GetComponent<Jelly>())
+            //{
+            //    Debug.Log(transform.localPosition)
+            //}
         }
     }
     #endregion

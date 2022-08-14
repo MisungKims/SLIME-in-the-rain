@@ -26,13 +26,16 @@ public class Short : Weapon
     // 오브젝트를 공격하면 데미지를 입힘
     protected void DoDamage(bool isSkill)
     {
-        //Transform slimeTransform = slime.transform;
+        Transform slimeTransform = slime.transform;
 
         // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, slime.Stat.attackRange))
+        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, slime.transform.forward, out hit, slime.Stat.attackRange))
         {
-            //Debug.DrawRay(slime.transform.position, slime.transform.forward * hit.distance, Color.red);
+
+#if UNITY_EDITOR
+            Debug.DrawRay(transform.position + Vector3.up * 0.1f, slime.transform.forward * 5, Color.red, 0.3f);
+#endif
 
             Debug.Log(hit.transform.name);
 

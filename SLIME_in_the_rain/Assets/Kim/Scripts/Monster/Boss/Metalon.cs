@@ -31,6 +31,23 @@ public class Metalon : Boss
     }
 
     #region 코루틴
+    // 범위 안에 들어온 슬라임을 감지하는 코루틴
+    protected override IEnumerator DetectSlime()
+    {
+        while (!isDie)
+        {
+            // 원 안에 들어온 슬라임 콜라이더를 구하여 공격
+            fanColliders = Physics.OverlapSphere(transform.position, detectRange, slimeLayer);
+
+            if (fanColliders.Length > 0)
+            {
+                if (!isChasing) TryStartChase();
+            }
+
+            yield return null;
+        }
+    }
+
     protected override IEnumerator Attack()
     {
         canAttack = false;
