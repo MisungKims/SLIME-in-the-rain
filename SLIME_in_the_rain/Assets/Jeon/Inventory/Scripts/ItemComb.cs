@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(menuName ="ItemEft/Gelatin/Comb")]
+[CreateAssetMenu(menuName = "ItemEft/Gelatin/Comb")]
 public class ItemComb : ItemEffect
 {
     CombinationUI combinationUI;
@@ -13,13 +13,16 @@ public class ItemComb : ItemEffect
     public override bool ExecuteRole(int _slotNum) //누를시 -> 현재 무기만 들어감, 분해 누르고 누를때 무기ui가 안쪽으로 이동해서 분해정보 받아와서 분해 하도록 만들기
     {
         combinationUI = CombinationUI.Instance;
-        if (InventoryUI.Instance.activeCombination)
+        if (!combinationUI.input.gameObject.activeSelf)
         {
-            if (combinationUI.gelatin1It != Inventory.Instance.items[_slotNum])
+            if (InventoryUI.Instance.activeCombination)
             {
-            combinationUI.inputEndCount(_slotNum);
+                if (combinationUI.gelatin1It != Inventory.Instance.items[_slotNum])
+                {
+                    combinationUI.inputEndCount(_slotNum);
+                }
             }
         }
-            return false;
+        return false;
     }
 }

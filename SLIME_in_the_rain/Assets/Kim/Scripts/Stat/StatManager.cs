@@ -423,5 +423,18 @@ public class StatManager : MonoBehaviour
         }
     }
 
+    // Hp ½ºÅÈ º¯°æ
+    public void AddHPGelatin(float amount, int count)
+    {
+        float sum = amount * count + myStats.HP;
+        if (sum > myStats.maxHP)
+        {
+            myStats.HP = myStats.maxHP;
+        }
+        else
+        {
+            myStats.HP = sum;
+        }
+    }
 
 }

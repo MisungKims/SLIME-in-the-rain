@@ -9,7 +9,7 @@ public class Trap : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(play(3.0f));
+        StartCoroutine(play(2.0f));
     }
 
 

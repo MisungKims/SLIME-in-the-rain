@@ -47,6 +47,7 @@ public class CombinationUI : MonoBehaviour
 
     
     public TMP_InputField countInputField;
+    public GameObject input;
     private int countInput = 0;
     private int SelcetNum = -1;
 

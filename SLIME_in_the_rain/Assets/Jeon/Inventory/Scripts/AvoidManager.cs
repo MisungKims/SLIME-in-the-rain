@@ -98,9 +98,10 @@ public class AvoidManager : MapManager
         else
         {
             playCountTime = 0;
-            isplay = false;
             countDownText.text = $"{playCountTime:N1}";
-            //다음 게임으로 넘어가는 상황
+
+            SceneDesign.Instance.mapClear = true;
+            isplay = false;
         }
     }
 

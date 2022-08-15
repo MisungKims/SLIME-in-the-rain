@@ -117,6 +117,7 @@ public class ItemDatabase : MonoBehaviour
     public void weaponDrop(Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
     {
         GameObject go = ObjectPoolingManager.Instance.GetFieldItem(AllitemDB[Random.Range(15,20)] , _pos);
+        go.layer = go.transform.GetChild(0).gameObject.layer;
     }
 
 

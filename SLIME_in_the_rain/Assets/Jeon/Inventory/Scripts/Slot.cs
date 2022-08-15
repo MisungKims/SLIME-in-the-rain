@@ -38,7 +38,11 @@ public class Slot : MonoBehaviour,IPointerUpHandler,IPointerEnterHandler,IPointe
     public void SetSlotCount() //개수 추가
     {
         Inventory.Instance.items[slotNum].itemCount++;
-        itemCountText.text = Inventory.Instance.items[slotNum].itemCount.ToString();
+        InventoryUI.Instance.RedrawSlotUI();
+        if (float.Parse(Inventory.Instance.items[slotNum].maxHp) > 0)
+        {
+            Slime.Instance.statManager.AddHPGelatin(float.Parse(Inventory.Instance.items[slotNum].maxHp), Inventory.Instance.items[slotNum].itemCount);
+        }
     }
 
     public void RemoveSlot() //제거 함수

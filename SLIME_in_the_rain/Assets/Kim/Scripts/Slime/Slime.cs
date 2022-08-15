@@ -417,8 +417,8 @@ public class Slime : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             RemoveCurrentWeapon();
-
             outline.enabled = false;
+            colliders[index].transform.parent.GetComponent<FieldItems>().canDetect = false;
             colliders[index].SendMessage("DoAttach", SendMessageOptions.DontRequireReceiver);
         }
     }
