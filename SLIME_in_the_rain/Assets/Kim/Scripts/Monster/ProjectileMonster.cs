@@ -17,11 +17,22 @@ public class ProjectileMonster : GeneralMonster
     {
         noDamage = true;
 
-        while (target && isChasing && !isStun && !slime.isStealth)
+        while (target && isChasing && !isStun && !slime.isStealth && !slime.isDie)
         {
             nav.speed = chaseSpeed;
             if (!isHit)
             {
+                // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
+                atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+                if (atkRangeColliders.Length > 0)
+                {
+                    isInRange = true;
+                }
+                else if (atkRangeColliders.Length <= 0)
+                {
+                    isInRange = false;
+                }
+
                 yield return StartCoroutine(Attack());
             }
 
@@ -51,7 +62,7 @@ public class ProjectileMonster : GeneralMonster
         while (randAtkTime > 0)
         {
             randAtkTime -= Time.deltaTime;
-            if(target) nav.SetDestination(target.position);
+            if(target && !isInRange) nav.SetDestination(target.position);
 
             yield return null;
         }

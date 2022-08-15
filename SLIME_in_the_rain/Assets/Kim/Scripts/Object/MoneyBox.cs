@@ -47,6 +47,8 @@ public class MoneyBox : MonoBehaviour, IDamage
 
     private void OnEnable()
     {
+        minimapObj.gameObject.SetActive(true);
+
         anim.SetBool("TakeDamaged", false);
 
         box.SetActive(true);
@@ -73,8 +75,8 @@ public class MoneyBox : MonoBehaviour, IDamage
         }
 
         Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
+        minimapObj.gameObject.SetActive(false);
 
-       // Destroy(this)
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }
 

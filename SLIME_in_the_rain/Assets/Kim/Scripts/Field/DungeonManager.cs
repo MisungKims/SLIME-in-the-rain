@@ -28,8 +28,6 @@ public class DungeonManager : MapManager
 
     [Header("-------------- MoneyBox")]
     [SerializeField]
-    private GameObject moneyBox;
-    [SerializeField]
     private bool isSpawnBox;        // 재화 박스를 스폰할 것인지?
     private Stack<Vector3> boxPos = new Stack<Vector3>();       // 똑같은 위치에 스폰되지 않게 하기 위한 스택
 
@@ -94,8 +92,6 @@ public class DungeonManager : MapManager
             if(!boxPos.Contains(randPos))
             {
                 boxPos.Push(randPos);
-
-                //Instantiate(moneyBox, randPos, Quaternion.identity, transform);
                 objectPoolingManager.Get(EObjectFlag.box, randPos);
             }
         }

@@ -81,6 +81,8 @@ public class Sword : Short
     // 원 안의 적을 판별하여 데미지를 입힘
     void DoSkillDamage()
     {
+        ObjectPoolingManager.Instance.swordCircle.gameObject.SetActive(true);
+
         Transform slimeTransform = slime.transform;
 
         Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, slime.Stat.attackRange);
@@ -97,4 +99,11 @@ public class Sword : Short
         }
     }
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+     //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
+     Gizmos.DrawWireSphere(slime.transform.position, slime.Stat.attackRange);
+    }
 }

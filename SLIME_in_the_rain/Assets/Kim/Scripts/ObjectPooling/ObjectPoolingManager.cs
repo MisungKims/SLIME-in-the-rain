@@ -17,7 +17,6 @@ public enum EObjectFlag
     weapon          // 무조건 맨 뒤에 있어야 함
 }
 
-
 public class ObjectPoolingManager : MonoBehaviour
 {
     #region 변수
@@ -35,7 +34,6 @@ public class ObjectPoolingManager : MonoBehaviour
     
     public List<ObjectPool> weaponPoolingList = new List<ObjectPool>();
 
-    private ItemDatabase itemDatabase;
 
     [SerializeField]
     private Transform objectParent;
@@ -43,6 +41,8 @@ public class ObjectPoolingManager : MonoBehaviour
     private Transform projectileParent;
     [SerializeField]
     private Transform weaponParent;
+
+    public SwordCircle swordCircle;
     #endregion
 
     #region 유니티 함수
@@ -63,7 +63,7 @@ public class ObjectPoolingManager : MonoBehaviour
         InitProjectile();
         InitWeapon();
 
-        itemDatabase = ItemDatabase.Instance;
+        swordCircle.gameObject.SetActive(false);
     }
     #endregion
 

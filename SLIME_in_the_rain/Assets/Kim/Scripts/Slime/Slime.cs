@@ -38,6 +38,8 @@ public class Slime : MonoBehaviour
     private Stats stat;
     public Stats Stat { get { return stat; } }
 
+    public bool isDie;
+
     //////// 무기
     [Header("------------ 무기")]
     public Transform weaponPos;     // 무기 장착 시 무기의 parent
@@ -63,8 +65,8 @@ public class Slime : MonoBehaviour
     public float originDashTime = 0.4f;
     private float dashTime;
     public float DashTime { set { dashTime = value; } }
-    private float currentDashTime;     
-    
+    private float currentDashTime;
+
     public bool isDash { get; set; }                // 대시 중인지?
     bool isCanDash;     // 대시 가능한지?
 
@@ -126,7 +128,7 @@ public class Slime : MonoBehaviour
         dashDistance = originDashDistance;
         dashTime = originDashTime;
         isCanDash = true;
-        
+
         isInWater = false;
     }
 
@@ -142,7 +144,6 @@ public class Slime : MonoBehaviour
 
     private void Update()
     {
-        //Debug.DrawRay(transform.position, Vector3.down * line, Color.red);
         DetectWeapon();
     }
 
@@ -151,13 +152,6 @@ public class Slime : MonoBehaviour
     {
         Move();
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    Debug.Log(collision.transform.name);
-    //    if (collision.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
-    //    else isInWater = false;
-    //}
     #endregion
 
     #region 코루틴
@@ -166,7 +160,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (canMove && !isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
+            if (!isDie && canMove && !isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
             {
                 isAttacking = true;
 
@@ -221,7 +215,7 @@ public class Slime : MonoBehaviour
             }
             yield return null;
         }
-        
+
     }
 
     // 대시 코루틴
@@ -230,7 +224,7 @@ public class Slime : MonoBehaviour
         isCanDash = false;
 
         PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
-       
+
         currentDashTime = dashTime;
         while (currentDashTime > 0)
         {
@@ -238,7 +232,7 @@ public class Slime : MonoBehaviour
             transform.position += transform.forward * dashDistance * Time.deltaTime;
             yield return null;
         }
-        
+
         PlayAnim(AnimState.idle);       // 대시 애니메이션 실행
 
         dashDistance = originDashDistance;
@@ -269,10 +263,10 @@ public class Slime : MonoBehaviour
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 1.1f))
             {
 
-//#if UNITY_EDITOR
-//                Debug.Log(hit.transform.name);
-//                Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 1.1f, Color.red);
-//#endif
+                //#if UNITY_EDITOR
+                //                Debug.Log(hit.transform.name);
+                //                Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 1.1f, Color.red);
+                //#endif
 
                 if (hit.transform.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
                 else isInWater = false;
@@ -325,7 +319,7 @@ public class Slime : MonoBehaviour
     // 슬라임의 움직임
     void Move()
     {
-        if (!canMove || isAttacking || isDash || isStun) return;
+        if (isDie || !canMove || isAttacking || isDash || isStun) return;
 
         float dirX = Input.GetAxis("Horizontal");
         float dirZ = Input.GetAxis("Vertical");
@@ -358,7 +352,7 @@ public class Slime : MonoBehaviour
     public void Dash()
     {
         // 대시를 할 수 없을 때 return
-        if (!isCanDash || isStun)
+        if (!isCanDash || isStun || isDie)
         {
             isDash = false;
             return;
@@ -374,7 +368,7 @@ public class Slime : MonoBehaviour
     // 스킬을 사용할 수 있는지?
     bool IsCanSkill()
     {
-        if (canMove && !isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
+        if (!isDie && canMove && !isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
         {
             return true;
         }
@@ -390,6 +384,8 @@ public class Slime : MonoBehaviour
     // 주변에 있는 무기 감지
     void DetectWeapon()
     {
+        if (isDie) return;
+
         colliders = Physics.OverlapSphere(transform.position, detectRadius, weaponLayer);
 
         if (colliders.Length == 1)      // 감지한 무기가 한 개일 때
@@ -508,6 +504,15 @@ public class Slime : MonoBehaviour
 
     #endregion
 
+    public void Die()
+    {
+        isDie = true;
+        stat.HP = 0;
+        canMove = false;
+        
+        PlayAnim(AnimState.die);
+    }
+
     //// 데미지를 입음
     //public void Damaged(float amount)
     //{
@@ -524,18 +529,29 @@ public class Slime : MonoBehaviour
     // 데미지를 입음
     public void Damaged(Stats monsterStats, int atkType)
     {
-        TakeDamage();
+        float damageReduction = stat.defensePower / (1 + stat.defensePower);
+        float damage = monsterStats.attackPower * (1 - damageReduction) * -1;
+
+        TakeDamage(damage);
     }
 
     public void Damaged(float damageAmount)
     {
-        TakeDamage();
+        TakeDamage(-2);
     }
 
-    private void TakeDamage()
+    private void TakeDamage(float damageAmount)
     {
-        PlayAnim(AnimState.damaged);
-        statManager.AddHP(-2);
+        damageAmount = -2;
+
+        if (stat.HP + damageAmount <= 0) Die();
+        else
+        {
+            PlayAnim(AnimState.damaged);
+            statManager.AddHP(damageAmount);
+        }
+
+        
     }
 
     // 스턴
