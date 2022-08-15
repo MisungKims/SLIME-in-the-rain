@@ -26,7 +26,7 @@ public class GeneralMonster : Monster
     private bool takeDamage;            // 데미지를 입었는지?
     private bool isCounting;            // 추적 카운팅을 시작했는지?
 
-    private float originCountTime = 30f;    // 기본 카운팅 시간
+    private float originCountTime = 20f;    // 기본 카운팅 시간
     private float countTime;                // 카운팅해야하는 시간
     protected float addCountAmount;         // 카운팅 시간 증가량
 
@@ -70,16 +70,14 @@ public class GeneralMonster : Monster
             if(!isChasing && !isStun && !isDie && !isHit)
             {
                 nav.SetDestination(transform.position);
-                PlayAnim(EMonsterAnim.idle);
 
                 // 랜덤한 위치로 이동
                 if (RandomPosition.GetRandomNavPoint(Vector3.zero, mapRange, out randPos))
                 {
                     nav.SetDestination(randPos);
-                    //PlayAnim(EMonsterAnim.walk);
-                    
+                   
                     isStop = false;
-                    while (!isStop)
+                    while (!isStop && !isChasing && !isStun && !isDie && !isHit)
                     {
                         offset = transform.position - randPos;
                         distance = offset.sqrMagnitude;         // 몬스터와 랜덤한 위치 사이의 거리
@@ -87,8 +85,7 @@ public class GeneralMonster : Monster
                         if (distance < 1f)
                         {
                             nav.SetDestination(transform.position);
-                            //PlayAnim(EMonsterAnim.idle);
-
+                           
                             randTime = Random.Range(2f, 6f);
                             yield return new WaitForSeconds(randTime);
 
@@ -97,12 +94,13 @@ public class GeneralMonster : Monster
 
                         yield return null;
                     }
-                    
                 }
             }
 
             yield return null;
         }
+
+        
     }
 
 
@@ -192,13 +190,12 @@ public class GeneralMonster : Monster
             isChasing = false;
             if (isAttacking) IsAttacking = false;
 
-            nav.SetDestination(this.transform.position);
+            nav.SetDestination(transform.position);
+            nav.speed = stats.moveSpeed;
 
             target = null;
 
             HideHPBar();
-
-            //PlayAnim(EMonsterAnim.idle);
         }
     }
     #endregion

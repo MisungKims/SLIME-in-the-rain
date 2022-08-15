@@ -7,7 +7,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;  // OnDrawGizmos
 
 public class Dagger : Short
 {
@@ -22,9 +21,8 @@ public class Dagger : Short
 
     // 돌진 베기
     private float detectRadius = 1f;
+    private Stack<GameObject> damaged = new Stack<GameObject>();
     #endregion
-
-    public Slime slime2; // 나주엥 지우기
 
     #region 유니티 함수
     protected override void Awake()
@@ -87,11 +85,19 @@ public class Dagger : Short
         slime.Dash();           // 일반 대시
 
         yield return new WaitForSeconds(0.07f);        // 대시가 끝날 때까지 대기
-
-        // 대시 후 공격
         PlayAnim(AnimState.autoAttack);
         StartCoroutine(CheckAnimEnd("AutoAttack"));
-        DoDashDamage(false);
+
+        float time = 0.07f;
+        while (time > 0)
+        {
+            time -= Time.deltaTime;
+            DoDashDamage(false);
+
+            yield return null;
+        }
+
+        damaged.Clear();
     }
     #endregion
 
@@ -130,33 +136,23 @@ public class Dagger : Short
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].CompareTag("DamagedObject"))
+            if (colliders[i].CompareTag("DamagedObject") && !damaged.Contains(colliders[i].gameObject))
             {
+                damaged.Push(colliders[i].gameObject);
                 Damage(colliders[i].transform, isSkill);
             }
         }
     }
     #endregion
 
-#if UNITY_EDITOR
-    //유니티 에디터에 부채꼴을 그려줄 메소드
-    //private void OnDrawGizmos()
-    //{
-    //    Transform slimeTransform = slime2.transform;
-
-    //    Handles.color = new Color(0f, 0f, 1f, 0.2f);
-    //    // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
-    //    Handles.DrawSolidArc(slimeTransform.position, Vector3.up, slimeTransform.forward, angleRange / 2, detectRadius);
-    //    Handles.DrawSolidArc(slimeTransform.position, Vector3.up, slimeTransform.forward, -angleRange / 2, detectRadius);
-    //}
-
-    //void OnDrawGizmosSelected()
-    //{
-    //    Transform slimeTransform = slime2.transform;
-
-    //    Gizmos.color = new Color(0f, 0f, 1f, 0.2f);
-    //    Gizmos.DrawSphere(slimeTransform.position, detectRadius);
-    //}
+//#if UNITY_EDITOR
+//    void OnDrawGizmosSelected()
+//    {
+//        // Draw a yellow sphere at the transform's position
+//        Gizmos.color = Color.yellow;
+//        Gizmos.DrawSphere(slime.transform.position, detectRadius);
+//    }
+//#endif
 }
-#endif
+
 

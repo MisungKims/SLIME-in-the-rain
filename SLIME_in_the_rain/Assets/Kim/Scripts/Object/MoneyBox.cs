@@ -24,6 +24,8 @@ public class MoneyBox : MonoBehaviour, IDamage
     private GameObject pickUpObj;
 
     [SerializeField]
+    private GameObject box;
+    [SerializeField]
     private GameObject destroyBox;
 
     // ¹Ì´Ï¸Ê
@@ -45,13 +47,20 @@ public class MoneyBox : MonoBehaviour, IDamage
 
     private void OnEnable()
     {
-        destroyBox.SetActive(true);
+        anim.SetBool("TakeDamaged", false);
+
+        box.SetActive(true);
+        destroyBox.SetActive(false);
+
         isDamaged = false;
     }
     #endregion
 
     IEnumerator TakeDamaged()
     {
+        box.SetActive(false);
+        destroyBox.SetActive(true);
+
         anim.SetBool("TakeDamaged", true);
 
         yield return new WaitForSeconds(1f);
@@ -65,6 +74,7 @@ public class MoneyBox : MonoBehaviour, IDamage
 
         Minimap.Instance.RemoveMinimapIcon(minimapObj);     // ¹Ì´Ï¸Ê¿¡¼­ Á¦°Å
 
+       // Destroy(this)
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }
 
@@ -77,6 +87,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         if (isDamaged) return;
 
         isDamaged = true;
+
 
         // È®·ü¿¡ µû¶ó Á©¸®, Á©¶óÆ¾, ¹«±â¸¦ Á¤ÇÔ
         randObj = Random.Range(0, 100);       

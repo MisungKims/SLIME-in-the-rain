@@ -38,6 +38,10 @@ public abstract class Monster : MonoBehaviour, IDamage
     public Stats Stats { get { return stats; } }
 
     [SerializeField]
+    private float multiplyChaseSpeedValue = 1.3f;
+    protected float chaseSpeed;
+
+    [SerializeField]
     protected LayerMask slimeLayer = 9;
     protected Transform target;
 
@@ -119,6 +123,8 @@ public abstract class Monster : MonoBehaviour, IDamage
         anim = GetComponent<Animator>();
         monsterCollider = GetComponent<Collider>();
         cam = Camera.main;
+
+        chaseSpeed = stats.moveSpeed * multiplyChaseSpeedValue;
     }
 
     protected virtual void OnEnable()
@@ -252,7 +258,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         while (target && isChasing && !isStun && !slime.isStealth)
         {
-            if(!isHit)
+            nav.speed = chaseSpeed;
+            if (!isHit)
             {
                 // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
                 atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
@@ -278,6 +285,7 @@ public abstract class Monster : MonoBehaviour, IDamage
             yield return null;
         }
 
+        nav.speed = stats.moveSpeed;
         isChasing = false;
     }
 
@@ -312,10 +320,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
             yield return null;
         }
-
-        //// 랜덤한 시간동안 대기
-        //randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        //yield return new WaitForSeconds(randAtkTime);
 
         IsAttacking = false;
         canAttack = true;

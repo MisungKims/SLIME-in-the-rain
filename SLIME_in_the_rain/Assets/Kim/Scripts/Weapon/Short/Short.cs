@@ -1,3 +1,9 @@
+/**
+ * @brief 단거리 무기
+ * @author 김미성
+ * @date 22-08-15
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,25 +32,21 @@ public class Short : Weapon
     // 오브젝트를 공격하면 데미지를 입힘
     protected void DoDamage(bool isSkill)
     {
-        Transform slimeTransform = slime.transform;
-
-        // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up * 0.1f, slime.transform.forward, out hit, slime.Stat.attackRange))
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position + Vector3.up * 0.1f, slime.transform.lossyScale * size, transform.forward, slime.transform.rotation, slime.Stat.attackRange);
+        for (int i = 0; i < hits.Length; i++)
         {
+            Debug.Log(hits[i].transform.name);
 
-#if UNITY_EDITOR
-            Debug.DrawRay(transform.position + Vector3.up * 0.1f, slime.transform.forward * 5, Color.red, 0.3f);
-#endif
-
-            Debug.Log(hit.transform.name);
-
-            if (hit.transform.CompareTag("DamagedObject"))
+            if (hits[i].transform.CompareTag("DamagedObject"))
             {
-                Damage(hit.transform, isSkill);          // 데미지를 입힘
+                Damage(hits[i].transform, isSkill);          // 데미지를 입힘
             }
         }
+
     }
+
+    [SerializeField]
+    float size = 2f;
 
     // 검기 발사
     protected void Missile(Vector3 targetPos, bool isSkill)
@@ -82,4 +84,28 @@ public class Short : Weapon
         }
     }
     #endregion
+
+#if UNITY_EDITOR
+    private Color _rayColor = Color.red;
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = _rayColor;
+
+        // 함수 파라미터 : 현재 위치, Box의 절반 사이즈, Ray의 방향, RaycastHit 결과, Box의 회전값, BoxCast를 진행할 거리
+        if (true == Physics.BoxCast(transform.position + Vector3.up * 0.1f, slime.transform.lossyScale * size, slime.transform.forward, out RaycastHit hit, slime.transform.rotation, slime.Stat.attackRange))
+        {
+            // Hit된 지점까지 ray를 그려준다.
+            Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, slime.transform.forward * hit.distance);
+
+            // Hit된 지점에 박스를 그려준다.
+            Gizmos.DrawWireCube(transform.position + Vector3.up * 0.1f + slime.transform.forward * hit.distance, slime.transform.lossyScale * size);
+        }
+        else
+        {
+            // Hit가 되지 않았으면 최대 검출 거리로 ray를 그려준다.
+            Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, slime.transform.forward * slime.Stat.attackRange);
+        }
+    }
+#endif
 }

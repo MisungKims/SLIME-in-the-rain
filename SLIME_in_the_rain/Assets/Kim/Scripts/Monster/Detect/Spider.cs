@@ -67,7 +67,7 @@ public class Spider : DetectingMonster
     private void GetProjectile()
     {
         // 투사체 발사
-        MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.spider).GetComponent<MonsterProjectile>();
+        MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.enemyProjectile).GetComponent<MonsterProjectile>();
         projectile.monster = this;
 
         projectile.transform.position = projectilePos.position;
