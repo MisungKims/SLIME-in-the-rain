@@ -32,6 +32,41 @@ public class AvoidManager : MapManager
         }
 
         base.Awake();
+        for (int i = 0; i < traps.Length; i++)
+        {
+            Vector3 tempPos;
+            tempPos.y = 2.1f;
+            int ranTemp = Random.Range(0, 4);
+            int plMa = Random.Range(0, 2);
+            if (plMa == 0)
+            {
+                tempPos.x = ranTemp * 2;
+            }
+            else
+            {
+                tempPos.x = ranTemp * -2;
+            }
+            ranTemp = Random.Range(0, 4);
+            plMa = Random.Range(0, 2);
+            if (plMa == 0)
+            {
+                tempPos.z = ranTemp * 2;
+            }
+            else
+            {
+                tempPos.z = ranTemp * -2;
+            }
+            traps[i].transform.localPosition = tempPos;
+            for (int j = 0; j < i; j++)
+            {
+                if (traps[j].transform.localPosition == traps[i].transform.localPosition)
+                {
+                    traps[i].gameObject.SetActive(false);
+                }
+                
+            }
+        }
+
     }
 
     public TextMeshProUGUI countDownText;
@@ -50,6 +85,7 @@ public class AvoidManager : MapManager
     private RectTransform textTransform;
     private Vector3 offset;
     private float distance;
+    public Trap[] traps;
 
 
     void Start()
