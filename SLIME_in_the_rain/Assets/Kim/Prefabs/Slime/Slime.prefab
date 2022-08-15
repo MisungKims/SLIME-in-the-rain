@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7662051244607625668}
   - component: {fileID: 7547151028129720503}
   - component: {fileID: 6581223514260587976}
-  - component: {fileID: 582818163691339071}
+  - component: {fileID: 8477072826536774934}
   - component: {fileID: 6104795988991411811}
   m_Layer: 9
   m_Name: Slime
@@ -232,6 +232,7 @@ MonoBehaviour:
   isStealth: 0
   canMove: 1
   statManager: {fileID: 0}
+  line: 1
 --- !u!95 &7547151028129720503
 Animator:
   serializedVersion: 4
@@ -268,8 +269,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!135 &582818163691339071
-SphereCollider:
+--- !u!64 &8477072826536774934
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -278,9 +279,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: -0.0033733547, y: 0.18, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: d78527dc1336667428d64ee3ff560792, type: 3}
 --- !u!114 &6104795988991411811
 MonoBehaviour:
   m_ObjectHideFlags: 0

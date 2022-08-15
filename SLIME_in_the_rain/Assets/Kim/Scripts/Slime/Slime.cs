@@ -26,7 +26,8 @@ public class Slime : MonoBehaviour
     }
     #endregion
 
-    private Rigidbody rigid;
+    public Rigidbody rigid;
+    public RigidbodyConstraints rigidbodyConstraints;
 
     private Animator anim;
 
@@ -118,12 +119,15 @@ public class Slime : MonoBehaviour
         }
 
         rigid = GetComponent<Rigidbody>();
+        rigidbodyConstraints = rigid.constraints;
         anim = GetComponent<Animator>();
         shield.SetActive(false);
 
         dashDistance = originDashDistance;
         dashTime = originDashTime;
         isCanDash = true;
+        
+        isInWater = false;
     }
 
     private void Start()
@@ -133,23 +137,27 @@ public class Slime : MonoBehaviour
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
         StartCoroutine(SpaceBar());
+        StartCoroutine(DetectWater());
     }
 
     private void Update()
     {
+        //Debug.DrawRay(transform.position, Vector3.down * line, Color.red);
         DetectWeapon();
     }
+
 
     void FixedUpdate()
     {
         Move();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
-        else isInWater = false;
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log(collision.transform.name);
+    //    if (collision.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
+    //    else isInWater = false;
+    //}
     #endregion
 
     #region 코루틴
@@ -249,6 +257,29 @@ public class Slime : MonoBehaviour
         yield return new WaitForSeconds(stunTime);
 
         isStun = false;
+    }
+
+    // 물 위에 있는지 감지
+    private IEnumerator DetectWater()
+    {
+        while (true)
+        {
+            // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 1.1f))
+            {
+
+//#if UNITY_EDITOR
+//                Debug.Log(hit.transform.name);
+//                Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 1.1f, Color.red);
+//#endif
+
+                if (hit.transform.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
+                else isInWater = false;
+            }
+
+            yield return null;
+        }
     }
 
     // 물 위에 있으면 체력 감소
@@ -416,6 +447,7 @@ public class Slime : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
+            colliders[index].transform.parent.GetComponent<FieldItems>().canDetect = false;
             RemoveCurrentWeapon();
 
             outline.enabled = false;

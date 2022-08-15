@@ -98,6 +98,10 @@ public class FindingWayMap : MapManager
         base.Awake();
 
         slime = Slime.Instance;
+        slime.rigid.constraints = RigidbodyConstraints.None;
+        slime.rigid.constraints = RigidbodyConstraints.FreezeRotation;
+
+
         mainCam = Camera.main;
 
         movingCamera.enabled = true;
@@ -332,6 +336,7 @@ public class FindingWayMap : MapManager
         base.ClearMap();
 
         wall.SetActive(true);
+        slime.rigid.constraints = slime.rigidbodyConstraints;
     }
 
 
