@@ -36,6 +36,7 @@ public class Earthworm : Boss
     {
         while (target && isChasing && !isStun && !slime.isStealth)
         {
+            nav.speed = chaseSpeed;
             if (!isHit)
             {
                 // 몬스터의 공격 범위 안에 슬라임이 있다면 단거리 공격 시작
@@ -70,6 +71,7 @@ public class Earthworm : Boss
             yield return null;
         }
 
+        nav.speed = stats.moveSpeed;
         isChasing = false;
     }
 

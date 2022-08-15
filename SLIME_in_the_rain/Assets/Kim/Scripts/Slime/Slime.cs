@@ -447,7 +447,9 @@ public class Slime : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            colliders[index].transform.parent.GetComponent<FieldItems>().canDetect = false;
+            //FieldItems fieldItems = colliders[index].transform.parent.GetComponent<FieldItems>();
+            //if(fieldItems) fieldItems.canDetect = false;
+
             RemoveCurrentWeapon();
 
             outline.enabled = false;

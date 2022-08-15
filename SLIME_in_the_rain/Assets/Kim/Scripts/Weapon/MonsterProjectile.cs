@@ -17,6 +17,8 @@ public class MonsterProjectile : Projectile
     {
         if (other.CompareTag("Slime"))
         {
+            StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
+
             DoDamage(other, isSkill);
         }
     }
