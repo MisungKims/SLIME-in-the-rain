@@ -38,5 +38,7 @@ public class RecoveryHPMap : MapManager
         {
             Destroy(this.gameObject);
         }
+
+        base.Awake();
     }
 }

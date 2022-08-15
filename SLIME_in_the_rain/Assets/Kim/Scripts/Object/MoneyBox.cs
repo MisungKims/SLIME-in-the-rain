@@ -45,6 +45,7 @@ public class MoneyBox : MonoBehaviour, IDamage
 
     private void OnEnable()
     {
+        destroyBox.SetActive(true);
         isDamaged = false;
     }
     #endregion
