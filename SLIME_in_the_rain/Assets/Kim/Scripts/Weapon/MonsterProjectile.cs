@@ -17,8 +17,6 @@ public class MonsterProjectile : Projectile
     {
         if (other.CompareTag("Slime"))
         {
-            StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
-
             DoDamage(other, isSkill);
         }
     }
@@ -26,11 +24,12 @@ public class MonsterProjectile : Projectile
     // 데미지를 입힘
     protected override void DoDamage(Collider other, bool isSkill)
     {
-        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
-
         if (monster)
         {
+            monster.CameraShaking(0.1f, 0.05f);
             monster.DamageSlime(monster.projectileAtk);
         }
+
+        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
 }

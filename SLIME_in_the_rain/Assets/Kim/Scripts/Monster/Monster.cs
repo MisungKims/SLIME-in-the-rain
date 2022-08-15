@@ -256,7 +256,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 감지된 슬라임을 쫓음
     protected virtual IEnumerator Chase()
     {
-        while (target && isChasing && !isStun && !slime.isStealth)
+        while (target && isChasing && !isStun && !slime.isStealth && !slime.isDie)
         {
             nav.speed = chaseSpeed;
             if (!isHit)
@@ -396,13 +396,20 @@ public abstract class Monster : MonoBehaviour, IDamage
     #endregion
 
     #region 함수
+
     #region 데미지
+    // 카메라를 흔듦
+    public void CameraShaking(float duration, float magnitude)
+    {
+        StartCoroutine(CameraShake.StartShake(duration, magnitude));
+    }
+
     // 슬라임의 평타에 데미지를 입음
     public virtual void AutoAtkDamaged()
     {
         if (isDie) return;
 
-        StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
+        CameraShaking(0.1f, 0.08f);
 
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
@@ -417,7 +424,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        StartCoroutine(CameraShake.StartShake(0.1f, 0.2f));
+        CameraShaking(0.1f, 0.2f);
 
         if (HaveDamage(statManager.GetSkillDamage()))
         {
@@ -432,7 +439,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        StartCoroutine(CameraShake.StartShake(0.1f, 0.23f));
+        CameraShaking(0.1f, 0.23f);
 
         if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
         {
@@ -518,8 +525,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if(!doDamage)
         {
-            Debug.Log("damaged");
-
             doDamage = true;
             slime.Damaged(stats, atkType);
         }

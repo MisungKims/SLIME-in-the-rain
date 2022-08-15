@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6b375b4a23421d140aa1497db540bf7c, type: 3}
   IconColor: {r: 0.1764706, g: 0.6862745, b: 0.17254902, a: 1}
-  isSlime: 0
+  isSlime: 1
 --- !u!1 &4685485102212164031
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,6 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c288468445a4a44d966948b5f5a4472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigid: {fileID: 0}
+  rigidbodyConstraints: 0
   skinnedMesh: {fileID: 7547151028125472375}
   weaponPos: {fileID: 1890709145234350181}
   currentWeapon: {fileID: 0}
@@ -232,7 +234,6 @@ MonoBehaviour:
   isStealth: 0
   canMove: 1
   statManager: {fileID: 0}
-  line: 1
 --- !u!95 &7547151028129720503
 Animator:
   serializedVersion: 4

@@ -22,6 +22,8 @@ public class CameraShake : MonoBehaviour
     // duration : 유지시간, magnitude : 강도
     public static IEnumerator StartShake(float duration, float magnitude)
     {
+        Debug.Log("camera shake");
+
         float timer = 0;
         cameraOriginalPos = cam.transform.localPosition;
 

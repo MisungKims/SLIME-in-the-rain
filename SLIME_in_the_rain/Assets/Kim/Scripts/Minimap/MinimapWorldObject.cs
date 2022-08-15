@@ -16,7 +16,7 @@ public class MinimapWorldObject : MonoBehaviour
     [SerializeField]
     private bool isSlime;
 
-    private void Start()
+    private void OnEnable()
     {
         if (!isSlime && Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(this);
     }

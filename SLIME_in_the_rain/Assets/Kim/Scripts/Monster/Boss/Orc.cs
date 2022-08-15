@@ -34,7 +34,7 @@ public class Orc : Boss
     // 슬라임을 추적
     protected override IEnumerator Chase()
     {
-        while (target && isChasing && !isStun && !slime.isStealth)
+        while (target && isChasing && !isStun && !slime.isStealth && !slime.isDie)
         {
             if (!isHit)
             {
