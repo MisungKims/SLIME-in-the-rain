@@ -33,7 +33,7 @@ public class JellyManager : MonoBehaviour
         }
     }
     #endregion
-
+    [SerializeField]
     private int jellyCount = 0;
     public int JellyCount { get { return jellyCount; } set { jellyCount = value; } }
 

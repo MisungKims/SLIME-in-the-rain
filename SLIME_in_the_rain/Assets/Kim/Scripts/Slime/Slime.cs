@@ -64,8 +64,9 @@ public class Slime : MonoBehaviour
     // 대시 지속 시간
     public float originDashTime = 0.4f;
     private float dashTime;
-    public float DashTime { set { dashTime = value; } }
+    public float DashTime { get { return dashTime; } set { dashTime = value; } }
     private float currentDashTime;
+
 
     public bool isDash { get; set; }                // 대시 중인지?
     bool isCanDash;     // 대시 가능한지?
@@ -455,9 +456,12 @@ public class Slime : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            //FieldItems fieldItems = colliders[index].transform.parent.GetComponent<FieldItems>();
-            //if (fieldItems) fieldItems.canDetect = false;
-
+            if(colliders[index].transform.parent)
+            {
+                FieldItems fieldItems = colliders[index].transform.parent.GetComponent<FieldItems>();
+                if (fieldItems) fieldItems.canDetect = false;
+            }
+            
             RemoveCurrentWeapon();
 
             outline.enabled = false;

@@ -56,7 +56,9 @@ public class SelectRuneWindow : MonoBehaviour
     }
 
     [SerializeField]
-    private FadeOutText warningText;     // 젤리 부족 경고창
+    private FadeOutText jellyWarningText;     // 젤리 부족 경고창
+    [SerializeField]
+    private FadeOutText rerollWarningText;     // 리롤 횟수 경고창
 
     // 캐싱
     private RuneManager runeManager;
@@ -119,12 +121,16 @@ public class SelectRuneWindow : MonoBehaviour
     // 룬 버튼 새로고침
     public void Reroll()
     {
-        // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때
-        if (jellyManager.JellyCount < 100 || rerollCount <= 0)
+        // 젤리 개수가 100 보다 작거나 리롤 횟수가 0번 남았을 때 경고창을 띄움
+        if (jellyManager.JellyCount < 100)
         {
-            warningText.ShowText();   // 젤리 부족 경고창을 띄움
-
+            jellyWarningText.ShowText();   // 젤리 부족  
             return;     
+        }
+        else if(rerollCount <= 0)
+        {
+            rerollWarningText.ShowText();   // 젤리 부족  
+            //return;
         }
 
         SetButtons();
