@@ -221,6 +221,7 @@ MonoBehaviour:
   rigid: {fileID: 0}
   rigidbodyConstraints: 0
   skinnedMesh: {fileID: 7547151028125472375}
+  isDie: 0
   weaponPos: {fileID: 1890709145234350181}
   currentWeapon: {fileID: 0}
   weaponLayer:
@@ -268,7 +269,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!64 &8477072826536774934
 MeshCollider:

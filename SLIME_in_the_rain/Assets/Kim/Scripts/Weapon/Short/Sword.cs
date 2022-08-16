@@ -126,10 +126,10 @@ public class Sword : Short
     }
     #endregion
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-     //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-     Gizmos.DrawWireSphere(slime.transform.position, slime.Stat.attackRange);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    // //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
+    // Gizmos.DrawWireSphere(slime.transform.position, slime.Stat.attackRange);
+    //}
 }
