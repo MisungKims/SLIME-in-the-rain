@@ -12,7 +12,7 @@ public class RanWeap : MonoBehaviour
     {
         for (int i = 0; i < pos.Length; i++)
         {
-           ItemDatabase.Instance.weaponDrop(pos[i].transform.position);
+           ItemDatabase.Instance.weaponDrop(pos[i].transform.position + (Vector3.up * 0.5f));
         }
 
     }

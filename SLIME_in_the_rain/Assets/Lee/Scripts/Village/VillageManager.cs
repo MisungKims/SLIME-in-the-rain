@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VillageManager : MonoBehaviour           
 {
@@ -16,20 +17,23 @@ public class VillageManager : MonoBehaviour
     #endregion
 
     #region 유니티 함수
+    private void Awake()
+    {
+        sceneDesign = SceneDesign.Instance;
+    }
 
     private void Start()
     {
         //singletons
         slime = Slime.Instance;
         _camera = ICamera.Instance;
-        sceneDesign = SceneDesign.Instance;
 
         //슬라임 초기 위치
         Vector3 startPos = Vector3.zero;
         startPos.y = 2f;
         slime.transform.position = startPos;
         
-        sceneDesign.ResetScene();
+        
     }
     private void Update()
     {
@@ -57,7 +61,10 @@ public class VillageManager : MonoBehaviour
             sceneDesign.mapClear = true;
         }
     }
-
+    private void OnDisable()
+    {
+        sceneDesign.ResetScene();
+    }
     #endregion
 
 }

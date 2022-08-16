@@ -36,8 +36,9 @@ public class PotalManager : MonoBehaviour
     {
         if (sceneDesign.mapClear && !potalMake)
         {
-            PotalCreate();
             sceneDesign.MapCount();
+            PotalCreate();
+            sceneDesign.mapClear = false;
             potalMake = true;
             doCollision = true;
         }
@@ -45,17 +46,27 @@ public class PotalManager : MonoBehaviour
         {
             for (int i = 0; i < parentObj.Count; i++)
             {
-                GameObject ipotal = parentObj[i].transform.GetChild(0).gameObject;
-                if (ipotal.GetComponent<PotalCollider>().onStay)
+                if (parentObj[i].transform.childCount > 0)
                 {
-                    if (Input.GetKey(KeyCode.G))
+                    GameObject ipotal = parentObj[i].transform.GetChild(0).gameObject;
+                    if (ipotal.GetComponent<PotalCollider>().onStay)
                     {
-                        SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
+                        if (Input.GetKey(KeyCode.G))
+                        {
+                            SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
+                        }
                     }
                 }
+                else
+                {
+                    Debug.Log("두번째 포탈은 생성 되지 않았습니다");
+                }
+                
             }
+               
         }
     }
+
 
     void PotalCreate()
     {
@@ -64,19 +75,26 @@ public class PotalManager : MonoBehaviour
             //인스턴스포탈 제작
             GameObject ipotal;
             ipotal = Instantiate(potalPrefab, parentObj[i].transform);
-            vec3.x = 0;
-            vec3.y = 1;
-            vec3.z = 0;
-            ipotal.transform.localPosition = vec3;
-            ipotal.transform.rotation = parentObj[i].transform.rotation;
-            ipotal.transform.localScale = Vector3.one;
+            Positioning(ipotal, parentObj[i]);
             ipotal.GetComponent<PotalCollider>().next = sceneDesign.NextScene(SceneManager.GetActiveScene().buildIndex);
             //포탈의 색상 정해줌
             Coloring(ipotal, ipotal.GetComponent<PotalCollider>().next);
+            if(sceneDesign.s_nomal > ipotal.GetComponent<PotalCollider>().next)
+            {
+                break;
+            }
         }
-
     }
-    public void Coloring(GameObject gameObject, int next)
+    void Positioning(GameObject instance,GameObject parent)
+    {
+        vec3.x = 0;
+        vec3.y = 1;
+        vec3.z = 0;
+        instance.transform.localPosition = vec3;
+        instance.transform.rotation = parent.transform.rotation;
+        instance.transform.localScale = Vector3.one;
+    }
+    void Coloring(GameObject gameObject, int next)
     {
         GameObject particle = new GameObject();
         Color color;
