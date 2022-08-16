@@ -13,10 +13,7 @@ public class FieldItems : PickUp
   
     Inventory inventory;
     InventoryUI inventoryUI;
-    [SerializeField]
-    public FadeOutText warningText;
 
-    public TextMeshProUGUI wT;
 
     ///추가
     private UIObjectPoolingManager uIObjectPoolingManager;
@@ -47,11 +44,11 @@ public class FieldItems : PickUp
                     if (slime.currentWeapon == null)
                     {
                         uIObjectPoolingManager.ShowNoWeaponText();
-                        //wT.text = "무기가 아직 없습니다.";
                         fullBag();
                     }
                     else
                     {
+                        canDetect = false;
                         addItem();
                     }
                     break;
@@ -84,32 +81,37 @@ public class FieldItems : PickUp
                     break;
                 }
             }
-            uIObjectPoolingManager.ShowNoInventoryText();
-            //wT.text = "인벤토리가 가득 찼습니다.";
-            fullBag();
+            if (!isFind)
+            {
+                uIObjectPoolingManager.ShowNoInventoryText();
+                fullBag();
+            }
+           
         }
         else
         {
             uIObjectPoolingManager.ShowNoInventoryText();
-            //wT.text = "인벤토리가 가득 찼습니다.";
             fullBag();
         }
-
         inventoryUI.RedrawSlotUI();
     }
 
 
     void addItem()
     {
-        inventory.items.Add(item);
-        inventory.items[inventory.items.Count - 1].itemCount = 1;
-       // inventoryUI.slots[inventoryUI.index].itemCount = 1;
+            inventory.items.Add(item);
+            inventory.items[inventory.items.Count - 1].itemCount = 1;
 
-        if (inventory.onChangedItem != null)
-        {
-            inventory.onChangedItem.Invoke();
-        }
-        //inventoryUI.index++;
+            if (inventory.onChangedItem != null)
+            {
+                inventory.onChangedItem.Invoke();
+            }
+
+            if (float.Parse(item.maxHp) > 0)
+            {
+                slime.statManager.AddHP(float.Parse(item.maxHp));
+            }
+
         this.gameObject.SetActive(false);
     }
 
@@ -122,8 +124,6 @@ public class FieldItems : PickUp
         targetPos.z = transform.position.z + (dir.z * velocity);
         transform.position = targetPos;
        
-        //if (warningText.gameObject.activeSelf) warningText.isAgain = true;
-        //else warningText.gameObject.SetActive(true);
     }
 
     void findSame()
@@ -137,8 +137,8 @@ public class FieldItems : PickUp
                 break;
             }
         }
+        canDetect = false;
         this.gameObject.SetActive(false);
-
     }
 
     public void SetItem(Item _item) //아이템 셋팅
@@ -210,7 +210,8 @@ public class FieldItems : PickUp
         {
             if (inventory.items[i].itemName == item.itemName)
             {
-                inventory.items[i].itemCount++;
+                canDetect = false;
+                inventoryUI.slots[i].SetSlotCount();
                 isFind = true;
                 break;
             }

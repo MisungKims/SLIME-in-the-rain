@@ -47,6 +47,7 @@ public class CombinationUI : MonoBehaviour
 
     
     public TMP_InputField countInputField;
+    public GameObject input;
     private int countInput = 0;
     private int SelcetNum = -1;
 
@@ -457,8 +458,8 @@ public class CombinationUI : MonoBehaviour
             inventory.items[slotNum2].itemCount-= _gelatin2Cont;
             addItem(ComGelatinIt);
             ResetData();
-            inventoryUI.RedrawSlotUI();
         }
+        inventoryUI.RedrawSlotUI();
     }
     #endregion
     void faildComb()

@@ -422,6 +422,18 @@ public class StatManager : MonoBehaviour
             myStats.defensePower = originStats.defensePower + extraStats.defensePower + gelatinStat.defensePower;
         }
     }
-
+    // Hp ½ºÅÈ º¯°æ
+    public void AddHPGelatin(float amount, int count)
+    {
+        float sum = amount * count + myStats.HP;
+        if (sum > myStats.maxHP)
+        {
+            myStats.HP = myStats.maxHP;
+        }
+        else
+        {
+            myStats.HP = sum;
+        }
+    }
 
 }

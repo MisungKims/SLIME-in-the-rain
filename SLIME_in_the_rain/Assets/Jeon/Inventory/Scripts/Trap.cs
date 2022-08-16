@@ -7,9 +7,12 @@ public class Trap : MonoBehaviour
     public GameObject[] enemyTrap;
     private Vector3[] startPos = new Vector3[9];
 
+   
+
     private void Start()
     {
-        StartCoroutine(play(3.0f));
+        
+        StartCoroutine(play(2.0f));
     }
 
 
