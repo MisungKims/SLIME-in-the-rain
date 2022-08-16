@@ -67,7 +67,7 @@ public class GeneralMonster : Monster
     {
         while (true)
         {
-            if(!isChasing && !isStun && !isDie && !isHit)
+            if(!isChasing && !isStun && !isDie && !isHit && !isJumpHit)
             {
                 nav.SetDestination(transform.position);
 
@@ -77,10 +77,12 @@ public class GeneralMonster : Monster
                     nav.SetDestination(randPos);
                    
                     isStop = false;
-                    while (!isStop && !isChasing && !isStun && !isDie && !isHit)
+                    float time = 15f;
+                    while (!isStop && !isChasing && !isStun && !isDie && !isHit && !isJumpHit && time > 0)
                     {
                         offset = transform.position - randPos;
                         distance = offset.sqrMagnitude;         // 몬스터와 랜덤한 위치 사이의 거리
+                        time -= Time.deltaTime;
 
                         if (distance < 1f)
                         {

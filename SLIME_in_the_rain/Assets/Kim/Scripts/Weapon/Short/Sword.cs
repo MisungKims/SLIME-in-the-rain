@@ -51,6 +51,13 @@ public class Sword : Short
 
         statManager.myStats.moveSpeed = originSpeed;
     }
+
+    IEnumerator CamShake()
+    {
+        yield return new WaitForSeconds(0.8f);
+
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
+    }
     #endregion
 
     #region 함수
@@ -87,12 +94,23 @@ public class Sword : Short
 
         Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, slime.Stat.attackRange);
 
+        bool isShaking = false;
+
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].CompareTag("DamagedObject"))
             {
                 Monster monster = colliders[i].GetComponent<Monster>();
-                if (monster) StartCoroutine(monster.Jump());            // 몬스터들을 공중 부양시킴
+                if (monster)
+                {
+                    if(!isShaking)
+                    {
+                        isShaking = true;
+                        StartCoroutine(CamShake());
+                    }
+
+                    monster.JumpHit();            // 몬스터들을 공중 부양시킴
+                }
 
                 Damage(colliders[i].transform, true);
             }

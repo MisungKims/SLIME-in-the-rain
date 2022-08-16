@@ -25,7 +25,6 @@ public class Metalon : Boss
     {
         base.Awake();
 
-        canAir = false;
         bossName = "¸ÞÅ»·Ð";
         SetHPBar();
     }

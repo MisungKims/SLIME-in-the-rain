@@ -18,6 +18,7 @@ public enum EMonsterAnim
     run,
     attack,
     hit,
+    jumpHit,
     idleBattle,
     stun,
     die
@@ -31,7 +32,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected Animator anim;
     public NavMeshAgent nav;
-    private Rigidbody rb;
+   // private Rigidbody rb;
 
     [SerializeField]
     protected Stats stats;
@@ -71,7 +72,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool canAttack = true;
 
-    private bool isInGround = true;
+   // private bool isInGround = true;
 
     protected bool isInRange = false;
 
@@ -81,6 +82,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected float maxAtkTime = 1.5f;
 
     // 스턴
+    protected bool isJumpHit = false;
     protected bool isHit = false;
 
     protected bool isStun = false;
@@ -93,11 +95,11 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     string animName;
 
-    // 공중
-    private float airTime;
-    private float maxAirTime = 3f;
-    private float jumpPower = 5f;
-    protected bool canAir = true;
+    //// 공중
+    //private float airTime;
+    //private float maxAirTime = 3f;
+    //private float jumpPower = 5f;
+    //protected bool canAir = true;
 
     // 미니맵
     [SerializeField]
@@ -118,7 +120,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     #region 유니티 함수
     protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         monsterCollider = GetComponent<Collider>();
@@ -130,7 +132,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected virtual void OnEnable()
     {
         isDie = false;
-        if(canAir) monsterCollider.isTrigger = false;
+        //if(canAir) monsterCollider.isTrigger = false;
 
         stats.HP = stats.maxHP;
 
@@ -149,13 +151,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         nav.stoppingDistance = stats.attackRange;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.CompareTag("Land"))
-        {
-            isInGround = true;
-        }
-    }
     #endregion
 
     #region 코루틴
@@ -167,6 +162,7 @@ public abstract class Monster : MonoBehaviour, IDamage
             {
                 PlayAnim(EMonsterAnim.die);
             }
+            else if (isJumpHit) PlayAnim(EMonsterAnim.jumpHit);
             else if(!isAttacking)
             {
                 if (isHit)
@@ -220,43 +216,19 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     // 슬라임의 공격에 의해 점프
-    public IEnumerator Jump()
+    public void JumpHit()
     {
-        if(canAir)
-        {
-            isChasing = false;
-            isHit = true;
-            nav.enabled = false;
-
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-
-            isInGround = false;
-
-            yield return StartCoroutine(IsInGround());      // 땅에 닿을 때 까지 기다림
-
-            isHit = false;
-            nav.enabled = true;
-            TryStartChase();
-        }
+        nav.SetDestination(transform.position);
+        isChasing = false;
+        isJumpHit = true;
     }
 
-   
-    // 공중에 떠있을 동안 실행
-    private IEnumerator IsInGround()
-    {
-        airTime = maxAirTime;
-        while (!isInGround && airTime > 0)
-        {
-            airTime -= Time.deltaTime;
 
-            yield return null;
-        }
-    }    
 
     // 감지된 슬라임을 쫓음
     protected virtual IEnumerator Chase()
     {
-        while (target && isChasing && !isStun && !slime.isStealth && !slime.isDie)
+        while (CanChase())
         {
             nav.speed = chaseSpeed;
             if (!isHit)
@@ -346,9 +318,15 @@ public abstract class Monster : MonoBehaviour, IDamage
                         anim.SetInteger("attack", -1);
                         doDamage = false;
                     }
-                    else if (currentAnim.Equals(EMonsterAnim.hit) && isInGround)
+                    else if (currentAnim.Equals(EMonsterAnim.hit))
                     {
                         isHit = false;
+                        TryStartChase();
+                    }
+                    else if (currentAnim.Equals(EMonsterAnim.jumpHit))
+                    {
+                        isJumpHit = false;
+                        TryStartChase();
                     }
 
                     canAttack = true;
@@ -396,6 +374,10 @@ public abstract class Monster : MonoBehaviour, IDamage
     #endregion
 
     #region 함수
+    protected bool CanChase()
+    {
+        return target && isChasing && !isStun && !isDie && !isHit && !isJumpHit && !slime.isStealth && !slime.isDie;
+    }
 
     #region 데미지
     // 카메라를 흔듦
@@ -424,7 +406,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        CameraShaking(0.1f, 0.2f);
+        if (!isJumpHit) CameraShaking(0.1f, 0.2f);
 
         if (HaveDamage(statManager.GetSkillDamage()))
         {
@@ -575,7 +557,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
 
         //// 반복해야하는 애니메이션이 아니라면(ex.공격), 애니메이션이 끝난 후 상태를 Idle로 변경
-        if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.hit)
+        if (state >= (int)EMonsterAnim.attack && state <= (int)EMonsterAnim.jumpHit)
         {
             StartCoroutine(CheckAnimEnd(state.ToString()));
         }
