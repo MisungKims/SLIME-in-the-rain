@@ -25,14 +25,14 @@ public class EndUI : MonoBehaviour
         {
             OnResult();
         }
-        if(sceneDesign.FinalClear == true)
+        if(sceneDesign.finalClear == true)
         {
             OnResult();
         }
     }
     void OnResult()
     {
-        if(sceneDesign.FinalClear == true)
+        if(sceneDesign.finalClear == true)
         {
             titleText.text = "CLEAR!!!";
         }
