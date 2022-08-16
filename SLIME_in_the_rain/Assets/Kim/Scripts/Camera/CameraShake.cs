@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    private static bool isShaking = false;
     private static Camera cam;
     private static Vector3 cameraOriginalPos;
 
@@ -22,19 +23,23 @@ public class CameraShake : MonoBehaviour
     // duration : 유지시간, magnitude : 강도
     public static IEnumerator StartShake(float duration, float magnitude)
     {
-        Debug.Log("camera shake");
-
-        float timer = 0;
-        cameraOriginalPos = cam.transform.localPosition;
-
-        while (timer <= duration)
+        if (!isShaking)
         {
-            cam.transform.localPosition = Random.insideUnitSphere * magnitude + cameraOriginalPos;
+            isShaking = true;
 
-            timer += Time.deltaTime;
-            yield return null;
+            float timer = 0;
+            cameraOriginalPos = cam.transform.localPosition;
+
+            while (timer <= duration)
+            {
+                cam.transform.localPosition = Random.insideUnitSphere * magnitude + cameraOriginalPos;
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            isShaking = false;
+            cam.transform.localPosition = cameraOriginalPos;
         }
-
-        cam.transform.localPosition = cameraOriginalPos;
     }
 }

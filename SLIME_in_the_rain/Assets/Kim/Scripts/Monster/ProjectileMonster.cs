@@ -17,7 +17,7 @@ public class ProjectileMonster : GeneralMonster
     {
         noDamage = true;
 
-        while (target && isChasing && !isStun && !slime.isStealth && !slime.isDie)
+        while (CanChase())
         {
             nav.speed = chaseSpeed;
             if (!isHit)

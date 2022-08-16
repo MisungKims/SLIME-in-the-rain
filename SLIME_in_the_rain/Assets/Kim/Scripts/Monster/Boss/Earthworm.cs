@@ -34,7 +34,7 @@ public class Earthworm : Boss
     // 슬라임을 추적
     protected override IEnumerator Chase()
     {
-        while (target && isChasing && !isStun && !slime.isStealth && !slime.isDie)
+        while (CanChase())
         {
             nav.speed = chaseSpeed;
             if (!isHit)
