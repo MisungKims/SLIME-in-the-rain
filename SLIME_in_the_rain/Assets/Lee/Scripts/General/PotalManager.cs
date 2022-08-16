@@ -36,11 +36,17 @@ public class PotalManager : MonoBehaviour
     {
         if (sceneDesign.mapClear && !potalMake)
         {
+            
             sceneDesign.MapCount();
-            PotalCreate();
             sceneDesign.mapClear = false;
-            potalMake = true;
-            doCollision = true;
+            if(!sceneDesign.finalClear)
+            {
+                PotalCreate();
+                potalMake = true;
+                doCollision = true;
+            }
+
+            
         }
         if(doCollision)
         {

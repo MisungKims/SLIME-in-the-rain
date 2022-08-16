@@ -28,7 +28,7 @@ public class SceneDesign : MonoBehaviour
     public int s_gimmick;
     public int s_bonus;
     public bool mapClear = false;       //맵 클리어시 관리용
-    public bool FinalClear = false;     //게임 클리어시 관리용
+    public bool finalClear = false;     //게임 클리어시 관리용
     public int next;                    //넥스트 값을 넘겨줌
     public int mapCounting;
     public bool goBoss = false;         //보스로 가야할때
@@ -43,6 +43,8 @@ public class SceneDesign : MonoBehaviour
         if (null == instance)
         {
             instance = this;
+
+            
 
             DontDestroyOnLoad(this.gameObject);
         }
@@ -61,17 +63,26 @@ public class SceneDesign : MonoBehaviour
     }
     public void MapCount()
     {
-        if (bossLevel == 3)      //3번째 보스 죽였을때
+        if(!goBoss)
         {
-            FinalClear = true;
+            bossCount++;
+            mapCounting++;
+            if (bossCount == 5)  //맵 5개 클리어하면 다음은 보스방 열림
+            {
+                goBoss = true;
+                bossCount = 0;
+                bossLevel++;
+            }
         }
-        bossCount++;
-        mapCounting++;
-        if (bossCount == 5)  //맵 5개 클리어하면 보스방 열림
+        else
         {
-            goBoss = true;
+            mapCounting++;
             bossCount = 0;
-            bossLevel++;
+            goBoss = false;
+            if(mapCounting == 18)
+            {
+                finalClear = true;
+            }
         }
     }
 
@@ -82,8 +93,6 @@ public class SceneDesign : MonoBehaviour
         if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
         {
             next = bossLevel + 1;       // 2,3,4
-            goBoss = false;
-
         }
         else if (now >= s_nomal)
         {
