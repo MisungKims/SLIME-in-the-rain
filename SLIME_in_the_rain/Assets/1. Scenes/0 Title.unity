@@ -299,7 +299,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5535328924800319335, guid: 73b15fd156bcd64499fd1144498fd3b3, type: 3}
       propertyPath: m_Name
-      value: Slime
+      value: TitleSlime
       objectReference: {fileID: 0}
     - target: {fileID: 5535328924800475975, guid: 73b15fd156bcd64499fd1144498fd3b3, type: 3}
       propertyPath: m_RootOrder
@@ -1317,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5603912961800685252, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5603912961800685252, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4360,7 +4360,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: e23d06e1a38aeed429b370bf0f0cdc99, type: 3}
     - target: {fileID: 1718100745224803271, guid: 4e2e8971b40df2c4393b45b5965a812f, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1718100745224803271, guid: 4e2e8971b40df2c4393b45b5965a812f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4475,7 +4475,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9193570379062764480, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9193570379062764480, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4980,6 +4980,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1979717023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1979717024}
+  m_Layer: 0
+  m_Name: ---DontDestroy---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1979717024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979717023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 432.40002, y: 690, z: 0.000008940697}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1979827995
 PrefabInstance:

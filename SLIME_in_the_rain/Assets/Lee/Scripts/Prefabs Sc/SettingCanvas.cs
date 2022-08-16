@@ -5,11 +5,26 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Threading.Tasks;
 
 public class SettingCanvas : MonoBehaviour
 {
 
     #region 변수
+    #region 싱글톤
+    private static SettingCanvas instance = null;
+    public static SettingCanvas Instance
+    {
+        get
+        {
+            if (null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    #endregion
     public AudioMixer sound;        //오디오 관리 믹서
     bool isOn;
 
@@ -26,89 +41,133 @@ public class SettingCanvas : MonoBehaviour
 
     #region 유니티 함수
 
-    private void Start()
+
+    void Awake()
     {
-        //슬라이더 초기설정
-        masterSlider.onValueChanged.AddListener(delegate { AudioControl(masterSlider, "Master"); });
-        bgmSlider.onValueChanged.AddListener(delegate { AudioControl(bgmSlider, "BGM"); });
-        sfxSlider.onValueChanged.AddListener(delegate { AudioControl(sfxSlider, "SFX"); });
+        if (null == instance)
+        {
+            instance = this;
 
-        //토글 초기설정
-        masterToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle(masterToggle, "Master"); });
-        bgmToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle(bgmToggle, "BGM"); });
-        sfxToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle(sfxToggle, "SFX"); });
-
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnEnable()
     {
-
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)     //씬 시작시 불러오기
     {
-        //슬라이더 값 불러오기
-        masterSlider.value = PlayerPrefs.GetFloat("Master" + "sound");
-        AudioControl(masterSlider, "Master");
-        bgmSlider.value = PlayerPrefs.GetFloat("BGM" + "sound");
-        AudioControl(masterSlider, "BGM");
-        sfxSlider.value = PlayerPrefs.GetFloat("SFX" + "sound");
-        AudioControl(masterSlider, "SFX");
-
-        //토글 값 불러오기
-        masterToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("Master"));
-        masterToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("BGM"));
-        masterToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("SFX"));
+        DelayedUpdateVolume();
     }
-    private void OnDisable()        //씬 종료시 저장
+    private void OnDisable()
     {
-        //슬라이더 값 저장
-        PlayerPrefs.SetFloat("Master" + "sound", masterSlider.value);
-        PlayerPrefs.SetFloat("BGM" + "sound", bgmSlider.value);
-        PlayerPrefs.SetFloat("SFX" + "sound", sfxSlider.value);
-
-        //토글 값 저장
-        PlayerPrefs.SetInt("Master" + "toggle", System.Convert.ToInt32(masterToggle.isOn));
-        PlayerPrefs.SetInt("BGM" + "toggle", System.Convert.ToInt32(bgmToggle.isOn));
-        PlayerPrefs.SetInt("SFX" + "toggle", System.Convert.ToInt32(sfxToggle.isOn));
-
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void Start()
+    {
+        //슬라이더 토글 설정
+        //슬라이더
+        masterSlider.onValueChanged.AddListener(delegate { AudioControl("Master", masterSlider, masterToggle); });
+        bgmSlider.onValueChanged.AddListener(delegate { AudioControl("BGM", bgmSlider, bgmToggle); });
+        sfxSlider.onValueChanged.AddListener(delegate { AudioControl("SFX", sfxSlider, sfxToggle); });
+
+        //토글
+        masterToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle("Master", masterSlider, masterToggle); });
+        bgmToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle("BGM", bgmSlider, bgmToggle); });
+        sfxToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle("SFX", sfxSlider, sfxToggle); });
     }
     #endregion
 
 
     #region 함수
-    //슬라이더 텍스트에 값 넘기는 함수
-    public void SliderVolumeText(Slider slider, float sound)
+    async void DelayedUpdateVolume()
     {
-        slider.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text
-            = ((int)((sound + 40) / 40 * 100)).ToString();
+        await Task.Delay(1);
+        UpdateVolume();
+    }
+    void UpdateVolume()     //AudioMixer의 SetFloat가 제대로 작동 안해서 딜레이 주고 실행 되게 해야함
+    {
+        //Load
+        //슬라이더 값 불러오기
+        masterSlider.value = PlayerPrefs.GetFloat("Master" + "sound");
+        bgmSlider.value = PlayerPrefs.GetFloat("BGM" + "sound");
+        sfxSlider.value = PlayerPrefs.GetFloat("SFX" + "sound");
+
+        AudioControl("Master", masterSlider, masterToggle);
+        AudioControl("BGM", bgmSlider, bgmToggle);
+        AudioControl("SFX", sfxSlider, sfxToggle);
+
+        //토글 값 불러오기
+        masterToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("Master" + "toggle"));
+        bgmToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("BGM" + "toggle"));
+        sfxToggle.isOn = System.Convert.ToBoolean(PlayerPrefs.GetInt("SFX" + "toggle"));
+
+        Toggle("Master", masterSlider, masterToggle);
+        Toggle("BGM", bgmSlider, bgmToggle);
+        Toggle("SFX", sfxSlider, sfxToggle);
     }
 
-    //마스터 볼륨 관련 함수
-    public void AudioControl(Slider slider,string str)
+
+    //오디오 슬라이더 함수
+    public void AudioControl(string str, Slider slider,Toggle toggle)
     {
+        //슬라이더 소리 설정
         float volume = slider.value;
-        if (volume == -40f) sound.SetFloat(str, -80);     //소리 너무 크면 지지직 거려서 제한
-        else sound.SetFloat(str, volume);
+        
+        //음소거가 아닐시에만
+        if (!toggle.isOn)
+        {
+            if (volume == -40f)
+            {
+                sound.SetFloat(str, -80);     //소리 너무 크면 지지직 거려서 제한
+            }
+            else
+            {
+                sound.SetFloat(str, volume);
+            }   
+        }
         SliderVolumeText(slider, volume);
+        PlayerPrefs.SetFloat(str + "sound", slider.value);       //Save
+    }
+
+    //슬라이더 텍스트에 값 넘기는 함수
+    public void SliderVolumeText(Slider slider, float volume)
+    {
+        slider.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text
+            = ((int)((volume + 40) / 40 * 100)).ToString();
     }
 
     //오디오 토글 함수
-    public void Toggle(Toggle toggle,string str)
+    public void Toggle(string str, Slider slider, Toggle toggle)
     {
-        isOn = toggle.GetComponent<Toggle>().isOn;
+        isOn = toggle.GetComponent<Toggle>().isOn;      //음소거 on
         if (isOn)
         {
-            toggle.transform.GetChild(1).gameObject.SetActive(true);
-            toggle.transform.GetChild(2).gameObject.SetActive(false);
-            AudioListener.volume = 1;
+            toggle.transform.GetChild(2).transform.GetComponent<Image>().enabled = true;
+
+            if (str == "Master")
+            {
+                sound.FindMatchingGroups("Master")[0].audioMixer.SetFloat(str, -80f);
+            }
+            else if (str == "BGM")
+            {
+                sound.FindMatchingGroups("Master")[1].audioMixer.SetFloat(str, -80f);
+            }
+            else if (str == "SFX")
+            {
+                sound.FindMatchingGroups("Master")[2].audioMixer.SetFloat(str, -80f);
+            }
         }
         else
         {
-            toggle.transform.GetChild(1).gameObject.SetActive(false);
-            toggle.transform.GetChild(2).gameObject.SetActive(true);
-            AudioListener.volume = 0;
+            toggle.transform.GetChild(2).transform.GetComponent<Image>().enabled = false;
+            AudioControl(str, slider, toggle);
         }
+        PlayerPrefs.SetInt(str + "toggle", System.Convert.ToInt32(toggle.isOn));     //Save
     }
 
     #endregion

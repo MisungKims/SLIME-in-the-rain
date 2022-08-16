@@ -54,7 +54,7 @@ public class SceneDesign : MonoBehaviour
         }
     }
     #endregion
-    public void resetScene()
+    public void ResetScene()
     {
         mapCounting = 0;
         bossCount = 0;

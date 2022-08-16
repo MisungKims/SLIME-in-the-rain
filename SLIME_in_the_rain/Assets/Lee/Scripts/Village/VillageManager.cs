@@ -28,6 +28,8 @@ public class VillageManager : MonoBehaviour
         Vector3 startPos = Vector3.zero;
         startPos.y = 2f;
         slime.transform.position = startPos;
+        
+        sceneDesign.ResetScene();
     }
     private void Update()
     {
@@ -55,10 +57,7 @@ public class VillageManager : MonoBehaviour
             sceneDesign.mapClear = true;
         }
     }
-    private void OnDisable()
-    {
-        sceneDesign.resetScene();
-    }
+
     #endregion
 
 }
