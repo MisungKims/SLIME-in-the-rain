@@ -140,11 +140,6 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public void saveStats()
-    {
-
-    }
-
 
    public void statGelatinAdd() //젤라틴 스탯 반영해주는 코루틴
     {

@@ -28,6 +28,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField]
     public Slot[] slots;
     public Transform slotHolder;
+    [SerializeField]
+    private FadeOutText wT;
 
     [Header("GbUI")]
     public GameObject inventroyPanel;
@@ -37,7 +39,8 @@ public class InventoryUI : MonoBehaviour
 
     private JellyManager jellyManager;
     public TextMeshProUGUI JellyTextC; //Á©¸®
-
+    [SerializeField]
+    int expansCost = 5;
 
 
     public GameObject tooltip;
@@ -123,10 +126,19 @@ public class InventoryUI : MonoBehaviour
 
     public void ExpansionSlot() //½½·Ô Ãß°¡
     {
-        inventory.SlotCount++;
-        if (inventory.SlotCount >= 28)
+
+        if (jellyManager.JellyCount >= expansCost)
         {
-            ExpansionButton.interactable = false;
+            inventory.SlotCount++;
+            if (inventory.SlotCount >= 28)
+            {
+                ExpansionButton.interactable = false;
+            }
+            expansCost += expansCost;
+        }
+        else
+        {
+            wT.ShowText();
         }
     }
 
@@ -186,9 +198,6 @@ public class InventoryUI : MonoBehaviour
 
 
         optionSet(_item);
-
-
-
     }
 
 
