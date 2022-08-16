@@ -138,12 +138,17 @@ public class Slime : MonoBehaviour
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
-        StartCoroutine(SpaceBar());
         StartCoroutine(DetectWater());
+        StartCoroutine(DetectWall());
     }
+
+    private bool isFrontWall = false;
 
     private void Update()
     {
+        //Debug.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * 0.7f, Color.blue);
+       
+        SpaceBar();
         DetectWeapon();
     }
 
@@ -196,26 +201,21 @@ public class Slime : MonoBehaviour
     }
 
     // 스페이스바 누르면 앞으로 대시
-    IEnumerator SpaceBar()
+    void SpaceBar()
     {
-        while (true)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove)
         {
-            if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove)
+            isDash = true;
+
+            if (currentWeapon)
             {
-                isDash = true;
-
-                if (currentWeapon)
-                {
-                    currentWeapon.SendMessage("Dash", this, SendMessageOptions.DontRequireReceiver);
-                }
-                else
-                {
-                    Dash();
-                }
+                currentWeapon.SendMessage("Dash", this, SendMessageOptions.DontRequireReceiver);
             }
-            yield return null;
+            else
+            {
+                Dash();
+            }
         }
-
     }
 
     // 대시 코루틴
@@ -226,7 +226,7 @@ public class Slime : MonoBehaviour
         PlayAnim(AnimState.dash);       // 대시 애니메이션 실행
 
         currentDashTime = dashTime;
-        while (currentDashTime > 0)
+        while (currentDashTime > 0 && !isFrontWall)
         {
             currentDashTime -= Time.deltaTime;
             transform.position += transform.forward * dashDistance * Time.deltaTime;
@@ -240,6 +240,22 @@ public class Slime : MonoBehaviour
 
         isDash = false;
         isCanDash = true;
+    }
+
+    // 앞에 벽이 있는지 감지
+    IEnumerator DetectWall()
+    {
+        while (true)
+        {
+            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.forward, out RaycastHit hit, 0.7f))
+            {
+                if (hit.transform.gameObject.layer == 11) isFrontWall = true;
+                else isFrontWall = false;
+            }
+            else isFrontWall = false;
+
+            yield return null;
+        }
     }
 
     // 스턴 코루틴
@@ -262,12 +278,6 @@ public class Slime : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 1.1f))
             {
-
-                //#if UNITY_EDITOR
-                //                Debug.Log(hit.transform.name);
-                //                Debug.DrawRay(transform.position + Vector3.up * 0.1f, Vector3.down * 1.1f, Color.red);
-                //#endif
-
                 if (hit.transform.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
                 else isInWater = false;
             }
@@ -337,7 +347,7 @@ public class Slime : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
 
-            transform.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
+           if (!isFrontWall)  transform.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {
@@ -360,8 +370,6 @@ public class Slime : MonoBehaviour
 
         StartCoroutine(DoDash());
     }
-
-    
     #endregion
 
     #region 공격

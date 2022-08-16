@@ -100,7 +100,7 @@ public class Weapon : MonoBehaviour
         outline.enabled = false;
         gameObject.layer = 7;       // 장착된 무기는 슬라임이 탐지하지 못하도록 레이어 변경
 
-        equipTime = 0.5f;
+        equipTime = 0.3f;
         while (Vector3.Distance(transform.position, slime.weaponPos.position) >= 0.1f && equipTime > 0f)
         {
             transform.position = Vector3.Lerp(transform.position, slime.weaponPos.position, Time.deltaTime * attachSpeed);

@@ -16,6 +16,8 @@ public class Sword : Short
     float dashSpeed = 2.5f;
     float dashDuration = 2.5f;
 
+    bool isDashing;
+
     #endregion
 
     #region 유니티 함수
@@ -42,14 +44,20 @@ public class Sword : Short
     // 일정 시간동안 이속이 증가
     IEnumerator IncrementSpeed(Slime slime)
     {
-      //  StatManager statManager = slime.statManager;
+        if(!isDashing)
+        {
+            isDashing = true;
 
-        originSpeed = statManager.myStats.moveSpeed;
-        statManager.myStats.moveSpeed += dashSpeed;
+            originSpeed = statManager.myStats.moveSpeed;
+            statManager.myStats.moveSpeed += dashSpeed;
 
-        yield return new WaitForSeconds(dashDuration);
+            Debug.Log(statManager.myStats.moveSpeed);
 
-        statManager.myStats.moveSpeed = originSpeed;
+            yield return new WaitForSeconds(dashDuration);
+
+            statManager.myStats.moveSpeed = originSpeed;
+            isDashing = false;
+        }
     }
 
     IEnumerator CamShake()
