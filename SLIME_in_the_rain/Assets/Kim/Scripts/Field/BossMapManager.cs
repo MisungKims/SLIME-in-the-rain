@@ -18,7 +18,7 @@ public class BossMapManager : MapManager
     //private BossCamera bossCamera;
 
     // Ä³½Ì
-    private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
+    private WaitForSeconds waitFor5s = new WaitForSeconds(5f);
     #endregion
 
     protected override void Awake()
@@ -43,7 +43,7 @@ public class BossMapManager : MapManager
             yield return null;
         }
 
-        yield return waitFor3s;
+        yield return waitFor5s;
 
         SelectRuneWindow.Instance.OpenWindow();
         ClearMap();

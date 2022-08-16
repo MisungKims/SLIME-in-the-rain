@@ -47,16 +47,16 @@ public class Sword : Short
         if(!isDashing)
         {
             isDashing = true;
+            slime.DashTime = dashDuration;
 
             originSpeed = statManager.myStats.moveSpeed;
             statManager.myStats.moveSpeed += dashSpeed;
-
-            Debug.Log(statManager.myStats.moveSpeed);
-
+            
             yield return new WaitForSeconds(dashDuration);
 
             statManager.myStats.moveSpeed = originSpeed;
             isDashing = false;
+            slime.DashTime = slime.originDashTime;
         }
     }
 

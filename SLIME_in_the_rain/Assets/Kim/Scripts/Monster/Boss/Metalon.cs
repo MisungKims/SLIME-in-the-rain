@@ -79,7 +79,8 @@ public class Metalon : Boss
         //}
 
         // 랜덤한 시간동안 대기
-        randAtkTime = Random.Range(minAtkTime, maxAtkTime);
+        if (randAttack == 2) randAtkTime = 1f;
+        else randAtkTime = Random.Range(minAtkTime, maxAtkTime);
         while (randAtkTime > 0 && isInRange)
         {
             randAtkTime -= Time.deltaTime;

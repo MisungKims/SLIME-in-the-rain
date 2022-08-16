@@ -12,11 +12,11 @@ public class RuneShield : Rune, IDashRune
 {
     GameObject shield;          // 실드 오브젝트
 
-    ObjectPoolingManager objectPoolingManager;
+    Slime slime;
     
     void Start()
     {
-        objectPoolingManager = ObjectPoolingManager.Instance;
+        slime = Slime.Instance;
     }
 
     #region 코루틴
@@ -27,8 +27,9 @@ public class RuneShield : Rune, IDashRune
         shield = Slime.Instance.shield;
         shield.SetActive(true);
         shield.transform.localPosition = Vector3.zero;
-        
-        yield return new WaitForSeconds(1f);
+
+        yield return null;
+        yield return new WaitForSeconds(slime.DashTime);
 
         shield.SetActive(false);
     }

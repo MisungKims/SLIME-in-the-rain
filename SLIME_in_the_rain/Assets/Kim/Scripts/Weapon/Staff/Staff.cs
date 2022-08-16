@@ -20,8 +20,10 @@ public class Staff : Weapon
     protected EProjectileFlag skillProjectileFlag;     // 생성할 스킬 투사체의 flag
 
     //////// 대시
-    float originDashDistance = 400f;   // 대시할 거리
-    float dashDistance = 400f;   // 대시할 거리
+    private Vector3 dashPos;
+    private Vector3 offset;
+    private float distance;
+    private float dashDistance = 400f;   // 대시할 거리
     #endregion
 
     #region 함수
@@ -48,19 +50,22 @@ public class Staff : Weapon
 
         if (canDash)
         {
-            dashDistance = originDashDistance;
-
+            slime.DashTime = slime.originDashTime;
             Transform slimePos = slime.transform;
 
-            if (Physics.Raycast(slimePos.position + Vector3.up * dashDistance, slime.transform.forward, out RaycastHit hit, 0.7f))
-            {
-                if (hit.transform.gameObject.layer == 11)
-                {
-                    
-                }
-            }
+            // 대시 후 도착하는 위치에 벽이 있다면, 벽 앞에서 대시를 멈추도록
+            // 없다면 정해진 곳으로 순간이동(점멸)
 
-            slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
+            dashPos = slimePos.forward * dashDistance * Time.deltaTime;
+            offset = slimePos.position - dashPos;
+            distance = offset.sqrMagnitude;
+
+            if (Physics.Raycast(slimePos.position + Vector3.up * 0.1f, slime.transform.forward, out RaycastHit hit, distance))
+            {
+                if (hit.transform.gameObject.layer == 11) slimePos.position = hit.point - slimePos.forward * 0.5f;
+                else slimePos.position += dashPos;
+            }
+            else slimePos.position += dashPos;
 
             slime.isDash = false;
         }
