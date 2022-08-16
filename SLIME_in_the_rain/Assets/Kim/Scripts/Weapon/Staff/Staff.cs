@@ -20,6 +20,7 @@ public class Staff : Weapon
     protected EProjectileFlag skillProjectileFlag;     // 생성할 스킬 투사체의 flag
 
     //////// 대시
+    float originDashDistance = 400f;   // 대시할 거리
     float dashDistance = 400f;   // 대시할 거리
     #endregion
 
@@ -47,7 +48,17 @@ public class Staff : Weapon
 
         if (canDash)
         {
+            dashDistance = originDashDistance;
+
             Transform slimePos = slime.transform;
+
+            if (Physics.Raycast(slimePos.position + Vector3.up * dashDistance, slime.transform.forward, out RaycastHit hit, 0.7f))
+            {
+                if (hit.transform.gameObject.layer == 11)
+                {
+                    
+                }
+            }
 
             slimePos.position += slimePos.forward * dashDistance * Time.deltaTime;      // 정해진 곳으로 순간이동(점멸)
 

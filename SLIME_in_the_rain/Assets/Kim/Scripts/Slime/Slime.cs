@@ -142,7 +142,7 @@ public class Slime : MonoBehaviour
         StartCoroutine(DetectWall());
     }
 
-    private bool isFrontWall = false;
+    public bool isFrontWall = false;
 
     private void Update()
     {
@@ -249,7 +249,11 @@ public class Slime : MonoBehaviour
         {
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, transform.forward, out RaycastHit hit, 0.7f))
             {
-                if (hit.transform.gameObject.layer == 11) isFrontWall = true;
+                if (hit.transform.gameObject.layer == 11)
+                {
+                    isFrontWall = true;
+                    transform.position = transform.position;
+                }
                 else isFrontWall = false;
             }
             else isFrontWall = false;
@@ -451,8 +455,8 @@ public class Slime : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
-            FieldItems fieldItems = colliders[index].transform.parent.GetComponent<FieldItems>();
-            if (fieldItems) fieldItems.canDetect = false;
+            //FieldItems fieldItems = colliders[index].transform.parent.GetComponent<FieldItems>();
+            //if (fieldItems) fieldItems.canDetect = false;
 
             RemoveCurrentWeapon();
 
