@@ -8,8 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Jelly : PickUp
 {
     #region º¯¼ö

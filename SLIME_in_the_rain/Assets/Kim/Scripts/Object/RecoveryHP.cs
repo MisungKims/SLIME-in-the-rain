@@ -57,6 +57,10 @@ public class RecoveryHP : MonoBehaviour
 
         myParticle.SetActive(false);
         slimeParticle.SetActive(false);
+
+
+        outline = GetComponent<Outline>();
+        outline.enabled = true;
     }
 
     private void OnEnable()
@@ -73,7 +77,6 @@ public class RecoveryHP : MonoBehaviour
     // 슬라임 탐지 코루틴
     IEnumerator DetectSlime()
     {
-        outline = GetComponent<Outline>();
         slime = Slime.Instance;
         statManager = StatManager.Instance;
 
@@ -85,17 +88,17 @@ public class RecoveryHP : MonoBehaviour
 
             if (distance < 2f)
             {
-                if (!outline.enabled) outline.enabled = true;           // 거리가 가까울 때 외곽선 표시
+                //if (!outline.enabled) outline.enabled = true;           // 거리가 가까울 때 외곽선 표시
 
                 if (Input.GetKeyDown(KeyCode.G))                // G키를 누르면 HP 회복
                 {
                     StartCoroutine(Recovery());
                 }
             }
-            else
-            {
-                if (outline.enabled) outline.enabled = false;
-            }
+            //else
+            //{
+            //    if (outline.enabled) outline.enabled = false;
+            //}
 
             yield return null;
         }

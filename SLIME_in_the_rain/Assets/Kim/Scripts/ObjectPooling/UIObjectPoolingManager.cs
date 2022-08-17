@@ -128,10 +128,11 @@ public class UIObjectPoolingManager : MonoBehaviour
 
 
     // 물에 있음 텍스트 보여줌
-    public void ShowInWaterText(Vector3 pos)
+    public void ShowInWaterText()
     {
         inWaterText.ShowText();
-        inWaterText.transform.position = pos;
+        inWaterText.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 72f;
+
     }
 
     // 인벤토리에 공간 없음 텍스트 보여줌

@@ -33,6 +33,10 @@ public class PopcornObject : MonoBehaviour
         {
             rigid.AddForce(Vector3.up * force, ForceMode.Force);
             rigid.useGravity = true;
+
+            rigid.constraints = RigidbodyConstraints.None;
+            rigid.constraints = RigidbodyConstraints.FreezePositionX;
+            rigid.constraints = RigidbodyConstraints.FreezePositionZ;
         }
     }
 

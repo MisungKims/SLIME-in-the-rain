@@ -221,6 +221,8 @@ public class FindingWayMap : MapManager
         {
             if (slime.IsInWater)
             {
+                yield return new WaitForSeconds(0.5f);
+
                 slime.transform.position = slimeSpawnPos.position;
             }
 

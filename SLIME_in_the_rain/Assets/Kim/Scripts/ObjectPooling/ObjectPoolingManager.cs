@@ -283,6 +283,39 @@ public class ObjectPoolingManager : MonoBehaviour
         weaponPoolingList[index].queue.Enqueue(gb.gameObject);
     }
 
+    //public void SetMoney()
+    //{
+    //    GetMoneyMap getMoneyMap = GetMoneyMap.Instance;
+    //    // 오브젝트
+    //    Transform[] childArr;
+    //    for (int i = 1; i <= 2; i++)
+    //    {
+    //        childArr = objectParent.GetChild(i).GetComponentsInChildren<Transform>();
+    //        for (int j = 1; j < childArr.Length; j++)
+    //        {
+    //            getMoneyMap.GetParticle(childArr[j].position);
+    //            Set(childArr[j].gameObject, (EObjectFlag)i);
+    //        }
+    //    }
+    //}
+
+    public IEnumerator SetMoney()
+    {
+        GetMoneyMap getMoneyMap = GetMoneyMap.Instance;
+        // 오브젝트
+        Transform[] childArr;
+        for (int i = 1; i <= 2; i++)
+        {
+            childArr = objectParent.GetChild(i).GetComponentsInChildren<Transform>();
+            for (int j = 1; j < childArr.Length; j++)
+            {
+                getMoneyMap.GetParticle(childArr[j].position);
+                Set(childArr[j].gameObject, (EObjectFlag)i);
+
+                yield return new WaitForSeconds(0.000001f);
+            }
+        }
+    }
 
     // 오브젝트 풀링 리스트의 모든 오브젝트를 비활성화
     public void AllSet()

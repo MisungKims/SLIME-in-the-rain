@@ -434,6 +434,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         isDie = true;
         monsterCollider.isTrigger = true;
+        slime.killCount++;
 
         // 슬라임 따라다니기를 중지
         isChasing = false;

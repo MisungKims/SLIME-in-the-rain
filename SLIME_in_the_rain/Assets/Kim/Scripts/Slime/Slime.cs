@@ -26,6 +26,8 @@ public class Slime : MonoBehaviour
     }
     #endregion
 
+    public int killCount = 0;
+
     public Rigidbody rigid;
     public RigidbodyConstraints rigidbodyConstraints;
 
@@ -281,7 +283,7 @@ public class Slime : MonoBehaviour
         {
             // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 1.1f))
+            if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 2f))
             {
                 if (hit.transform.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
                 else isInWater = false;
@@ -294,15 +296,14 @@ public class Slime : MonoBehaviour
     // 물 위에 있으면 체력 감소
     private IEnumerator DecreaseHPInWater()
     {
+        UIObjectPoolingManager uIObjectPoolingManager = UIObjectPoolingManager.Instance;
         while (true)
         {
             if (isInWater)
             {
                 stat.HP -= decreaseHPAmount;
 
-                waterUIPos = transform.position;
-                waterUIPos.y += 1f;
-                UIObjectPoolingManager.Instance.ShowInWaterText(Camera.main.WorldToScreenPoint(waterUIPos));
+                uIObjectPoolingManager.ShowInWaterText();
 
                 yield return waitFor2s;
             }

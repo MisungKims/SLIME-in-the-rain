@@ -56,16 +56,18 @@ public class Staff : Weapon
             // 대시 후 도착하는 위치에 벽이 있다면, 벽 앞에서 대시를 멈추도록
             // 없다면 정해진 곳으로 순간이동(점멸)
 
-            dashPos = slimePos.forward * dashDistance * Time.deltaTime;
-            offset = slimePos.position - dashPos;
-            distance = offset.sqrMagnitude;
+            dashPos = slimePos.position + slimePos.forward * dashDistance * Time.deltaTime;
+            distance = Vector3.Distance(slimePos.position, dashPos);
 
+#if UNITY_EDITOR
+            Debug.DrawRay(slimePos.position + Vector3.up * 0.1f, slime.transform.forward * distance, Color.blue, 0.3f);
+#endif
             if (Physics.Raycast(slimePos.position + Vector3.up * 0.1f, slime.transform.forward, out RaycastHit hit, distance))
             {
                 if (hit.transform.gameObject.layer == 11) slimePos.position = hit.point - slimePos.forward * 0.5f;
-                else slimePos.position += dashPos;
+                else slimePos.position = dashPos;
             }
-            else slimePos.position += dashPos;
+            else slimePos.position = dashPos;
 
             slime.isDash = false;
         }

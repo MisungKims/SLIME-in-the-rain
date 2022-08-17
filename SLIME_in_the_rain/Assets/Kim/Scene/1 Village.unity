@@ -327,12 +327,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6173348}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6173348
 Transform:
@@ -503,6 +503,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 091 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!1 &12833978
@@ -517,12 +521,12 @@ GameObject:
   - component: {fileID: 12833982}
   - component: {fileID: 12833981}
   - component: {fileID: 12833980}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &12833979
 Transform:
@@ -657,6 +661,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 092 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!1 &13084028
@@ -671,12 +679,12 @@ GameObject:
   - component: {fileID: 13084032}
   - component: {fileID: 13084031}
   - component: {fileID: 13084030}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &13084029
 Transform:
@@ -1406,12 +1414,12 @@ GameObject:
   - component: {fileID: 45621794}
   - component: {fileID: 45621793}
   - component: {fileID: 45621792}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &45621791
 Transform:
@@ -1934,9 +1942,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 9 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -2916,63 +2924,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!1001 &125704506
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_RootOrder
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.257
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.216
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.457
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738287802388887227, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371130838421662721, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
-      propertyPath: m_Name
-      value: Dagger
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 497c65410bc8edd4186ad83333411cc6, type: 3}
 --- !u!1001 &128916198
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3085,9 +3036,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1 (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -3386,6 +3337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &158907148 stripped
@@ -3564,12 +3519,12 @@ GameObject:
   - component: {fileID: 175594335}
   - component: {fileID: 175594334}
   - component: {fileID: 175594333}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &175594332
 Transform:
@@ -3841,6 +3796,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 002
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &196635544 stripped
@@ -4000,6 +3959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 093 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &204207821 stripped
@@ -4110,12 +4073,12 @@ GameObject:
   - component: {fileID: 208757910}
   - component: {fileID: 208757909}
   - component: {fileID: 208757908}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &208757907
 Transform:
@@ -4249,6 +4212,10 @@ PrefabInstance:
     - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
       propertyPath: m_Name
       value: Fence_03 (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
@@ -4889,12 +4856,12 @@ GameObject:
   - component: {fileID: 239782210}
   - component: {fileID: 239782209}
   - component: {fileID: 239782208}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &239782207
 Transform:
@@ -5204,12 +5171,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 268587126}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &268587126
 Transform:
@@ -5365,6 +5332,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 001
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &275612742 stripped
@@ -5427,9 +5398,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -5988,6 +5959,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 094
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &300539624 stripped
@@ -6140,12 +6115,12 @@ GameObject:
   - component: {fileID: 310974374}
   - component: {fileID: 310974373}
   - component: {fileID: 310974372}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &310974371
 Transform:
@@ -6696,12 +6671,12 @@ GameObject:
   - component: {fileID: 326761433}
   - component: {fileID: 326761432}
   - component: {fileID: 326761431}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &326761430
 Transform:
@@ -7023,6 +6998,10 @@ PrefabInstance:
     - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
       propertyPath: m_Name
       value: Fence_03 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
@@ -7356,12 +7335,12 @@ GameObject:
   - component: {fileID: 363231803}
   - component: {fileID: 363231802}
   - component: {fileID: 363231801}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &363231800
 Transform:
@@ -7644,12 +7623,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 366955577}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &366955577
 Transform:
@@ -8132,12 +8111,12 @@ GameObject:
   - component: {fileID: 411867607}
   - component: {fileID: 411867606}
   - component: {fileID: 411867605}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &411867604
 Transform:
@@ -8516,12 +8495,12 @@ GameObject:
   - component: {fileID: 431433345}
   - component: {fileID: 431433344}
   - component: {fileID: 431433343}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &431433342
 Transform:
@@ -8675,12 +8654,12 @@ GameObject:
   - component: {fileID: 442517293}
   - component: {fileID: 442517292}
   - component: {fileID: 442517291}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &442517290
 Transform:
@@ -8891,12 +8870,12 @@ GameObject:
   - component: {fileID: 458520288}
   - component: {fileID: 458520287}
   - component: {fileID: 458520286}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &458520285
 Transform:
@@ -9031,9 +9010,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -9349,6 +9328,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &468274775 stripped
@@ -9411,9 +9394,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -9434,12 +9417,12 @@ GameObject:
   - component: {fileID: 470205502}
   - component: {fileID: 470205501}
   - component: {fileID: 470205500}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &470205499
 Transform:
@@ -9725,12 +9708,12 @@ GameObject:
   - component: {fileID: 477420839}
   - component: {fileID: 477420838}
   - component: {fileID: 477420837}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &477420836
 Transform:
@@ -9992,6 +9975,10 @@ PrefabInstance:
     - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
       propertyPath: m_Name
       value: 091
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -10462,6 +10449,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 081
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &518967271 stripped
@@ -10478,7 +10469,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 519665796}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fences_Hor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10910,12 +10901,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 532102257}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &532102257
 Transform:
@@ -10955,12 +10946,12 @@ GameObject:
   - component: {fileID: 536736994}
   - component: {fileID: 536736993}
   - component: {fileID: 536736992}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &536736991
 Transform:
@@ -11603,12 +11594,12 @@ GameObject:
   - component: {fileID: 555325572}
   - component: {fileID: 555325571}
   - component: {fileID: 555325570}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &555325569
 Transform:
@@ -12339,12 +12330,12 @@ GameObject:
   - component: {fileID: 596671921}
   - component: {fileID: 596671920}
   - component: {fileID: 596671919}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &596671918
 Transform:
@@ -12513,12 +12504,12 @@ GameObject:
   - component: {fileID: 599861758}
   - component: {fileID: 599861757}
   - component: {fileID: 599861756}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &599861755
 Transform:
@@ -12897,12 +12888,12 @@ GameObject:
   - component: {fileID: 619284416}
   - component: {fileID: 619284415}
   - component: {fileID: 619284414}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &619284413
 Transform:
@@ -13231,9 +13222,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 7 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -13445,12 +13436,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648070222}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: KeepOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &648070222
 Transform:
@@ -14001,9 +13992,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -14421,6 +14412,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &737554408 stripped
@@ -14554,6 +14549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27865ec3bc91754f8f60289688dc625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slimeSpawnPos: {fileID: 511722598}
   ShopCanvas: {fileID: 1541122740}
   TowerCanvas: {fileID: 2074506775}
 --- !u!4 &744213611
@@ -14583,12 +14579,12 @@ GameObject:
   - component: {fileID: 744781605}
   - component: {fileID: 744781604}
   - component: {fileID: 744781603}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &744781602
 Transform:
@@ -15055,6 +15051,10 @@ PrefabInstance:
     - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
       propertyPath: m_Name
       value: Fence_03 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
@@ -15563,9 +15563,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -15633,6 +15633,10 @@ PrefabInstance:
     - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
       propertyPath: m_Name
       value: 021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -15829,9 +15833,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 8 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -15991,6 +15995,10 @@ PrefabInstance:
     - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
       propertyPath: m_Name
       value: 051
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -16435,12 +16443,12 @@ GameObject:
   - component: {fileID: 820192822}
   - component: {fileID: 820192821}
   - component: {fileID: 820192820}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &820192819
 Transform:
@@ -16927,12 +16935,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861176978}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &861176978
 Transform:
@@ -17287,12 +17295,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 876394353}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &876394353
 Transform:
@@ -17401,6 +17409,10 @@ PrefabInstance:
     - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
       propertyPath: m_Name
       value: 071
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -17750,12 +17762,12 @@ GameObject:
   - component: {fileID: 897724980}
   - component: {fileID: 897724979}
   - component: {fileID: 897724978}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &897724977
 Transform:
@@ -18297,12 +18309,12 @@ GameObject:
   - component: {fileID: 920445131}
   - component: {fileID: 920445130}
   - component: {fileID: 920445129}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &920445128
 Transform:
@@ -18892,6 +18904,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &938206850 stripped
@@ -18911,12 +18927,12 @@ GameObject:
   - component: {fileID: 942166514}
   - component: {fileID: 942166513}
   - component: {fileID: 942166512}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &942166511
 Transform:
@@ -19296,12 +19312,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 967727559}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &967727559
 Transform:
@@ -20186,7 +20202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1011827764}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fences
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20377,12 +20393,12 @@ GameObject:
   - component: {fileID: 1018692881}
   - component: {fileID: 1018692880}
   - component: {fileID: 1018692879}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1018692878
 Transform:
@@ -20517,6 +20533,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &1022066170 stripped
@@ -20536,12 +20556,12 @@ GameObject:
   - component: {fileID: 1028151540}
   - component: {fileID: 1028151539}
   - component: {fileID: 1028151538}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1028151537
 Transform:
@@ -20716,9 +20736,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 5 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -21334,6 +21354,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 041
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &1072867488 stripped
@@ -21396,9 +21420,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -21695,12 +21719,12 @@ GameObject:
   - component: {fileID: 1093815713}
   - component: {fileID: 1093815712}
   - component: {fileID: 1093815711}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1093815710
 Transform:
@@ -22582,12 +22606,12 @@ GameObject:
   - component: {fileID: 1132856235}
   - component: {fileID: 1132856234}
   - component: {fileID: 1132856233}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1132856232
 Transform:
@@ -22722,6 +22746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 092
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &1136745609 stripped
@@ -22835,12 +22863,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1146667383}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1146667383
 Transform:
@@ -23143,12 +23171,12 @@ GameObject:
   - component: {fileID: 1175408654}
   - component: {fileID: 1175408653}
   - component: {fileID: 1175408652}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1175408651
 Transform:
@@ -23283,9 +23311,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -23493,12 +23521,12 @@ GameObject:
   - component: {fileID: 1188235337}
   - component: {fileID: 1188235336}
   - component: {fileID: 1188235335}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1188235334
 Transform:
@@ -24308,6 +24336,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneDesign
       objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_boss
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_bonus
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_nomal
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_gimmick
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
 --- !u!1 &1233289407
@@ -24435,6 +24479,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &1242740454 stripped
@@ -24451,7 +24499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1244756588}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fences_Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25859,12 +25907,12 @@ GameObject:
   - component: {fileID: 1317118213}
   - component: {fileID: 1317118212}
   - component: {fileID: 1317118211}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1317118210
 Transform:
@@ -26451,12 +26499,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1327501305}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1327501305
 Transform:
@@ -26585,12 +26633,12 @@ GameObject:
   - component: {fileID: 1338537832}
   - component: {fileID: 1338537831}
   - component: {fileID: 1338537830}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1338537829
 Transform:
@@ -26876,12 +26924,12 @@ GameObject:
   - component: {fileID: 1341734888}
   - component: {fileID: 1341734887}
   - component: {fileID: 1341734886}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1341734885
 Transform:
@@ -27015,6 +27063,10 @@ PrefabInstance:
     - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
       propertyPath: m_Name
       value: 093
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -28243,6 +28295,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 094 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!1001 &1403430121
@@ -28458,6 +28514,10 @@ PrefabInstance:
     - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
       propertyPath: m_Name
       value: Fence_03 (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
@@ -28805,6 +28865,10 @@ PrefabInstance:
     - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
       propertyPath: m_Name
       value: Fence_03 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
@@ -29920,6 +29984,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &1481082170 stripped
@@ -30036,12 +30104,12 @@ GameObject:
   - component: {fileID: 1487965121}
   - component: {fileID: 1487965120}
   - component: {fileID: 1487965119}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1487965118
 Transform:
@@ -30230,12 +30298,12 @@ GameObject:
   - component: {fileID: 1493893067}
   - component: {fileID: 1493893066}
   - component: {fileID: 1493893065}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1493893064
 Transform:
@@ -31074,9 +31142,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -31671,12 +31739,12 @@ GameObject:
   - component: {fileID: 1552905978}
   - component: {fileID: 1552905977}
   - component: {fileID: 1552905976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1552905975
 Transform:
@@ -31830,12 +31898,12 @@ GameObject:
   - component: {fileID: 1557443887}
   - component: {fileID: 1557443886}
   - component: {fileID: 1557443885}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1557443884
 Transform:
@@ -31927,12 +31995,12 @@ GameObject:
   - component: {fileID: 1557850276}
   - component: {fileID: 1557850275}
   - component: {fileID: 1557850274}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1557850273
 Transform:
@@ -32024,12 +32092,12 @@ GameObject:
   - component: {fileID: 1562894197}
   - component: {fileID: 1562894196}
   - component: {fileID: 1562894195}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1562894194
 Transform:
@@ -32451,12 +32519,12 @@ GameObject:
   - component: {fileID: 1589400963}
   - component: {fileID: 1589400962}
   - component: {fileID: 1589400961}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1589400960
 Transform:
@@ -32548,12 +32616,12 @@ GameObject:
   - component: {fileID: 1606537437}
   - component: {fileID: 1606537436}
   - component: {fileID: 1606537435}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1606537434
 Transform:
@@ -32688,9 +32756,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -33095,12 +33163,12 @@ GameObject:
   - component: {fileID: 1631980285}
   - component: {fileID: 1631980284}
   - component: {fileID: 1631980283}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1631980282
 Transform:
@@ -33192,12 +33260,12 @@ GameObject:
   - component: {fileID: 1635090419}
   - component: {fileID: 1635090418}
   - component: {fileID: 1635090417}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1635090416
 Transform:
@@ -33491,6 +33559,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &1639390305 stripped
@@ -33510,12 +33582,12 @@ GameObject:
   - component: {fileID: 1639644616}
   - component: {fileID: 1639644615}
   - component: {fileID: 1639644614}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1639644613
 Transform:
@@ -33911,9 +33983,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -35050,12 +35122,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1717971683}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1717971683
 Transform:
@@ -35677,9 +35749,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -38226,12 +38298,12 @@ GameObject:
   - component: {fileID: 1826587003}
   - component: {fileID: 1826587002}
   - component: {fileID: 1826587001}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1826587000
 Transform:
@@ -38804,12 +38876,12 @@ GameObject:
   - component: {fileID: 1852431913}
   - component: {fileID: 1852431912}
   - component: {fileID: 1852431911}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1852431910
 Transform:
@@ -39046,9 +39118,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -39166,12 +39238,12 @@ GameObject:
   - component: {fileID: 1871642656}
   - component: {fileID: 1871642655}
   - component: {fileID: 1871642654}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1871642653
 Transform:
@@ -39273,12 +39345,12 @@ GameObject:
   - component: {fileID: 1876751358}
   - component: {fileID: 1876751357}
   - component: {fileID: 1876751356}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1876751355
 Transform:
@@ -39413,9 +39485,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -39530,12 +39602,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1885132614}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1885132614
 Transform:
@@ -39610,6 +39682,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &1887169133 stripped
@@ -39630,7 +39706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5920776839036307208, guid: f2de0b2ce0ca4de49ba3fc3f82c570c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.0567193
+      value: -0.81
       objectReference: {fileID: 0}
     - target: {fileID: 5920776839036307208, guid: f2de0b2ce0ca4de49ba3fc3f82c570c0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -39671,6 +39747,10 @@ PrefabInstance:
     - target: {fileID: 5920776839036307210, guid: f2de0b2ce0ca4de49ba3fc3f82c570c0, type: 3}
       propertyPath: m_Name
       value: ObjectPoolingManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6772754322162242666, guid: f2de0b2ce0ca4de49ba3fc3f82c570c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2de0b2ce0ca4de49ba3fc3f82c570c0, type: 3}
@@ -39791,9 +39871,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -41345,9 +41425,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1 (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -41647,7 +41727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1961928141}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fences_Ver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41892,12 +41972,12 @@ GameObject:
   - component: {fileID: 1979671287}
   - component: {fileID: 1979671286}
   - component: {fileID: 1979671285}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1979671284
 Transform:
@@ -42442,9 +42522,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 6 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -42508,6 +42588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 031
       objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
 --- !u!4 &2011074849 stripped
@@ -42570,9 +42654,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -42741,12 +42825,12 @@ GameObject:
   - component: {fileID: 2032586196}
   - component: {fileID: 2032586195}
   - component: {fileID: 2032586194}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2032586193
 Transform:
@@ -43580,6 +43664,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fence_03 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
 --- !u!4 &2081091740 stripped
@@ -44324,9 +44412,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1007747110, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
-      propertyPath: m_Convex
-      value: 0
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -44389,6 +44477,10 @@ PrefabInstance:
     - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
       propertyPath: m_Name
       value: 061
+      objectReference: {fileID: 0}
+    - target: {fileID: 1007747109, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
@@ -44491,6 +44583,10 @@ PrefabInstance:
     - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
       propertyPath: m_Name
       value: Fence_03 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 834928241, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 192a615357ac3b0439ea42bd156719ac, type: 3}
@@ -45061,12 +45157,12 @@ GameObject:
   - component: {fileID: 2142851311}
   - component: {fileID: 2142851310}
   - component: {fileID: 2142851309}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Keepout (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2142851308
 Transform:
