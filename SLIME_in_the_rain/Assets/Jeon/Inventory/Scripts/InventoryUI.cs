@@ -140,8 +140,17 @@ public class InventoryUI : MonoBehaviour
         {
             wT.ShowText();
         }
+
     }
 
+    public void ExpansionSlot(int _level)
+    {
+        inventory.SlotCount += _level;
+        if (inventory.SlotCount >= 28)
+        {
+            ExpansionButton.interactable = false;
+        }
+    }
     #region 버튼 온오프 관리
     void OnOffStats()
     {

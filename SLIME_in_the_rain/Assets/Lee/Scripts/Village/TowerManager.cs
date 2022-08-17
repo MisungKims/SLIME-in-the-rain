@@ -17,15 +17,19 @@ public class TowerManager : MonoBehaviour
 
     //singleton
     JellyManager jellyManager;
+    StatManager statManager;
+    InventoryUI inventoryUI;
 
     #endregion
 
     #region 유니티 함수
     private void Start()
     {
-        
+
         //singleton
         jellyManager = JellyManager.Instance;
+        statManager = StatManager.Instance;
+        inventoryUI = InventoryUI.Instance;
         //OnClick
         priceButton.onClick.AddListener(delegate { ClickEvent(); });
         
@@ -42,19 +46,21 @@ public class TowerManager : MonoBehaviour
     #region 함수
     void ClickEvent()
     {
-        if (jellyManager.JellyCount >= int.Parse(farmPriceText.text))
+        if ((jellyManager.JellyCount - int.Parse(farmPriceText.text)) > 0)
         {
             level = (int.Parse(level) + 1).ToString();
+            StatUp();
             PlayerPrefs.SetString(TowerCollider.thisObject.name + "level", level);
             Texting();
             TowerCollider.thisObject.GetComponent<FarmManager>().TowerBuilding(1);
+            
+            jellyManager.JellyCount -= int.Parse(farmPriceText.text);
         }
         else
         {
             this.transform.parent.GetComponent<VillageCanvas>().PanelCorou();
         }
     }
-
     void Texting()
     {
         level = PlayerPrefs.GetString(TowerCollider.thisObject.name + "level");
@@ -101,6 +107,42 @@ public class TowerManager : MonoBehaviour
                 farmNameText.text = "인벤 슬롯 확장 광석";
                 farmExplainText.text = "[ 기본 인벤토리 슬롯 ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel)+100).ToString();
+                break;
+            case "Empty":
+            default:
+                break;
+        }
+    }
+    void StatUp()
+    {
+        level = PlayerPrefs.GetString(TowerCollider.thisObject.name + "level");
+        float floatLevel = float.Parse(level);
+        //현재 타워 정보 정리
+        switch (TowerCollider.thisObject.name)
+        {
+            case "MaxHP":
+                statManager.AddMaxHP(0.1f);
+                break;
+            case "CoolTime":
+                statManager.AddCoolTime(0.1f);
+                break;
+            case "MoveSpeed":
+                statManager.AddMaxHP(0.1f);
+                break;
+            case "AttackSpeed":
+                statManager.AddMaxHP(0.1f);
+                break;
+            case "AttackPower":
+                statManager.AddMaxHP(0.1f);
+                break;
+            case "AttackRange":
+                statManager.AddMaxHP(0.1f);
+                break;
+            case "DefensePower":
+                statManager.AddMaxHP(0.1f);
+                break;
+            case "InventorySlot":
+                inventoryUI.ExpansionSlot(1);
                 break;
             case "Empty":
             default:
