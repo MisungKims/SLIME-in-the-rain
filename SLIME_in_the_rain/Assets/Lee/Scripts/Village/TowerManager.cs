@@ -18,12 +18,13 @@ public class TowerManager : MonoBehaviour
     //singleton
     JellyManager jellyManager;
 
+
     #endregion
 
     #region À¯´ÏÆ¼ ÇÔ¼ö
     private void Start()
     {
-        
+
         //singleton
         jellyManager = JellyManager.Instance;
         //OnClick
@@ -42,19 +43,20 @@ public class TowerManager : MonoBehaviour
     #region ÇÔ¼ö
     void ClickEvent()
     {
-        if (jellyManager.JellyCount >= int.Parse(farmPriceText.text))
+        if ((jellyManager.JellyCount - int.Parse(farmPriceText.text)) > 0)
         {
             level = (int.Parse(level) + 1).ToString();
             PlayerPrefs.SetString(TowerCollider.thisObject.name + "level", level);
             Texting();
             TowerCollider.thisObject.GetComponent<FarmManager>().TowerBuilding(1);
+            
+            jellyManager.JellyCount -= int.Parse(farmPriceText.text);
         }
         else
         {
             this.transform.parent.GetComponent<VillageCanvas>().PanelCorou();
         }
     }
-
     void Texting()
     {
         level = PlayerPrefs.GetString(TowerCollider.thisObject.name + "level");
@@ -63,23 +65,23 @@ public class TowerManager : MonoBehaviour
         switch (TowerCollider.thisObject.name)
         {
             case "MaxHP":
-                farmNameText.text = "Ã¼·Â ¹ö¼¸ ³óÀå";
+                farmNameText.text = "ÃÖ´ëÃ¼·Â ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ ÃÖ´ë Ã¼·Â ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "CoolTime":
-                farmNameText.text = "Äð°¨ ¹ö¼¸ ³óÀå";
+                farmNameText.text = "ÄðÅ¸ÀÓ ²É ³óÀå";
                 farmExplainText.text = "[ ÄðÅ¸ÀÓ °¨¼Ò ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "MoveSpeed":
-                farmNameText.text = "ÀÌ¼Ó ²É ³óÀå";
+                farmNameText.text = "ÀÌµ¿¼Óµµ ²É ³óÀå";
                 farmExplainText.text = "[ ÀÌµ¿¼Óµµ ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackSpeed":
-                farmNameText.text = "°ø¼Ó ²É ³óÀå";
-                farmExplainText.text = "[ °ø°Ý ¼Óµµ ]" + " +" + level;
+                farmNameText.text = "°ø°Ý¼Óµµ ²É ³óÀå";
+                farmExplainText.text = "[ °ø°Ý¼Óµµ ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackPower":
@@ -87,9 +89,9 @@ public class TowerManager : MonoBehaviour
                 farmExplainText.text = "[ Èû ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
-            case "AttackRange":
-                farmNameText.text = "»ç°Å¸® ¹ö¼¸ ³óÀå";
-                farmExplainText.text = "[ »ç°Å¸® ]" + " +" + level;
+            case "MultipleAttackRange":
+                farmNameText.text = "°ø°Ý¹üÀ§ ¹ö¼¸ ³óÀå";
+                farmExplainText.text = "[ °ø°Ý¹üÀ§ ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "DefensePower":
@@ -107,6 +109,7 @@ public class TowerManager : MonoBehaviour
                 break;
         }
     }
+    
     #endregion
 
 

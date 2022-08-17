@@ -12,7 +12,7 @@ public class FarmManager : MonoBehaviour
     public List<GameObject> MoveSpeedList;
     public List<GameObject> AttackSpeedList;
     public List<GameObject> AttackPowerList;
-    public List<GameObject> AttackRangeList;
+    public List<GameObject> MultipleAttackRangeList;
     public List<GameObject> DefensePowerList;
     public List<GameObject> InventorySlotList;
 
@@ -96,8 +96,8 @@ public class FarmManager : MonoBehaviour
                 return AttackSpeedList;
             case "AttackPower":
                 return AttackPowerList;
-            case "AttackRange":
-                return AttackRangeList;
+            case "MultipleAttackRange":
+                return MultipleAttackRangeList;
             case "DefensePower":
                 return DefensePowerList;
             case "InventorySlot":

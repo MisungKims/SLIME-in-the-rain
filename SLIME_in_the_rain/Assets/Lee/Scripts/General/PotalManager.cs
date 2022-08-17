@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class PotalManager : MonoBehaviour
 {
@@ -12,23 +14,34 @@ public class PotalManager : MonoBehaviour
     public GameObject potalPrefab;
     [Header("보스/일반/기믹/추가보너스")]
     public List<GameObject> ParticleList;
+    [Header("마을 키우기 결과창")]
+    public Canvas receiptCanvas;
+    public TextMeshProUGUI receiptText;
 
     //private
     Vector3 vec3;
+    float typingSpeed = 0.05f;
 
     //bool
     bool potalMake = false;
     bool doCollision = false;
+    bool doReceipt = true;
 
     //singleton
     SceneDesign sceneDesign;
+    StatManager statManager;
+    InventoryUI inventoryUI;
 
     // Start is called before the first frame update
     private void Start()
     {
         //singleton
         sceneDesign = SceneDesign.Instance;
+        inventoryUI = InventoryUI.Instance;
+        statManager = StatManager.Instance;
+
         sceneDesign.mapClear = false;
+        receiptCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -45,10 +58,8 @@ public class PotalManager : MonoBehaviour
                 potalMake = true;
                 doCollision = true;
             }
-
-            
         }
-        if(doCollision)
+        if (doCollision)
         {
             for (int i = 0; i < parentObj.Count; i++)
             {
@@ -59,7 +70,14 @@ public class PotalManager : MonoBehaviour
                     {
                         if (Input.GetKey(KeyCode.G))
                         {
-                            SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
+                            if(SceneManager.GetActiveScene().buildIndex == 1)
+                            {
+                                SetStat(ipotal.GetComponent<PotalCollider>().next);
+                            }
+                            else
+                            {
+                                SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
+                            }
                         }
                     }
                 }
@@ -67,9 +85,9 @@ public class PotalManager : MonoBehaviour
                 {
                     Debug.Log("두번째 포탈은 생성 되지 않았습니다");
                 }
-                
+
             }
-               
+
         }
     }
 
@@ -143,4 +161,71 @@ public class PotalManager : MonoBehaviour
         particle.transform.position = gameObject.transform.position + Vector3.down;
         particle.transform.localScale = Vector3.one * 0.1f;
     }
+
+    //마을에서 던전 들어가기전에 뜰 팝업창
+    public void SetStat(int next)
+    {
+        receiptCanvas.enabled = true;
+        string str
+            = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f).ToString() + "\n"
+            + "<color=#99ccff>" + "쿨타임 감소량" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f).ToString() + "\n"
+            + "<color=#a33b39>" + "이동 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f) + "\n"
+            + "<color=#ff8200>" + "공격 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f) + "\n"
+            + "<color=#8e0023>" + "공격력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * 0.1f) + "\n"
+            + "<color=#6f4f28>" + "공격 범위" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f) + "\n"
+            + "<color=#964b00>" + "방어력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f) + "\n"
+            + "<color=#ffffff>" + "인벤토리 슬롯" + "</color>" + " +" + (int.Parse(PlayerPrefs.GetString("InventorySlot" + "level")));
+
+        StartCoroutine(Typing(receiptText, str, typingSpeed));
+        StartCoroutine(Wait(next));
+        
+    }
+    IEnumerator Wait(int next)
+    {
+        while(doReceipt)
+        {
+            yield return null;
+        }
+        AddStat();
+        yield return new WaitForSeconds(1f);
+        while(!Input.anyKeyDown)
+        {
+            yield return null;
+        }
+        SceneManager.LoadScene(next);
+        receiptCanvas.enabled = false;
+    }
+    IEnumerator Typing(TextMeshProUGUI typingText, string message, float speed)
+    {
+        int coloring = 0;
+        for (int i = 0; i < message.Length; i++)
+        {
+            if(message[i] == '<'|| message[i] == '>')
+            {
+                coloring++;
+            }
+            if(coloring == 0)
+            {
+                typingText.text = message.Substring(0, i + 1);
+                yield return new WaitForSeconds(speed);
+            }
+            else if(coloring == 4)
+            {
+                coloring = 0;
+            }
+        }
+        doReceipt = false;
+    }
+    void AddStat()
+    {
+        statManager.AddMaxHP(float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f);
+        statManager.AddCoolTime(float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f);
+        statManager.AddMoveSpeed(float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f);
+        statManager.AddAttackSpeed(float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * 0.1f);
+        statManager.AddAttackPower(float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * 0.1f);
+        statManager.MultipleAttackRange(float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f);
+        statManager.AddDefensePower(float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f);
+        inventoryUI.ExpansionSlot(int.Parse(PlayerPrefs.GetString("InventorySlot" + "level")));
+    }
+
 }
