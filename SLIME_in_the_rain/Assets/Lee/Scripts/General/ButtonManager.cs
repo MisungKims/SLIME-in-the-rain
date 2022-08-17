@@ -59,7 +59,7 @@ public class ButtonManager : MonoBehaviour                                 //다�
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            for (int i = 0, unenable  = 0; i <canvasList.Count ; i++)     //메인(0), 세팅 아이콘(마지막) 꺼지면 안됨  ,,, 인벤토리(1)은 하위 자식만 꺼지게 해야함
+            for (int i = 0, unenable  = 0; i < canvasList.Count ; i++)     //메인(0), 세팅 아이콘(마지막) 꺼지면 안됨  ,,, 인벤토리(1)은 하위 자식만 꺼지게 해야함
             {
                 //창이 하나라도 떠있으면 ESC 눌렀을때 그 창을 닫음
                 if (canvasList[i].activeSelf)
