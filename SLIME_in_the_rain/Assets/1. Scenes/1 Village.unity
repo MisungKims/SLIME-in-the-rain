@@ -14469,6 +14469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27865ec3bc91754f8f60289688dc625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slimeSpawnPos: {fileID: 511722598}
   ShopCanvas: {fileID: 1541122740}
   TowerCanvas: {fileID: 2074506775}
 --- !u!4 &744213611
@@ -24202,6 +24203,22 @@ PrefabInstance:
     - target: {fileID: 9193570379062764481, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
       propertyPath: m_Name
       value: SceneDesign
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_boss
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_bonus
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_nomal
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193570379062764487, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}
+      propertyPath: s_gimmick
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae97960e54cb75e429ef108bcfac4131, type: 3}

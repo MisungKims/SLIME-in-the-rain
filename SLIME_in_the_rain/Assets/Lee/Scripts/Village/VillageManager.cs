@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class VillageManager : MonoBehaviour           
+public class VillageManager : MapManager           
 {
 
     #region 변수
@@ -14,27 +14,20 @@ public class VillageManager : MonoBehaviour
     Slime slime;
     ICamera _camera;
     SceneDesign sceneDesign;
+    JellyManager jellyManager;
     #endregion
-
-    #region 유니티 함수
-    private void Awake()
-    {
-        sceneDesign = SceneDesign.Instance;
-    }
 
     private void Start()
     {
         //singletons
+        sceneDesign = SceneDesign.Instance;
         slime = Slime.Instance;
         _camera = ICamera.Instance;
-
-        //슬라임 초기 위치
-        Vector3 startPos = Vector3.zero;
-        startPos.y = 2f;
-        slime.transform.position = startPos;
-        
-        
+        jellyManager = JellyManager.Instance;
+        StartCoroutine(Clear());
     }
+
+    #region 유니티 함수
     private void Update()
     {
         #region 카메라 관련 조건문
@@ -56,14 +49,39 @@ public class VillageManager : MonoBehaviour
             _camera.Focus_Slime();
         }
         #endregion
-        if (slime.currentWeapon != null)
-        {
-            sceneDesign.mapClear = true;
-        }
     }
+    IEnumerator Clear()
+    {
+        while(!slime.currentWeapon)
+        {
+            yield return null;
+        }
+        ClearMap();
+    }
+
     private void OnDisable()
     {
-        sceneDesign.ResetScene();
+        if(sceneDesign)
+        {
+            
+            sceneDesign.ResetScene();
+            Debug.Log("Execution Reset");
+        }
+        else
+        {
+            //Debug.Log("Null SceneDesign instance");
+        }
+
+        if(jellyManager)
+        {
+            sceneDesign.jellyInit = jellyManager.JellyCount;
+            Debug.Log("Execution sceneDesign.jellyInit");
+        }
+        else
+        {
+            //Debug.Log("Null JellyManager instance");
+        }
+        
     }
     #endregion
 

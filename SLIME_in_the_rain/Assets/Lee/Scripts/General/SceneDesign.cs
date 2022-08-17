@@ -20,6 +20,8 @@ public class SceneDesign : MonoBehaviour
         }
     }
     #endregion
+    //public
+    //씬 순서 입력 받음
     public int randomNomal;
     public int randomGimmik;
     [Header(" ")]
@@ -27,14 +29,25 @@ public class SceneDesign : MonoBehaviour
     public int s_nomal;
     public int s_gimmick;
     public int s_bonus;
+    //씬 관리용 변수
+    public int next;
     public bool mapClear = false;       //맵 클리어시 관리용
-    public bool finalClear = false;     //게임 클리어시 관리용
-    public int next;                    //넥스트 값을 넘겨줌
-    public int mapCounting;
     public bool goBoss = false;         //보스로 가야할때
+    //ResultCanvas에 보낼 변수
+    public bool finalClear = false;     //게임 클리어시 관리용
+    public int mapCounting;
+    public float Timer = 0f;
+    public int jellyInit;
+
+
     //private
     int bossCount;
     int bossLevel;
+
+    //singleton
+    Slime slime;
+
+
     #endregion
 
     #region 유니티 함수
@@ -43,9 +56,6 @@ public class SceneDesign : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-
-            
-
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -54,13 +64,31 @@ public class SceneDesign : MonoBehaviour
         }
 
     }
-    #endregion
-    public void ResetScene()
+    private void Start()
     {
-        mapCounting = 0;
-        bossCount = 0;
-        bossLevel = 0;
+        slime = Slime.Instance;
     }
+    private void Update()
+    {
+        if(!finalClear)
+        {
+            Timer += Time.deltaTime;
+        }
+    }
+    #endregion
+    static IEnumerator OnResult()
+    {
+        while (Slime.Instance.statManager.myStats.HP != 0 && !SceneDesign.instance.finalClear)
+        {
+            Debug.Log("결과씬으로 가기 위한 코루틴 작동중");
+            yield return null;
+        }
+        SceneManager.LoadScene(2);
+    }
+
+
+    #region 함수
+
     public void MapCount()
     {
         if(!goBoss)
@@ -122,4 +150,16 @@ public class SceneDesign : MonoBehaviour
         }
         return next;
     }
+
+
+    //Village 끝나면 실행함
+    public void ResetScene()
+    {
+        mapCounting = 0;
+        bossCount = 0;
+        bossLevel = 0;
+        Timer = 0;
+        StartCoroutine(OnResult());
+    }
+    #endregion
 }
