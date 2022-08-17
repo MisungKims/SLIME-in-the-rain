@@ -35,6 +35,7 @@ public class SceneDesign : MonoBehaviour
     public bool goBoss = false;         //보스로 가야할때
     //ResultCanvas에 보낼 변수
     public bool finalClear = false;     //게임 클리어시 관리용
+    public bool isDead = false;
     public int mapCounting;
     public float Timer = 0f;
     public int jellyInit;
@@ -78,7 +79,7 @@ public class SceneDesign : MonoBehaviour
     #endregion
     static IEnumerator OnResult()
     {
-        while (Slime.Instance.statManager.myStats.HP != 0 && !SceneDesign.instance.finalClear)
+        while (Slime.Instance.statManager.myStats.HP > 0 && !SceneDesign.instance.finalClear)
         {
             Debug.Log("결과씬으로 가기 위한 코루틴 작동중");
             yield return null;
@@ -120,7 +121,7 @@ public class SceneDesign : MonoBehaviour
 
         if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
         {
-            next = bossLevel + 1;       // 2,3,4
+            next = bossLevel + s_boss - 1;       // 3,4,5
         }
         else if (now >= s_nomal)
         {
