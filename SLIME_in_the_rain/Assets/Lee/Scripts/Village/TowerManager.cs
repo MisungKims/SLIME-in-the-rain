@@ -17,8 +17,7 @@ public class TowerManager : MonoBehaviour
 
     //singleton
     JellyManager jellyManager;
-    StatManager statManager;
-    InventoryUI inventoryUI;
+
 
     #endregion
 
@@ -28,8 +27,6 @@ public class TowerManager : MonoBehaviour
 
         //singleton
         jellyManager = JellyManager.Instance;
-        statManager = StatManager.Instance;
-        inventoryUI = InventoryUI.Instance;
         //OnClick
         priceButton.onClick.AddListener(delegate { ClickEvent(); });
         
@@ -49,7 +46,6 @@ public class TowerManager : MonoBehaviour
         if ((jellyManager.JellyCount - int.Parse(farmPriceText.text)) > 0)
         {
             level = (int.Parse(level) + 1).ToString();
-            StatUp();
             PlayerPrefs.SetString(TowerCollider.thisObject.name + "level", level);
             Texting();
             TowerCollider.thisObject.GetComponent<FarmManager>().TowerBuilding(1);
@@ -69,23 +65,23 @@ public class TowerManager : MonoBehaviour
         switch (TowerCollider.thisObject.name)
         {
             case "MaxHP":
-                farmNameText.text = "Ã¼·Â ¹ö¼¸ ³óÀå";
+                farmNameText.text = "ÃÖ´ëÃ¼·Â ¹ö¼¸ ³óÀå";
                 farmExplainText.text = "[ ÃÖ´ë Ã¼·Â ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "CoolTime":
-                farmNameText.text = "Äð°¨ ¹ö¼¸ ³óÀå";
+                farmNameText.text = "ÄðÅ¸ÀÓ ²É ³óÀå";
                 farmExplainText.text = "[ ÄðÅ¸ÀÓ °¨¼Ò ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "MoveSpeed":
-                farmNameText.text = "ÀÌ¼Ó ²É ³óÀå";
+                farmNameText.text = "ÀÌµ¿¼Óµµ ²É ³óÀå";
                 farmExplainText.text = "[ ÀÌµ¿¼Óµµ ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackSpeed":
-                farmNameText.text = "°ø¼Ó ²É ³óÀå";
-                farmExplainText.text = "[ °ø°Ý ¼Óµµ ]" + " +" + level;
+                farmNameText.text = "°ø°Ý¼Óµµ ²É ³óÀå";
+                farmExplainText.text = "[ °ø°Ý¼Óµµ ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "AttackPower":
@@ -93,9 +89,9 @@ public class TowerManager : MonoBehaviour
                 farmExplainText.text = "[ Èû ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
-            case "AttackRange":
-                farmNameText.text = "»ç°Å¸® ¹ö¼¸ ³óÀå";
-                farmExplainText.text = "[ »ç°Å¸® ]" + " +" + level;
+            case "MultipleAttackRange":
+                farmNameText.text = "°ø°Ý¹üÀ§ ¹ö¼¸ ³óÀå";
+                farmExplainText.text = "[ °ø°Ý¹üÀ§ ]" + " +" + level;
                 farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
                 break;
             case "DefensePower":
@@ -113,42 +109,7 @@ public class TowerManager : MonoBehaviour
                 break;
         }
     }
-    void StatUp()
-    {
-        level = PlayerPrefs.GetString(TowerCollider.thisObject.name + "level");
-        float floatLevel = float.Parse(level);
-        //ÇöÀç Å¸¿ö Á¤º¸ Á¤¸®
-        switch (TowerCollider.thisObject.name)
-        {
-            case "MaxHP":
-                statManager.AddMaxHP(0.1f);
-                break;
-            case "CoolTime":
-                statManager.AddCoolTime(0.1f);
-                break;
-            case "MoveSpeed":
-                statManager.AddMaxHP(0.1f);
-                break;
-            case "AttackSpeed":
-                statManager.AddMaxHP(0.1f);
-                break;
-            case "AttackPower":
-                statManager.AddMaxHP(0.1f);
-                break;
-            case "AttackRange":
-                statManager.AddMaxHP(0.1f);
-                break;
-            case "DefensePower":
-                statManager.AddMaxHP(0.1f);
-                break;
-            case "InventorySlot":
-                inventoryUI.ExpansionSlot(1);
-                break;
-            case "Empty":
-            default:
-                break;
-        }
-    }
+    
     #endregion
 
 

@@ -1,22 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class VillageManager : MapManager           
 {
-
     #region 변수
+    
     public GameObject ShopCanvas;
     public GameObject TowerCanvas;
+
+
 
     //singletons
     Slime slime;
     ICamera _camera;
     SceneDesign sceneDesign;
     JellyManager jellyManager;
+
+
     #endregion
 
+    #region 유니티 라이프사이클
     private void Start()
     {
         //singletons
@@ -24,10 +29,12 @@ public class VillageManager : MapManager
         slime = Slime.Instance;
         _camera = ICamera.Instance;
         jellyManager = JellyManager.Instance;
+
+
+
         StartCoroutine(Clear());
     }
-
-    #region 유니티 함수
+    
     private void Update()
     {
         #region 카메라 관련 조건문
@@ -81,7 +88,6 @@ public class VillageManager : MapManager
         {
             //Debug.Log("Null JellyManager instance");
         }
-        
     }
     #endregion
 
