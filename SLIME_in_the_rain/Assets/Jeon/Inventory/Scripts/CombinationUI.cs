@@ -65,6 +65,7 @@ public class CombinationUI : MonoBehaviour
     bool firstSet = false;
     bool secondGelatin = false;
     bool secondCount = false;
+    bool sameGel = false;
 
     InventoryUI inventoryUI;
     Inventory inventory;
@@ -110,7 +111,7 @@ public class CombinationUI : MonoBehaviour
     {
         if (int.TryParse(countInputField.text, out int i))
         {
-            if (i >= 0)
+            if (i > 0)
             {
                 countInput = i;
                 CombinationUIGelatin(countInput);
@@ -119,7 +120,7 @@ public class CombinationUI : MonoBehaviour
             }
             else
             {
-                StartCoroutine(Wt("입력오류"));
+                StartCoroutine(Wt("1이상의 수를 입력해주세요."));
             }
         }
         else
@@ -234,11 +235,15 @@ public class CombinationUI : MonoBehaviour
 
     public void inputEndCount(int _slotNum)
     {
+
         countInputField.transform.parent.gameObject.SetActive(true);
 
         SelectItem = inventory.items[_slotNum];
         SelcetNum = _slotNum;
         GelatinCount();
+
+
+
     }
 
     #region 젤라틴조합리스트
@@ -456,9 +461,24 @@ public class CombinationUI : MonoBehaviour
         }
         if (ComGelatinIt != null)
         {
+            sameGel = false;
             inventory.items[slotNum1].itemCount-= _gelatin1Cont;
             inventory.items[slotNum2].itemCount-= _gelatin2Cont;
-            addItem(ComGelatinIt);
+            for (int i = 0; i < inventory.items.Count; i++)
+            {
+                if (inventory.items[i].itemName == ComGelatinIt.itemName)
+                {
+                    inventory.items[i].itemCount++;
+                    sameGel = true;
+                    break;
+                }
+               
+            }
+            if (!sameGel)
+            {
+                addItem(ComGelatinIt);
+            }
+           
             ResetData();
         }
         inventoryUI.RedrawSlotUI();

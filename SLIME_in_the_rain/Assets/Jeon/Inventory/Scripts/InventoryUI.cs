@@ -38,6 +38,8 @@ public class InventoryUI : MonoBehaviour
     public GameObject DissolutionUI;
 
     private JellyManager jellyManager;
+    [SerializeField]
+    private TextMeshProUGUI addButtonCostText;
     public TextMeshProUGUI JellyTextC; //Á©¸®
     [SerializeField]
     int expansCost = 5;
@@ -66,6 +68,7 @@ public class InventoryUI : MonoBehaviour
         statsUI.SetActive(activeStatsUI);
         CombinationUI.SetActive(activeCombination);
         DissolutionUI.SetActive(activeDissolution);
+        addButtonCostText.text = expansCost.ToString() + "J";
 
 
     }
@@ -126,7 +129,6 @@ public class InventoryUI : MonoBehaviour
 
     public void ExpansionSlot() //½½·Ô Ãß°¡
     {
-
         if (jellyManager.JellyCount >= expansCost)
         {
             inventory.SlotCount++;
@@ -134,11 +136,22 @@ public class InventoryUI : MonoBehaviour
             {
                 ExpansionButton.interactable = false;
             }
+            jellyManager.JellyCount -= expansCost;
             expansCost += expansCost;
+            addButtonCostText.text = expansCost.ToString() + "J";
         }
         else
         {
             wT.ShowText();
+        }
+    }
+
+    public void ExpansionSlot(int _level)
+    {
+        inventory.SlotCount += _level;
+        if (inventory.SlotCount >= 28)
+        {
+            ExpansionButton.interactable = false;
         }
     }
 
