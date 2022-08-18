@@ -30,6 +30,7 @@ public class SceneDesign : MonoBehaviour
     public int s_gimmick;
     public int s_bonus;
     //씬 관리용 변수
+    public bool doTutorial = false;      //나중에 false로 바꾸기
     public int next;
     public bool mapClear = false;       //맵 클리어시 관리용
     public bool goBoss = false;         //보스로 가야할때
@@ -39,11 +40,11 @@ public class SceneDesign : MonoBehaviour
     public int mapCounting;
     public float Timer = 0f;
     public int jellyInit;
-
+    public int bossLevel;
 
     //private
     int bossCount;
-    int bossLevel;
+
 
     //singleton
     Slime slime;
