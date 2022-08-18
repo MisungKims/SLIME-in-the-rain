@@ -15,7 +15,7 @@ public class ResultCanvas : MapManager
     public TextMeshProUGUI killcountText;
     public TextMeshProUGUI jellycountText;
     [Header("")]
-    public Transform gelatinResult;
+    public GameObject gelatinObj;
     [Header("")]
     public Button villageButton;
     public Button titleButton;
@@ -34,7 +34,9 @@ public class ResultCanvas : MapManager
     StatManager statManager;
     JellyManager jellyManager;
     RuneManager runeManager;
+    Inventory inventory;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,7 @@ public class ResultCanvas : MapManager
         statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
         runeManager = RuneManager.Instance;
+        inventory = Inventory.Instance;
 
         runeSlot = runeManager.gameObject.transform.GetChild(0);
 
@@ -73,6 +76,7 @@ public class ResultCanvas : MapManager
 
         //타이틀 -> 결과Texting -> 룬 -> 젤라틴 순으로 뜹니다
         StartCoroutine(TitleText());
+        ResultGelatin();
 
     }
 
@@ -118,7 +122,6 @@ public class ResultCanvas : MapManager
     //2-1. 타이핑 <- 코루틴
     void TypingAll()
     {
-
         TextMeshProUGUI[] textMeshArr = new TextMeshProUGUI[4];
         string[] stringArr = new string[4];
 
@@ -128,7 +131,14 @@ public class ResultCanvas : MapManager
         int reachedStage = (sceneDesign.mapCounting - sceneDesign.bossLevel);
         if (reachedStage % stage == 0)
         {
-            stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + "Boss";
+            if(5>reachedStage)
+            {
+                stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + (reachedStage % stage).ToString();
+            }
+            else
+            {
+                stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + "Boss";
+            }
         }
         else
         {
@@ -186,5 +196,21 @@ public class ResultCanvas : MapManager
         runeSlot.localScale = Vector3.one * 1.2f;
     }
 
-
+    void ResultGelatin()
+    {
+        for (int i = 0, count = 0; i < inventory.items.Count; i++) 
+        {
+            if(inventory.items[i].itemType == ItemType.gelatin)
+            {
+                Vector3 pos = gelatinObj.transform.position;
+                pos.x -= (count * 70);
+                GameObject _image = Instantiate(gelatinObj, pos, Quaternion.Euler(Vector3.zero));
+                _image.transform.parent = gelatinObj.transform.parent;
+                _image.SetActive(true);
+                _image.GetComponent<Image>().sprite = inventory.items[i].itemIcon;
+                _image.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (inventory.items[i].itemCount).ToString();
+                count++;
+            }
+        }
+    }
 }
