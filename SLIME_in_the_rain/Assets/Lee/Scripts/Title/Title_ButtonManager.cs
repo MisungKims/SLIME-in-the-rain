@@ -13,7 +13,7 @@ public class Title_ButtonManager : MonoBehaviour
 
     //캐싱
     SettingCanvas settingCanvas;
-
+    SceneDesign sceneDesign;
 
 
     private void Start()
@@ -21,7 +21,16 @@ public class Title_ButtonManager : MonoBehaviour
         //singleton
         settingCanvas = SettingCanvas.Instance;
         settingCanvas.settingIcon.SetActive(false);
+        sceneDesign = SceneDesign.Instance;
 
+        //Tutorial
+        if (PlayerPrefs.HasKey("tutorial"))
+        {
+            sceneDesign.doTutorial = System.Convert.ToBoolean(PlayerPrefs.GetInt("tutorial"));
+        }
+
+
+        //OnClick
         int i = 0;
         buttons[i++].onClick.AddListener(delegate { StartButton(); });  //시작
         buttons[i++].onClick.AddListener(delegate { SettingButton(); });  //설정
@@ -30,7 +39,14 @@ public class Title_ButtonManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene(1);
+        if(sceneDesign.doTutorial)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     public void SettingButton()

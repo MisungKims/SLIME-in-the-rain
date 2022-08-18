@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class VillageManager : MapManager           
 {
@@ -10,7 +10,7 @@ public class VillageManager : MapManager
     public GameObject ShopCanvas;
     public GameObject TowerCanvas;
 
-
+    private Transform runeSlot;
 
     //singletons
     Slime slime;
@@ -18,11 +18,13 @@ public class VillageManager : MapManager
     SceneDesign sceneDesign;
     JellyManager jellyManager;
     SettingCanvas settingCanvas;
+    RuneManager runeManager;
 
 
     #endregion
 
     #region 유니티 라이프사이클
+
     private void Start()
     {
         //singletons
@@ -31,7 +33,12 @@ public class VillageManager : MapManager
         _camera = ICamera.Instance;
         jellyManager = JellyManager.Instance;
         settingCanvas = SettingCanvas.Instance;
+        runeManager = RuneManager.Instance;
 
+        runeSlot = runeManager.gameObject.transform.GetChild(0);
+
+        
+        Init();
         StartCoroutine(Clear());
         settingCanvas.settingIcon.SetActive(true);
     }
@@ -66,12 +73,11 @@ public class VillageManager : MapManager
         }
         ClearMap();
     }
-
-    private void OnDisable()
+    void OnDisable()
     {
-        if(sceneDesign)
+        if (sceneDesign)
         {
-            
+
             sceneDesign.ResetScene();
             Debug.Log("Execution Reset");
         }
@@ -80,7 +86,7 @@ public class VillageManager : MapManager
             //Debug.Log("Null SceneDesign instance");
         }
 
-        if(jellyManager)
+        if (jellyManager)
         {
             sceneDesign.jellyInit = jellyManager.JellyCount;
             Debug.Log("Execution sceneDesign.jellyInit");
@@ -90,6 +96,19 @@ public class VillageManager : MapManager
             //Debug.Log("Null JellyManager instance");
         }
     }
-    #endregion
 
+
+    #endregion
+    void Init()
+    {
+        //슬라임
+        slime.transform.localScale = Vector3.one;
+        slime.currentWeapon = null;
+        //룬슬롯
+        Vector3 pos;
+        pos.x = 22.5f; pos.y = 56.5f; pos.z = 0;
+        runeSlot.position = pos;
+        runeSlot.localScale = Vector3.one * 0.7f;
+        //스탯
+    }
 }
