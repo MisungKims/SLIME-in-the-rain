@@ -17,6 +17,7 @@ public class PotalManager : MonoBehaviour
     [Header("마을 키우기 결과창")]
     public Canvas receiptCanvas;
     public TextMeshProUGUI receiptText;
+    public GameObject anyKeyPressText;
 
     //private
     Vector3 vec3;
@@ -68,7 +69,7 @@ public class PotalManager : MonoBehaviour
                     GameObject ipotal = parentObj[i].transform.GetChild(0).gameObject;
                     if (ipotal.GetComponent<PotalCollider>().onStay)
                     {
-                        if (Input.GetKey(KeyCode.G))
+                        if (Input.GetKeyDown(KeyCode.G))
                         {
                             Slime.Instance.canMove = false;
                             if(SceneManager.GetActiveScene().buildIndex == 1)
@@ -193,14 +194,16 @@ public class PotalManager : MonoBehaviour
         {
             yield return null;
         }
+        anyKeyPressText.SetActive(true);
         AddStat();
-        yield return new WaitForSeconds(1f);
+        yield return null;
         while(!Input.anyKeyDown)
         {
             yield return null;
         }
         SceneManager.LoadScene(next);
         receiptCanvas.enabled = false;
+        anyKeyPressText.SetActive(false);
     }
     IEnumerator Typing(TextMeshProUGUI typingText, string message, float speed)
     {
