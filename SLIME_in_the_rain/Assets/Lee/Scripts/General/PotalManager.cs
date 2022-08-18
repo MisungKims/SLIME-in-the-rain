@@ -170,7 +170,7 @@ public class PotalManager : MonoBehaviour
             = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f).ToString() + "\n"
             + "<color=#99ccff>" + "쿨타임 감소량" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f).ToString() + "\n"
             + "<color=#a33b39>" + "이동 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f) + "\n"
-            + "<color=#ff8200>" + "공격 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f) + "\n"
+            + "<color=#ff8200>" + "공격 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * 0.1f) + "\n"
             + "<color=#8e0023>" + "공격력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * 0.1f) + "\n"
             + "<color=#6f4f28>" + "공격 범위" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f) + "\n"
             + "<color=#964b00>" + "방어력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f) + "\n"

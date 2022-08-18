@@ -43,9 +43,8 @@ public class SettingCanvas : MonoBehaviour
     public GameObject settingIcon;
     public GameObject settingCanvas;
 
-    [Header("---재시작(초기화) / 타이틀로(게임종료)---")]
+    [Header("--- 데이터 초기화 / 타이틀로 ---")]
     public Button reButton;
-    public Button quitButton;
     [Header("---- 팝업 ----")]
     public GameObject popup;
     public TextMeshProUGUI popupText;
@@ -224,46 +223,29 @@ public class SettingCanvas : MonoBehaviour
     #region 팝업
     void TitleSettingButtons()
     {
-        //Re버튼 : 초기화
+        //OnClick
         reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "초기화";
-        //초기 설정
-        pos = reButton.transform.localPosition;
-        pos.x = 0;
-        reButton.transform.localPosition = pos;
-        reButton.onClick.AddListener(delegate { OnPopup("00"); });
-
-        //Quit버튼 : 에셋 출처 적을 것들
-        quitButton.gameObject.SetActive(false);
+        reButton.onClick.AddListener(delegate { OnPopup(0); });
     }
     void GameSettingButtons()
     {
-        //Re버튼 : 재시작
-        reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "재시작";
-        //초기 설정
-        pos = reButton.transform.localPosition;
-        pos.x = -205;
-        reButton.transform.localPosition = pos;
-        reButton.onClick.AddListener(delegate { OnPopup("10"); });
+        //OnClick
+        reButton.onClick.AddListener(delegate { OnPopup(1); });
 
         //Quit버튼 : 타이틀로
-        quitButton.gameObject.SetActive(true);
-        quitButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "타이틀로";
-        quitButton.onClick.AddListener(delegate { OnPopup("11"); });
+        reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "타이틀로";
+        reButton.onClick.AddListener(delegate { OnPopup(1); });
     }
 
-    void OnPopup(string str)
+    void OnPopup(int sceneIndex)
     {
-        switch (str)
+        switch (sceneIndex)
         {
-            case "00":
-                popupText.text = "초기화 하시겠습니까?";
+            case 0:
+                popupText.text = "게임 데이터를"+"\n"+"초기화 하시겠습니까?";
                 popupYes.onClick.AddListener(ResetButton);
                 break;
-            case "10":
-                popupText.text = "재시작 하시겠습니까?";
-                popupYes.onClick.AddListener(RestartButton);
-                break;
-            case "11":
+            case 1:
                 popupText.text = "타이틀로 가시겠습니까?";
                 popupYes.onClick.AddListener(GoTitleButton);
                 break;
@@ -292,16 +274,12 @@ public class SettingCanvas : MonoBehaviour
         //기본 세팅: 팝업 끔
         popup.SetActive(false);
     }
-    void RestartButton()
-    {
-        //기본 세팅: 팝업 끔
-        popup.SetActive(false);
-        SceneManager.LoadScene(1);
-    }
     void GoTitleButton()
     {
-        //기본 세팅: 팝업 끔
+        //씬 넘어가기전에 설정창, 팝업 닫음
+        settingCanvas.SetActive(false);
         popup.SetActive(false);
+
         SceneManager.LoadScene(0);
     }
     #endregion

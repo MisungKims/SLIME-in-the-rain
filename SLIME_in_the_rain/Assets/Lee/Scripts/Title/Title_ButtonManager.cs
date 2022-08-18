@@ -6,11 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Title_ButtonManager : MonoBehaviour
 {
-    public GameObject setting;   //설정창
-    public Button[] buttons;    //시작
-                                //설정
-                                //종료
-
+    public Button[] buttons;    //시작 설정 종료
+    GameObject setting;
     //캐싱
     SettingCanvas settingCanvas;
     SceneDesign sceneDesign;
@@ -20,8 +17,10 @@ public class Title_ButtonManager : MonoBehaviour
     {
         //singleton
         settingCanvas = SettingCanvas.Instance;
-        settingCanvas.settingIcon.SetActive(false);
         sceneDesign = SceneDesign.Instance;
+
+        settingCanvas.settingIcon.SetActive(false);
+        setting = settingCanvas.transform.GetChild(0).gameObject;
 
         //Tutorial
         if (PlayerPrefs.HasKey("tutorial"))

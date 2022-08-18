@@ -125,8 +125,7 @@ MonoBehaviour:
   sfxToggle: {fileID: 4864780580032509062}
   settingIcon: {fileID: 7865734063970649335}
   settingCanvas: {fileID: 4032130495720991788}
-  reButton: {fileID: 145334009175014401}
-  quitButton: {fileID: 6316732477333513450}
+  reButton: {fileID: 6316732477333513450}
   popup: {fileID: 1370225816951783327}
   popupText: {fileID: 40648104009110177}
   popupYes: {fileID: 2061105985011124893}
@@ -300,15 +299,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 967258005822153003, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 967258005822153003, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 967258005822153003, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 967258006160942859, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -320,11 +319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 967258007113505175, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 967258007113505175, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2088867809564157759, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -336,7 +335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2613145262001226938, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2613145262001226939, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Pivot.x
@@ -424,15 +423,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2645469159211319358, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Name
-      value: QuitGame (Button)
+      value: Re (Button)
       objectReference: {fileID: 0}
     - target: {fileID: 5779785997707803921, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785997707803921, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785997833443506, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -440,11 +439,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5779785998211048076, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785998211048076, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785998336558895, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -456,15 +455,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999033621040, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999033621040, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999033621040, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999238454288, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_Navigation.m_Mode
@@ -472,29 +471,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999537128877, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999537128877, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5779785999537128877, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
---- !u!114 &145334009175014401 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1275244463148815511, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
-  m_PrefabInstance: {fileID: 1420534490700982422}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2223270371129150271 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 967258006769230761, guid: 7140b1d5766cb294abedc2e13d022f0d, type: 3}
