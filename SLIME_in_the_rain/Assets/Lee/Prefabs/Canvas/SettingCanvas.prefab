@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3175104154639150919}
   - component: {fileID: 1231720509648745025}
   - component: {fileID: 5995446617577931188}
-  - component: {fileID: 4464130629499654089}
   m_Layer: 5
   m_Name: SettingCanvas
   m_TagString: Untagged
@@ -124,22 +123,8 @@ MonoBehaviour:
   bgmToggle: {fileID: 4864780579462015771}
   sfxSlider: {fileID: 4864780580380717092}
   sfxToggle: {fileID: 4864780580032509062}
---- !u!114 &4464130629499654089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514107994203222115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41378afacd9639d428b82349a3960798, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasList:
-  - {fileID: 1370225816951783327}
-  - {fileID: 4032130495720991788}
-  settingIcon: {fileID: 7865734063970649333}
+  settingIcon: {fileID: 7865734063970649335}
+  settingCanvas: {fileID: 4032130495720991788}
   reButton: {fileID: 145334009175014401}
   quitButton: {fileID: 6316732477333513450}
   popup: {fileID: 1370225816951783327}
@@ -703,14 +688,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6452774654323127381, guid: b0f3ae08a4ec78242b4bc6572ae0999a, type: 3}
   m_PrefabInstance: {fileID: 3793279007806189729}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7865734063970649333 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6452774654323127380, guid: b0f3ae08a4ec78242b4bc6572ae0999a, type: 3}
+--- !u!1 &7865734063970649335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6452774654323127382, guid: b0f3ae08a4ec78242b4bc6572ae0999a, type: 3}
   m_PrefabInstance: {fileID: 3793279007806189729}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

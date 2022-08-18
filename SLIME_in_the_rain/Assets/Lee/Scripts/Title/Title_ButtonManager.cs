@@ -12,14 +12,15 @@ public class Title_ButtonManager : MonoBehaviour
                                 //종료
 
     //캐싱
-    SceneDesign Iscene;
+    SettingCanvas settingCanvas;
 
 
 
     private void Start()
     {
         //singleton
-        Iscene = SceneDesign.Instance;
+        settingCanvas = SettingCanvas.Instance;
+        settingCanvas.settingIcon.SetActive(false);
 
         int i = 0;
         buttons[i++].onClick.AddListener(delegate { StartButton(); });  //시작

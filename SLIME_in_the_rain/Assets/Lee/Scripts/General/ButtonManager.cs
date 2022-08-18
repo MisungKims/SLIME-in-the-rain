@@ -10,48 +10,28 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
     #region º¯¼ö
     [Header("---- ESC·Î ²ø UI (SetActive) ----")]
     public List<GameObject> canvasList;
-    [Header("---- ¼¼ÆÃ ¾ÆÀÌÄÜ ----")]
-    public Button settingIcon;
-    [Header("---Àç½ÃÀÛ(ÃÊ±âÈ­) / Å¸ÀÌÆ²·Î(°ÔÀÓÁ¾·á)---")]
-    public Button reButton;
-    public Button quitButton;
-    [Header("---- ÆË¾÷ ----")]
-    public GameObject popup;
-    public TextMeshProUGUI popupText;
-    public Button popupYes;
-    public Button popupNo;
 
+    SettingCanvas settingCanvas;
+    InventoryUI inventoryUI;
 
-    Vector3 pos;
-
-    //Ä³½Ì
-    SceneDesign sceneDesign;
     #endregion
 
     #region À¯´ÏÆ¼ÇÔ¼ö
 
     private void Start()
     {
-        //singleton
-        sceneDesign = SceneDesign.Instance;
-        
-        ///onClick
-        //¼¼ÆÃ ¹öÆ°
-        settingIcon.onClick.AddListener(delegate { SettingButton(); });
+        settingCanvas = SettingCanvas.Instance;
+        inventoryUI = InventoryUI.Instance;
 
+        canvasList.Add(settingCanvas.popup);
+        canvasList.Add(settingCanvas.settingCanvas);
+        canvasList.Add(inventoryUI.inventroyPanel);
 
-        //Å¸ÀÌÆ² È­¸éÀÏ ¶§
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex ==1)
         {
-            TitleSettingButtons();
+            canvasList.Add(GameObject.Find("VillageCanvas").transform.Find("Shop").gameObject);
+            canvasList.Add(GameObject.Find("VillageCanvas").transform.Find("Tower").gameObject);
         }
-        //±× ¿Ü ÀÎ°ÔÀÓ ÀüºÎ
-        else
-        {
-            GameSettingButtons();
-        }
-        //±âº» ¼¼ÆÃ: ÆË¾÷ ²û
-        popup.SetActive(false);
     }
 
     //ESC ´©¸£¸é ±× ¼ø¼­ ´ë·Î ²ô±â
@@ -64,8 +44,15 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
                 //Ã¢ÀÌ ÇÏ³ª¶óµµ ¶°ÀÖÀ¸¸é ESC ´­·¶À»¶§ ±× Ã¢À» ´ÝÀ½
                 if (canvasList[i].activeSelf)
                 {
-                    canvasList[i].SetActive(false);
-                    
+                    if(canvasList[i] == inventoryUI.inventroyPanel)
+                    {
+                        canvasList[i].SetActive(false);
+                        inventoryUI.activeInventory = false;
+                    }
+                    else
+                    {
+                        canvasList[i].SetActive(false);
+                    }
                     break;
                 }
                 //±âº» È­¸é ÀÏ¶§ ESC ´©¸£¸é ¼³Á¤Ã¢ ¶ä
@@ -80,95 +67,6 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
             }
         }
     }
-#endregion
-
-
-    #region ÇÔ¼ö
-    void SettingButton()
-    {
-        canvasList[1].SetActive(true);
-    }
-    void TitleSettingButtons()
-    {
-        //Re¹öÆ° : ÃÊ±âÈ­
-        reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "ÃÊ±âÈ­";
-        //ÃÊ±â ¼³Á¤
-        pos = reButton.transform.localPosition;
-        pos.x = 0;
-        reButton.transform.localPosition = pos;
-        reButton.onClick.AddListener(delegate { OnPopup("00"); });
-
-        //Quit¹öÆ° : ¿¡¼Â ÃâÃ³ ÀûÀ» °Íµé
-        quitButton.gameObject.SetActive(false);
-    }
-    void GameSettingButtons()
-    {
-        //Re¹öÆ° : Àç½ÃÀÛ
-        reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Àç½ÃÀÛ";
-        //ÃÊ±â ¼³Á¤
-        pos = reButton.transform.localPosition;
-        pos.x = -205;
-        reButton.transform.localPosition = pos;
-        reButton.onClick.AddListener(delegate { OnPopup("10"); });
-
-        //Quit¹öÆ° : Å¸ÀÌÆ²·Î
-        quitButton.gameObject.SetActive(true);
-        quitButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Å¸ÀÌÆ²·Î";
-        quitButton.onClick.AddListener(delegate { OnPopup("11"); });
-    }
-    void OnPopup(string str)
-    {
-        switch (str)
-        {
-            case "00":
-                popupText.text = "ÃÊ±âÈ­ ÇÏ½Ã°Ú½À´Ï±î?";
-                popupYes.onClick.AddListener(ResetButton);
-                break;
-            case "10":
-                popupText.text = "Àç½ÃÀÛ ÇÏ½Ã°Ú½À´Ï±î?";
-                popupYes.onClick.AddListener(RestartButton);
-                break;
-            case "11":
-                popupText.text = "Å¸ÀÌÆ²·Î °¡½Ã°Ú½À´Ï±î?";
-                popupYes.onClick.AddListener(GoTitleButton);
-                break;
-            default:
-                break;
-        }
-        popupNo.onClick.AddListener(ClosePopup);
-        popup.SetActive(true);
-        
-    }
-    void ClosePopup()
-    {
-        popup.SetActive(false);
-    }
-    void ResetButton()
-    {
-        PlayerPrefs.DeleteKey("MaxHP" + "level");
-        PlayerPrefs.DeleteKey("CoolTime" + "level");
-        PlayerPrefs.DeleteKey("MoveSpeed" + "level");
-        PlayerPrefs.DeleteKey("AttackSpeed" + "level");
-        PlayerPrefs.DeleteKey("AttackPower" + "level");
-        PlayerPrefs.DeleteKey("AttackRange" + "level");
-        PlayerPrefs.DeleteKey("DefensePower" + "level");
-        PlayerPrefs.DeleteKey("InventorySlot" + "level");
-        //±âº» ¼¼ÆÃ: ÆË¾÷ ²û
-        popup.SetActive(false);
-    }
-    void RestartButton()
-    {
-        //±âº» ¼¼ÆÃ: ÆË¾÷ ²û
-        popup.SetActive(false);
-        SceneManager.LoadScene(1);
-    }
-    void GoTitleButton()
-    {
-        //±âº» ¼¼ÆÃ: ÆË¾÷ ²û
-        popup.SetActive(false);
-        SceneManager.LoadScene(0);
-    }
-
     #endregion
 
 }

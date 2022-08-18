@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
-public class ResultCanvas : MonoBehaviour
+public class ResultCanvas : MapManager
 {
+    Slime slime;
     SceneDesign sceneDesign;
     StatManager statManager;
     JellyManager jellyManager;
     RuneManager runeManager;
 
+    [Header("")]
     public TextMeshProUGUI titleText;
+    [Header("")]
     public TextMeshProUGUI stageText;
     public TextMeshProUGUI playtimeText;
     public TextMeshProUGUI killcountText;
     public TextMeshProUGUI jellycountText;
+    [Header("")]
     public List<Image> runeList;
+    [Header("")]
     public Transform gelatinResult;
+    [Header("")]
+    public Button villageButton;
+    public Button titleButton;
 
     Color color;
     float fadeInSpeed = 0.01f;
@@ -26,16 +35,20 @@ public class ResultCanvas : MonoBehaviour
 
     // Start is called before the first frame update
 
+
+
     void Start()
     {
         //싱글톤
+        slime = Slime.Instance;
         sceneDesign = SceneDesign.Instance;
         statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
         runeManager = RuneManager.Instance;
 
-
         //초기화
+        slime.transform.localScale = Vector3.one * 500f;
+
         titleText.text = "";
         titleText.color = new Color32(255, 0, 0, 0);
         stageText.text = "";
@@ -43,6 +56,11 @@ public class ResultCanvas : MonoBehaviour
         killcountText.text = "";
         jellycountText.text = "";
 
+        //OnClick
+        villageButton.onClick.AddListener(delegate { ClickButton(1); });
+        titleButton.onClick.AddListener(delegate { ClickButton(0); });
+
+        //Coroutin
         StartCoroutine(TitleText());
         Invoke("TypingAll", 2f);
     }
@@ -82,6 +100,7 @@ public class ResultCanvas : MonoBehaviour
         }
         
     }
+
     void TypingAll()
     {
 
@@ -96,17 +115,25 @@ public class ResultCanvas : MonoBehaviour
         textMeshArr[1] = playtimeText;
         Debug.Log(sceneDesign.Timer);
         int hour = (int)(sceneDesign.Timer / 3600);
+        Debug.Log(hour);
         int min = (int)((sceneDesign.Timer - (3600 * hour))/60);
-        int sec = (int)((sceneDesign.Timer - ((3600 * hour) + (60 * min)))/60);
+        Debug.Log(min);
+        int sec = (int)((sceneDesign.Timer - ((3600 * hour) + (60 * min))));
+        Debug.Log(sec);
         stringArr[1] = "플레이 타임: " + hour.ToString("D2") +":"+min.ToString("D2")+":"+sec.ToString("D2");
 
         textMeshArr[2] = killcountText;
-        stringArr[2] = "잡은 몬스터 수: 00";
+        stringArr[2] = "잡은 몬스터 수: "+ slime.killCount;
 
         textMeshArr[3] = jellycountText;
         stringArr[3] = "획득 젤리량: " + (jellyManager.JellyCount- sceneDesign.jellyInit).ToString();
 
         StartCoroutine(Typing(textMeshArr, stringArr, typingSpeed));
+    }
+    void ClickButton(int sceneNum)
+    {
+        slime.transform.localScale = Vector3.one;
+        SceneManager.LoadScene(sceneNum);
     }
 
 }

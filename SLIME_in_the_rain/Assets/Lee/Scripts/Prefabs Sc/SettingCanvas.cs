@@ -25,6 +25,7 @@ public class SettingCanvas : MonoBehaviour
         }
     }
     #endregion
+    [Header("---- 오디오 ----")]
     public AudioMixer sound;        //오디오 관리 믹서
     bool isOn;
 
@@ -37,6 +38,22 @@ public class SettingCanvas : MonoBehaviour
     //SFX
     public Slider sfxSlider;
     public Toggle sfxToggle;
+
+    [Header("---- 세팅 아이콘 ----")]
+    public GameObject settingIcon;
+    public GameObject settingCanvas;
+
+    [Header("---재시작(초기화) / 타이틀로(게임종료)---")]
+    public Button reButton;
+    public Button quitButton;
+    [Header("---- 팝업 ----")]
+    public GameObject popup;
+    public TextMeshProUGUI popupText;
+    public Button popupYes;
+    public Button popupNo;
+
+    Vector3 pos;
+
     #endregion
 
     #region 유니티 함수
@@ -62,6 +79,16 @@ public class SettingCanvas : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)     //씬 시작시 불러오기
     {
         DelayedUpdateVolume();
+        //타이틀 화면일 때
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            TitleSettingButtons();
+        }
+        //그 외 인게임 전부
+        else
+        {
+            GameSettingButtons();
+        }
     }
     private void OnDisable()
     {
@@ -79,11 +106,19 @@ public class SettingCanvas : MonoBehaviour
         masterToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle("Master", masterSlider, masterToggle); });
         bgmToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle("BGM", bgmSlider, bgmToggle); });
         sfxToggle.GetComponent<Toggle>().onValueChanged.AddListener(delegate { Toggle("SFX", sfxSlider, sfxToggle); });
+
+        //onClick
+        settingIcon.GetComponent<Button>().onClick.AddListener(delegate { SettingButton(); });
+
+        //기본 세팅: 팝업 끔
+        popup.SetActive(false);
     }
     #endregion
 
 
     #region 함수
+
+    #region 사운드
     async void DelayedUpdateVolume()
     {
         await Task.Delay(1);
@@ -169,6 +204,107 @@ public class SettingCanvas : MonoBehaviour
         }
         PlayerPrefs.SetInt(str + "toggle", System.Convert.ToInt32(toggle.isOn));     //Save
     }
+    #endregion
+
+    #region 세팅 아이콘
+    void SettingButton()
+    {
+        if(settingCanvas.activeSelf)
+        {
+            settingCanvas.SetActive(false);
+        }
+        else
+        {
+            settingCanvas.SetActive(true);
+        }
+        
+    }
+    #endregion
+
+    #region 팝업
+    void TitleSettingButtons()
+    {
+        //Re버튼 : 초기화
+        reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "초기화";
+        //초기 설정
+        pos = reButton.transform.localPosition;
+        pos.x = 0;
+        reButton.transform.localPosition = pos;
+        reButton.onClick.AddListener(delegate { OnPopup("00"); });
+
+        //Quit버튼 : 에셋 출처 적을 것들
+        quitButton.gameObject.SetActive(false);
+    }
+    void GameSettingButtons()
+    {
+        //Re버튼 : 재시작
+        reButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "재시작";
+        //초기 설정
+        pos = reButton.transform.localPosition;
+        pos.x = -205;
+        reButton.transform.localPosition = pos;
+        reButton.onClick.AddListener(delegate { OnPopup("10"); });
+
+        //Quit버튼 : 타이틀로
+        quitButton.gameObject.SetActive(true);
+        quitButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "타이틀로";
+        quitButton.onClick.AddListener(delegate { OnPopup("11"); });
+    }
+
+    void OnPopup(string str)
+    {
+        switch (str)
+        {
+            case "00":
+                popupText.text = "초기화 하시겠습니까?";
+                popupYes.onClick.AddListener(ResetButton);
+                break;
+            case "10":
+                popupText.text = "재시작 하시겠습니까?";
+                popupYes.onClick.AddListener(RestartButton);
+                break;
+            case "11":
+                popupText.text = "타이틀로 가시겠습니까?";
+                popupYes.onClick.AddListener(GoTitleButton);
+                break;
+            default:
+                break;
+        }
+        popupNo.onClick.AddListener(ClosePopup);
+        popup.SetActive(true);
+
+    }
+    void ClosePopup()
+    {
+        popup.SetActive(false);
+    }
+
+    void ResetButton()
+    {
+        PlayerPrefs.DeleteKey("MaxHP" + "level");
+        PlayerPrefs.DeleteKey("CoolTime" + "level");
+        PlayerPrefs.DeleteKey("MoveSpeed" + "level");
+        PlayerPrefs.DeleteKey("AttackSpeed" + "level");
+        PlayerPrefs.DeleteKey("AttackPower" + "level");
+        PlayerPrefs.DeleteKey("AttackRange" + "level");
+        PlayerPrefs.DeleteKey("DefensePower" + "level");
+        PlayerPrefs.DeleteKey("InventorySlot" + "level");
+        //기본 세팅: 팝업 끔
+        popup.SetActive(false);
+    }
+    void RestartButton()
+    {
+        //기본 세팅: 팝업 끔
+        popup.SetActive(false);
+        SceneManager.LoadScene(1);
+    }
+    void GoTitleButton()
+    {
+        //기본 세팅: 팝업 끔
+        popup.SetActive(false);
+        SceneManager.LoadScene(0);
+    }
+    #endregion
 
     #endregion
 

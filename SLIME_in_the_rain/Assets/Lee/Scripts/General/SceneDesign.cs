@@ -84,7 +84,7 @@ public class SceneDesign : MonoBehaviour
             Debug.Log("결과씬으로 가기 위한 코루틴 작동중");
             yield return null;
         }
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
 

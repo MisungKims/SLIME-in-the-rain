@@ -17,6 +17,7 @@ public class VillageManager : MapManager
     ICamera _camera;
     SceneDesign sceneDesign;
     JellyManager jellyManager;
+    SettingCanvas settingCanvas;
 
 
     #endregion
@@ -29,10 +30,10 @@ public class VillageManager : MapManager
         slime = Slime.Instance;
         _camera = ICamera.Instance;
         jellyManager = JellyManager.Instance;
-
-
+        settingCanvas = SettingCanvas.Instance;
 
         StartCoroutine(Clear());
+        settingCanvas.settingIcon.SetActive(true);
     }
     
     private void Update()
