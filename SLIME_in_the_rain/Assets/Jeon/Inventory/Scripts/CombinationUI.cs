@@ -252,7 +252,7 @@ public class CombinationUI : MonoBehaviour
         switch (gelatin1St)
         {
             case "CyanGelatin":
-                if (_gelatin1Cont == 10&& _gelatin2Cont == 10)
+                if (_gelatin1Cont == 1&& _gelatin2Cont == 1)
                 {
                     switch (gelatin2St)
                     {
@@ -273,7 +273,7 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "YellowGelatin":
-                if (_gelatin1Cont == 10 && _gelatin2Cont == 10)
+                if (_gelatin1Cont == 1 && _gelatin2Cont == 1)
                 {
                     switch (gelatin2St)
                     {
@@ -309,7 +309,7 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "MagentaGelatin":
-                if (_gelatin1Cont == 10 && _gelatin2Cont == 10)
+                if (_gelatin1Cont == 1 && _gelatin2Cont == 1)
                 {
                     switch (gelatin2St)
                     {
