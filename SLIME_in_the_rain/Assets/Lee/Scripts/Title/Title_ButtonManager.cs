@@ -22,13 +22,6 @@ public class Title_ButtonManager : MonoBehaviour
         settingCanvas.settingIcon.SetActive(false);
         setting = settingCanvas.transform.GetChild(0).gameObject;
 
-        //Tutorial
-        if (PlayerPrefs.HasKey("tutorial"))
-        {
-            sceneDesign.doTutorial = System.Convert.ToBoolean(PlayerPrefs.GetInt("tutorial"));
-        }
-
-
         //OnClick
         int i = 0;
         buttons[i++].onClick.AddListener(delegate { StartButton(); });  //Ω√¿€
@@ -38,14 +31,7 @@ public class Title_ButtonManager : MonoBehaviour
 
     public void StartButton()
     {
-        if(sceneDesign.doTutorial)
-        {
-            SceneManager.LoadScene(1);
-        }
-        else
-        {
-            SceneManager.LoadScene(2);
-        }
+        SceneManager.LoadScene(1);
     }
 
     public void SettingButton()
