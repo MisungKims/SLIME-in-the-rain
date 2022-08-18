@@ -43,14 +43,13 @@ public class TowerManager : MonoBehaviour
     #region ÇÔ¼ö
     void ClickEvent()
     {
-        if ((jellyManager.JellyCount - int.Parse(farmPriceText.text)) > 0)
+        if ((jellyManager.JellyCount - int.Parse(farmPriceText.text)) >= 0)
         {
+            jellyManager.JellyCount -= int.Parse(farmPriceText.text);
             level = (int.Parse(level) + 1).ToString();
             PlayerPrefs.SetString(TowerCollider.thisObject.name + "level", level);
             Texting();
             TowerCollider.thisObject.GetComponent<FarmManager>().TowerBuilding(1);
-            
-            jellyManager.JellyCount -= int.Parse(farmPriceText.text);
         }
         else
         {

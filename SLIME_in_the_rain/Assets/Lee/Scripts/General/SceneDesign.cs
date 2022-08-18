@@ -25,6 +25,7 @@ public class SceneDesign : MonoBehaviour
     public int randomNomal;
     public int randomGimmik;
     [Header(" ")]
+    public int s_result;
     public int s_boss;
     public int s_nomal;
     public int s_gimmick;
@@ -77,15 +78,7 @@ public class SceneDesign : MonoBehaviour
         }
     }
     #endregion
-    static IEnumerator OnResult()
-    {
-        while (Slime.Instance.statManager.myStats.HP > 0 && !SceneDesign.instance.finalClear)
-        {
-            Debug.Log("결과씬으로 가기 위한 코루틴 작동중");
-            yield return null;
-        }
-        SceneManager.LoadScene(3);
-    }
+
 
 
     #region 함수
@@ -111,6 +104,7 @@ public class SceneDesign : MonoBehaviour
             if(mapCounting == 18)
             {
                 finalClear = true;
+                SceneManager.LoadScene(2);
             }
         }
     }
@@ -159,7 +153,6 @@ public class SceneDesign : MonoBehaviour
         bossCount = 0;
         bossLevel = 0;
         Timer = 0;
-        StartCoroutine(OnResult());
     }
     #endregion
 }

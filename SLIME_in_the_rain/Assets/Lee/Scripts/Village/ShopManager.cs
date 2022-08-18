@@ -100,7 +100,7 @@ public class ShopManager : MonoBehaviour        //아이템DB 쓰는거라 그보다 늦게 
     //버튼 누를시 남은 수량 줄이는 함수
     void ClickEvent()
     {
-        if ((jellyManager.JellyCount - int.Parse(priceText.text)) > 0)
+        if ((jellyManager.JellyCount - int.Parse(priceText.text)) >= 0 && inventory.SlotCount - inventory.items.Count >= 1)
         {
             SetInven();
             Remain();
