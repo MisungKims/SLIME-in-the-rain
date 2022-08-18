@@ -18,6 +18,27 @@ public class MovableHeaderUI : MonoBehaviour, IPointerDownHandler, IDragHandler
             targetTr = transform.parent;
     }
 
+    private void Update()
+    {
+        if (targetTr.position.x >= 2100)
+        {
+            StartCoroutine(xLock(2100));
+        }
+        else if (targetTr.position.x <= -150)
+        {
+            StartCoroutine(xLock(-150));
+        }
+        if (targetTr.position.y >= 1400)
+        {
+            StartCoroutine(yLock(1400));
+        }
+        else if (targetTr.position.y <= -300)
+        {
+            StartCoroutine(yLock(-300));
+        }
+
+    }
+
     // 드래그 시작 위치 지정
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
@@ -29,5 +50,21 @@ public class MovableHeaderUI : MonoBehaviour, IPointerDownHandler, IDragHandler
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         targetTr.position = beginPoint + (eventData.position - moveBegin);
+        Debug.Log(targetTr.position.y);
+    }
+
+    IEnumerator xLock(int _Pos)
+    {
+        Vector3 temp = targetTr.position;
+        temp.x = _Pos;
+        targetTr.position = temp;
+        yield return null;
+    }
+    IEnumerator yLock(int _Pos)
+    {
+        Vector3 temp = targetTr.position;
+        temp.y = _Pos;
+        targetTr.position = temp;
+        yield return null;
     }
 }

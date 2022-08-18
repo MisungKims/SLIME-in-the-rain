@@ -168,8 +168,6 @@ public class CombinationUI : MonoBehaviour
     }
     public void WeaponDisGelatinAdd()//버튼 작동
     {
-        particle.SetActive(true);
-        particle.transform.position = this.transform.position;
         if (gelatin1It != null && gelatin2It != null && gelatin1Cont >=0&& gelatin2Cont>=0)
         {
 
