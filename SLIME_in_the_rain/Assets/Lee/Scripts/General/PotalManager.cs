@@ -26,6 +26,7 @@ public class PotalManager : MonoBehaviour
     bool potalMake = false;
     bool doCollision = false;
     bool doReceipt = true;
+    bool isAddStat;
 
     //singleton
     SceneDesign sceneDesign;
@@ -42,6 +43,7 @@ public class PotalManager : MonoBehaviour
 
         sceneDesign.mapClear = false;
         receiptCanvas.enabled = false;
+        isAddStat = false;
     }
 
     // Update is called once per frame
@@ -72,6 +74,7 @@ public class PotalManager : MonoBehaviour
                         {
                             if(SceneManager.GetActiveScene().buildIndex == 1)
                             {
+                                isAddStat = true;
                                 SetStat(ipotal.GetComponent<PotalCollider>().next);
                             }
                             else
@@ -88,6 +91,13 @@ public class PotalManager : MonoBehaviour
 
             }
 
+        }
+    }
+    private void OnDisable()
+    {
+        if(isAddStat)
+        {
+            AddStat();
         }
     }
 
@@ -167,8 +177,8 @@ public class PotalManager : MonoBehaviour
     {
         receiptCanvas.enabled = true;
         string str
-            = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f).ToString() + "\n"
-            + "<color=#99ccff>" + "쿨타임 감소량" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f).ToString() + "\n"
+            = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f) + "\n"
+            + "<color=#99ccff>" + "쿨타임 감소량" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f) + "\n"
             + "<color=#a33b39>" + "이동 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f) + "\n"
             + "<color=#ff8200>" + "공격 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * 0.1f) + "\n"
             + "<color=#8e0023>" + "공격력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * 0.1f) + "\n"
@@ -186,8 +196,6 @@ public class PotalManager : MonoBehaviour
         {
             yield return null;
         }
-        AddStat();
-        yield return new WaitForSeconds(1f);
         while(!Input.anyKeyDown)
         {
             yield return null;
