@@ -56,7 +56,6 @@ public class Inventory : MonoBehaviour
     #region 유니티메소드
     private void Update()
     {
-        
        
     }
     private void Awake()
@@ -151,8 +150,6 @@ public class Inventory : MonoBehaviour
         saveExtraStats.attackPower = 0;
         saveExtraStats.attackRange =0;
 
-        
-
         for (int i = 0; i < items.Count; i++)
         {
             if (items[i].itemType == ItemType.gelatin)
@@ -174,5 +171,9 @@ public class Inventory : MonoBehaviour
         statManager.AddGelatinAttackPower(saveExtraStats.attackPower);
         statManager.AddGelatinDefensePower(saveExtraStats.attackRange);
     }
-
+    public void ResetInven()
+    {
+        items.Clear();
+        InventoryUI.Instance.RedrawSlotUI();
+    }
 }

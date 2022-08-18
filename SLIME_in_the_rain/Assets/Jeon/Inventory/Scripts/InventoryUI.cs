@@ -38,12 +38,17 @@ public class InventoryUI : MonoBehaviour
     public GameObject DissolutionUI;
 
     private JellyManager jellyManager;
+    [SerializeField]
+    private TextMeshProUGUI addButtonCostText;
     public TextMeshProUGUI JellyTextC; //젤리
     [SerializeField]
     int expansCost = 5;
 
 
     public GameObject tooltip;
+    [SerializeField]
+    private HorizontalLayoutGroup tooltipManager;
+    private int toolCount = 0;
 
     #region onOffBool
     public bool activeInventory = false;
@@ -66,6 +71,7 @@ public class InventoryUI : MonoBehaviour
         statsUI.SetActive(activeStatsUI);
         CombinationUI.SetActive(activeCombination);
         DissolutionUI.SetActive(activeDissolution);
+        addButtonCostText.text = expansCost.ToString() + "J";
 
 
     }
@@ -126,7 +132,6 @@ public class InventoryUI : MonoBehaviour
 
     public void ExpansionSlot() //슬롯 추가
     {
-
         if (jellyManager.JellyCount >= expansCost)
         {
             inventory.SlotCount++;
@@ -134,13 +139,14 @@ public class InventoryUI : MonoBehaviour
             {
                 ExpansionButton.interactable = false;
             }
+            jellyManager.JellyCount -= expansCost;
             expansCost += expansCost;
+            addButtonCostText.text = expansCost.ToString() + "J";
         }
         else
         {
             wT.ShowText();
         }
-
     }
 
     public void ExpansionSlot(int _level)
@@ -151,6 +157,7 @@ public class InventoryUI : MonoBehaviour
             ExpansionButton.interactable = false;
         }
     }
+
     #region 버튼 온오프 관리
     void OnOffStats()
     {
@@ -199,9 +206,17 @@ public class InventoryUI : MonoBehaviour
         inventory.statGelatinAdd();
 
     }
-    public void ShowTooltip(Item _item)
+    public void ShowTooltip(Item _item, int _slotNum)
     {
         tooltip.SetActive(true);
+        tooltipManager.transform.position = slots[_slotNum].transform.position + Vector3.right * 150f + Vector3.down * 350f;
+        if (tooltipManager.transform.position.x >=1860)
+        {
+            Vector3 temp = tooltipManager.transform.position;
+            temp.x = 1860;
+            tooltipManager.transform.position = temp;
+        }
+       
         StatsUIManager.Instance.countText.text = _item.itemCount.ToString();
         StatsUIManager.Instance.nameText.text = _item.itemExplain;
 
@@ -215,6 +230,7 @@ public class InventoryUI : MonoBehaviour
     public void optionSet(Item _item)
     {
         StatsUIManager.Instance.optionText.text = "";
+        toolCount = 0;
         string skill;
         if (_item.itemType == ItemType.weapon)
         {
@@ -240,43 +256,49 @@ public class InventoryUI : MonoBehaviour
                     break;
             }
             StatsUIManager.Instance.optionText.text += "스킬 : " + skill + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.maxHp) > 0)
         {
             StatsUIManager.Instance.optionText.text += "최대체력 : " + _item.maxHp + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.coolTime) > 0)
         {
             StatsUIManager.Instance.optionText.text += "쿨타임 : " + _item.coolTime + "%\n";
+            toolCount++;
         }
         if (float.Parse(_item.moveSpeed) > 0)
         {
             StatsUIManager.Instance.optionText.text += "이동속도 : " + _item.moveSpeed + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.atkSpeed) > 0)
         {
             StatsUIManager.Instance.optionText.text += "공격속도 : " + _item.atkSpeed + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.atkPower) > 0)
         {
             StatsUIManager.Instance.optionText.text += "공격력 : " + _item.atkPower + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.atkRange) > 0)
         {
             StatsUIManager.Instance.optionText.text += "공격범위 : " + _item.atkRange + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.defPower) > 0)
         {
             StatsUIManager.Instance.optionText.text += "방어력 : " + _item.defPower + "\n";
+            toolCount++;
         }
         if (float.Parse(_item.increase) > 0)
         {
             StatsUIManager.Instance.optionText.text += "데미지 증가 : " + _item.increase + "\n" + "%";
+            toolCount++;
         }
-
-
-
-
+        tooltipManager.padding.bottom = 480 - (toolCount * 30);
     }
 
     #endregion

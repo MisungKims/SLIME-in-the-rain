@@ -44,7 +44,6 @@ public class CombinationUI : MonoBehaviour
     public Image ComGelatin;
     public Image gelatin1;
     public Image gelatin2;
-
     
     public TMP_InputField countInputField;
     public GameObject input;
@@ -64,6 +63,7 @@ public class CombinationUI : MonoBehaviour
     bool firstSet = false;
     bool secondGelatin = false;
     bool secondCount = false;
+    bool sameGel = false;
 
     InventoryUI inventoryUI;
     Inventory inventory;
@@ -109,7 +109,7 @@ public class CombinationUI : MonoBehaviour
     {
         if (int.TryParse(countInputField.text, out int i))
         {
-            if (i >= 0)
+            if (i > 0)
             {
                 countInput = i;
                 CombinationUIGelatin(countInput);
@@ -118,7 +118,7 @@ public class CombinationUI : MonoBehaviour
             }
             else
             {
-                StartCoroutine(Wt("입력오류"));
+                StartCoroutine(Wt("1이상의 수를 입력해주세요."));
             }
         }
         else
@@ -166,7 +166,6 @@ public class CombinationUI : MonoBehaviour
     }
     public void WeaponDisGelatinAdd()//버튼 작동
     {
-        
         if (gelatin1It != null && gelatin2It != null && gelatin1Cont >=0&& gelatin2Cont>=0)
         {
 
@@ -174,6 +173,7 @@ public class CombinationUI : MonoBehaviour
             {
                 ComList(gelatin1It, gelatin1Cont, gelatin2It, gelatin2Cont);
             }
+
             else
             {
                 StartCoroutine(Wt("인벤토리 공간이 부족합니다."));
@@ -232,11 +232,15 @@ public class CombinationUI : MonoBehaviour
 
     public void inputEndCount(int _slotNum)
     {
+
         countInputField.transform.parent.gameObject.SetActive(true);
 
         SelectItem = inventory.items[_slotNum];
         SelcetNum = _slotNum;
         GelatinCount();
+
+
+
     }
 
     #region 젤라틴조합리스트
@@ -454,13 +458,36 @@ public class CombinationUI : MonoBehaviour
         }
         if (ComGelatinIt != null)
         {
-            inventory.items[slotNum1].itemCount-= _gelatin1Cont;
-            inventory.items[slotNum2].itemCount-= _gelatin2Cont;
-            addItem(ComGelatinIt);
-            ResetData();
+            StartCoroutine(comok(_gelatin1Cont, _gelatin2Cont));
         }
         inventoryUI.RedrawSlotUI();
     }
+
+    IEnumerator comok(int _gelatin1Cont, int _gelatin2Cont)
+    {
+        ComGelatin.sprite = ComGelatinIt.itemIcon;
+        StartCoroutine(Wt("젤라틴 합성 성공"));
+        yield return new WaitForSeconds(2.0f);
+        sameGel = false;
+        inventory.items[slotNum1].itemCount -= _gelatin1Cont;
+        inventory.items[slotNum2].itemCount -= _gelatin2Cont;
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemName == ComGelatinIt.itemName)
+            {
+                inventory.items[i].itemCount++;
+                sameGel = true;
+                break;
+            }
+        }
+        if (!sameGel)
+        {
+            addItem(ComGelatinIt);
+        }
+        ResetData();
+        inventoryUI.RedrawSlotUI();
+    }
+
     #endregion
     void faildComb()
     {
