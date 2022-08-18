@@ -38,9 +38,12 @@ public class Projectile : MonoBehaviour
 
     public Vector3 dir;
 
+    [SerializeField]
+    private float removeTime = 2f;
+
     // 캐싱
    // WaitForSeconds waitFor1s = new WaitForSeconds(1f);
-    WaitForSeconds waitFor2s = new WaitForSeconds(2f);
+   // WaitForSeconds waitFor2s = new WaitForSeconds(2f);
     #endregion
 
     #region 유니티 함수
@@ -67,7 +70,7 @@ public class Projectile : MonoBehaviour
     // 2초 후에 없어짐
     IEnumerator Remove()
     {
-        yield return waitFor2s;
+        yield return new WaitForSeconds(removeTime);
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }

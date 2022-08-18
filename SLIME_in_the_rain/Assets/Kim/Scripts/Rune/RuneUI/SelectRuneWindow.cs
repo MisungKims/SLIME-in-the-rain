@@ -27,8 +27,7 @@ public class SelectRuneWindow : MonoBehaviour
         }
     }
     #endregion
-    [SerializeField]
-    private Canvas runeCanvas;      // 이 창의 캔버스
+    public GameObject runeCanvas;      // 이 창의 캔버스
 
 
     [SerializeField]
@@ -77,8 +76,6 @@ public class SelectRuneWindow : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        runeCanvas = transform.parent.parent.GetComponent<Canvas>();
     }
 
     private void Start()
@@ -93,8 +90,9 @@ public class SelectRuneWindow : MonoBehaviour
     // 룬 선택 창을 열기
     public void OpenWindow()
     {
-        runeCanvas.enabled = true;
-        slime.canMove = false;
+        runeCanvas.SetActive(true);
+        Slime.Instance.canMove = false;
+        Slime.Instance.canAttack = false;
 
         Init();
     }
@@ -150,8 +148,9 @@ public class SelectRuneWindow : MonoBehaviour
     // 룬 선택창을 닫기
     public void CloseWindow()
     {
-        runeCanvas.enabled = false;
-        slime.canMove = true;
+        runeCanvas.SetActive(false);
+        Slime.Instance.canMove = true;
+        Slime.Instance.canAttack = true;
     }
     #endregion
 }

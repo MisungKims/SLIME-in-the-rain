@@ -28,13 +28,10 @@ public class RuneSlot : RuneUI
 
     #region 함수
     // 슬롯 초기화
-    private void Init()
+    public void Init()
     {
-        if (!rune)
-        {
-            runeImage.gameObject.SetActive(false);
-            DescObject.gameObject.SetActive(false);
-        }
+        runeImage.gameObject.SetActive(false);
+        DescObject.gameObject.SetActive(false);
     }
 
     // UI위에 커서가 있을때 룬 설명 UI를 보이도록

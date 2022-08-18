@@ -6598,9 +6598,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rune_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2329568295726072933, guid: 00f96170fe36278449926a6218667125, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2329568295726072934, guid: 00f96170fe36278449926a6218667125, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2329568296421739901, guid: 00f96170fe36278449926a6218667125, type: 3}
       propertyPath: m_RootOrder
@@ -6608,6 +6612,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f96170fe36278449926a6218667125, type: 3}
+--- !u!114 &603934959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2329568295950972784, guid: 00f96170fe36278449926a6218667125, type: 3}
+  m_PrefabInstance: {fileID: 603934958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7c9d3324dbb8a4e96bca4decb9fa27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &626791207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15044,6 +15059,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2223270371774902529, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223270371774902529, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223270372596419005, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223270372596419005, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223270372596419005, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4464130629499654089, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
       propertyPath: canvasList.Array.size
       value: 3
@@ -15052,6 +15087,46 @@ PrefabInstance:
       propertyPath: canvasList.Array.data[2]
       value: 
       objectReference: {fileID: 720648615}
+    - target: {fileID: 4864780579700273830, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780579700273830, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780579700273830, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580203785531, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580203785531, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580203785531, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580489418119, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580489418119, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580992666138, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864780580992666138, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5603912961800685252, guid: c25f56018c2a4394bbfdabf24ff112ce, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16252,6 +16327,10 @@ PrefabInstance:
       propertyPath: bossNameText
       value: 
       objectReference: {fileID: 913389493}
+    - target: {fileID: 645548635451588834, guid: 2178a56174045054dba48e063ac50671, type: 3}
+      propertyPath: bossMapManager
+      value: 
+      objectReference: {fileID: 2757528070309707150}
     - target: {fileID: 645548635451588846, guid: 2178a56174045054dba48e063ac50671, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -22516,6 +22595,10 @@ PrefabInstance:
       propertyPath: slimeSpawnPos
       value: 
       objectReference: {fileID: 511722598}
+    - target: {fileID: 2757528070345021550, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
+      propertyPath: selectRuneWindow
+      value: 
+      objectReference: {fileID: 603934959}
     - target: {fileID: 2757528070345021551, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -22562,6 +22645,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
+--- !u!114 &2757528070309707150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2757528070345021550, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
+  m_PrefabInstance: {fileID: 2757528070309707149}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7d6048444771b49be79b5fa3d2f57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3424725707408351413
 PrefabInstance:
   m_ObjectHideFlags: 0

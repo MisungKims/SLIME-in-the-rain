@@ -40,6 +40,9 @@ public class Boss : Monster
 
     // 캐싱
     private WaitForSeconds waitFor6s = new WaitForSeconds(6f);
+
+    [SerializeField]
+    BossMapManager bossMapManager;
     #endregion
 
     #region 유니티 함수
@@ -128,6 +131,8 @@ public class Boss : Monster
     protected override void Die()
     {
         base.Die();
+
+        bossMapManager.DieBoss();
 
         // 젤리 드롭
         randJellyCount = Random.Range(minJellyCnt, maxJellyCnt);

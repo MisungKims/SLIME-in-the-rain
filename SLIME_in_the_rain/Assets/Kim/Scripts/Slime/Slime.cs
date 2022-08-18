@@ -27,6 +27,7 @@ public class Slime : MonoBehaviour
     #endregion
 
     public int killCount = 0;
+    public bool isDungeonStart = false;
 
     public Rigidbody rigid;
     public RigidbodyConstraints rigidbodyConstraints;
@@ -36,6 +37,8 @@ public class Slime : MonoBehaviour
     [SerializeField]
     private SkinnedMeshRenderer skinnedMesh;            // 슬라임의 Material
     public SkinnedMeshRenderer SkinnedMesh { get { return skinnedMesh; } }
+    [SerializeField]
+    private Material baseMat;
 
     private Stats stat;
     public Stats Stat { get { return stat; } }
@@ -76,6 +79,7 @@ public class Slime : MonoBehaviour
     public GameObject shield;
 
     //////// 공격
+    public bool canAttack;
     public Transform target;
 
     public bool isAttacking;   // 평타 중인지?
@@ -84,7 +88,7 @@ public class Slime : MonoBehaviour
 
     //////// 데미지
     private bool isStun;
-    private Vector3 waterUIPos;
+    private Color red = new Color(255, 83, 83, 255);
 
     //////// 이동
     enum AnimState { idle, move, dash, damaged, die }     // 애니메이션의 상태
@@ -98,6 +102,9 @@ public class Slime : MonoBehaviour
     public bool IsInWater { get { return isInWater; } }
 
     private float decreaseHPAmount = 0.5f;  // 물 안에서 감소될 체력의 양
+
+    [SerializeField]
+    private MinimapWorldObject minimapWorldObject;
 
     //////// 캐싱
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
@@ -168,7 +175,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (!isDie && canMove && !isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
+            if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
             {
                 isAttacking = true;
 
@@ -312,6 +319,7 @@ public class Slime : MonoBehaviour
         }
     }
 
+
     #endregion
 
     #region 함수
@@ -368,7 +376,7 @@ public class Slime : MonoBehaviour
     public void Dash()
     {
         // 대시를 할 수 없을 때 return
-        if (!isCanDash || isStun || isDie)
+        if (!canMove || !isCanDash || isStun || isDie)
         {
             isDash = false;
             return;
@@ -382,7 +390,7 @@ public class Slime : MonoBehaviour
     // 스킬을 사용할 수 있는지?
     bool IsCanSkill()
     {
-        if (!isDie && canMove && !isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
+        if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
         {
             return true;
         }
@@ -519,6 +527,7 @@ public class Slime : MonoBehaviour
         }
     }
 
+    
     #endregion
 
     public void Die()
@@ -528,6 +537,15 @@ public class Slime : MonoBehaviour
         canMove = false;
         
         PlayAnim(AnimState.die);
+
+        StartCoroutine(DieCoru());
+    }
+
+    IEnumerator DieCoru()
+    {
+        yield return new WaitForSeconds(1f);
+
+        //SceneManager.LoadScene(SceneDesign.Instance.s_result);
     }
 
     //// 데미지를 입음
@@ -580,5 +598,18 @@ public class Slime : MonoBehaviour
 
         Debug.Log("Stun");
     }
-#endregion
+
+    public void RegisterMinimap()
+    {
+        if(Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(minimapWorldObject);
+    }
+
+    // 슬라임 초기화
+    public void InitSlime()
+    {
+        skinnedMesh.material = baseMat;
+        RemoveCurrentWeapon();
+    }
+
+    #endregion
 }

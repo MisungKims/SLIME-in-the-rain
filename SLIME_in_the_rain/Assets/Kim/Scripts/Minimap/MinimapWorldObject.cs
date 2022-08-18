@@ -14,10 +14,25 @@ public class MinimapWorldObject : MonoBehaviour
     public Color IconColor = Color.white;
 
     [SerializeField]
-    private bool isSlime;
+    private bool isSlime = false;
+    [SerializeField]
+    private bool isRegisterOnEnable = false;
+
 
     private void OnEnable()
     {
-        if (!isSlime && Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(this);
+        if (Minimap.Instance)
+        {
+            if (!isSlime && isRegisterOnEnable)
+            {
+                Minimap.Instance.RegisterMinimapWorldObject(this);
+            }
+        }
     }
+
+    private void Start()
+    {
+        if(!isSlime && !isRegisterOnEnable && Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(this);
+    }
+
 }

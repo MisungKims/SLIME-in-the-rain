@@ -283,22 +283,6 @@ public class ObjectPoolingManager : MonoBehaviour
         weaponPoolingList[index].queue.Enqueue(gb.gameObject);
     }
 
-    //public void SetMoney()
-    //{
-    //    GetMoneyMap getMoneyMap = GetMoneyMap.Instance;
-    //    // 오브젝트
-    //    Transform[] childArr;
-    //    for (int i = 1; i <= 2; i++)
-    //    {
-    //        childArr = objectParent.GetChild(i).GetComponentsInChildren<Transform>();
-    //        for (int j = 1; j < childArr.Length; j++)
-    //        {
-    //            getMoneyMap.GetParticle(childArr[j].position);
-    //            Set(childArr[j].gameObject, (EObjectFlag)i);
-    //        }
-    //    }
-    //}
-
     public IEnumerator SetMoney()
     {
         GetMoneyMap getMoneyMap = GetMoneyMap.Instance;
@@ -324,20 +308,22 @@ public class ObjectPoolingManager : MonoBehaviour
         Transform[] childArr;
         for (int i = 0; i < objectParent.childCount; i++)
         {
-            childArr = objectParent.GetChild(i).GetComponentsInChildren<Transform>();
-            for (int j = 1; j < childArr.Length; j++)
+            Transform child = objectParent.GetChild(i);
+            for (int j = 0; j < child.childCount; j++)
             {
-                Set(childArr[j].gameObject, (EObjectFlag)i);
+                if(child.GetChild(j).gameObject.activeSelf) 
+                    Set(child.GetChild(j).gameObject, (EObjectFlag)i);
             }
         }
 
         // 투사체
         for (int i = 0; i < projectileParent.childCount; i++)
         {
-            childArr = projectileParent.GetChild(i).GetComponentsInChildren<Transform>();
-            for (int j = 1; j < childArr.Length; j++)
+            Transform child = projectileParent.GetChild(i);
+            for (int j = 0; j < child.childCount; j++)
             {
-                Set(childArr[j].gameObject, (EProjectileFlag)i);
+                if (child.GetChild(j).gameObject.activeSelf)
+                    Set(child.GetChild(j).gameObject, (EProjectileFlag)i);
             }
         }
 

@@ -21,6 +21,7 @@ public abstract class PickUp : MonoBehaviour
     protected Vector3 dir;
     protected Vector3 targetPos;
     private Vector3 offset;
+    private bool isDetect = false;
     #endregion
 
     #region 유니티 함수
@@ -58,6 +59,8 @@ public abstract class PickUp : MonoBehaviour
             // 거리가 1과 같거나 작을 때 슬라임의 위치로 이동 (따라다님)
             if (distance <= 1f)
             {
+                if (!isDetect) isDetect = true;
+
                 targetPos = Vector3.zero;
                 targetPos.x = transform.position.x + (dir.x * velocity);
                 targetPos.y = transform.position.y;
@@ -66,7 +69,7 @@ public abstract class PickUp : MonoBehaviour
                 transform.position = targetPos;
 
                 // 거리가 많이 가까울 때 아이템 획득
-                if (distance < 0.35f) Get();
+                if (distance < 0.5f) Get();
             }
             else
             {

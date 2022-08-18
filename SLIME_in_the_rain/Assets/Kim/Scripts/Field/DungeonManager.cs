@@ -26,6 +26,9 @@ public class DungeonManager : MapManager
     }
     #endregion
 
+    [SerializeField]
+    private SelectRuneWindow selectRuneWindow;
+
     [Header("-------------- MoneyBox")]
     [SerializeField]
     private bool isSpawnBox;        // 재화 박스를 스폰할 것인지?
@@ -71,6 +74,14 @@ public class DungeonManager : MapManager
     private IEnumerator Start()
     {
         yield return null;
+
+        // 마을에서 던전으로 넘어올 때 룬창 띄움
+        if (Slime.Instance.isDungeonStart)
+        {
+            selectRuneWindow.OpenWindow();
+            Slime.Instance.isDungeonStart = false;
+        }
+        else selectRuneWindow.CloseWindow();
 
         SpawnBox();
     }

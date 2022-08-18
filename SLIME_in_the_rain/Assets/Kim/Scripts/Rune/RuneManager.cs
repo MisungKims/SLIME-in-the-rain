@@ -55,6 +55,15 @@ public class RuneManager : MonoBehaviour
     #endregion
 
     #region ÇÔ¼ö
+    public void InitRune()
+    {
+        for (int i = 0; i < myRunes.Length; i++)
+        {
+            runeSlots[i].Init();
+            myRunes[i] = null;
+        }
+    }
+
     // ·£´ýÀ¸·Î ·éÀ» ¹ÝÈ¯
     public Rune GetRandomRune()
     {

@@ -295,7 +295,7 @@ public class StatManager : MonoBehaviour
     public Stats gelatinStat;           // ¡©∂Û∆æ Ω∫≈»
 
     // Ω∫≈» √ ±‚»≠
-    void InitStats()
+    public void InitStats()
     {
         originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
         myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);

@@ -77,6 +77,7 @@ public class GetMoneyMap : MapManager
         InitObject();
     }
 
+
     #region 코루틴
     private IEnumerator Start()
     {
@@ -111,12 +112,18 @@ public class GetMoneyMap : MapManager
     {
         while (second > 0)
         {
-            yield return new WaitForSeconds(Random.Range(5f, 10f));
+            float time = Random.Range(3f, 10f);
+            while (time > 0 && second > 0)
+            {
+                time -= Time.deltaTime;
+                yield return null;
+            }
 
             RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
             randPos.y = 2.3f;
             GetSpeedUp(randPos);
         }
+        SetAllSpeedUp();
     }
 
     // 시간을 세는 코루틴
@@ -131,16 +138,13 @@ public class GetMoneyMap : MapManager
             Second--;
         }
 
+        StartCoroutine(objectPoolingManager.SetMoney());
+
+        StatManager.Instance.AddMoveSpeed(sumSpeed * -1);
+
         ClearMap();
     }
 
-    public override void ClearMap()
-    {
-        StartCoroutine(objectPoolingManager.SetMoney());
-        StatManager.Instance.AddMoveSpeed(sumSpeed * -1);
-
-        base.ClearMap();
-    }
     #endregion
 
     #region 오브젝트 풀링
@@ -226,6 +230,15 @@ public class GetMoneyMap : MapManager
         gb.SetActive(false);
 
         speedUpPooling.queue.Enqueue(gb);
+    }
+
+    public void SetAllSpeedUp()
+    {
+        for (int i =  0; i < speedUpPooling.parent.transform.childCount; i++)
+        {
+            if(speedUpPooling.parent.transform.GetChild(i).gameObject.activeSelf)
+                SetSpeedUp(speedUpPooling.parent.transform.GetChild(i).gameObject);
+        }
     }
     #endregion
 }

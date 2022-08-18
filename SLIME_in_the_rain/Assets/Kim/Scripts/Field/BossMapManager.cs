@@ -13,6 +13,8 @@ public class BossMapManager : MapManager
     #region 변수
     [SerializeField]
     private Boss boss;
+    [SerializeField]
+    private SelectRuneWindow selectRuneWindow;
 
     //[SerializeField]
     //private BossCamera bossCamera;
@@ -25,9 +27,7 @@ public class BossMapManager : MapManager
     {
         base.Awake();
 
-        StartCoroutine(IsDie());
-
-
+        
     }
 
     //IEnumerator Show()
@@ -35,17 +35,17 @@ public class BossMapManager : MapManager
     //    yield return StartCoroutine(bossCamera.MoveCam());
     //}
 
+    public void DieBoss()
+    {
+        StartCoroutine(IsDie());
+    }
+
     // 보스가 죽으면 룬 선택 창을 보여줌
     IEnumerator IsDie()
     {
-        while (!boss.isDie)
-        {
-            yield return null;
-        }
-
         yield return waitFor5s;
 
-        SelectRuneWindow.Instance.OpenWindow();
+        selectRuneWindow.OpenWindow();
         ClearMap();
     }
 }

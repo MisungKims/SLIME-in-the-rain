@@ -200,5 +200,14 @@ public class GeneralMonster : Monster
             HideHPBar();
         }
     }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        // 확률에 따라 젤라틴 지급
+        if(Random.Range(0f, 1f) < 0.5f)
+            objectPoolingManager.Get(EObjectFlag.gelatin, transform.position);
+    }
     #endregion
 }

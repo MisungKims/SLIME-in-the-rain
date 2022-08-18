@@ -27,6 +27,7 @@ public class MoneyBox : MonoBehaviour, IDamage
     private GameObject box;
     [SerializeField]
     private GameObject destroyBox;
+    public GameObject starParticle;
 
     // ¹Ì´Ï¸Ê
     [SerializeField]
@@ -43,6 +44,7 @@ public class MoneyBox : MonoBehaviour, IDamage
     private void Start()
     {
         objectPoolingManager = ObjectPoolingManager.Instance;
+        starParticle.transform.localPosition = Vector3.zero;
     }
 
     private void OnEnable()
@@ -53,7 +55,7 @@ public class MoneyBox : MonoBehaviour, IDamage
 
         box.SetActive(true);
         destroyBox.SetActive(false);
-
+        
         isDamaged = false;
     }
     #endregion

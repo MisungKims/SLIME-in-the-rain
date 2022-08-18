@@ -24,7 +24,11 @@ public class MapManager : MonoBehaviour
         objectPoolingManager = ObjectPoolingManager.Instance;
         objectPoolingManager.AllSet();      // 씬이 변경될 때마다
 
-        Slime.Instance.transform.position = slimeSpawnPos.position;
+        Slime slime = Slime.Instance;
+        slime.RegisterMinimap();
+        slime.transform.position = slimeSpawnPos.position;
+        slime.canMove = true;
+        slime.canAttack = true;
     }
 
     // TODO:

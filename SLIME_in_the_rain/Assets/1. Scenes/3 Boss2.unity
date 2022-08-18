@@ -1945,9 +1945,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rune_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2329568295726072933, guid: 00f96170fe36278449926a6218667125, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2329568295726072934, guid: 00f96170fe36278449926a6218667125, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2329568296421739901, guid: 00f96170fe36278449926a6218667125, type: 3}
       propertyPath: m_RootOrder
@@ -1955,6 +1959,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f96170fe36278449926a6218667125, type: 3}
+--- !u!114 &537829353 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2329568295950972784, guid: 00f96170fe36278449926a6218667125, type: 3}
+  m_PrefabInstance: {fileID: 537829352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7c9d3324dbb8a4e96bca4decb9fa27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &542410124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2757,6 +2772,10 @@ PrefabInstance:
       propertyPath: slimeSpawnPos
       value: 
       objectReference: {fileID: 511722598}
+    - target: {fileID: 2757528070345021550, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
+      propertyPath: selectRuneWindow
+      value: 
+      objectReference: {fileID: 537829353}
     - target: {fileID: 2757528070345021551, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -2803,6 +2822,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
+--- !u!114 &624062629 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2757528070345021550, guid: 706ba4a63faeefa468aa1de1f6ba5c64, type: 3}
+  m_PrefabInstance: {fileID: 624062628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7d6048444771b49be79b5fa3d2f57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &630790577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9413,6 +9443,10 @@ PrefabInstance:
       propertyPath: bossNameText
       value: 
       objectReference: {fileID: 665167697}
+    - target: {fileID: 6633992536759697959, guid: 7ef381c1d695ceb46b81510e0c5d8507, type: 3}
+      propertyPath: bossMapManager
+      value: 
+      objectReference: {fileID: 624062629}
     - target: {fileID: 6633992536759697959, guid: 7ef381c1d695ceb46b81510e0c5d8507, type: 3}
       propertyPath: attackTypeCount
       value: 3

@@ -450,8 +450,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if (DungeonManager.Instance) DungeonManager.Instance.DieMonster(this);
 
-        objectPoolingManager.Get(EObjectFlag.gelatin, transform.position);
-
         StartCoroutine(DieCoroutine());
     }
 

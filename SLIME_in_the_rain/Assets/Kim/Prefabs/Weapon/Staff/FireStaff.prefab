@@ -85,8 +85,8 @@ MonoBehaviour:
     maxHP: 100
     HP: 0
     coolTime: 13
-    moveSpeed: 1.2
-    attackSpeed: 0.2
+    moveSpeed: 1.5
+    attackSpeed: 0.5
     attackPower: 1
     attackRange: 1
     defensePower: 1
@@ -103,6 +103,8 @@ MonoBehaviour:
   wColor: "\uAE30\uBCF8\uC0C9"
   wSkill: "\uC2A4\uD0AC\uC5C6\uC74C"
   anim: {fileID: 6053054186354116934}
+  dashCoolTime: 0
+  maxDashCoolTime: 0
   isCanSkill: 1
   projectilePos: {fileID: 7680507323707185387}
 --- !u!114 &-5205160399940628089
