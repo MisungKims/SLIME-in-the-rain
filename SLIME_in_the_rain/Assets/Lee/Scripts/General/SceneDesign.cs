@@ -153,7 +153,7 @@ public class SceneDesign : MonoBehaviour
 
             }
         } while (next == now);
-        return next;
+        return 12;
     }
 
     public void SceneInit()     //VillageManager 끝나면 실행함

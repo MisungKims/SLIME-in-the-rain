@@ -13,7 +13,6 @@ public enum EObjectFlag
     box,
     jelly,
     gelatin,
-    minimapIcon,
     weapon          // 무조건 맨 뒤에 있어야 함
 }
 
@@ -205,7 +204,7 @@ public class ObjectPoolingManager : MonoBehaviour
         int index = (int)flag;
         gb.SetActive(false);
 
-        if (flag.Equals(EObjectFlag.minimapIcon)) gb.transform.SetParent(objectPoolingList[index].parent.transform);     // 미니맵 아이콘은 부모 변경 필요
+       // if (flag.Equals(EObjectFlag.minimapIcon)) gb.transform.SetParent(objectPoolingList[index].parent.transform);     // 미니맵 아이콘은 부모 변경 필요
 
         objectPoolingList[index].queue.Enqueue(gb);
     }
