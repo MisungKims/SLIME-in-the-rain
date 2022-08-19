@@ -26,6 +26,7 @@ public class ButtonManager : MonoBehaviour                                 //¥Ÿ¿
         canvasList.Add(settingCanvas.popup);
         canvasList.Add(settingCanvas.settingCanvas);
         canvasList.Add(inventoryUI.inventroyPanel);
+        canvasList.Add(TutorialManager.Instance.tutorial);
 
         if (SceneManager.GetActiveScene().buildIndex ==1)
         {
