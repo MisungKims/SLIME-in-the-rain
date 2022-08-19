@@ -12,6 +12,9 @@ public class ProjectileMonster : GeneralMonster
 {
 
     private Vector3 lookRot;
+    public EProjectileFlag flag;
+    public Vector3 projectilePos;
+
     // 슬라임을 추적
     protected override IEnumerator Chase()
     {
@@ -78,10 +81,10 @@ public class ProjectileMonster : GeneralMonster
         yield return new WaitForSeconds(0.5f);
 
         // 투사체 발사
-        MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.enemyProjectile).GetComponent<MonsterProjectile>();
+        MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(flag).GetComponent<MonsterProjectile>();
         projectile.monster = this;
 
-        projectile.transform.position = transform.position;
+        projectile.transform.position = transform.position + projectilePos;
         projectile.transform.LookAt(target);
 
         lookRot = projectile.transform.eulerAngles;

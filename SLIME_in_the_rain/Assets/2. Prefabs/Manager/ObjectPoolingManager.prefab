@@ -37,6 +37,7 @@ Transform:
   - {fileID: 5920776837872857002}
   - {fileID: 5920776837618180053}
   - {fileID: 5920776839535047007}
+  - {fileID: 7572108275543081557}
   - {fileID: 1391081713981993368}
   m_Father: {fileID: 5920776839036307208}
   m_RootOrder: 1
@@ -70,7 +71,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3175640046003452382}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4899282795819694328
 GameObject:
@@ -321,6 +322,7 @@ Transform:
   - {fileID: 5920776838523766746}
   - {fileID: 5920776839000022371}
   - {fileID: 4400166486949634601}
+  - {fileID: 5653756599377037894}
   m_Father: {fileID: 5920776839036307208}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -365,7 +367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5920776839000022371}
   m_Layer: 0
-  m_Name: FieldItem
+  m_Name: Gelatin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,13 +442,16 @@ MonoBehaviour:
     initCount: 5
   - copyObj: {fileID: 5873793156332644939, guid: 59b30957a0a224b4cba0d2ebc03b1681, type: 3}
     parent: {fileID: 5920776838523766749}
-    initCount: 50
+    initCount: 10
   - copyObj: {fileID: 4631997835977516517, guid: b99551b5603218e458e58198cb78a78a, type: 3}
     parent: {fileID: 5920776839000022370}
-    initCount: 100
+    initCount: 10
   - copyObj: {fileID: 9175642066711275924, guid: 3441886ee4e271e4fb81306a19e46c03, type: 3}
     parent: {fileID: 5274986369520382038}
     initCount: 15
+  - copyObj: {fileID: 4631997835977516517, guid: b99551b5603218e458e58198cb78a78a, type: 3}
+    parent: {fileID: 8137142171424526721}
+    initCount: 10
   projectilePoolingList:
   - copyObj: {fileID: 5718012098248317006, guid: 60594843a958e134f983440a636f99a7, type: 3}
     parent: {fileID: 5920776838133343013}
@@ -472,9 +477,12 @@ MonoBehaviour:
   - copyObj: {fileID: 2966855832342503202, guid: f390b81d820e9e942b939843b83ce439, type: 3}
     parent: {fileID: 5920776837618180052}
     initCount: 1
-  - copyObj: {fileID: 4104585339104415039, guid: 68134d7e2be2b0c42ba17131598beb68, type: 3}
+  - copyObj: {fileID: 8349418593160693797, guid: 0f6f36ee28bb9f5448af6eace3e3c88d, type: 3}
     parent: {fileID: 5920776839535047006}
-    initCount: 3
+    initCount: 10
+  - copyObj: {fileID: 1927533132346458797, guid: 61c2c7cb87ece62438c9e142f7121bb8, type: 3}
+    parent: {fileID: 7197592044642397541}
+    initCount: 10
   - copyObj: {fileID: 5718012098248317006, guid: b4b9d67437a96a7409e57f7536bd1d8a, type: 3}
     parent: {fileID: 3060156131802480710}
     initCount: 3
@@ -601,7 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5920776839535047007}
   m_Layer: 0
-  m_Name: Spider
+  m_Name: TurtleShellProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -652,6 +660,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5920776838612137687}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7197592044642397541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7572108275543081557}
+  m_Layer: 0
+  m_Name: MonsterPlantProjectile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7572108275543081557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7197592044642397541}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3175640046003452382}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8137142171424526721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5653756599377037894}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5653756599377037894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137142171424526721}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5920776838612137687}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6055258600127697554
 PrefabInstance:

@@ -81,7 +81,7 @@ public class GetMoneyMap : MapManager
     #region ÄÚ·çÆ¾
     private IEnumerator Start()
     {
-        yield return null;
+        yield return new WaitForSeconds(1f);
 
         objectPoolingManager = ObjectPoolingManager.Instance;
 

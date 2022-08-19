@@ -52,7 +52,7 @@ public class ObjectPoolingManager : MonoBehaviour
         {
             instance = this;
 
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -137,11 +137,15 @@ public class ObjectPoolingManager : MonoBehaviour
 
         if (flag.Equals(EObjectFlag.gelatin))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
         {
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
+            if(tempGb.transform.childCount > 0)
+                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
+            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
         }
         else if (flag.Equals(EObjectFlag.weapon))       // 반환하려는 오브젝트가 무기일 때 아이템 설정 필요
         {
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(16, 20)]);
+            if (tempGb.transform.childCount > 0)
+                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(16, 20)]);
+            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(16, 20)]);
         }
 
 
@@ -169,11 +173,18 @@ public class ObjectPoolingManager : MonoBehaviour
         }
 
         if (item != null)
-            tempGb.GetComponent<FieldItems>().SetItem(item);
+        {
+            if (tempGb.transform.childCount > 0)
+                tempGb.GetComponent<FieldItems>().SetItemPool(item);
+            else tempGb.GetComponent<FieldItems>().SetItem(item);
+        } 
         else
-            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
-
-        
+        {
+            if (tempGb.transform.childCount > 0)
+                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
+            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
+        }
+           
         tempGb.transform.position = pos;
 
         return tempGb;
@@ -185,10 +196,12 @@ public class ObjectPoolingManager : MonoBehaviour
     /// </summary>
     public void Set(GameObject gb, EObjectFlag flag)
     {
+        if (flag.Equals(EObjectFlag.weapon)) flag = EObjectFlag.gelatin;
+
         int index = (int)flag;
         gb.SetActive(false);
 
-        if(flag.Equals(EObjectFlag.minimapIcon)) gb.transform.SetParent(objectPoolingList[index].parent.transform);     // 미니맵 아이콘은 부모 변경 필요
+        if (flag.Equals(EObjectFlag.minimapIcon)) gb.transform.SetParent(objectPoolingList[index].parent.transform);     // 미니맵 아이콘은 부모 변경 필요
 
         objectPoolingList[index].queue.Enqueue(gb);
     }

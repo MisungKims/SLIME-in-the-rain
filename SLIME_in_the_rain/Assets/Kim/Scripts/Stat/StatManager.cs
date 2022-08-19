@@ -282,7 +282,7 @@ public class StatManager : MonoBehaviour
     // 스킬 데미지 반환
     public float GetSkillDamage()
     {
-        float damage = 0.1f;
+        float damage = 2f;
 
         damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
 

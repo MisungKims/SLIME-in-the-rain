@@ -17,6 +17,9 @@ public class FieldItems : PickUp
 
     ///추가
     private UIObjectPoolingManager uIObjectPoolingManager;
+
+    // 추가 
+    public EObjectFlag flag;
     #endregion
 
     #region 유니티 함수
@@ -112,7 +115,7 @@ public class FieldItems : PickUp
                 slime.statManager.AddHP(float.Parse(item.maxHp));
             }
 
-        this.gameObject.SetActive(false);
+        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
 
     void fullBag()
@@ -161,7 +164,11 @@ public class FieldItems : PickUp
         item.atkRange = _item.atkRange;
         item.defPower = _item.defPower;
         item.increase = _item.increase;
+
         GameObject.Instantiate(item.itemGB, this.transform.position, Quaternion.identity).transform.parent = transform;
+
+        if (item.itemType.Equals(ItemType.gelatin)) flag = EObjectFlag.gelatin;
+        else if (item.itemType.Equals(ItemType.weapon)) flag = EObjectFlag.weapon;
     }
 
     public void SetItemPool(Item _item) //아이템 셋팅
@@ -184,6 +191,9 @@ public class FieldItems : PickUp
         item.atkRange = _item.atkRange;
         item.defPower = _item.defPower;
         item.increase = _item.increase;
+
+        if (item.itemType.Equals(ItemType.gelatin)) flag = EObjectFlag.gelatin;
+        else if (item.itemType.Equals(ItemType.weapon)) flag = EObjectFlag.weapon;
     }
 
 
