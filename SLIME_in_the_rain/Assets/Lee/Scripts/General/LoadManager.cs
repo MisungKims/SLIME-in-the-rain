@@ -17,29 +17,25 @@ public class LoadManager : MonoBehaviour
     //씬에서 남겨두기 원하는 게임 오브젝트를 지속적으로 관리하는 데 DontDestroyOnLoad를 사용하는 것은 권장하지 않습니다.
     //대신 모든 매니저가 있는 manager scene을 생성하고 게임 프로세스를 관리할 때 SceneManager.LoadScene(<path>, LoadSceneMode.Additive)과SceneManager.UnloadScene을 활용하십시오.
 
+    [SerializeField]
     Slime slime;
+    [SerializeField]
     StatManager statManager;
+    [SerializeField]
     UIObjectPoolingManager uIObjectPoolingManager;
+    [SerializeField]
     RuneManager runeManager;
+    [SerializeField]
     ItemDatabase itemDatabase;
+    [SerializeField]
     JellyManager jellyManager;
+    [SerializeField]
     Inventory inventory;
+    [SerializeField]
     SceneDesign sceneDesign;
+    [SerializeField]
     SettingCanvas settingCanvas;
-    ICamera _camera;
 
-    private void Awake()
-    {
-        slime = Slime.Instance;
-        statManager = StatManager.Instance;
-        uIObjectPoolingManager = UIObjectPoolingManager.Instance;
-        runeManager = RuneManager.Instance;
-        itemDatabase = ItemDatabase.Instance;
-        jellyManager = JellyManager.Instance;
-        inventory = Inventory.Instance;
-        sceneDesign = SceneDesign.Instance;
-        settingCanvas = SettingCanvas.Instance;
-    }
 
     void OnEnable()
     {
