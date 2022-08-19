@@ -32,11 +32,10 @@ public class SceneDesign : MonoBehaviour
     public int s_bonus;
     //씬 관리용 변수
     public int next;
-    public bool mapClear = false;       //맵 클리어시 관리용
-    public bool goBoss = false;         //보스로 가야할때
+    public bool mapClear;       //맵 클리어시 관리용
+    public bool goBoss;         //보스로 가야할때
     //ResultCanvas에 보낼 변수
-    public bool finalClear = false;     //게임 클리어시 관리용
-    public bool isDead = false;
+    public bool finalClear;     //게임 클리어시 관리용
     public int mapCounting;
     public float Timer = 0f;
     public int jellyInit;
@@ -66,9 +65,18 @@ public class SceneDesign : MonoBehaviour
         }
 
     }
+    IEnumerator StraightClear()
+    {
+        while(!finalClear)
+        {
+            yield return null;
+        }
+        SceneManager.LoadScene(s_result);
+    }
     private void Start()
     {
         slime = Slime.Instance;
+        StartCoroutine(StraightClear());
     }
     private void Update()
     {
@@ -76,10 +84,9 @@ public class SceneDesign : MonoBehaviour
         {
             Timer += Time.deltaTime;
         }
+        
     }
     #endregion
-
-
 
     #region 함수
 
@@ -104,7 +111,8 @@ public class SceneDesign : MonoBehaviour
             if(mapCounting == 18)
             {
                 finalClear = true;
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(s_result);
+
             }
         }
     }
@@ -112,47 +120,54 @@ public class SceneDesign : MonoBehaviour
 
     public int NextScene(int now)
     {
-
-        if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
+        next = -1;
+        do
         {
-            next = bossLevel + s_boss - 1;       // 3,4,5
-        }
-        else if (now >= s_nomal)
-        {
-            int ran = Random.Range(0, 100);
-            if (ran < randomNomal)      //70%확률로 일반맵
+            if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
+            {
+                next = bossLevel + s_boss - 1;       // 3,4,5
+            }
+            else if (now >= s_nomal)
+            {
+                int ran = Random.Range(0, 100);
+                if (ran < randomNomal)      //70%확률로 일반맵
+                {
+                    next = Random.Range(s_nomal, s_gimmick);
+                }
+                else if (ran < randomNomal + randomGimmik)
+                {
+                    next = Random.Range(s_gimmick, s_bonus);
+                }
+                else
+                {
+                    next = Random.Range(s_bonus, SceneManager.sceneCountInBuildSettings);
+                }
+            }
+            else if (now >= s_boss)   //[보스맵 2, 3 -> 던전]  무조건 일반 던전
             {
                 next = Random.Range(s_nomal, s_gimmick);
             }
-            else if (ran < randomNomal + randomGimmik)
+            else if (now == 1)  //[마을 -> 던전] 무조건 일반 던전
             {
-                next = Random.Range(s_gimmick, s_bonus);
-            }
-            else
-            {
-                next = Random.Range(s_bonus, SceneManager.sceneCountInBuildSettings);
-            }
-        }
-        else if (now >= s_boss)   //[보스맵 2, 3 -> 던전]  무조건 일반 던전
-        {
-            next = Random.Range(s_nomal, s_gimmick);
-        }
-        else if (now == 1)  //[마을 -> 던전] 무조건 일반 던전
-        {
-            next = Random.Range(s_nomal, s_gimmick);
+                next = Random.Range(s_nomal, s_gimmick);
 
-        }
+            }
+        } while (next == now);
         return next;
     }
 
-
-    //Village 끝나면 실행함
-    public void ResetScene()
+    public void SceneInit()     //VillageManager 끝나면 실행함
     {
-        mapCounting = 0;
+        next = -1;
+        mapClear = false;  
+        goBoss = false; 
+        finalClear = false;
+        
         bossCount = 0;
+
         bossLevel = 0;
-        Timer = 0;
+        Timer = 0f;
+        mapCounting = 0;
     }
     #endregion
 }

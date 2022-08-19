@@ -148,11 +148,8 @@ public class ResultCanvas : MapManager
         textMeshArr[1] = playtimeText;
         Debug.Log(sceneDesign.Timer);
         int hour = (int)(sceneDesign.Timer / 3600);
-        Debug.Log(hour);
         int min = (int)((sceneDesign.Timer - (3600 * hour))/60);
-        Debug.Log(min);
         int sec = (int)((sceneDesign.Timer - ((3600 * hour) + (60 * min))));
-        Debug.Log(sec);
         stringArr[1] = "플레이 타임: " + hour.ToString("D2") +":"+min.ToString("D2")+":"+sec.ToString("D2");
 
         textMeshArr[2] = killcountText;
@@ -194,6 +191,7 @@ public class ResultCanvas : MapManager
         pos.x = 410f; pos.y = 250f; pos.z = 0;
         runeSlot.position = pos;
         runeSlot.localScale = Vector3.one * 1.2f;
+
     }
 
     void ResultGelatin()

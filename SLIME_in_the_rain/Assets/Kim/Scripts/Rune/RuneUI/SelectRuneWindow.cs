@@ -133,7 +133,7 @@ public class SelectRuneWindow : MonoBehaviour
 
         SetButtons();
 
-        jellyManager.JellyCount -= 100;            // Á©¸® 100°³ È¸¼ö
+        jellyManager.JellyCount -= 100;         // Á©¸® 100°³ È¸¼ö
 
         RerollCount--;
     }

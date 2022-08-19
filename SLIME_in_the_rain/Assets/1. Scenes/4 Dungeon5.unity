@@ -6200,9 +6200,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2329568295950972784, guid: 00f96170fe36278449926a6218667125, type: 3}
+      propertyPath: runeCanvas
+      value: 
+      objectReference: {fileID: 254850822}
     - target: {fileID: 2329568296421739901, guid: 00f96170fe36278449926a6218667125, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f96170fe36278449926a6218667125, type: 3}
@@ -6217,6 +6221,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7c9d3324dbb8a4e96bca4decb9fa27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &254850822 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2329568295726072933, guid: 00f96170fe36278449926a6218667125, type: 3}
+  m_PrefabInstance: {fileID: 254850820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &256122681
 GameObject:
   m_ObjectHideFlags: 0

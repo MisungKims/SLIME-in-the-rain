@@ -10,17 +10,18 @@ public class VillageManager : MapManager
     public GameObject ShopCanvas;
     public GameObject TowerCanvas;
 
-    private Transform runeSlot;
-
-    //singletons
+    //cashing
     Slime slime;
+
+    StatManager statManager;
+    JellyManager jellyManager;
+    RuneManager runeManager;
+    
+    Inventory inventory;
+
     ICamera _camera;
     SceneDesign sceneDesign;
-    JellyManager jellyManager;
     SettingCanvas settingCanvas;
-    RuneManager runeManager;
-
-
     #endregion
 
     #region ¿Ø¥œ∆º ∂Û¿Ã«¡ªÁ¿Ã≈¨
@@ -28,19 +29,20 @@ public class VillageManager : MapManager
     private void Start()
     {
         //singletons
-        sceneDesign = SceneDesign.Instance;
         slime = Slime.Instance;
-        _camera = ICamera.Instance;
+
+        statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
-        settingCanvas = SettingCanvas.Instance;
         runeManager = RuneManager.Instance;
 
-        runeSlot = runeManager.gameObject.transform.GetChild(0);
+        inventory = Inventory.Instance;
 
-        
+        _camera = ICamera.Instance;
+        sceneDesign = SceneDesign.Instance;
+        settingCanvas = SettingCanvas.Instance;
         Init();
         StartCoroutine(Clear());
-        settingCanvas.settingIcon.SetActive(true);
+        
     }
     
     private void Update()
@@ -67,7 +69,7 @@ public class VillageManager : MapManager
     }
     IEnumerator Clear()
     {
-        while(!slime.currentWeapon)
+        while (!slime.currentWeapon)
         {
             yield return null;
         }
@@ -78,7 +80,7 @@ public class VillageManager : MapManager
         if (sceneDesign)
         {
 
-            sceneDesign.ResetScene();
+            sceneDesign.SceneInit();
             Debug.Log("Execution Reset");
         }
         else
@@ -103,12 +105,37 @@ public class VillageManager : MapManager
     {
         //ΩΩ∂Û¿”
         slime.transform.localScale = Vector3.one;
-        slime.currentWeapon = null;
-        //∑ÈΩΩ∑‘
+        slime.InitSlime();
+        //Ω∫≈»
+        statManager.InitStats();
+        //¡©∏Æ
+        if(PlayerPrefs.HasKey("jellyCount"))
+        {
+            jellyManager.JellyCount = PlayerPrefs.GetInt("jellyCount");
+        }
+        else
+        {
+            jellyManager.JellyCount = 0;
+        }
+        //∑È
+        Transform runeSlot = runeManager.gameObject.transform.GetChild(0);
         Vector3 pos;
         pos.x = 22.5f; pos.y = 56.5f; pos.z = 0;
         runeSlot.position = pos;
         runeSlot.localScale = Vector3.one * 0.7f;
-        //Ω∫≈»
+        if(!runeManager.transform.GetChild(0).gameObject.activeSelf)
+        {
+            runeManager.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        runeManager.InitRune();
+
+        //¿Œ∫•≈‰∏Æ
+        inventory.ResetInven();
+
+        //æ¿µ¿⁄¿Œ
+        sceneDesign.finalClear = false;
+
+        //ºº∆√ ƒµπˆΩ∫
+        settingCanvas.settingIcon.SetActive(true);
     }
 }

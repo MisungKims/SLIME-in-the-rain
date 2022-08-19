@@ -23,7 +23,6 @@ public class ShopManager : MonoBehaviour        //아이템DB 쓰는거라 그보다 늦게 
 
     #endregion
 
-
     #region 유니티함수
     private void Start()
     {
@@ -44,6 +43,7 @@ public class ShopManager : MonoBehaviour        //아이템DB 쓰는거라 그보다 늦게 
         gelatinImage.sprite = itemDB.AllitemDB[ranValue].itemIcon;          //Image gelatinImage
     }
     #endregion
+
     #region 함수
     //버튼내 아이템 이름으로 아이템 찾기
     public Item FindItem(string str)
@@ -102,9 +102,9 @@ public class ShopManager : MonoBehaviour        //아이템DB 쓰는거라 그보다 늦게 
     {
         if ((jellyManager.JellyCount - int.Parse(priceText.text)) >= 0 && inventory.SlotCount - inventory.items.Count >= 1)
         {
+            jellyManager.JellyCount -= int.Parse(priceText.text);
             SetInven();
             Remain();
-            jellyManager.JellyCount -= int.Parse(priceText.text);
         }
         else
         {

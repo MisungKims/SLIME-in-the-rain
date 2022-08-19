@@ -8,8 +8,7 @@ using TMPro;
 public class ButtonManager : MonoBehaviour                                 //다음엔 인스턴스 만들어서 ui 중복되는거 처리하게 하기
 {
     #region 변수
-    [Header("---- ESC로 끌 UI (SetActive) ----")]
-    public List<GameObject> canvasList;
+    private List<GameObject> canvasList;
 
     SettingCanvas settingCanvas;
     InventoryUI inventoryUI;
@@ -23,6 +22,7 @@ public class ButtonManager : MonoBehaviour                                 //다�
         settingCanvas = SettingCanvas.Instance;
         inventoryUI = InventoryUI.Instance;
 
+        canvasList = new List<GameObject>();
         canvasList.Add(settingCanvas.popup);
         canvasList.Add(settingCanvas.settingCanvas);
         canvasList.Add(inventoryUI.inventroyPanel);
