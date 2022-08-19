@@ -100,7 +100,7 @@ public class FindingWayMap : MapManager
         slime = Slime.Instance;
         slime.rigid.constraints = RigidbodyConstraints.None;
         slime.rigid.constraints = RigidbodyConstraints.FreezeRotation;
-
+        slime.canMove = false;
 
         mainCam = Camera.main;
 
@@ -130,11 +130,11 @@ public class FindingWayMap : MapManager
     // 씬이 시작될 때 길을 알려줌
     IEnumerator ShowRoad()
     {
-        yield return new WaitForSeconds(0.5f);
-
         GameObject smallHP = MainCanvas.Instance.hpSlime.transform.parent.gameObject;
         smallHP.SetActive(false);
-        slime.canMove = false;
+
+        yield return new WaitForSeconds(0.5f);
+
         canMoveCam = true;
         StartCoroutine(MoveCamera());
         StartCoroutine(ShowDescText());
@@ -223,7 +223,12 @@ public class FindingWayMap : MapManager
             {
                 yield return new WaitForSeconds(0.5f);
 
+                slime.canMove = false;
                 slime.transform.position = slimeSpawnPos.position;
+
+                yield return new WaitForSeconds(0.5f);
+
+                slime.canMove = true;
             }
 
             yield return null;

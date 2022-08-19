@@ -71,6 +71,7 @@ public class GetMoneyMap : MapManager
 
         base.Awake();
 
+        Second = 20;
         InitObject();
     }
 
@@ -126,8 +127,6 @@ public class GetMoneyMap : MapManager
     // 시간을 세는 코루틴
     IEnumerator TimeCount()
     {
-        Second = 30;
-
         while (second > 0)
         {
             yield return new WaitForSeconds(1f);
