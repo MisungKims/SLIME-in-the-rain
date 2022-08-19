@@ -95,11 +95,10 @@ public class ItemDatabase : MonoBehaviour
 
         for (int i = 0; i < pos.Length; i++)
         {
-            GameObject go = Instantiate(fieldItemPrefab, pos[i], Quaternion.identity);
-            go.GetComponent<FieldItems>().SetItem(AllitemDB[Random.Range(0, 15)]);
+            if(ObjectPoolingManager.Instance) ObjectPoolingManager.Instance.Get(EObjectFlag.gelatin, pos[i]);
         }
 
-        
+
     }
 
     public void monsterDrop(int _round, int _range1, int _range2, Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯

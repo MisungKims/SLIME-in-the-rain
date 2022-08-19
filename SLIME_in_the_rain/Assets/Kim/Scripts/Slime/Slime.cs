@@ -181,7 +181,7 @@ public class Slime : MonoBehaviour
 
                 currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
 
-                yield return new WaitForSeconds(stat.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
+                yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
                 isAttacking = false;
             }
@@ -361,7 +361,7 @@ public class Slime : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
 
-           if (!isFrontWall)  transform.position += direction * stat.moveSpeed * Time.deltaTime;   // 이동
+           if (!isFrontWall)  transform.position += direction * statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {

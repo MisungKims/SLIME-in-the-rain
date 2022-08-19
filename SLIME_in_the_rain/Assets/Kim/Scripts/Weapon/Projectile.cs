@@ -18,7 +18,8 @@ public enum EProjectileFlag     // ≈ıªÁ√º Flag
     dagger,
     sword,
     earthworm,
-    enemyProjectile,
+    turtleShellProjectile,
+    monsterPlantProjectile,
     enemyArrow
 }
 
