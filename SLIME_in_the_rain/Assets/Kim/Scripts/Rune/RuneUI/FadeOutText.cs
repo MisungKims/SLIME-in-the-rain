@@ -20,12 +20,15 @@ public class FadeOutText : MonoBehaviour
 
     private WaitForSeconds waitFor1s = new WaitForSeconds(1);
 
+    //public TextMeshProUGUI textMesh;
+
     #endregion
 
     #region 유니티 함수
     protected virtual void Awake()
     {
         material = GetComponent<TextMeshProUGUI>().fontMaterial;
+        //textMesh = GetComponent<TextMeshProUGUI>();
     }
 
     protected virtual void OnEnable()
@@ -58,7 +61,7 @@ public class FadeOutText : MonoBehaviour
 
             yield return null;
 
-            alpha -= Time.deltaTime;
+            alpha -= Time.deltaTime * 1.5f;
         }
     }
 

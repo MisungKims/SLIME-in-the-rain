@@ -36,9 +36,6 @@ public class GetMoneyMap : MapManager
     private int spawnRange;
     private Vector3 randPos;
 
-    [SerializeField]
-    private int objCount = 70;       // 오브젝트의 개수
-
     // 타임 카운트
     [SerializeField]
     private TextMeshProUGUI secondText;
@@ -94,7 +91,7 @@ public class GetMoneyMap : MapManager
     {
         while (second > 0)
         {
-            int rand = Random.Range(4, 10);
+            int rand = Random.Range(4, 8);
             for (int i = 0; i < rand; i++)
             {
                 randObj = Random.Range(jellyIndex, gelatinIndex + 1);       // 랜덤으로 젤리, 젤라틴을 정하여 맵에 가져옴
@@ -112,7 +109,7 @@ public class GetMoneyMap : MapManager
     {
         while (second > 0)
         {
-            float time = Random.Range(3f, 10f);
+            float time = Random.Range(3f, 8f);
             while (time > 0 && second > 0)
             {
                 time -= Time.deltaTime;

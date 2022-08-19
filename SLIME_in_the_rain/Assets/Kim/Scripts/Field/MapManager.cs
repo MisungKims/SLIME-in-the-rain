@@ -35,7 +35,6 @@ public class MapManager : MonoBehaviour
     // 맵 클리어
     public virtual void ClearMap()
     {
-        Debug.Log("Clear Map");
        SceneDesign.Instance.mapClear = true;
     }
 }

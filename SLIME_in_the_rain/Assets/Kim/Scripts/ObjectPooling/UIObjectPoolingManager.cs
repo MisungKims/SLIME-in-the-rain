@@ -24,7 +24,7 @@ public class UIObjectPoolingManager : MonoBehaviour
     public FadeOutText stunText;
     public FadeOutText noInventoryText;
     public FadeOutText noWeaponText;
-    public FadeOutText inWaterText;
+    public UpText inWaterText;
 
     private Vector3 originPos = Vector3.up * -279;
     private Vector3 upPos = Vector3.up * -230;
@@ -132,7 +132,6 @@ public class UIObjectPoolingManager : MonoBehaviour
     {
         inWaterText.ShowText();
         inWaterText.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 72f;
-
     }
 
     // 인벤토리에 공간 없음 텍스트 보여줌

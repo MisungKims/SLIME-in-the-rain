@@ -38,7 +38,6 @@ public class Minimap : MonoBehaviour
 
     private Dictionary<MinimapWorldObject, MinimapIcon> miniMapObjectDic = new Dictionary<MinimapWorldObject, MinimapIcon>();
 
-
     [SerializeField]
     private float mul = 8f;
 
@@ -197,6 +196,33 @@ public class Minimap : MonoBehaviour
     // 아이콘의 위치 바꿈
     void UpdateMinimapIcons()
     {
+        //for (int i = 0; i < minimapWorldObjectList.Count; i++)
+        //{
+        //    minimapWorldObject = minimapWorldObjectList[i];
+        //    minimapIcon = minimapWorldObjectList[i].minimapIcon;
+
+        //    if (isZoomIn)       // 축소상태 일때
+        //    {
+        //        if (!minimapWorldObject.Equals(slimeObj))           // 슬라임의 아이콘이 아닌 것만 위치 변경 (슬라임 아이콘은 중앙에 고정되기 때문)
+        //        {
+        //            iconPosition = WorldPositionToMapPostion(minimapWorldObject.transform.position);
+        //            minimapIcon.rectTransform.anchoredPosition = iconPosition * mul;
+        //        }
+        //        else
+        //        {
+        //            // 슬라임의 아이콘이 범위를 벗어날 때는 중앙 아이콘을 비활성화 후, 직접 아이콘이 움직이도록
+        //            if (isOutRangeX || isOutRangeY)
+        //            {
+        //                slimeIconZoomIn.SetActive(false);
+        //                slimeIconZoomOut.SetActive(true);
+
+        //                SetIconPos();           // 아이콘의 위치 조정
+        //            }
+        //        }
+        //    }
+        //    else SetIconPos();           // 아이콘의 위치 조정
+        //}
+
         foreach (var kvp in miniMapObjectDic)
         {
             minimapWorldObject = kvp.Key;
@@ -253,12 +279,14 @@ public class Minimap : MonoBehaviour
     // 미니맵 아이콘 등록
     public void RegisterMinimapWorldObject(MinimapWorldObject obj)
     {
-        newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon, Vector3.zero).GetComponent<MinimapIcon>();
+        MinimapIcon newIcon = Instantiate(miniMapIconPrefab, this.transform);
+        //newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon, Vector3.zero).GetComponent<MinimapIcon>();
         newIcon.transform.SetParent(this.transform);
         newIcon.SetIcon(obj.Icon);
         newIcon.SetColor(obj.IconColor);
         newIcon.rectTransform.localScale = Vector3.one * 0.2f;
-        miniMapObjectDic[obj] = newIcon;
+
+        miniMapObjectDic.Add(obj, newIcon);
 
         if (obj.CompareTag("Slime"))
         {
@@ -269,16 +297,10 @@ public class Minimap : MonoBehaviour
 
     public void RemoveMinimapIcon(MinimapWorldObject obj)
     {
-        foreach (var kvp in miniMapObjectDic)
+        if (miniMapObjectDic.TryGetValue(obj, out MinimapIcon icon))
         {
-            minimapWorldObject = kvp.Key;
-            minimapIcon = kvp.Value;
-
-            if (minimapWorldObject.Equals(obj))
-            {
-                ObjectPoolingManager.Instance.Set(minimapIcon.gameObject, EObjectFlag.minimapIcon);
-                break;
-            }
+            icon.gameObject.SetActive(false);
+            miniMapObjectDic.Remove(obj);
         }
     }
     #endregion

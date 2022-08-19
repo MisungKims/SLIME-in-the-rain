@@ -581,6 +581,8 @@ public class Slime : MonoBehaviour
 
     private void TakeDamage(float damageAmount)
     {
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
+
         damageAmount = -2;
 
         if (stat.HP + damageAmount <= 0) Die();
@@ -589,8 +591,6 @@ public class Slime : MonoBehaviour
             PlayAnim(AnimState.damaged);
             statManager.AddHP(damageAmount);
         }
-
-        
     }
 
     // ½ºÅÏ

@@ -15,24 +15,12 @@ public class MinimapWorldObject : MonoBehaviour
 
     [SerializeField]
     private bool isSlime = false;
-    [SerializeField]
-    private bool isRegisterOnEnable = false;
 
-
-    private void OnEnable()
-    {
-        if (Minimap.Instance)
-        {
-            if (!isSlime && isRegisterOnEnable)
-            {
-                Minimap.Instance.RegisterMinimapWorldObject(this);
-            }
-        }
-    }
 
     private void Start()
     {
-        if(!isSlime && !isRegisterOnEnable && Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(this);
+        if (!isSlime && Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(this);
     }
+
 
 }
