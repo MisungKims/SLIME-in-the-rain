@@ -162,7 +162,7 @@ public class ResultCanvas : MapManager
 
         //GetRune();
     }
-    //3. ·é
+    //3. ·é  <-- ¼ø¼­´ë·Î ³ª¿À°í½Í¾î¿ä...
     void GetRune()
     {
         for (int i = 0; i < runeImage.Length; i++)
@@ -181,6 +181,9 @@ public class ResultCanvas : MapManager
     void ClickButton(int sceneNum)
     {
         SceneManager.LoadScene(sceneNum);
+
+        //Save
+        PlayerPrefs.SetInt("jellyCount", jellyManager.JellyCount);
     }
     //½Ì±ÛÅæ Transform ÀçÁ¤ÀÇ
     void Init()
