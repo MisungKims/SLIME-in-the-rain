@@ -10,6 +10,9 @@ public class PotalManager : MonoBehaviour
     //public
     [Header("포탈 생성할 좌표를 가진 빈 오브젝트(회전각 맞추세요)")]
     public List<GameObject> parentObj;
+    [Header("임시 포탈(회전각 맞추세요)")]
+    public List<GameObject> _parentObjList;
+
     [Header(" ")]
     public GameObject potalPrefab;
     [Header("보스/일반/기믹/추가보너스")]
@@ -44,6 +47,13 @@ public class PotalManager : MonoBehaviour
         statManager = StatManager.Instance;
 
         Init();
+        Debug.Log(SceneManager.sceneCountInBuildSettings);
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            _PotalCreate();
+            doCollision = true;
+        }
+
     }
 
     // Update is called once per frame
@@ -72,7 +82,7 @@ public class PotalManager : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.G))
                         {
                             Slime.Instance.canMove = false;
-                            if(SceneManager.GetActiveScene().buildIndex == 1)
+                            if (SceneManager.GetActiveScene().buildIndex == 1)
                             {
                                 if (!Slime.Instance.isDungeonStart)
                                 {
@@ -86,17 +96,31 @@ public class PotalManager : MonoBehaviour
                             {
                                 SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
                             }
+                            
                         }
                     }
                 }
-                else
+
+            }
+            for (int i = 0; i < _parentObjList.Count; i++)
+            {
+                if (_parentObjList[i].transform.childCount > 0)
                 {
-                    Debug.Log("두번째 포탈은 생성 되지 않았습니다");
+                    GameObject ipotal = _parentObjList[i].transform.GetChild(0).gameObject;
+                    if (ipotal.GetComponent<PotalCollider>().onStay)
+                    {
+                        if (Input.GetKeyDown(KeyCode.G))
+                        {
+                            SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
+                            
+                        }
+                    }
                 }
 
             }
 
         }
+
     }
 
 
@@ -115,6 +139,31 @@ public class PotalManager : MonoBehaviour
             {
                 break;
             }
+        }
+    }
+    void _PotalCreate()
+    {
+        //boss
+        int i;
+        for (i = 0; i < sceneDesign.s_nomal - sceneDesign.s_boss; i++)
+        {
+            //인스턴스포탈 제작
+            GameObject ipotal;
+            ipotal = Instantiate(potalPrefab, _parentObjList[i].transform);
+            Positioning(ipotal, _parentObjList[i]);
+            ipotal.GetComponent<PotalCollider>().next = sceneDesign.s_boss + i;
+            //포탈의 색상 정해줌
+            Coloring(ipotal, ipotal.GetComponent<PotalCollider>().next);
+        }
+        for (; i < SceneManager.sceneCountInBuildSettings - sceneDesign.s_gimmick +sceneDesign.s_boss; i++)
+        {
+            //인스턴스포탈 제작
+            GameObject ipotal;
+            ipotal = Instantiate(potalPrefab, _parentObjList[i].transform);
+            Positioning(ipotal, _parentObjList[i]);
+            ipotal.GetComponent<PotalCollider>().next = i - sceneDesign.s_boss + sceneDesign.s_gimmick;
+            //포탈의 색상 정해줌
+            Coloring(ipotal, ipotal.GetComponent<PotalCollider>().next);
         }
     }
     void Positioning(GameObject instance,GameObject parent)
