@@ -141,7 +141,7 @@ public class FieldItems : PickUp
             }
         }
         canDetect = false;
-        this.gameObject.SetActive(false);
+        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
 
     public void SetItem(Item _item) //아이템 셋팅
