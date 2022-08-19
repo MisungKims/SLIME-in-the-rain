@@ -1163,16 +1163,6 @@ MonoBehaviour:
   - {x: 4, y: 2.5, z: 2}
   - {x: 3, y: 2.5, z: 1}
   - {x: 2, y: 2.5, z: 3}
-  - {x: 1, y: 2.5, z: -3}
-  - {x: 0, y: 2.5, z: 1}
-  - {x: 8, y: 2.5, z: -1}
-  - {x: 7, y: 2.5, z: 1}
-  - {x: 5, y: 2.5, z: 1}
-  - {x: 4, y: 2.5, z: -2}
-  - {x: 1, y: 2.5, z: 3}
-  - {x: 3, y: 2.5, z: 1}
-  - {x: 2, y: 2.5, z: 6}
-  - {x: 1, y: 2.5, z: 3}
   ItemDbT: {fileID: 4900000, guid: 70967e5dcc131ae45bb8e088ec18bc57, type: 3}
 --- !u!1 &3645846747926098697
 GameObject:
@@ -1742,6 +1732,7 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  size: 2
 --- !u!95 &5128544985948173807
 Animator:
   serializedVersion: 4
@@ -2005,7 +1996,7 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
-  slime2: {fileID: 0}
+  size: 2
 --- !u!65 &1604904598615324347
 BoxCollider:
   m_ObjectHideFlags: 0

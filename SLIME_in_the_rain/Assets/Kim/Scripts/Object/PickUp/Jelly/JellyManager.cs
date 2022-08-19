@@ -60,7 +60,10 @@ public class JellyManager : MonoBehaviour
 
         InitWeight();
     }
+
     #endregion
+
+
 
     #region ÇÔ¼ö
     void InitWeight()

@@ -138,8 +138,8 @@ public class ObjectPoolingManager : MonoBehaviour
         if (flag.Equals(EObjectFlag.gelatin))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
         {
             if(tempGb.transform.childCount > 0)
-                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
-            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 15)]);
+                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(0, 3)]);
+            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 3)]);
         }
         else if (flag.Equals(EObjectFlag.weapon))       // 반환하려는 오브젝트가 무기일 때 아이템 설정 필요
         {

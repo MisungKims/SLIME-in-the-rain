@@ -298,7 +298,7 @@ public class InventoryUI : MonoBehaviour
             StatsUIManager.Instance.optionText.text += "데미지 증가 : " + _item.increase + "\n" + "%";
             toolCount++;
         }
-        tooltipManager.padding.bottom = 480 - (toolCount * 30);
+        tooltipManager.padding.bottom = 455 - (toolCount * 30);
     }
 
     #endregion

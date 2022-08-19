@@ -50,7 +50,6 @@ public class MovableHeaderUI : MonoBehaviour, IPointerDownHandler, IDragHandler
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
         targetTr.position = beginPoint + (eventData.position - moveBegin);
-        Debug.Log(targetTr.position.y);
     }
 
     IEnumerator xLock(int _Pos)
