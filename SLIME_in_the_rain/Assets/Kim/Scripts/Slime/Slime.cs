@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Slime : MonoBehaviour
 {
@@ -545,7 +546,7 @@ public class Slime : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        //SceneManager.LoadScene(SceneDesign.Instance.s_result);
+        SceneManager.LoadScene(SceneDesign.Instance.s_result);
     }
 
     //// 데미지를 입음
