@@ -9,12 +9,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamageText : FadeOutText
+public class DamageText : UpText
 {
     #region 변수
-    [SerializeField]
-    private float moveSpeed = 200f;
-
+   
     private TextMeshProUGUI text;
 
     Color32 red = new Color32(164, 11, 0, 255);
@@ -30,7 +28,7 @@ public class DamageText : FadeOutText
             text.color = red;
         }
     }
-    private UIObjectPoolingManager uiPoolingManager;
+
     #endregion
 
     #region 유니티 함수
@@ -39,29 +37,7 @@ public class DamageText : FadeOutText
         base.Awake();
 
         text = GetComponent<TextMeshProUGUI>();
-        uiPoolingManager = UIObjectPoolingManager.Instance;
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-       //transform.position = Vector3.zero;
-    }
-
-    void Update()
-    {
-       transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);         // 위로 올라감
     }
     #endregion
 
-    #region 코루틴
-    // Fade Out 뒤 오브젝트 풀에 반환
-    protected override IEnumerator ActiveFalse()
-    {
-        yield return StartCoroutine(FadeOut());
-
-        uiPoolingManager.Set(this.gameObject, EUIFlag.damageText);
-    }
-    #endregion
 }
