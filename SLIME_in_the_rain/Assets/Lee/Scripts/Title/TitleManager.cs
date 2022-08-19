@@ -4,22 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Title_ButtonManager : MonoBehaviour
+public class TitleManager : MonoBehaviour
 {
     public Button[] buttons;    //시작 설정 종료
     GameObject setting;
     //캐싱
     SettingCanvas settingCanvas;
     SceneDesign sceneDesign;
+    RuneManager runeManager;
 
 
     private void Start()
     {
         //singleton
+        runeManager = RuneManager.Instance;
         settingCanvas = SettingCanvas.Instance;
         sceneDesign = SceneDesign.Instance;
 
-        settingCanvas.settingIcon.SetActive(false);
+        TitleInit();
         setting = settingCanvas.transform.GetChild(0).gameObject;
 
         //OnClick
@@ -46,5 +48,15 @@ public class Title_ButtonManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+    void TitleInit()
+    {
+        //룬
+        if(runeManager)
+        {
+            runeManager.transform.GetChild(0).gameObject.SetActive(false);
+        }
+        //설정: 아이콘
+        settingCanvas.settingIcon.SetActive(false);
     }
 }

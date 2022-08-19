@@ -24,11 +24,12 @@ public class PotalManager : MonoBehaviour
     float typingSpeed = 0.05f;
 
     //bool
-    bool potalMake = false;
-    bool doCollision = false;
-    bool doReceipt = true;
+    bool potalMake;
+    bool doCollision;
+    bool doReceipt;
 
     //singleton
+    Slime slime;
     SceneDesign sceneDesign;
     StatManager statManager;
     InventoryUI inventoryUI;
@@ -37,12 +38,12 @@ public class PotalManager : MonoBehaviour
     private void Start()
     {
         //singleton
+        slime = Slime.Instance;
         sceneDesign = SceneDesign.Instance;
         inventoryUI = InventoryUI.Instance;
         statManager = StatManager.Instance;
 
-        sceneDesign.mapClear = false;
-        receiptCanvas.enabled = false;
+        Init();
     }
 
     // Update is called once per frame
@@ -50,7 +51,6 @@ public class PotalManager : MonoBehaviour
     {
         if (sceneDesign.mapClear && !potalMake)
         {
-            
             sceneDesign.MapCount();
             sceneDesign.mapClear = false;
             if(!sceneDesign.finalClear)
@@ -172,7 +172,7 @@ public class PotalManager : MonoBehaviour
 
     //마을에서 던전 들어가기전에 뜰 팝업창
     public void SetStat(int next)
-    {
+    {   
         receiptCanvas.enabled = true;
         string str
             = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f).ToString() + "\n"
@@ -201,6 +201,7 @@ public class PotalManager : MonoBehaviour
         {
             yield return null;
         }
+        //다음씬으로 넘어감
         SceneManager.LoadScene(next);
         receiptCanvas.enabled = false;
         anyKeyPressText.SetActive(false);
@@ -236,6 +237,15 @@ public class PotalManager : MonoBehaviour
         statManager.MultipleAttackRange(float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f);
         statManager.AddDefensePower(float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f);
         inventoryUI.ExpansionSlot(int.Parse(PlayerPrefs.GetString("InventorySlot" + "level")));
+    }
+
+    void Init()
+    {
+        sceneDesign.mapClear = false;
+        receiptCanvas.enabled = false;
+        potalMake = false;
+        doCollision = false;
+        doReceipt = true;
     }
 
 }

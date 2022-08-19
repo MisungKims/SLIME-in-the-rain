@@ -22,14 +22,6 @@ public class VillageManager : MapManager
     ICamera _camera;
     SceneDesign sceneDesign;
     SettingCanvas settingCanvas;
-    
-    
-
-
-
-
-
-
     #endregion
 
     #region 유니티 라이프사이클
@@ -48,11 +40,6 @@ public class VillageManager : MapManager
         _camera = ICamera.Instance;
         sceneDesign = SceneDesign.Instance;
         settingCanvas = SettingCanvas.Instance;
-
-
-        
-
-        
         Init();
         StartCoroutine(Clear());
         
@@ -82,7 +69,7 @@ public class VillageManager : MapManager
     }
     IEnumerator Clear()
     {
-        while(!slime.currentWeapon)
+        while (!slime.currentWeapon)
         {
             yield return null;
         }
@@ -93,7 +80,7 @@ public class VillageManager : MapManager
         if (sceneDesign)
         {
 
-            sceneDesign.ResetScene();
+            sceneDesign.SceneInit();
             Debug.Log("Execution Reset");
         }
         else
@@ -136,12 +123,17 @@ public class VillageManager : MapManager
         pos.x = 22.5f; pos.y = 56.5f; pos.z = 0;
         runeSlot.position = pos;
         runeSlot.localScale = Vector3.one * 0.7f;
+        if(!runeManager.transform.GetChild(0).gameObject.activeSelf)
+        {
+            runeManager.transform.GetChild(0).gameObject.SetActive(true);
+        }
         runeManager.InitRune();
 
         //인벤토리
         inventory.ResetInven();
 
         //씬디자인
+        sceneDesign.finalClear = false;
 
         //세팅 캔버스
         settingCanvas.settingIcon.SetActive(true);
