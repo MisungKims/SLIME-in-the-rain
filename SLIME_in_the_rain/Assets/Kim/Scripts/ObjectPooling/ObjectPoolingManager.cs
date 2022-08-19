@@ -144,8 +144,8 @@ public class ObjectPoolingManager : MonoBehaviour
         else if (flag.Equals(EObjectFlag.weapon))       // 반환하려는 오브젝트가 무기일 때 아이템 설정 필요
         {
             if (tempGb.transform.childCount > 0)
-                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(16, 20)]);
-            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(16, 20)]);
+                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(15, 20)]);
+            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(15, 20)]);
         }
 
 
@@ -159,7 +159,11 @@ public class ObjectPoolingManager : MonoBehaviour
     /// </summary>
     public GameObject GetFieldItem(Item item, Vector3 pos)
     {
-        int index = (int)EObjectFlag.gelatin;
+        int index;
+
+        if (item.itemType.Equals(ItemType.gelatin)) index = (int)EObjectFlag.gelatin;
+       else index = (int)EObjectFlag.weapon;
+
         GameObject tempGb;
 
         if (objectPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때

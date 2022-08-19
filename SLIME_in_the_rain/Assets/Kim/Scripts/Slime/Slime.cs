@@ -180,7 +180,7 @@ public class Slime : MonoBehaviour
             {
                 isAttacking = true;
 
-                currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
+                if(currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
 
                 yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
@@ -488,12 +488,13 @@ public class Slime : MonoBehaviour
     }
 
     // 현재 무기를 없앰
-    void RemoveCurrentWeapon()
+    public void RemoveCurrentWeapon()
     {
         if (currentWeapon)
         {
             currentWeapon.gameObject.layer = 6;
-            ObjectPoolingManager.Instance.Set(currentWeapon);
+            Destroy(currentWeapon.gameObject);
+           // ObjectPoolingManager.Instance.Set(currentWeapon);
             currentWeapon = null;
         }
     }
@@ -506,7 +507,9 @@ public class Slime : MonoBehaviour
         currentWeapon.GetComponent<Outline>().enabled = false;
 
         // 무기의 위치 설정
+        ObjectPoolingManager.Instance.Set(currentWeapon.transform.parent.gameObject, EObjectFlag.weapon);
         currentWeapon.transform.parent = weaponPos;
+       
         currentWeapon.transform.localPosition = Vector3.zero;
 
         // 변경한 무기의 스탯으로 변경
