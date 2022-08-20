@@ -21,6 +21,9 @@ public class RecoveryHP : MonoBehaviour
     private bool isUsed = false;        // 이 오브젝트를 사용했는지?
     public bool IsUsed { get { return isUsed; } }
 
+    [SerializeField]
+    private GameObject npcSpeech;
+
     // 슬라임 감지에 필요한 변수
     private float distance;
     Vector3 offset;
@@ -58,9 +61,10 @@ public class RecoveryHP : MonoBehaviour
         myParticle.SetActive(false);
         slimeParticle.SetActive(false);
 
-
         outline = GetComponent<Outline>();
         outline.enabled = true;
+
+        npcSpeech.SetActive(false);
     }
 
     private void OnEnable()
@@ -88,17 +92,11 @@ public class RecoveryHP : MonoBehaviour
 
             if (distance < 2f)
             {
-                //if (!outline.enabled) outline.enabled = true;           // 거리가 가까울 때 외곽선 표시
-
                 if (Input.GetKeyDown(KeyCode.G))                // G키를 누르면 HP 회복
                 {
                     StartCoroutine(Recovery());
                 }
             }
-            //else
-            //{
-            //    if (outline.enabled) outline.enabled = false;
-            //}
 
             yield return null;
         }
@@ -109,6 +107,7 @@ public class RecoveryHP : MonoBehaviour
     {
         isUsed = true;
         outline.enabled = false;
+        npcSpeech.SetActive(true);
 
         myParticle.SetActive(true);
         slimeParticle.SetActive(true);
