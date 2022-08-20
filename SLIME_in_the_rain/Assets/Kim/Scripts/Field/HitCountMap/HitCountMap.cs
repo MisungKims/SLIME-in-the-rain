@@ -30,6 +30,13 @@ public class HitCountMap : MapManager
 
     [Header("-------------- Props")]
     [SerializeField]
+    private GameObject prop;
+    [SerializeField]
+    private Transform monsters;
+
+    private List<GameObject> monsterArr = new List<GameObject>();
+
+    [SerializeField]
     private GameObject[] props;
     [SerializeField]
     private Transform[] propPos;
@@ -53,17 +60,7 @@ public class HitCountMap : MapManager
             {
                 count = value;
 
-                sb.Clear();
-                sb.Append(count.ToString());
-                sb.Append("<size=30>/");
-                sb.Append(maxCount);
-
-                countText.text = sb.ToString();
-
-                if (count >= maxCount)
-                {
-                    ClearMap();
-                }
+                SetCountText();
             }
         }
     }
@@ -83,6 +80,7 @@ public class HitCountMap : MapManager
     private ObjectPool particlePooling;     // 파티클 오브젝트 풀링
     #endregion
 
+    #region 유니티 함수
     protected override void Awake()
     {
         if (null == instance)
@@ -105,14 +103,19 @@ public class HitCountMap : MapManager
         StartCoroutine(ShowDescText());
     }
 
+    #endregion
+
+    #region 코루틴
     IEnumerator DisableProps()
     {
-        for (int i = 0; i < props.Length; i++)
-        {
-            props[i].gameObject.SetActive(false);
+        prop.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.4f);
+        //for (int i = 0; i < props.Length; i++)
+        //{
+        //    props[i].gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(0.4f);
-        }
+        //    yield return new WaitForSeconds(0.4f);
+        //}
     }
 
     // 맵 설명 텍스트
@@ -155,6 +158,58 @@ public class HitCountMap : MapManager
         }
     }
 
+    IEnumerator SpawnMonster()
+    {
+        WaitForSeconds waitFor7s = new WaitForSeconds(7f);
+
+        for (int i = 0; i < monsterArr.Count; i++)
+        {
+            if(i == 0) yield return new WaitForSeconds(4f);
+            else yield return waitFor7s;
+
+            monsterArr[i].SetActive(true);
+        }
+    }
+
+    #endregion
+
+    #region 함수
+    // 맵 초기설정
+    private void InitMap()
+    {
+        Count = 0;
+        isClear = false;
+
+        for (int i = 0; i < monsters.childCount; i++)
+        {
+            monsterArr.Add(monsters.GetChild(i).gameObject);
+        }
+    }
+
+    // 카운트를 세는 텍스트를 설정
+    void SetCountText()
+    {
+        if (count == 1) StartCoroutine(SpawnMonster());
+
+        sb.Clear();
+        sb.Append(count.ToString());
+        sb.Append("<size=30>/");
+        sb.Append(maxCount);
+
+        countText.text = sb.ToString();
+
+        if (count >= maxCount) ClearMap();
+    }
+
+    // 맵 클리어 시 호출
+    public override void ClearMap()
+    {
+        isClear = true;
+
+        StartCoroutine(DisableProps());
+
+        base.ClearMap();
+    }
 
     #region 오브젝트 풀링
     // 파티클 오브젝트를 initCount 만큼 생성
@@ -191,6 +246,7 @@ public class HitCountMap : MapManager
         return tempGb;
     }
 
+
     /// <summary>
     /// 다 쓴 오브젝트를 큐에 돌려줌
     /// </summary>
@@ -201,49 +257,5 @@ public class HitCountMap : MapManager
         particlePooling.queue.Enqueue(gb);
     }
     #endregion
-
-    // Prop의 위치를 설정
-    private void InitMap()
-    {
-        Count = 0;
-        isClear = false;
-
-        props = ShuffleArray(props);    // 배열을 섞기
-
-        for (int i = 0; i < props.Length; i++)
-        {
-            props[i].transform.position = propPos[i].position;
-        }
-    }
-
-    // 배열을 랜덤으로 섞기
-    private T[] ShuffleArray<T>(T[] array)
-    {
-        int random1, random2;
-        T temp;
-
-        for (int i = 0; i < array.Length; ++i)
-        {
-            random1 = Random.Range(0, array.Length);
-            random2 = Random.Range(0, array.Length);
-
-            temp = array[random1];
-            array[random1] = array[random2];
-            array[random2] = temp;
-        }
-
-        return array;
-    }
-
-    // 맵 클리어 시 호출
-    public override void ClearMap()
-    {
-        isClear = true;
-
-        StartCoroutine(DisableProps());
-
-        base.ClearMap();
-    }
-
-   
+    #endregion
 }
