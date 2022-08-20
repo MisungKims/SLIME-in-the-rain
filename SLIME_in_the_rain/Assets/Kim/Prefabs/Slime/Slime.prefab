@@ -47,7 +47,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 6b375b4a23421d140aa1497db540bf7c, type: 3}
   IconColor: {r: 0.1764706, g: 0.6862745, b: 0.17254902, a: 1}
   isSlime: 1
-  isRegisterOnEnable: 0
 --- !u!1 &4685485102212164031
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +118,7 @@ SkinnedMeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7547151028122295153}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
