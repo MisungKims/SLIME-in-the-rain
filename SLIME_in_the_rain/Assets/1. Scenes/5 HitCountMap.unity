@@ -3794,6 +3794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurtleShell
       objectReference: {fileID: 0}
+    - target: {fileID: 6008999535169751908, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6014399257192330360, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -8650,6 +8654,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439525249}
   m_Mesh: {fileID: 4300000, guid: 513340c0a9f46dc49a30f735acd7f4e1, type: 3}
+--- !u!1 &447227142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 447227143}
+  m_Layer: 0
+  m_Name: 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &447227143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 447227142}
+  m_LocalRotation: {x: -0, y: -0.954768, z: -0, w: 0.29735196}
+  m_LocalPosition: {x: 1.7483834, y: 2, z: -0.976016}
+  m_LocalScale: {x: 0.46083, y: 0.46083, z: 0.46083}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 659388303}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: -145.403, z: 0}
 --- !u!1 &450360303
 GameObject:
   m_ObjectHideFlags: 0
@@ -12368,6 +12403,9 @@ Transform:
   - {fileID: 406170018}
   - {fileID: 1263074596}
   - {fileID: 1639497284}
+  - {fileID: 1350136097}
+  - {fileID: 1317729319}
+  - {fileID: 447227143}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17011,6 +17049,10 @@ PrefabInstance:
     - target: {fileID: 6008999535169751908, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
       propertyPath: m_Name
       value: TurtleShell (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008999535169751908, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6014399257192330360, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
       propertyPath: m_RootOrder
@@ -24254,6 +24296,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300298100}
   m_Mesh: {fileID: 4300000, guid: 513340c0a9f46dc49a30f735acd7f4e1, type: 3}
+--- !u!1 &1317729318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1317729319}
+  m_Layer: 0
+  m_Name: 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1317729319
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317729318}
+  m_LocalRotation: {x: -0, y: -0.99994034, z: -0, w: -0.010926829}
+  m_LocalPosition: {x: -1.660402, y: 2, z: 0.92232484}
+  m_LocalScale: {x: 0.46083, y: 0.46083, z: 0.46083}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 659388303}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: -181.252, z: 0}
 --- !u!1 &1318215579
 GameObject:
   m_ObjectHideFlags: 0
@@ -24706,6 +24779,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349539923}
   m_Mesh: {fileID: 4300000, guid: 513340c0a9f46dc49a30f735acd7f4e1, type: 3}
+--- !u!1 &1350136096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1350136097}
+  m_Layer: 0
+  m_Name: 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1350136097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350136096}
+  m_LocalRotation: {x: -0, y: -0.98004663, z: -0, w: 0.19876802}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 0.46083, y: 0.46083, z: 0.46083}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 659388303}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: -157.07, z: 0}
 --- !u!1 &1350809473
 GameObject:
   m_ObjectHideFlags: 0
@@ -35625,6 +35729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurtleShell (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6008999535169751908, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6014399257192330360, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -40882,6 +40990,16 @@ MonoBehaviour:
   slimeSpawnPos: {fileID: 511722598}
   prop: {fileID: 263419816}
   monsters: {fileID: 659388303}
+  monsterArray:
+  - {fileID: 649413585776182058, guid: 1d3a822e05d26ee44bca852ccf0912bb, type: 3}
+  - {fileID: 509176154862794334, guid: aca8793f1a37a434295918267c885341, type: 3}
+  - {fileID: 8258507521972698940, guid: 7577a6e61b581ee47a03d2f9203de539, type: 3}
+  - {fileID: -709460304852800890, guid: 51db9ce3f79952e4ba2782ba28a6669f, type: 3}
+  - {fileID: 531925911845654749, guid: 4076d042b24454b4d8d41f0c8bb4515c, type: 3}
+  monsterPos:
+  - {fileID: 1350136097}
+  - {fileID: 1317729319}
+  - {fileID: 447227143}
   props:
   - {fileID: 263419816}
   - {fileID: 0}

@@ -141,8 +141,8 @@ public class Weapon : MonoBehaviour
     protected IEnumerator SkillTimeCount()
     {
         isCanSkill = false;
-
-        currentCoolTime = (int)slime.Stat.coolTime;
+        
+        currentCoolTime = (int)statManager.myStats.coolTime;
         while (currentCoolTime > 0f)
         {
             currentCoolTime -= Time.deltaTime;

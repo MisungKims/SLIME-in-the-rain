@@ -34,6 +34,11 @@ public class HitCountMap : MapManager
     [SerializeField]
     private Transform monsters;
 
+    [SerializeField]
+    private Monster[] monsterArray;
+    [SerializeField]
+    private Transform[] monsterPos;
+
     private List<GameObject> monsterArr = new List<GameObject>();
 
     [SerializeField]
@@ -196,15 +201,31 @@ public class HitCountMap : MapManager
     IEnumerator SpawnMonster()
     {
         WaitForSeconds waitFor10s = new WaitForSeconds(10f);
+        WaitForSeconds waitFor3s = new WaitForSeconds(3f);
 
         for (int i = 0; i < monsterArr.Count; i++)
         {
-            if (i == 0) yield return new WaitForSeconds(3f);
+            if (i == 0) yield return waitFor3s;
             else yield return waitFor10s;
 
             if (isClear) break;
 
             monsterArr[i].SetActive(true);
+        }
+
+        while (!isClear)
+        {
+            for (int i = 0; i < monsterArray.Length; i++)
+            {
+                Debug.Log(monsterArray[i]);
+                yield return waitFor10s;
+
+                for (int j = 0; j < monsterPos.Length; j++)
+                {
+                    Debug.Log(monsterPos[j]);
+                    Instantiate(monsterArray[i].gameObject, monsterPos[j].position, monsterPos[j].rotation, monsters.GetChild(i));
+                }
+            }
         }
     }
 

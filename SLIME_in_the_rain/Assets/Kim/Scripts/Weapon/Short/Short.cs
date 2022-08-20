@@ -15,6 +15,9 @@ public class Short : Weapon
 
     protected EProjectileFlag flag;         // 어떤 종류의 투사체인지?
 
+    [SerializeField]
+    float size = 2f;
+
     #endregion
 
     #region 함수
@@ -43,9 +46,6 @@ public class Short : Weapon
             }
         }
     }
-
-    [SerializeField]
-    float size = 2f;
 
     // 검기 발사
     protected void Missile(Vector3 targetPos, bool isSkill)
