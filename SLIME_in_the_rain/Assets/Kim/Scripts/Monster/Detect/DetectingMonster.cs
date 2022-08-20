@@ -29,14 +29,10 @@ public class DetectingMonster : GeneralMonster
         base.Awake();
 
         addCountAmount = 8f;
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
 
         StartCoroutine(DetectSlime());          // 슬라임 감지 시작
     }
+
     #endregion
 
     #region 코루틴

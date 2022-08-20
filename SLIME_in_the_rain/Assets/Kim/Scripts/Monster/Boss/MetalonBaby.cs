@@ -32,14 +32,10 @@ public class MetalonBaby : Monster
 
         mainCam = Camera.main;
         projectileAtk = 2;
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
 
         TryStartChase();
     }
+
     #endregion
 
 

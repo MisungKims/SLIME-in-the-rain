@@ -52,14 +52,10 @@ public class Boss : Monster
 
         minAtkTime = 0.5f;
         maxAtkTime = 1.5f;
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
 
         StartCoroutine(DetectSlime());          // 슬라임 감지 시작
     }
+
     #endregion
 
     #region 코루틴
