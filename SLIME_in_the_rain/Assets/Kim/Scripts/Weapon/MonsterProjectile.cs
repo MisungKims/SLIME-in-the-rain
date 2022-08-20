@@ -27,7 +27,7 @@ public class MonsterProjectile : Projectile
         if (monster)
         {
             monster.CameraShaking(0.1f, 0.05f);
-            monster.DamageSlime(monster.projectileAtk);
+            Slime.Instance.Damaged(monster.Stats, monster.projectileAtk);
         }
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);

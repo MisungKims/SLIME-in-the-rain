@@ -505,7 +505,19 @@ public abstract class Monster : MonoBehaviour, IDamage
         if(!doDamage)
         {
             doDamage = true;
-            slime.Damaged(stats, atkType);
+            AttackRaycast(atkType);
+        }
+    }
+
+    protected virtual void AttackRaycast(int atkType)
+    {
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position + Vector3.up * 0.1f, transform.lossyScale * 2f, transform.forward, transform.rotation, stats.attackRange);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].transform.CompareTag("Slime"))
+            {
+                slime.Damaged(stats, atkType);
+            }
         }
     }
 
@@ -561,4 +573,22 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     #endregion
+
+    void OnDrawGizmos()
+    {
+
+        RaycastHit hit;
+       
+        bool isHit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 2f, transform.forward, out hit, transform.rotation, stats.attackRange);
+        Gizmos.color = Color.red;
+        if (isHit)
+        {
+            Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+            Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
+        }
+        else
+        {
+            Gizmos.DrawRay(transform.position, transform.forward * stats.attackRange);
+        }
+    }
 }

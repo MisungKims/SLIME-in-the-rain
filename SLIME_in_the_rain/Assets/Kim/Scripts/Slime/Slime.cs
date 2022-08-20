@@ -547,7 +547,7 @@ public class Slime : MonoBehaviour
 
     IEnumerator DieCoru()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene(SceneDesign.Instance.s_result);
     }
@@ -584,13 +584,9 @@ public class Slime : MonoBehaviour
         StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
 
         damageAmount = -2;
-
-        if (stat.HP + damageAmount <= 0) Die();
-        else
-        {
-            PlayAnim(AnimState.damaged);
-            statManager.AddHP(damageAmount);
-        }
+        statManager.AddHP(damageAmount);
+        if(statManager.myStats.HP <= 0) Die();
+        else PlayAnim(AnimState.damaged);
     }
 
     // ½ºÅÏ
