@@ -109,13 +109,48 @@ public class HitCountMap : MapManager
     IEnumerator DisableProps()
     {
         prop.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.4f);
-        //for (int i = 0; i < props.Length; i++)
-        //{
-        //    props[i].gameObject.SetActive(false);
 
-        //    yield return new WaitForSeconds(0.4f);
-        //}
+        yield return new WaitForSeconds(0.3f);
+
+        Vector3 moneyPos;
+        int randObj; 
+        
+        int randJellyCount = Random.Range(20, 30);      // 재화 드롭 개수
+        for (int i = 0; i < randJellyCount; i++)
+        {
+            moneyPos = prop.transform.position;     // 재화의 위치
+            moneyPos.x += Random.Range(-1f, 1f);
+            moneyPos.y += 2f;
+            moneyPos.z += Random.Range(-1f, 1f);
+
+            randObj = Random.Range(0, 2);         // 확률에 따라 젤리, 젤라틴, 무기를 정함
+            switch (randObj)
+            {
+                case 0:   // 젤리
+                    objectPoolingManager.Get(EObjectFlag.jelly, moneyPos);
+                    break;
+                case 1:   // 젤라틴
+                    objectPoolingManager.Get(EObjectFlag.gelatin, moneyPos);
+                    break;
+                default:
+                    objectPoolingManager.Get(EObjectFlag.jelly, moneyPos);
+                    break;
+            }
+        }
+    }
+
+    IEnumerator MonsterDie()
+    {
+        for (int i = 0; i < monsterArr.Count; i++)
+        {
+            Transform monsterParent = monsterArr[i].transform;
+            for (int j = 0; j < monsterParent.childCount; j++)
+            {
+                monsterParent.GetChild(j).GetComponent<Monster>().isDie = true;
+
+                yield return null;
+            }
+        }
     }
 
     // 맵 설명 텍스트
@@ -160,12 +195,14 @@ public class HitCountMap : MapManager
 
     IEnumerator SpawnMonster()
     {
-        WaitForSeconds waitFor7s = new WaitForSeconds(7f);
+        WaitForSeconds waitFor10s = new WaitForSeconds(10f);
 
         for (int i = 0; i < monsterArr.Count; i++)
         {
-            if(i == 0) yield return new WaitForSeconds(4f);
-            else yield return waitFor7s;
+            if (i == 0) yield return new WaitForSeconds(3f);
+            else yield return waitFor10s;
+
+            if (isClear) break;
 
             monsterArr[i].SetActive(true);
         }
@@ -207,6 +244,7 @@ public class HitCountMap : MapManager
         isClear = true;
 
         StartCoroutine(DisableProps());
+        StartCoroutine(MonsterDie());
 
         base.ClearMap();
     }

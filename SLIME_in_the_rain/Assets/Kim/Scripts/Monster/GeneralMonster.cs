@@ -50,14 +50,10 @@ public class GeneralMonster : Monster
 
         if(DungeonManager.Instance) mapRange = DungeonManager.Instance.mapRange;
         else mapRange = 8;
+
+        if(!isAttackImmediately) StartCoroutine(Move());
     }
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        StartCoroutine(Move());
-    }
     #endregion
 
     #region 코루틴
@@ -177,7 +173,7 @@ public class GeneralMonster : Monster
 
         base.TryStartChase();
 
-        if (!isCounting)                // 추적 타임 카운트가 돌고 있지 않을 때
+        if (!isCounting && !isAttackImmediately)                // 추적 타임 카운트가 돌고 있지 않을 때, 스폰되는 즉시 공격하는 몬스터가 아닐 때
         {
             StartCoroutine(ChaseTimeCount());       // 추적 타임 카운트 시작
         }

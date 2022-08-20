@@ -27,6 +27,8 @@ public enum EMonsterAnim
 public abstract class Monster : MonoBehaviour, IDamage
 {
     #region 변수
+    public bool isAttackImmediately = false;
+
     [SerializeField]
     protected int attackTypeCount;
 
@@ -72,8 +74,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool canAttack = true;
 
-   // private bool isInGround = true;
-
     protected bool isInRange = false;
 
     // 공격 후 대기 시간
@@ -87,6 +87,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected bool isStun = false;
 
+    [HideInInspector]
     public bool isDie = false;
 
     protected bool doDamage; // 슬라임에게 데미지를 입혔는지?
@@ -94,12 +95,6 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected bool noDamage = false;        // 데미지를 입힐 필요가 없는지?
 
     string animName;
-
-    //// 공중
-    //private float airTime;
-    //private float maxAirTime = 3f;
-    //private float jumpPower = 5f;
-    //protected bool canAir = true;
 
     // 미니맵
     [SerializeField]
@@ -127,17 +122,20 @@ public abstract class Monster : MonoBehaviour, IDamage
         cam = Camera.main;
 
         chaseSpeed = stats.moveSpeed * multiplyChaseSpeedValue;
-    }
 
-    protected virtual void OnEnable()
-    {
         isDie = false;
-        //if(canAir) monsterCollider.isTrigger = false;
 
         stats.HP = stats.maxHP;
 
         StartCoroutine(Animation());
+
+        if (isAttackImmediately) TryStartChase();
     }
+
+    //protected virtual void OnEnable()
+    //{
+        
+    //}
 
    void Start()
     {
@@ -446,7 +444,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         HideHPBar();
 
-        Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
+        if(Minimap.Instance) Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
 
         if (DungeonManager.Instance) DungeonManager.Instance.DieMonster(this);
 

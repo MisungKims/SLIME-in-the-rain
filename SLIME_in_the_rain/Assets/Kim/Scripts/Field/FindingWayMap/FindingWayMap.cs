@@ -79,6 +79,9 @@ public class FindingWayMap : MapManager
     private Vector2 endTextPos = new Vector2(0, -10);
     private RectTransform textTransform;
 
+    [SerializeField]
+    private GameObject npcSpeech;
+
     // ƒ≥ΩÃ
     private Slime slime;
     #endregion
@@ -130,10 +133,11 @@ public class FindingWayMap : MapManager
     // æ¿¿Ã Ω√¿€µ… ∂ß ±Ê¿ª æÀ∑¡¡‹
     IEnumerator ShowRoad()
     {
+        
         GameObject smallHP = MainCanvas.Instance.hpSlime.transform.parent.gameObject;
         smallHP.SetActive(false);
-
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
+        //yield return new WaitForSeconds(0.5f);
 
         canMoveCam = true;
         StartCoroutine(MoveCamera());
