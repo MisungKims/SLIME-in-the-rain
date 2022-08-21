@@ -132,11 +132,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         if (isAttackImmediately) TryStartChase();
     }
 
-    //protected virtual void OnEnable()
-    //{
-        
-    //}
-
    void Start()
     {
         statManager = StatManager.Instance;
@@ -467,20 +462,31 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 데미지를 입음
     bool HaveDamage(float damage)
     {
-        float result = stats.HP - damage;
-       
-        if (result <= 0)             // 죽음
+        StartCoroutine(damageCoru(damage));
+
+        return isDie;
+    }
+
+    IEnumerator damageCoru(float damage)
+    {
+        for (int i = 0; i < StatManager.Instance.myStats.hitCount; i++)
         {
-            stats.HP = 0;
-            ShowDamage(damage);
-            Die();
-            return false;
-        }
-        else
-        {
-            stats.HP = result;
-            ShowDamage(damage);
-            return true;
+            float result = stats.HP - damage;
+
+            if (result <= 0)             // 죽음
+            {
+                stats.HP = 0;
+                ShowDamage(damage);
+                Die();
+                break;
+            }
+            else
+            {
+                stats.HP = result;
+                ShowDamage(damage);
+            }
+
+            yield return new WaitForSeconds(0.08f);
         }
     }
 

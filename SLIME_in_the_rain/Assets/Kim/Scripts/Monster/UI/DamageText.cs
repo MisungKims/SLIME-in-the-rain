@@ -12,7 +12,9 @@ using TMPro;
 public class DamageText : UpText
 {
     #region º¯¼ö
-   
+    [HideInInspector]
+    public Vector3 startPos;
+
     private TextMeshProUGUI text;
 
     Color32 red = new Color32(164, 11, 0, 255);
