@@ -13,6 +13,7 @@ public class RuneLife : Rune, IPassiveRune
     #region ÇÔ¼ö
     public void Passive()
     {
+        Slime.Instance.Life += 2;
         // ¸ñ¼û +2
     }
     #endregion
