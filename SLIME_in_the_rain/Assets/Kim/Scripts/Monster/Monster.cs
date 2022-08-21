@@ -389,6 +389,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
             isHit = true;
+
            
             TryStartChase();               // 슬라임 따라다니기 시작
         }
@@ -464,7 +465,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         StartCoroutine(damageCoru(damage));
 
-        return isDie;
+        return !isDie;
     }
 
     IEnumerator damageCoru(float damage)
