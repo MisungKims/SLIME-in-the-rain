@@ -36,9 +36,6 @@ public class ItemDatabase : MonoBehaviour
     public Sprite[] imageDB;
     public List<ItemEffect> itemEffect = new List<ItemEffect>();
     public GameObject fieldItemPrefab;
-    public Vector3[] pos;
-    int same1;
-    int same2;
 
     public TextAsset ItemDbT;
   
@@ -93,10 +90,7 @@ public class ItemDatabase : MonoBehaviour
                 }
         }
 
-        for (int i = 0; i < pos.Length; i++)
-        {
-            if(ObjectPoolingManager.Instance) ObjectPoolingManager.Instance.Get(EObjectFlag.gelatin, pos[i]);
-        }
+
 
 
     }

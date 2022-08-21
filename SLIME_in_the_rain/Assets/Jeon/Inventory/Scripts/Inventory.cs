@@ -177,6 +177,14 @@ public class Inventory : MonoBehaviour
     public void ResetInven()
     {
         items.Clear();
-        InventoryUI.Instance.RedrawSlotUI();
+         SlotCount = 4;
+        StartCoroutine(Inventory.instance.RedrawCoru());
+        InventoryUI.Instance.expansCost = 5;
+        InventoryUI.Instance.addButtonCostText.text = InventoryUI.Instance.expansCost.ToString() + "J";
+
+        if (onSlotCountChange != null)
+        {
+            onSlotCountChange.Invoke(slotCount);
+        }
     }
 }

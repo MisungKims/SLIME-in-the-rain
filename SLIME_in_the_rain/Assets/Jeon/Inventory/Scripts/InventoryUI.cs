@@ -38,11 +38,10 @@ public class InventoryUI : MonoBehaviour
     public GameObject DissolutionUI;
 
     private JellyManager jellyManager;
-    [SerializeField]
-    private TextMeshProUGUI addButtonCostText;
+    public TextMeshProUGUI addButtonCostText;
     public TextMeshProUGUI JellyTextC; //Á©¸®
-    [SerializeField]
-    int expansCost = 5;
+    
+    public int expansCost = 5;
 
 
     public GameObject tooltip;

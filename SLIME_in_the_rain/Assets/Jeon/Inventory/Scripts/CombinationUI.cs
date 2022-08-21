@@ -226,6 +226,7 @@ public class CombinationUI : MonoBehaviour
         slotNum2 = -1;
         secondGelatin = false;
         secondCount = false;
+        sameGel = false;
         gelatin1Txt.text = "";
         gelatin2Txt.text = "";
     }
@@ -467,10 +468,8 @@ public class CombinationUI : MonoBehaviour
     {
         ComGelatin.sprite = ComGelatinIt.itemIcon;
         StartCoroutine(Wt("젤라틴 합성 성공"));
-        yield return new WaitForSeconds(2.0f);
-        sameGel = false;
-        inventory.items[slotNum1].itemCount -= _gelatin1Cont;
-        inventory.items[slotNum2].itemCount -= _gelatin2Cont;
+        yield return new WaitForSeconds(1.0f);
+
         for (int i = 0; i < inventory.items.Count; i++)
         {
             if (inventory.items[i].itemName == ComGelatinIt.itemName)
@@ -484,8 +483,9 @@ public class CombinationUI : MonoBehaviour
         {
             addItem(ComGelatinIt);
         }
+        inventory.items[slotNum1].itemCount -= _gelatin1Cont;
+        inventory.items[slotNum2].itemCount -= _gelatin2Cont;
         ResetData();
-        inventoryUI.RedrawSlotUI();
     }
 
     #endregion
