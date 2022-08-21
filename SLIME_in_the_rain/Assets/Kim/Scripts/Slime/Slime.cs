@@ -30,6 +30,15 @@ public class Slime : MonoBehaviour
     public int killCount = 0;
     public bool isDungeonStart = false;
 
+    [SerializeField]
+    private LifePanel lifePanel;
+    private int life = 1;
+    public int Life
+    {
+        get { return life; }
+        set { life = value; }
+    }
+
     public Rigidbody rigid;
     public RigidbodyConstraints rigidbodyConstraints;
 
@@ -537,12 +546,14 @@ public class Slime : MonoBehaviour
     public void Die()
     {
         isDie = true;
-        stat.HP = 0;
+        statManager.myStats.HP = 0;
         canMove = false;
-        
+
         PlayAnim(AnimState.die);
 
-        StartCoroutine(DieCoru());
+        life--;
+        if (life <= 0) StartCoroutine(Restart());
+        else StartCoroutine(DieCoru());
     }
 
     IEnumerator DieCoru()
@@ -550,6 +561,17 @@ public class Slime : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene(SceneDesign.Instance.s_result);
+    }
+    
+    IEnumerator Restart()
+    {
+        yield return new WaitForSeconds(1f);
+
+        yield return StartCoroutine(lifePanel.SetUI(life + 1));
+
+        isDie = false;
+        statManager.myStats.HP = statManager.myStats.maxHP * 0.5f;
+        canMove = true;
     }
 
     //// 데미지를 입음
