@@ -99,6 +99,9 @@ public class StatManager : MonoBehaviour
         myStats.defensePower = weapon.stats.defensePower + extraStats.defensePower;
         myStats.hitCount = weapon.stats.hitCount * extraStats.hitCount;
         myStats.increasesDamage = weapon.stats.increasesDamage + extraStats.increasesDamage;
+
+        UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
+        UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 
     // Max Hp Ω∫≈» ∫Ø∞Ê
@@ -115,6 +118,8 @@ public class StatManager : MonoBehaviour
         {
             myStats.maxHP = originStats.maxHP + extraStats.maxHP + gelatinStat.maxHP;
         }
+
+        UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
     }
 
     // Hp Ω∫≈» ∫Ø∞Ê
@@ -129,6 +134,8 @@ public class StatManager : MonoBehaviour
         {
             myStats.HP = sum;
         }
+
+        UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 
     // ƒ≈∏¿” Ω∫≈» ∫Ø∞Ê

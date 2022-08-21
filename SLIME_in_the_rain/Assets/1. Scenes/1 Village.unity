@@ -5830,6 +5830,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7661899658850377394, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7661899659526388364, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5856,11 +5860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7661899660199001397, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7661899660199001397, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
@@ -15457,10 +15461,6 @@ PrefabInstance:
     - target: {fileID: 3860889463211838108, guid: 58f9a640dd2689f4bab1999bfddba54e, type: 3}
       propertyPath: m_Name
       value: Rune_Slot_Canvas (RuneManager)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3860889463254463825, guid: 58f9a640dd2689f4bab1999bfddba54e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 65.5
       objectReference: {fileID: 0}
     - target: {fileID: 3860889463819936666, guid: 58f9a640dd2689f4bab1999bfddba54e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -25618,6 +25618,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4497666445768756701, guid: 00e4791ace0c24341b392442de09f49b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4497666445768756701, guid: 00e4791ace0c24341b392442de09f49b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359356274116032391, guid: 00e4791ace0c24341b392442de09f49b, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1896650494}
+    - target: {fileID: 6359356274116032391, guid: 00e4791ace0c24341b392442de09f49b, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359356274116032391, guid: 00e4791ace0c24341b392442de09f49b, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1.41
+      objectReference: {fileID: 0}
     - target: {fileID: 7614506754835683769, guid: 00e4791ace0c24341b392442de09f49b, type: 3}
       propertyPath: m_Name
       value: UIObjectPoolingManager
@@ -34919,6 +34939,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1007747108, guid: a0ea944b88915a24d9a114765e56be98, type: 3}
   m_PrefabInstance: {fileID: 1896286069}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1896650494 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3742192667429867993, guid: db555d5aac2300c47b907a05695bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 655215482}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1900603491
 GameObject:

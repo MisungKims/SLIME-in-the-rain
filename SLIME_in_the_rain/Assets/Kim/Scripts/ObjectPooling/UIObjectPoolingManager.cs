@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum EUIFlag
 {
@@ -21,6 +22,7 @@ public class UIObjectPoolingManager : MonoBehaviour
 
     public List<ObjectPool> uiPoolingList = new List<ObjectPool>();
 
+    public Slider hpSlime;
     public FadeOutText stunText;
     public FadeOutText noInventoryText;
     public FadeOutText noWeaponText;
@@ -46,6 +48,7 @@ public class UIObjectPoolingManager : MonoBehaviour
 
         InitCanvas();
     }
+
     #endregion
 
     #region ÇÔ¼ö
