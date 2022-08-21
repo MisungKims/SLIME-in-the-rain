@@ -28,6 +28,11 @@ public class HitCountMap : MapManager
     }
     #endregion
 
+    [SerializeField]
+    private GameObject npcSpeech1;
+    [SerializeField]
+    private GameObject npcSpeech2;
+
     [Header("-------------- Props")]
     [SerializeField]
     private GameObject prop;
@@ -200,6 +205,9 @@ public class HitCountMap : MapManager
 
     IEnumerator SpawnMonster()
     {
+        if (npcSpeech1.activeSelf) npcSpeech1.SetActive(false);
+        npcSpeech2.SetActive(true);
+
         WaitForSeconds waitFor10s = new WaitForSeconds(10f);
         WaitForSeconds waitFor3s = new WaitForSeconds(3f);
 
@@ -237,6 +245,8 @@ public class HitCountMap : MapManager
     {
         Count = 0;
         isClear = false;
+        npcSpeech1.SetActive(true);
+        npcSpeech2.SetActive(false);
 
         for (int i = 0; i < monsters.childCount; i++)
         {
