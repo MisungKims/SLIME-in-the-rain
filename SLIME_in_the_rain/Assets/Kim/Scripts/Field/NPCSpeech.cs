@@ -28,7 +28,7 @@ public class NPCSpeech : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
-        // 텍스트가 내려옴
+        // 텍스트가 왼쪽으로
         Vector3 offset = rectTransform.anchoredPosition - endTextPos;
         float distance = offset.sqrMagnitude;
 
@@ -60,4 +60,57 @@ public class NPCSpeech : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+
+    //IEnumerator MoveLeft()
+    //{
+    //    // 텍스트가 왼쪽으로
+    //    offset = rectTransform.anchoredPosition - endTextPos;
+    //    distance = offset.sqrMagnitude;
+
+    //    while (distance > 0.5f)
+    //    {
+    //        offset = rectTransform.anchoredPosition - endTextPos;
+    //        distance = offset.sqrMagnitude;
+
+    //        rectTransform.anchoredPosition = Vector3.Lerp(rectTransform.anchoredPosition, endTextPos, Time.deltaTime * 3f);
+
+    //        yield return null;
+    //    }
+    //}
+
+    //IEnumerator MoveRight()
+    //{
+    //    // 텍스트가 올라감
+    //    offset = rectTransform.anchoredPosition - startTextPos;
+    //    distance = offset.sqrMagnitude;
+
+    //    while (distance > 0.5f)
+    //    {
+    //        offset = rectTransform.anchoredPosition - startTextPos;
+    //        distance = offset.sqrMagnitude;
+
+    //        rectTransform.anchoredPosition = Vector3.Lerp(rectTransform.anchoredPosition, startTextPos, Time.deltaTime * 4f);
+
+    //        yield return null;
+    //    }
+    //}
+
+
+
+    //public void StartMove()
+    //{
+    //    StartCoroutine(Move());
+    //}
+
+    //public void StartMoveLeft()
+    //{
+    //    StartCoroutine(MoveLeft());
+    //}
+
+    //public void StartMoveRight()
+    //{
+    //    StartCoroutine(MoveRight());
+
+    //    gameObject.SetActive(false);
+    //}
 }
