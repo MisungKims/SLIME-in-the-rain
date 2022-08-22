@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Globalization;
 
 public class FarmManager : MonoBehaviour
 {
@@ -18,14 +17,13 @@ public class FarmManager : MonoBehaviour
 
     string level;
 
-    private void Start()
+    private void OnEnable()
     {
         LevelDefault();
-        TowerBuilding(int.Parse(level, CultureInfo.InvariantCulture));
+        TowerBuilding(int.Parse(level));
     }
     void LevelDefault()
     {
-
         if (this.name == "Empty")
         {
             string str = Random.Range(5, 15).ToString();
@@ -39,6 +37,7 @@ public class FarmManager : MonoBehaviour
             }
         }
         level = PlayerPrefs.GetString(this.name + "level");
+        Debug.Log("tower"+ this.name +" "+ level);
     }
     public void TowerBuilding(int makeNum)
     {

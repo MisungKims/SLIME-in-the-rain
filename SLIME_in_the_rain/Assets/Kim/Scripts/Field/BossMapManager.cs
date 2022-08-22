@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossMapManager : MapManager
 {
@@ -23,12 +24,12 @@ public class BossMapManager : MapManager
     private WaitForSeconds waitFor5s = new WaitForSeconds(5f);
     #endregion
 
-    protected override void Awake()
-    {
-        base.Awake();
+    //protected override void Awake()
+    //{
+    //    base.Awake();
 
         
-    }
+    //}
 
     //IEnumerator Show()
     //{
@@ -43,9 +44,18 @@ public class BossMapManager : MapManager
     // º¸½º°¡ Á×À¸¸é ·é ¼±ÅÃ Ã¢À» º¸¿©ÁÜ
     IEnumerator IsDie()
     {
-        yield return waitFor5s;
+        if (!boss.GetComponent<Metalon>())
+        {
+            yield return waitFor5s;
 
-        selectRuneWindow.OpenWindow();
-        ClearMap();
+            selectRuneWindow.OpenWindow();
+            ClearMap();
+        }
+        else
+        {
+            yield return waitFor5s;
+
+            ClearMap();
+        }
     }
 }

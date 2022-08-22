@@ -145,22 +145,36 @@ public class Slime : MonoBehaviour
         anim = GetComponent<Animator>();
         shield.SetActive(false);
 
+        
+    }
+
+    private void OnEnable()
+    {
         dashDistance = originDashDistance;
         dashTime = originDashTime;
         isCanDash = true;
 
-        isInWater = false;
-    }
+        isInWater = false; 
+        canMove = true;
+        isAttacking = false;
 
-    private void Start()
-    {
-        stat = statManager.myStats;
+         stat = statManager.myStats;
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
         StartCoroutine(DetectWater());
         StartCoroutine(DetectWall());
     }
+
+    //private void Start()
+    //{
+    //    stat = statManager.myStats;
+    //    StartCoroutine(AutoAttack());
+    //    StartCoroutine(Skill());
+    //    StartCoroutine(DecreaseHPInWater());
+    //    StartCoroutine(DetectWater());
+    //    StartCoroutine(DetectWall());
+    //}
 
     public bool isFrontWall = false;
 
@@ -545,6 +559,7 @@ public class Slime : MonoBehaviour
 
     public void Die()
     {
+        if (isDie) return;
         isDie = true;
         statManager.myStats.HP = 0;
         canMove = false;

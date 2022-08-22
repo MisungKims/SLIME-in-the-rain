@@ -12,16 +12,18 @@ public class TitleManager : MonoBehaviour
     SettingCanvas settingCanvas;
     SceneDesign sceneDesign;
     RuneManager runeManager;
+    LoadManager loadManager;
 
 
     private void Start()
     {
         //singleton
+        loadManager = LoadManager.Instance;
         runeManager = RuneManager.Instance;
         settingCanvas = SettingCanvas.Instance;
         sceneDesign = SceneDesign.Instance;
 
-        TitleInit();
+        loadManager.Init_Title();
         setting = settingCanvas.transform.GetChild(0).gameObject;
 
         //OnClick
@@ -48,15 +50,5 @@ public class TitleManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
-    }
-    void TitleInit()
-    {
-        //룬
-        if(runeManager)
-        {
-            runeManager.transform.GetChild(0).gameObject.SetActive(false);
-        }
-        //설정: 아이콘
-        settingCanvas.settingIcon.SetActive(false);
     }
 }

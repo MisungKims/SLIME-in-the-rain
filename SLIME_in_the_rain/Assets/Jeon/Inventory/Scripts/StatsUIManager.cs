@@ -100,7 +100,11 @@ public class StatsUIManager : MonoBehaviour
                 break;
                 }
             }
-        } 
+        }
+        else
+        {
+            weaponI.sprite = null;
+        }
     
         
         statHPC.text = statManager.myStats.HP.ToString() + " / " + statManager.myStats.maxHP.ToString();

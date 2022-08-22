@@ -178,7 +178,7 @@ public class ResultCanvas : MapManager
 
 
     //Last. ¹öÆ° onClick
-    void ClickButton(int sceneNum)
+    void ClickButton(int sceneNum) 
     {
         SceneManager.LoadScene(sceneNum);
 

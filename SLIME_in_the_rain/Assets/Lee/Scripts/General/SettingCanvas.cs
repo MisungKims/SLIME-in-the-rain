@@ -239,8 +239,10 @@ public class SettingCanvas : MonoBehaviour
 
     void OnPopup(int sceneIndex)
     {
+        Debug.Log(sceneIndex);
         switch (sceneIndex)
         {
+            
             case 0:
                 popupText.text = "게임 데이터를"+"\n"+"초기화 하시겠습니까?";
                 popupYes.onClick.AddListener(ResetButton);
