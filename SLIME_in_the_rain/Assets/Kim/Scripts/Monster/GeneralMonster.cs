@@ -197,12 +197,12 @@ public class GeneralMonster : Monster
         }
     }
 
-    protected override void Die()
+    public override void Die()
     {
         base.Die();
 
         // 확률에 따라 젤라틴 지급
-        if(Random.Range(0f, 1f) < 0.5f)
+        if(!isAttackImmediately && Random.Range(0f, 1f) < 0.5f)
             objectPoolingManager.Get(EObjectFlag.gelatin, transform.position);
     }
     #endregion

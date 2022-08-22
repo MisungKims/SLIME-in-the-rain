@@ -39,11 +39,6 @@ public class HitCountMap : MapManager
     [SerializeField]
     private Transform monsters;
 
-    [SerializeField]
-    private Monster[] monsterArray;
-    [SerializeField]
-    private Transform[] monsterPos;
-
     private List<GameObject> monsterArr = new List<GameObject>();
 
     [SerializeField]
@@ -153,13 +148,19 @@ public class HitCountMap : MapManager
     {
         for (int i = 0; i < monsterArr.Count; i++)
         {
-            Transform monsterParent = monsterArr[i].transform;
-            for (int j = 0; j < monsterParent.childCount; j++)
+            if(monsterArr[i].activeSelf)
             {
-                monsterParent.GetChild(j).GetComponent<Monster>().isDie = true;
+                Transform monsterParent = monsterArr[i].transform;
 
-                yield return null;
+                for (int j = 0; j < monsterParent.childCount; j++)
+                {
+                    if (monsterParent.GetChild(j).gameObject.activeSelf)
+                        monsterParent.GetChild(j).GetComponent<Monster>().Die();
+
+                    yield return null;
+                }
             }
+            yield return null;
         }
     }
 
@@ -219,21 +220,6 @@ public class HitCountMap : MapManager
             if (isClear) break;
 
             monsterArr[i].SetActive(true);
-        }
-
-        while (!isClear)
-        {
-            for (int i = 0; i < monsterArray.Length; i++)
-            {
-                Debug.Log(monsterArray[i]);
-                yield return waitFor10s;
-
-                for (int j = 0; j < monsterPos.Length; j++)
-                {
-                    Debug.Log(monsterPos[j]);
-                    Instantiate(monsterArray[i].gameObject, monsterPos[j].position, monsterPos[j].rotation, monsters.GetChild(i));
-                }
-            }
         }
     }
 

@@ -55,7 +55,7 @@ public class Short : Weapon
             GameObject projectile = ObjectPoolingManager.Instance.Get(_flag, transform.position, Vector3.zero);
             projectile.GetComponent<Projectile>().isSkill = isSkill;
 
-            projectile.transform.LookAt(targetPos);      // 검 생성 뒤 마우스 방향을 바라봄
+            projectile.transform.forward = targetPos;
 
             lookRot = projectile.transform.eulerAngles;
             lookRot.x = 0;

@@ -154,11 +154,11 @@ public class Slime : MonoBehaviour
         dashTime = originDashTime;
         isCanDash = true;
 
-        isInWater = false; 
-        canMove = true;
-        isAttacking = false;
+        isInWater = false;
 
-         stat = statManager.myStats;
+        SetCanAttack();
+
+        stat = statManager.myStats;
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
@@ -192,6 +192,16 @@ public class Slime : MonoBehaviour
         Move();
     }
     #endregion
+
+    // 공격을 할 수 있도록
+    public void SetCanAttack()
+    {
+        canAttack = true;
+        isDie = false;
+        canMove = true;
+        isAttacking = false;
+        isStun = false;
+    }
 
     #region 코루틴
     // 무기를 들고 있을 때 좌클릭하면 평타

@@ -73,7 +73,7 @@ public class RuneManager : MonoBehaviour
     {
         rand = Random.Range(0, runes.Count);
 
-        return runes[rand];
+        return runes[7];
     }
 
     // ·éÀ» Ãß°¡
@@ -137,10 +137,7 @@ public class RuneManager : MonoBehaviour
         for (int i = 0; i < runeCount; i++)
         {
             IAttackRune attackRune = myRunes[i].GetComponent<IAttackRune>();
-            if (attackRune != null)
-            {
-                attackRune.Attack(monster);
-            }
+            if (attackRune != null) attackRune.Attack(monster);
         }
     }
 
