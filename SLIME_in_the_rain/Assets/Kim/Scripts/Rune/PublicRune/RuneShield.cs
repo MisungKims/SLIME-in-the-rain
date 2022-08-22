@@ -24,7 +24,7 @@ public class RuneShield : Rune, IDashRune
     // 대시가 끝났는지 감지하여 shield 오브젝트의 액티브 설정
     IEnumerator DetectDash()
     {
-        shield = Slime.Instance.shield;
+        shield = slime.shield;
         shield.SetActive(true);
         shield.transform.localPosition = Vector3.zero;
 

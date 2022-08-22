@@ -20,7 +20,8 @@ public enum EProjectileFlag     // ≈ıªÁ√º Flag
     earthworm,
     turtleShellProjectile,
     monsterPlantProjectile,
-    enemyArrow
+    enemyArrow,
+    slash
 }
 
 public class Projectile : MonoBehaviour
