@@ -57,16 +57,15 @@ public class RuneManager : MonoBehaviour
     #region ÇÔ¼ö
     public void InitRune()
     {
-        for (int i = 0; i < myRunes.Length; i++)
+        for (int i = 0; i < runeCount; i++)
         {
             runeSlots[i].Init();
             myRunes[i] = null;
-        }
 
-        for (int i = 0; i < transform.GetChild(1).childCount; i++)
-        {
             Destroy(transform.GetChild(1).GetChild(i).gameObject);
         }
+
+        runeCount = 0;
     }
 
     // ·£´ýÀ¸·Î ·éÀ» ¹ÝÈ¯
