@@ -145,14 +145,14 @@ public class Boss : Monster
     }
     #endregion
 
-#if UNITY_EDITOR
-    // 유니티 에디터에 부채꼴을 그려줄 메소드
-    private void OnDrawGizmos()
-    {
-        Handles.color = new Color(0f, 0f, 1f, 0.2f);
-        // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, detectRange);
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, detectRange);
-    }
-#endif
+//#if UNITY_EDITOR
+//    // 유니티 에디터에 부채꼴을 그려줄 메소드
+//    private void OnDrawGizmos()
+//    {
+//        Handles.color = new Color(0f, 0f, 1f, 0.2f);
+//        // DrawSolidArc(시작점, 노멀벡터(법선벡터), 그려줄 방향 벡터, 각도, 반지름)
+//        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angleRange / 2, detectRange);
+//        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angleRange / 2, detectRange);
+//    }
+//#endif
 }
