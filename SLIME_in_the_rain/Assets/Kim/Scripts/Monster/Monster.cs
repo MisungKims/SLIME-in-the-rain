@@ -352,6 +352,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         yield return new WaitForSeconds(time);
 
         isStun = false;
+        stunDamaged = false;
         TryStartChase();
     }
 
@@ -379,6 +380,8 @@ public abstract class Monster : MonoBehaviour, IDamage
         StartCoroutine(CameraShake.StartShake(duration, magnitude));
     }
 
+    bool stunDamaged = false;
+
     // 슬라임의 평타에 데미지를 입음
     public virtual void AutoAtkDamaged()
     {
@@ -388,9 +391,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
-            isHit = true;
-
-           
             TryStartChase();               // 슬라임 따라다니기 시작
         }
     }
@@ -404,8 +404,6 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         if (HaveDamage(statManager.GetSkillDamage()))
         {
-            isHit = true;
-           
             TryStartChase();               // 슬라임 따라다니기 시작
         }
     }
@@ -417,6 +415,8 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         CameraShaking(0.1f, 0.23f);
 
+        stunDamaged = true;
+
         if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
         {
             if(!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
@@ -424,7 +424,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     }
 
     // 죽음
-    protected virtual void Die()
+    public virtual void Die()
     {
         isDie = true;
         monsterCollider.isTrigger = true;
@@ -483,6 +483,7 @@ public abstract class Monster : MonoBehaviour, IDamage
             }
             else
             {
+                if(!stunDamaged) isHit = true;
                 stats.HP = result;
                 ShowDamage(damage);
             }

@@ -85,7 +85,7 @@ public class ProjectileMonster : GeneralMonster
         projectile.monster = this;
 
         projectile.transform.position = transform.position + projectilePos;
-        projectile.transform.LookAt(target);
+        projectile.transform.LookAt(slime.transform);
 
         lookRot = projectile.transform.eulerAngles;
         lookRot.x = 0;

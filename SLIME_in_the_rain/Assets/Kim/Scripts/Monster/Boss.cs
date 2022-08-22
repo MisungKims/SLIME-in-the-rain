@@ -19,7 +19,7 @@ public class Boss : Monster
     float dotValue = 0f;
 
     // 보스의 이름
-    protected string bossName;
+    public string bossName;
     [SerializeField]
     private TextMeshProUGUI bossNameText;
 
@@ -124,7 +124,7 @@ public class Boss : Monster
         hpBar.gameObject.SetActive(false);
     }
 
-    protected override void Die()
+    public override void Die()
     {
         base.Die();
 

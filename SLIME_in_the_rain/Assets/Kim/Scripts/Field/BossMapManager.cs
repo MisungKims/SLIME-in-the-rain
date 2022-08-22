@@ -44,18 +44,13 @@ public class BossMapManager : MapManager
     // º¸½º°¡ Á×À¸¸é ·é ¼±ÅÃ Ã¢À» º¸¿©ÁÜ
     IEnumerator IsDie()
     {
+        yield return waitFor5s;
+
         if (!boss.GetComponent<Metalon>())
         {
-            yield return waitFor5s;
-
             selectRuneWindow.OpenWindow();
-            ClearMap();
         }
-        else
-        {
-            yield return waitFor5s;
-
-            ClearMap();
-        }
+       
+        ClearMap();
     }
 }
