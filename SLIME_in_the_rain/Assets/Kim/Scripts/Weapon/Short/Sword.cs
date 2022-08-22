@@ -77,8 +77,9 @@ public class Sword : Short
         DoSkillDamage();
 
         // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(targetPos, true);
+        Missile(targetPos, true, EProjectileFlag.slash);
     }
+
 
     // 대시
     public override bool Dash(Slime slime)
