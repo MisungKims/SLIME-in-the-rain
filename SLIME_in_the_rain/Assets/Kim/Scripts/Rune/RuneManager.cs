@@ -62,6 +62,11 @@ public class RuneManager : MonoBehaviour
             runeSlots[i].Init();
             myRunes[i] = null;
         }
+
+        for (int i = 0; i < transform.GetChild(1).childCount; i++)
+        {
+            Destroy(transform.GetChild(1).GetChild(i).gameObject);
+        }
     }
 
     // ·£´ýÀ¸·Î ·éÀ» ¹ÝÈ¯
@@ -77,7 +82,7 @@ public class RuneManager : MonoBehaviour
     {
         if (runeCount > 2) return;
 
-        Rune runeObj = GameObject.Instantiate(rune, this.transform);
+        Rune runeObj = GameObject.Instantiate(rune, this.transform.GetChild(1));
         runeObj.name = rune.name;
         myRunes[runeCount] = runeObj;
 

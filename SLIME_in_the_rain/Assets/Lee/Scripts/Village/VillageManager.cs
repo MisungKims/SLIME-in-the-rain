@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class VillageManager : MapManager           
+public class VillageManager : MapManager
 {
     #region 변수
-    
+
     public GameObject ShopCanvas;
     public GameObject TowerCanvas;
 
     //cashing
     Slime slime;
-
     StatManager statManager;
     JellyManager jellyManager;
     RuneManager runeManager;
-    
+    LoadManager loadManager;
+
     Inventory inventory;
 
     ICamera _camera;
@@ -29,6 +29,7 @@ public class VillageManager : MapManager
     private void Start()
     {
         //singletons
+        loadManager = LoadManager.Instance;
         slime = Slime.Instance;
 
         statManager = StatManager.Instance;
@@ -40,11 +41,11 @@ public class VillageManager : MapManager
         _camera = ICamera.Instance;
         sceneDesign = SceneDesign.Instance;
         settingCanvas = SettingCanvas.Instance;
-        Init();
+        loadManager.Init_Village();
         StartCoroutine(Clear());
-        
+
     }
-    
+
     private void Update()
     {
         #region 카메라 관련 조건문
@@ -98,44 +99,5 @@ public class VillageManager : MapManager
             //Debug.Log("Null JellyManager instance");
         }
     }
-
-
     #endregion
-    void Init()
-    {
-        //슬라임
-        slime.transform.localScale = Vector3.one;
-        slime.InitSlime();
-        //스탯
-        statManager.InitStats();
-        //젤리
-        if(PlayerPrefs.HasKey("jellyCount"))
-        {
-            jellyManager.JellyCount = PlayerPrefs.GetInt("jellyCount");
-        }
-        else
-        {
-            jellyManager.JellyCount = 0;
-        }
-        //룬
-        Transform runeSlot = runeManager.gameObject.transform.GetChild(0);
-        Vector3 pos;
-        pos.x = 22.5f; pos.y = 56.5f; pos.z = 0;
-        runeSlot.position = pos;
-        runeSlot.localScale = Vector3.one * 0.7f;
-        if(!runeManager.transform.GetChild(0).gameObject.activeSelf)
-        {
-            runeManager.transform.GetChild(0).gameObject.SetActive(true);
-        }
-        runeManager.InitRune();
-
-        //인벤토리
-        inventory.ResetInven();
-
-        //씬디자인
-        sceneDesign.finalClear = false;
-
-        //세팅 캔버스
-        settingCanvas.settingIcon.SetActive(true);
-    }
 }
