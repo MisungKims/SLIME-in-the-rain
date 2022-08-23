@@ -13,12 +13,13 @@ public class HitProp : MonoBehaviour, IDamage
     #region º¯¼ö
 
     private HitCountMap hitCountMap;
-
+    private StatManager statManager;
     #endregion
 
     private void Start()
     {
         hitCountMap = HitCountMap.Instance;
+        statManager = StatManager.Instance;
     }
 
     private void OnDisable()
@@ -32,7 +33,7 @@ public class HitProp : MonoBehaviour, IDamage
     private void TakeDamage()
     {
         hitCountMap.GetParticle(transform.position);
-        hitCountMap.Count++;
+        hitCountMap.Count += statManager.myStats.hitCount;
     }
     
     public void AutoAtkDamaged()

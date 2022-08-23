@@ -48,11 +48,11 @@ public class Bow : Weapon
 
         Arrow arrow = GetProjectile(this.targetPos);
 
-        lookRot = arrow.transform.eulerAngles;
-        lookRot.x = 0;
-        lookRot.z = 0;
+        //lookRot = arrow.transform.eulerAngles;
+        //lookRot.x = 0;
+        //lookRot.z = 0;
 
-        arrow.transform.eulerAngles = lookRot;
+        //arrow.transform.eulerAngles = lookRot;
     }
 
     // 스킬
@@ -83,7 +83,13 @@ public class Bow : Weapon
         Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero).GetComponent<Arrow>();
         if (weaponRuneInfos[0].isActive) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
 
-        arrow.transform.forward = this.targetPos;        // 화살 생성 뒤 마우스 방향을 바라봄
+       // arrow.transform.forward = this.targetPos;        // 화살 생성 뒤 마우스 방향을 바라봄
+
+        arrow.transform.eulerAngles = this.targetPos;
+
+        Debug.Log("projectile " + arrow.transform.forward);
+
+        arrow.dir = this.targetPos;
 
         return arrow;
     }

@@ -84,7 +84,7 @@ public class Slime : MonoBehaviour
 
 
     public bool isDash { get; set; }                // 대시 중인지?
-    bool isCanDash;     // 대시 가능한지?
+    public bool isCanDash;     // 대시 가능한지?
 
     public GameObject shield;
 

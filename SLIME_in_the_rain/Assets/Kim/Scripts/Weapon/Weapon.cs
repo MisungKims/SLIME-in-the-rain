@@ -184,23 +184,34 @@ public class Weapon : MonoBehaviour
     // 마우스 클릭 위치를 바라봄
     public void LookAtMousePos()
     {
-        Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
+        //Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hitResult;
-        if (Physics.Raycast(ray, out hitResult))
-        {
-            hitPos = hitResult.point;
-            hitPos.y = transform.position.y;
+        //RaycastHit hitResult;
+        //if (Physics.Raycast(ray, out hitResult))
+        //{
+        //    if (hitResult.transform.gameObject.layer == 8)
+        //        slime.target = hitResult.transform;        // 몬스터 레이어면 target을 설정 (유도 룬을 위해)
+        //    else slime.target = null;
+        //}
+        //else slime.target = null;
 
-           targetPos = hitPos - transform.position;
+        //hitPos = hitResult.point;
+        //hitPos.y = transform.position.y;
+        //targetPos = hitPos - transform.position;
+        //slime.transform.forward = targetPos;
 
-            slime.transform.forward = targetPos;
+        Vector3 center = new Vector3(1920 / 2, 1080 / 2 ,0);
 
-            if (hitResult.transform.gameObject.layer == 8)
-            {
-                slime.target = hitResult.transform;        // 몬스터 레이어면 target을 설정 (유도 룬을 위해)
-            }
-        }
+        //스크린기준
+        //                          마우스위치         화면 중앙
+        Vector3 dir = Input.mousePosition - center ;
+        // Debug.Log(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+        targetPos = Vector3.zero;
+        targetPos.y = 90-  Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg ;
+
+        slime.transform.eulerAngles = targetPos;
+
+        Debug.Log("slime " + slime.transform.forward);
     }
 
     // 평타

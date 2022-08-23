@@ -22,6 +22,9 @@ public class MetalonBaby : Monster
     [SerializeField]
     private Transform projectilePos;
 
+    [SerializeField]
+    private MinimapWorldObject minimapWorldObject;
+
     private Camera mainCam;
     #endregion
 
@@ -33,11 +36,20 @@ public class MetalonBaby : Monster
         mainCam = Camera.main;
         projectileAtk = 2;
 
-        TryStartChase();
+        //TryStartChase();
+    }
+
+    private void OnEnable()
+    {
+        if (Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(minimapWorldObject);
+
+        isDie = false;
+        stats.HP = stats.maxHP;
+        StartCoroutine(Animation());
+        if (isAttackImmediately) TryStartChase();
     }
 
     #endregion
-
 
     protected override IEnumerator DieCoroutine()
     {

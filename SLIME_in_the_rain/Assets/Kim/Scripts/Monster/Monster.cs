@@ -124,11 +124,8 @@ public abstract class Monster : MonoBehaviour, IDamage
         chaseSpeed = stats.moveSpeed * multiplyChaseSpeedValue;
 
         isDie = false;
-
         stats.HP = stats.maxHP;
-
         StartCoroutine(Animation());
-
         if (isAttackImmediately) TryStartChase();
     }
 
@@ -147,7 +144,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     #endregion
 
     #region ÄÚ·çÆ¾
-    private IEnumerator Animation()
+    protected IEnumerator Animation()
     {
         while (true)
         {

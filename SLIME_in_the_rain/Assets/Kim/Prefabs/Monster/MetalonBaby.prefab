@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3de2dee36b13ca4685bb14ec52efcf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttackImmediately: 1
   attackTypeCount: 3
   nav: {fileID: 0}
   stats:
@@ -1055,6 +1056,7 @@ MonoBehaviour:
   isDie: 0
   minimapObj: {fileID: 7953626354037379559}
   projectilePos: {fileID: 4030293523903721966}
+  minimapWorldObject: {fileID: 7953626354037379559}
 --- !u!95 &1359925353797034626
 Animator:
   serializedVersion: 4
@@ -1531,6 +1533,10 @@ PrefabInstance:
     - target: {fileID: 453863724267726327, guid: b1822a14ca98b6541adbf37cf294d1b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445362414456486834, guid: b1822a14ca98b6541adbf37cf294d1b4, type: 3}
+      propertyPath: isSlime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7971072730804592315, guid: b1822a14ca98b6541adbf37cf294d1b4, type: 3}
       propertyPath: m_Name
