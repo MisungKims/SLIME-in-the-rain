@@ -42,13 +42,15 @@ public class SceneDesign : MonoBehaviour
     public int bossLevel;
 
     //private
+    int stageNum = 4;
     int bossCount;
-
-
-    //singleton
-    Slime slime;
-
-
+    //발표용 변수
+    int nomalCount = 0;
+    int gimmickCount = 0;
+    int bonusCount = 0;
+    bool isNomal = false;
+    bool isGimmick = false;
+    bool isBonus = false;
     #endregion
 
     #region 유니티 함수
@@ -75,7 +77,6 @@ public class SceneDesign : MonoBehaviour
     }
     private void Start()
     {
-        slime = Slime.Instance;
         StartCoroutine(StraightClear());
     }
     private void Update()
@@ -96,11 +97,27 @@ public class SceneDesign : MonoBehaviour
         {
             bossCount++;
             mapCounting++;
-            if (bossCount == 5)  //맵 5개 클리어하면 다음은 보스방 열림
+            if (bossCount == stageNum)  
             {
                 goBoss = true;
                 bossCount = 0;
                 bossLevel++;
+            }
+            //발표용 변수
+            if (isNomal)
+            {
+                nomalCount++;
+                isNomal = false;
+            }
+            if (isGimmick)
+            {
+                gimmickCount++;
+                isGimmick = false;
+            }
+            if(isBonus)
+            {
+                bonusCount++;
+                isBonus = false;
             }
         }
         else
@@ -108,7 +125,7 @@ public class SceneDesign : MonoBehaviour
             mapCounting++;
             bossCount = 0;
             goBoss = false;
-            if(mapCounting == 18)
+            if (mapCounting == (stageNum * 3) + 3)
             {
                 finalClear = true;
                 SceneManager.LoadScene(s_result);
@@ -120,40 +137,90 @@ public class SceneDesign : MonoBehaviour
 
     public int NextScene(int now)
     {
-        next = -1;
-        do
-        {
-            if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
-            {
-                next = bossLevel + s_boss - 1;       // 3,4,5
-            }
-            else if (now >= s_nomal)
-            {
-                int ran = Random.Range(0, 100);
-                if (ran < randomNomal)      //70%확률로 일반맵
-                {
-                    next = Random.Range(s_nomal, s_gimmick);
-                }
-                else if (ran < randomNomal + randomGimmik)
-                {
-                    next = Random.Range(s_gimmick, s_bonus);
-                }
-                else
-                {
-                    next = Random.Range(s_bonus, SceneManager.sceneCountInBuildSettings);
-                }
-            }
-            else if (now >= s_boss)   //[보스맵 2, 3 -> 던전]  무조건 일반 던전
-            {
-                next = Random.Range(s_nomal, s_gimmick);
-            }
-            else if (now == 1)  //[마을 -> 던전] 무조건 일반 던전
-            {
-                next = 11;
-                //next = Random.Range(s_nomal, s_gimmick);
 
-            }
-        } while (next == now);
+        next = -1;
+        //do
+        //{
+        if (goBoss)     //[던전 -> 보스] 로 가야하면 보스맵 얼림
+        {
+            next = bossLevel + s_boss - 1;       // 3,4,5
+        }
+        //else if (now >= s_nomal)
+        //{
+        //    int ran = Random.Range(0, 100);
+        //    if (ran < randomNomal)      //70%확률로 일반맵
+        //    {
+        //        next = Random.Range(s_nomal, s_gimmick);
+        //    }
+        //    else if (ran < randomNomal + randomGimmik)
+        //    {
+        //        next = Random.Range(s_gimmick, s_bonus);
+        //    }
+        //    else
+        //    {
+        //        next = Random.Range(s_bonus, SceneManager.sceneCountInBuildSettings);
+        //    }
+        //}
+        //else if (now >= s_boss)   //[보스맵 2, 3 -> 던전]  무조건 일반 던전
+        //{
+        //    next = Random.Range(s_nomal, s_gimmick);
+        //}
+        //else if (now == 1)  //[마을 -> 던전] 무조건 일반 던전
+        //{
+        //    next = Random.Range(s_nomal, s_gimmick);
+
+        //}
+        //} while (next == now);
+
+        //발표용 함수
+        else if(2 > mapCounting)
+        {
+            next = s_nomal + (nomalCount % 5);
+            isNomal = true;
+        }
+        else if(3 > mapCounting)
+        {
+            next = s_gimmick + gimmickCount;
+            isGimmick = true;
+        }
+        else if(4 > mapCounting)
+        {
+            next = s_bonus + bonusCount;
+            isBonus = true;
+        }
+        else if (7 > mapCounting)
+        {
+            next = s_nomal + (nomalCount % 5);
+            isNomal = true;
+        }
+        else if (8 > mapCounting)
+        {
+            next = s_gimmick + gimmickCount;
+            isGimmick = true;
+        }
+        else if (9 > mapCounting)
+        {
+            next = s_bonus + bonusCount;
+            isBonus = true;
+        }
+        else if (11 > mapCounting)
+        {
+            next = s_nomal + (nomalCount % 5);
+            isNomal = true;
+        }
+        else if (12 > mapCounting)
+        {
+            next = s_gimmick + gimmickCount;
+            isGimmick = true;
+        }
+        else if (mapCounting >= 12)
+        {
+            next = Random.Range(s_nomal, SceneManager.sceneCountInBuildSettings);
+        }
+        Debug.Log("next " + next);
+        Debug.Log("Bool n "+isNomal);
+        Debug.Log("Bool g " + isGimmick);
+        Debug.Log("Bool b " + isBonus);
         return next;
     }
 
@@ -169,6 +236,15 @@ public class SceneDesign : MonoBehaviour
         bossLevel = 0;
         Timer = 0f;
         mapCounting = 0;
+
+        //발표용 초기화
+        nomalCount = 0;
+        gimmickCount = 0;
+        bonusCount = 0;
+        isNomal = true;
+        isGimmick = false;
+        isBonus = false;
+
     }
     #endregion
 }

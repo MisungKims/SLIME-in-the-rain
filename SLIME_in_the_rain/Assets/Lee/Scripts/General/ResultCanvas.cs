@@ -29,7 +29,7 @@ public class ResultCanvas : MapManager
     float typingSpeed = 0.1f;
     float waitTime = 2f;
 
-    LoadManager loadManager;
+    SingletonManager singletonManager;
     Slime slime;
     SceneDesign sceneDesign;
     StatManager statManager;
@@ -42,7 +42,7 @@ public class ResultCanvas : MapManager
     void Start()
     {
         //ΩÃ±€≈Ê
-        loadManager = LoadManager.Instance;
+        singletonManager = SingletonManager.Instance;
         slime = Slime.Instance;
         sceneDesign = SceneDesign.Instance;
         statManager = StatManager.Instance;
@@ -52,7 +52,7 @@ public class ResultCanvas : MapManager
 
         runeSlot = runeManager.gameObject.transform.GetChild(0);
 
-        loadManager.Init_Result();
+        singletonManager.Init_Result();
 
 
 

@@ -47,7 +47,6 @@ public class PotalManager : MonoBehaviour
         statManager = StatManager.Instance;
 
         Init();
-        Debug.Log(SceneManager.sceneCountInBuildSettings);
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             _PotalCreate();
@@ -81,6 +80,7 @@ public class PotalManager : MonoBehaviour
                     {
                         if (Input.GetKeyDown(KeyCode.G))
                         {
+                            doCollision = false;
                             Slime.Instance.canMove = false;
                             if (SceneManager.GetActiveScene().buildIndex == 1)
                             {
@@ -96,7 +96,6 @@ public class PotalManager : MonoBehaviour
                             {
                                 SceneManager.LoadScene(ipotal.GetComponent<PotalCollider>().next);
                             }
-                            
                         }
                     }
                 }

@@ -37,7 +37,6 @@ public class FarmManager : MonoBehaviour
             }
         }
         level = PlayerPrefs.GetString(this.name + "level");
-        Debug.Log("tower"+ this.name +" "+ level);
     }
     public void TowerBuilding(int makeNum)
     {
