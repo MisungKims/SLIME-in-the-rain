@@ -153,6 +153,16 @@ public class Metalon : Boss
             spiders[i].transform.position = spawnSpiderPos[i].position;
         }
     }
+
+    public override void Die()
+    {
+        base.Die();
+
+        for (int i = 0; i < spiders.Length; i++)
+        {
+            if (spiders[i].gameObject.activeSelf)  spiders[i].Die();
+        }
+    }
     #endregion
 }
 

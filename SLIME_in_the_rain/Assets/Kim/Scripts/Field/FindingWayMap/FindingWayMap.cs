@@ -82,6 +82,9 @@ public class FindingWayMap : MapManager
     [SerializeField]
     private GameObject npcSpeech;
 
+    private float maxSpeed = 2f;
+    private float originSpeed = 2f;
+
     // Ä³½Ì
     private Slime slime;
     private UIObjectPoolingManager uIObjectPoolingManager;
@@ -106,6 +109,14 @@ public class FindingWayMap : MapManager
         slime.rigid.constraints = RigidbodyConstraints.None;
         slime.rigid.constraints = RigidbodyConstraints.FreezeRotation;
         slime.canMove = false;
+        slime.isCanDash = false;
+
+        originSpeed = 0f;
+        if (StatManager.Instance.myStats.moveSpeed >= maxSpeed)
+        {
+            originSpeed = StatManager.Instance.myStats.moveSpeed;
+            StatManager.Instance.myStats.moveSpeed = maxSpeed;
+        }
 
         mainCam = Camera.main;
 
@@ -352,6 +363,9 @@ public class FindingWayMap : MapManager
 
         wall.SetActive(true);
         slime.rigid.constraints = slime.rigidbodyConstraints;
+        slime.isCanDash = true;
+
+        if(originSpeed > 0) StatManager.Instance.myStats.moveSpeed = originSpeed;
     }
 
 

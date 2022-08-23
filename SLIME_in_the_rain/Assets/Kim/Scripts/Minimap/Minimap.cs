@@ -279,17 +279,17 @@ public class Minimap : MonoBehaviour
     // 미니맵 아이콘 등록
     public void RegisterMinimapWorldObject(MinimapWorldObject obj)
     {
-        if (miniMapObjectDic.TryGetValue(obj, out MinimapIcon icon)) return;
-
-
+        if (miniMapObjectDic.ContainsKey(obj)) return;
+        
         MinimapIcon newIcon = Instantiate(miniMapIconPrefab, this.transform);
-        //newIcon = ObjectPoolingManager.Instance.Get(EObjectFlag.minimapIcon, Vector3.zero).GetComponent<MinimapIcon>();
         newIcon.transform.SetParent(this.transform);
         newIcon.SetIcon(obj.Icon);
         newIcon.SetColor(obj.IconColor);
         newIcon.rectTransform.localScale = Vector3.one * 0.2f;
 
         miniMapObjectDic.Add(obj, newIcon);
+
+        Debug.Log(obj.transform.parent.name);
 
         if (obj.CompareTag("Slime"))
         {
