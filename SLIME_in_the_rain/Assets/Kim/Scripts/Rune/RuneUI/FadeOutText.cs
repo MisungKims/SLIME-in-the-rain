@@ -20,6 +20,9 @@ public class FadeOutText : MonoBehaviour
 
     private WaitForSeconds waitFor1s = new WaitForSeconds(1);
 
+    [SerializeField]
+    private float idleTime = 0f;
+
     //public TextMeshProUGUI textMesh;
 
     #endregion
@@ -43,7 +46,8 @@ public class FadeOutText : MonoBehaviour
     {
         material.SetColor("_FaceColor", Color.Lerp(Color.clear, Color.white, 1));
 
-        yield return waitFor1s;
+        if (idleTime <= 0) yield return waitFor1s;
+        else yield return new WaitForSeconds(idleTime);
 
         alpha = 1;
         while (alpha > 0)
