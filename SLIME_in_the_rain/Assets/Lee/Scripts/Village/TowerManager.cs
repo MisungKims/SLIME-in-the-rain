@@ -46,6 +46,7 @@ public class TowerManager : MonoBehaviour
         if ((jellyManager.JellyCount - int.Parse(farmPriceText.text)) >= 0)
         {
             jellyManager.JellyCount -= int.Parse(farmPriceText.text);
+            PlayerPrefs.SetInt("jellyCount", jellyManager.JellyCount);
             level = (int.Parse(level) + 1).ToString();
             PlayerPrefs.SetString(TowerCollider.thisObject.name + "level", level);
             Texting();
