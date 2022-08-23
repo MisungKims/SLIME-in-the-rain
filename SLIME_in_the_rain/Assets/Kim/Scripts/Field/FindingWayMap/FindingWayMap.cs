@@ -84,6 +84,7 @@ public class FindingWayMap : MapManager
 
     // 캐싱
     private Slime slime;
+    private UIObjectPoolingManager uIObjectPoolingManager;
     #endregion
 
     #region 유니티 함수
@@ -100,6 +101,7 @@ public class FindingWayMap : MapManager
 
         base.Awake();
 
+        uIObjectPoolingManager = UIObjectPoolingManager.Instance;
         slime = Slime.Instance;
         slime.rigid.constraints = RigidbodyConstraints.None;
         slime.rigid.constraints = RigidbodyConstraints.FreezeRotation;
@@ -124,6 +126,8 @@ public class FindingWayMap : MapManager
         descText.SetActive(true);
         textTransform = descText.GetComponent<RectTransform>();
         textTransform.anchoredPosition = startTextPos;
+
+
     }
     #endregion
 
@@ -133,8 +137,8 @@ public class FindingWayMap : MapManager
     // 씬이 시작될 때 길을 알려줌
     IEnumerator ShowRoad()
     {
-        
-        GameObject smallHP = MainCanvas.Instance.hpSlime.transform.parent.gameObject;
+
+        GameObject smallHP = uIObjectPoolingManager.hpSlime.transform.parent.gameObject;
         smallHP.SetActive(false);
         yield return new WaitForSeconds(2f);
         //yield return new WaitForSeconds(0.5f);
