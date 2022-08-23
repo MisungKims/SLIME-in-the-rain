@@ -90,11 +90,10 @@ public class SelectRuneWindow : MonoBehaviour
     // 룬 선택 창을 열기
     public void OpenWindow()
     {
+        Init();
         runeCanvas.SetActive(true);
         Slime.Instance.canMove = false;
         Slime.Instance.canAttack = false;
-
-        Init();
     }
 
     // 룬 선택 창 초기화
