@@ -168,6 +168,7 @@ public class UIObjectPoolingManager : MonoBehaviour
         else textObject.GetComponent<RectTransform>().anchoredPosition = originPos;
     }
 
+    // canvas에 있는 모든 UI 제거
     public void InitUI()
     {
         for (int i = 0; i < 2; i++)

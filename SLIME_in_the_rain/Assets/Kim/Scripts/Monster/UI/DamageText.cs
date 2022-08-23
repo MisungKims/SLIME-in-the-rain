@@ -33,13 +33,18 @@ public class DamageText : UpText
 
     #endregion
 
-    #region 유니티 함수
     protected override void Awake()
     {
         base.Awake();
 
         text = GetComponent<TextMeshProUGUI>();
     }
-    #endregion
 
+    // Fade Out 뒤 오브젝트 풀에 반환
+    protected override IEnumerator ActiveFalse()
+    {
+        yield return StartCoroutine(FadeOut());
+
+        uiPoolingManager.Set(this.gameObject, EUIFlag.damageText);
+    }
 }
