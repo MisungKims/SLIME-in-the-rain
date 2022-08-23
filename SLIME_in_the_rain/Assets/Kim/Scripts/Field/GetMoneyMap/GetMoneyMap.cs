@@ -28,8 +28,8 @@ public class GetMoneyMap : MapManager
     #endregion
 
     private int jellyIndex = (int)EObjectFlag.jelly;
-    private int gelatinIndex = (int)EObjectFlag.gelatin;
-    private int randObj;
+    //private int gelatinIndex = (int)EObjectFlag.gelatin;
+   // private int randObj;
 
     [Header("-------------- Get Money Map")]
     [SerializeField]
@@ -88,40 +88,40 @@ public class GetMoneyMap : MapManager
         ////////////////-------------
         //StartCoroutine(TimeCount());
         //StartCoroutine(SpwanMoney());
+
         ////////////////-------------
-        StartCoroutine(SpawnSpeedUp());
+        StartCoroutine(SpwanJelly());
         StartCoroutine(SpwanGelatin());
+        StartCoroutine(SpawnSpeedUp());
     }
     ////////////////-------------
     IEnumerator SpwanGelatin()
     {
-            for (int i = 0; i < 150; i++)
-            {
-                RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
-                randPos.y = 2.5f;
-                objectPoolingManager.Get(EObjectFlag.gelatin, randPos);
-            }
-       
-            yield return new WaitForSeconds(1f);
+        for (int i = 0; i < 150; i++)
+        {
+            RandomPosition.GetRandomNavPoint(Vector3.zero, 7, out randPos);
+            randPos.y = 2.5f;
+            objectPoolingManager.Get(EObjectFlag.gelatin, randPos);
+        }
+
+        yield return new WaitForSeconds(1f);
 
         StartCoroutine(TimeCount());
     }
 
-    IEnumerator SpwanMoney()
+    IEnumerator SpwanJelly()
     {
         while (second > 0)
         {
-            int rand = Random.Range(4, 8);
+            int rand = Random.Range(3, 8);
             for (int i = 0; i < rand; i++)
             {
-                randObj = Random.Range(jellyIndex, gelatinIndex + 1);       // ·£´ýÀ¸·Î Á©¸®, Á©¶óÆ¾À» Á¤ÇÏ¿© ¸Ê¿¡ °¡Á®¿È
-
                 RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
                 randPos.y = 2.5f;
-                objectPoolingManager.Get((EObjectFlag)randObj, randPos);
+                objectPoolingManager.Get((EObjectFlag)jellyIndex, randPos);
             }
 
-            yield return new WaitForSeconds(Random.Range(0.1f, 1f));
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
         }
     }
 
@@ -138,14 +138,14 @@ public class GetMoneyMap : MapManager
 
         while (second > 0)
         {
-            time = Random.Range(3f, 8f);
+            time = Random.Range(5f, 10f);
             while (time > 0 && second > 0)
             {
                 time -= Time.deltaTime;
                 yield return null;
             }
 
-            RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
+            RandomPosition.GetRandomNavPoint(Vector3.zero, 7, out randPos);
             randPos.y = 2.3f;
             GetSpeedUp(randPos);
         }
@@ -166,6 +166,9 @@ public class GetMoneyMap : MapManager
         StatManager.Instance.AddMoveSpeed(sumSpeed * -1);
 
         ClearMap();
+
+        yield return new WaitForSeconds(0.5f);
+        secondText.gameObject.SetActive(false);
     }
 
     #endregion
