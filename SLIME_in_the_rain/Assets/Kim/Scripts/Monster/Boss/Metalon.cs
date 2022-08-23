@@ -67,9 +67,9 @@ public class Metalon : Boss
         }
         else
         {
-            PlayAnim(EMonsterAnim.attack);
             if(randAttack == 2) anim.SetInteger("attack", 0);
             else anim.SetInteger("attack", randAttack);
+            PlayAnim(EMonsterAnim.attack);
         }
 
         //// 공격 애니메이션이 끝날 때 까지 대기

@@ -82,8 +82,21 @@ public class FindingWayMap : MapManager
     [SerializeField]
     private GameObject npcSpeech;
 
+    // 속도 제한
     private float maxSpeed = 2f;
     private float originSpeed = 2f;
+
+    [SerializeField]
+    private GameObject particleObject;
+    [SerializeField]
+    private GameObject mainText;
+    [SerializeField]
+    private GameObject secondText;
+
+    [SerializeField]
+    private GameObject particleObject2;
+    [SerializeField]
+    private GameObject lastText;
 
     // 캐싱
     private Slime slime;
@@ -127,6 +140,13 @@ public class FindingWayMap : MapManager
 
         isClear = false;
 
+        particleObject.SetActive(false);
+        mainText.SetActive(false);
+        secondText.SetActive(false);
+
+        particleObject2.SetActive(false);
+        lastText.SetActive(false);
+
         InitArray();
         SetMap();
 
@@ -148,10 +168,9 @@ public class FindingWayMap : MapManager
     // 씬이 시작될 때 길을 알려줌
     IEnumerator ShowRoad()
     {
-
         GameObject smallHP = uIObjectPoolingManager.hpSlime.transform.parent.gameObject;
         smallHP.SetActive(false);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         //yield return new WaitForSeconds(0.5f);
 
         canMoveCam = true;
@@ -189,6 +208,19 @@ public class FindingWayMap : MapManager
 
         canMoveCam = false;
         movingCamera.enabled = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        particleObject.SetActive(true);
+
+        mainText.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+
+        secondText.SetActive(true);
+
+        yield return new WaitForSeconds(1.5f);
+
         slime.canMove = true;
     }
 
@@ -361,8 +393,16 @@ public class FindingWayMap : MapManager
     {
         base.ClearMap();
 
+        // 저주 해제 알림
+        Vector3 particlePos = slime.transform.position;
+        particlePos.y = 2.5f;
+        particleObject2.transform.position = particlePos;
+        particleObject2.SetActive(true);
+        lastText.SetActive(true);
+
         wall.SetActive(true);
         slime.rigid.constraints = slime.rigidbodyConstraints;
+
         slime.isCanDash = true;
 
         if(originSpeed > 0) StatManager.Instance.myStats.moveSpeed = originSpeed;
