@@ -65,12 +65,23 @@ public class LoadManager : MonoBehaviour
 
     public void Init_Title()
     {
-        //ΩÃ±€≈Ê SetActive
+
+        //ΩÃ±€≈Ê SetActive: true
         //true
         jellyManager.gameObject.SetActive(true);
         sceneDesign.gameObject.SetActive(true);
         settingCanvas.gameObject.SetActive(true);
-        //false
+
+        //////////////Manager////////////
+        
+        //////////////UI////////////
+        //ºº∆√ æ∆¿Ãƒ‹
+        settingCanvas.settingIcon.SetActive(false);
+
+        //UI«Æ∏µ∏≈¥œ¿˙
+        uIObjectPoolingManager.InitUI();
+
+        //ΩÃ±€≈Ê SetActive: false
         slime.gameObject.SetActive(false);
         statManager.gameObject.SetActive(false);
         uIObjectPoolingManager.gameObject.SetActive(false);
@@ -78,11 +89,12 @@ public class LoadManager : MonoBehaviour
         itemDatabase.gameObject.SetActive(false);
         inventory.gameObject.SetActive(false);
         inventoryUI.gameObject.SetActive(false);
+
     }
 
     public void Init_Village()
     {
-        //ΩÃ±€≈Ê SetActive
+        //ΩÃ±€≈Ê SetActive: true
         //true
         slime.gameObject.SetActive(true);
         statManager.gameObject.SetActive(true);
@@ -95,14 +107,30 @@ public class LoadManager : MonoBehaviour
         inventory.gameObject.SetActive(true);
         inventoryUI.gameObject.SetActive(true);
 
+        //////////////Manager////////////
         //ΩΩ∂Û¿”
         slime.InitSlime();
         slime.transform.localScale = Vector3.one;
 
-
         //Ω∫≈»  
         statManager.InitStats();
 
+
+        //¡©∏Æ
+        if (PlayerPrefs.HasKey("jellyCount"))
+        {
+            jellyManager.JellyCount = PlayerPrefs.GetInt("jellyCount");
+        }
+        else
+        {
+            jellyManager.JellyCount = 0;
+        }
+        
+        //æ¿µ¿⁄¿Œ
+        sceneDesign.finalClear = false;
+
+
+        //////////////UI////////////
         //∑È
         Transform runeSlot = runeManager.gameObject.transform.GetChild(0);
         Vector3 pos;
@@ -115,21 +143,36 @@ public class LoadManager : MonoBehaviour
         }
         runeManager.InitRune();
 
-        //¡©∏Æ
-        if (PlayerPrefs.HasKey("jellyCount"))
-        {
-            jellyManager.JellyCount = PlayerPrefs.GetInt("jellyCount");
-        }
-        else
-        {
-            jellyManager.JellyCount = 0;
-        }
-
         //¿Œ∫•≈‰∏Æ
         inventory.ResetInven();
 
-        //æ¿µ¿⁄¿Œ
-        sceneDesign.finalClear = false;
+        //UI«Æ∏µ
+        uIObjectPoolingManager.hpSlime.transform.parent.gameObject.SetActive(true);
+
+        //ºº∆√ æ∆¿Ãƒ‹
+        settingCanvas.settingIcon.SetActive(true);
+    }
+
+    public void Init_Result()
+    {
+        //////////////Manager////////////
+        //ΩΩ∂Û¿”
+        slime.transform.localScale = Vector3.one * 500f;
+
+        //////////////UI////////////
+        //∑È
+        Transform runeSlot = runeManager.gameObject.transform.GetChild(0);
+        Vector3 pos;
+        pos.x = 410f; pos.y = 250f; pos.z = 0;
+        runeSlot.localScale = Vector3.one * 1.2f;
+        if (!runeManager.transform.GetChild(0).gameObject.activeSelf)
+        {
+            runeManager.transform.GetChild(0).gameObject.SetActive(true);
+        }
+        //UI«Æ∏µ∏≈¥œ¿˙
+        uIObjectPoolingManager.InitUI();
+        //ºº∆√ æ∆¿Ãƒ‹
+        settingCanvas.settingIcon.SetActive(false);
 
     }
 }

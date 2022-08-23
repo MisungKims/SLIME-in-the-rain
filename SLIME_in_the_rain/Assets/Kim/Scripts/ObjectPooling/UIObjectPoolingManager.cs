@@ -181,7 +181,7 @@ public class UIObjectPoolingManager : MonoBehaviour
             }
         }
 
-        hpSlime.gameObject.SetActive(false);
+        hpSlime.transform.parent.gameObject.SetActive(false);
         stunText.gameObject.SetActive(false);
         noInventoryText.gameObject.SetActive(false);
         noWeaponText.gameObject.SetActive(false);

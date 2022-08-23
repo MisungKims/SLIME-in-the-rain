@@ -29,6 +29,7 @@ public class ResultCanvas : MapManager
     float typingSpeed = 0.1f;
     float waitTime = 2f;
 
+    LoadManager loadManager;
     Slime slime;
     SceneDesign sceneDesign;
     StatManager statManager;
@@ -41,6 +42,7 @@ public class ResultCanvas : MapManager
     void Start()
     {
         //ΩÃ±€≈Ê
+        loadManager = LoadManager.Instance;
         slime = Slime.Instance;
         sceneDesign = SceneDesign.Instance;
         statManager = StatManager.Instance;
@@ -50,7 +52,7 @@ public class ResultCanvas : MapManager
 
         runeSlot = runeManager.gameObject.transform.GetChild(0);
 
-        Init();
+        loadManager.Init_Result();
 
 
 
@@ -184,17 +186,6 @@ public class ResultCanvas : MapManager
 
         //Save
         PlayerPrefs.SetInt("jellyCount", jellyManager.JellyCount);
-    }
-    //ΩÃ±€≈Ê Transform ¿Á¡§¿«
-    void Init()
-    {
-
-        slime.transform.localScale = Vector3.one * 500f;
-        Vector3 pos;
-        pos.x = 410f; pos.y = 250f; pos.z = 0;
-        runeSlot.position = pos;
-        runeSlot.localScale = Vector3.one * 1.2f;
-
     }
 
     void ResultGelatin()
