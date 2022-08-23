@@ -155,6 +155,7 @@ public class Slime : MonoBehaviour
         isCanDash = true;
 
         isInWater = false;
+        SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
         SetCanAttack();
 
@@ -326,8 +327,22 @@ public class Slime : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 2f))
             {
-                if (hit.transform.gameObject.layer == 4) isInWater = true;       // water 레이어일 때
-                else isInWater = false;
+                if (hit.transform.gameObject.layer == 4)
+                {
+                    isInWater = true;       // water 레이어일 때
+
+                    // 물 위에서는 그림자를 없앰
+                    if (SkinnedMesh.shadowCastingMode.Equals(UnityEngine.Rendering.ShadowCastingMode.On))
+                        SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                }
+                else
+                {
+                    isInWater = false;
+
+                    // 땅 위에서는 그림자 있음
+                    if (SkinnedMesh.shadowCastingMode.Equals(UnityEngine.Rendering.ShadowCastingMode.Off))
+                        SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+                }
             }
 
             yield return null;
@@ -577,8 +592,8 @@ public class Slime : MonoBehaviour
         PlayAnim(AnimState.die);
 
         life--;
-        if (life <= 0) StartCoroutine(Restart());
-        else StartCoroutine(DieCoru());
+        if (life <= 0) StartCoroutine(DieCoru());
+        else StartCoroutine(Restart());
     }
 
     IEnumerator DieCoru()

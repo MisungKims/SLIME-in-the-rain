@@ -52,6 +52,9 @@ public class GetMoneyMap : MapManager
 
    public  float sumSpeed = 0;
 
+    [SerializeField]
+    private GameObject npcSpeech;
+
     [Header("-------------- Object Pool")]
     [SerializeField]
     private ObjectPool particlePooling;     // 파티클 오브젝트 풀링
@@ -108,9 +111,18 @@ public class GetMoneyMap : MapManager
 
     IEnumerator SpawnSpeedUp()
     {
+        float time = Random.Range(3f, 5f);
+
+        yield return new WaitForSeconds(time);
+
+        RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
+        randPos.y = 2.3f;
+        GetSpeedUp(randPos);
+        npcSpeech.SetActive(true);
+
         while (second > 0)
         {
-            float time = Random.Range(3f, 8f);
+            time = Random.Range(3f, 8f);
             while (time > 0 && second > 0)
             {
                 time -= Time.deltaTime;

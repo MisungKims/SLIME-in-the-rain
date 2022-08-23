@@ -312,7 +312,7 @@ public class ObjectPoolingManager : MonoBehaviour
                 getMoneyMap.GetParticle(childArr[j].position);
                 Set(childArr[j].gameObject, (EObjectFlag)i);
 
-                yield return new WaitForSeconds(0.000001f);
+                yield return new WaitForSeconds(0.000001f * Time.deltaTime);
             }
         }
     }

@@ -20,6 +20,7 @@ public class UIObjectPoolingManager : MonoBehaviour
     }
     #endregion
 
+
     public List<ObjectPool> uiPoolingList = new List<ObjectPool>();
 
     public Slider hpSlime;
@@ -27,6 +28,7 @@ public class UIObjectPoolingManager : MonoBehaviour
     public FadeOutText noInventoryText;
     public FadeOutText noWeaponText;
     public UpText inWaterText;
+    public Transform canvas;
 
     private Vector3 originPos = Vector3.up * -279;
     private Vector3 upPos = Vector3.up * -230;
@@ -165,5 +167,23 @@ public class UIObjectPoolingManager : MonoBehaviour
         }
         else textObject.GetComponent<RectTransform>().anchoredPosition = originPos;
     }
+
+    public void InitUI()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            Transform child = canvas.GetChild(i);
+            for (int j = 0; j < child.childCount; j++)
+            {
+                if (child.GetChild(j).gameObject.activeSelf)
+                    Set(child.GetChild(j).gameObject, (EUIFlag)i);
+            }
+        }
+
+        stunText.gameObject.SetActive(false);
+        noInventoryText.gameObject.SetActive(false);
+        noWeaponText.gameObject.SetActive(false);
+        inWaterText.gameObject.SetActive(false);
+}
     #endregion
 }
