@@ -130,6 +130,10 @@ public class StatManager : MonoBehaviour
         {
             myStats.HP = myStats.maxHP;
         }
+        else if (sum <= 0)
+        {
+            myStats.HP = 0;
+        }
         else
         {
             myStats.HP = sum;
@@ -137,6 +141,7 @@ public class StatManager : MonoBehaviour
 
         UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
+
 
     // ÄðÅ¸ÀÓ ½ºÅÈ º¯°æ
     public void AddCoolTime(float amount)
