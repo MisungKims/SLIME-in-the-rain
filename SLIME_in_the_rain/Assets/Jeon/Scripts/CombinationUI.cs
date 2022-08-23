@@ -461,7 +461,10 @@ public class CombinationUI : MonoBehaviour
         {
             StartCoroutine(comok(_gelatin1Cont, _gelatin2Cont));
         }
-        inventoryUI.RedrawSlotUI();
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
     }
 
     IEnumerator comok(int _gelatin1Cont, int _gelatin2Cont)
@@ -495,7 +498,10 @@ public class CombinationUI : MonoBehaviour
         inventory.items[slotNum2].itemCount--;
         StartCoroutine(Wt("실패했습니다."));
         ResetData();
-        inventoryUI.RedrawSlotUI();
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
     }
 
     /*IEnumerator enterCouru()

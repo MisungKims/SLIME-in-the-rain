@@ -31,6 +31,7 @@ public class Inventory : MonoBehaviour
     private StatManager statManager;
 
     private float sAtkRange;
+    public bool getIng = false;
 
     private int slotCount;
     public int SlotCount
@@ -49,14 +50,25 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(int _index)
     {
         items.RemoveAt(_index);
+        if (onChangedItem != null)
+        {
+
         onChangedItem.Invoke();
+        }
     }
 
 
     #region 유니티메소드
     private void Update()
     {
-       
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].itemCount <= 0)
+            {
+                items.RemoveAt(i);
+            }
+        }
+
     }
     void Awake()
     {
@@ -80,20 +92,7 @@ public class Inventory : MonoBehaviour
     #endregion
 
 
-    public IEnumerator RedrawCoru()
-    {
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (items[i].itemCount == 0)
-            {
-                RemoveItem(i);
-            }
-        }
 
-        yield return null;
-        InventoryUI.Instance.RedrawSlotUI();
-
-    }
  
     //////////////////// 추가
     
@@ -120,14 +119,12 @@ public class Inventory : MonoBehaviour
         {
             items.Add(_item);
             items[items.Count - 1].itemCount = _addCount;
-
-            if (onChangedItem != null)
-            {
-                onChangedItem.Invoke();
-            }
         }
 
-        InventoryUI.Instance.RedrawSlotUI();
+        if (onChangedItem != null)
+        {
+            onChangedItem.Invoke();
+        }
     }
 
     public bool findSame(Item _item)
@@ -178,7 +175,10 @@ public class Inventory : MonoBehaviour
     {
         items.Clear();
          SlotCount = 4;
-        StartCoroutine(Inventory.instance.RedrawCoru());
+        if (onChangedItem != null)
+        {
+            onChangedItem.Invoke();
+        }
         InventoryUI.Instance.expansCost = 5;
         InventoryUI.Instance.addButtonCostText.text = InventoryUI.Instance.expansCost.ToString() + "J";
 

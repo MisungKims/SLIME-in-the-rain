@@ -206,7 +206,10 @@ public class DissolutionUI : MonoBehaviour
                 {
                     Inventory.Instance.RemoveItem(slotNum);
                     ResetData();
-                    inventoryUI.RedrawSlotUI();
+                    if (inventory.onChangedItem != null)
+                    {
+                        inventory.onChangedItem.Invoke();
+                    }
                 }
             }
             else

@@ -76,9 +76,13 @@ public class InventoryUI : MonoBehaviour
     }
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            StartCoroutine(inventory.RedrawCoru());
+            if (inventory.onChangedItem != null)
+            {
+                inventory.onChangedItem.Invoke();
+            }
             activeInventory = !activeInventory;
             inventroyPanel.SetActive(activeInventory);
 
@@ -185,25 +189,24 @@ public class InventoryUI : MonoBehaviour
 
     public void RedrawSlotUI()
     {
-        for (int i = 0; i < inventory.items.Count; i++)
+
+        if (!inventory.getIng)
         {
-            if (inventory.items[i].itemCount <= 0)
+            inventory.getIng = true;
+
+            for (int i = 0; i < slots.Length; i++)
             {
-                inventory.items.RemoveAt(i);
+                slots[i].RemoveSlot();
             }
-        }
+            for (int i = 0; i < inventory.items.Count; i++)
+            {
+                slots[i].item = inventory.items[i];
+                slots[i].UpdateSlotUI();
+            }
+            inventory.statGelatinAdd();
+            inventory.getIng = false;
 
-        for (int i = 0; i < slots.Length; i++)
-        {
-            slots[i].RemoveSlot();
         }
-        for (int i = 0; i < inventory.items.Count; i++)
-        {
-            slots[i].item = inventory.items[i];
-            slots[i].UpdateSlotUI();
-        }
-        inventory.statGelatinAdd();
-
     }
     public void ShowTooltip(Item _item, int _slotNum)
     {

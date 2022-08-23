@@ -10,7 +10,8 @@ public class FieldItems : PickUp
     public Item item;
     public GameObject gb;
     bool isFind = false;
-  
+   
+
     Inventory inventory;
     InventoryUI inventoryUI;
 
@@ -39,81 +40,62 @@ public class FieldItems : PickUp
     /// </summary>
     public override void Get()
     {
-        if (inventory.items.Count < inventory.SlotCount) //인벤토리 공간 있을때
+        if (!inventory.getIng)
         {
-            switch (item.itemType) //아이템 타입에 따라
+            inventory.getIng = true;
+            if (inventory.items.Count < inventory.SlotCount) //인벤토리 공간 있을때
             {
-                case ItemType.weapon:
-                    if (slime.currentWeapon == null)
-                    {
-                        uIObjectPoolingManager.ShowNoWeaponText();
-                        fullBag();
-                    }
-                    else
-                    {
-                        canDetect = false;
-                        addItem();
-                    }
-                    break;
-                case ItemType.gelatin:
-                    isFind = false;
-                    for (int i = 0; i < inventory.items.Count; i++)
-                    {
-                        if (inventory.items[i].itemName == item.itemName)
-                        {
-                            findSame();
-                        }
-                    }
-                    if (!isFind)
-                    {
-                        addItem();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        else if (inventory.items.Count == inventory.SlotCount && item.itemType == ItemType.gelatin)
-        {
-            isFind = false;
-            for (int i = 0; i < inventory.items.Count; i++)
-            {
-                if (inventory.items[i].itemName == item.itemName)
+                switch (item.itemType) //아이템 타입에 따라
                 {
-                    findSame();
-                    break;
+                    case ItemType.weapon:
+                        if (slime.currentWeapon == null)
+                        {
+                            uIObjectPoolingManager.ShowNoWeaponText();
+                            fullBag();
+                        }
+                        else
+                        {
+                            AddInventory();
+                        }
+                        break;
+                    case ItemType.gelatin:
+                        AddInventory();
+                        break;
+                    default:
+                        break;
                 }
             }
-            if (!isFind)
+            else if (inventory.items.Count == inventory.SlotCount && item.itemType == ItemType.gelatin)
+            {
+                AddInventory();
+                if (!isFind)
+                {
+                    uIObjectPoolingManager.ShowNoInventoryText();
+                    fullBag();
+                }
+            }
+            else
             {
                 uIObjectPoolingManager.ShowNoInventoryText();
                 fullBag();
             }
-           
+            inventory.getIng = false;
         }
-        else
+        if (inventory.onChangedItem != null)
         {
-            uIObjectPoolingManager.ShowNoInventoryText();
-            fullBag();
+            inventory.onChangedItem.Invoke();
         }
-        inventoryUI.RedrawSlotUI();
     }
 
 
     void addItem()
     {
-            inventory.items.Add(item);
-            inventory.items[inventory.items.Count - 1].itemCount = 1;
+        inventory.items.Add(item);
 
-            if (inventory.onChangedItem != null)
-            {
-                inventory.onChangedItem.Invoke();
-            }
-
-            if (float.Parse(item.maxHp) > 0)
-            {
-                slime.statManager.AddHP(float.Parse(item.maxHp));
-            }
+        if (float.Parse(item.maxHp) > 0)
+        {
+            slime.statManager.AddHP(float.Parse(item.maxHp));
+        }
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
@@ -126,22 +108,6 @@ public class FieldItems : PickUp
         targetPos.y = transform.position.y;
         targetPos.z = transform.position.z + (dir.z * velocity);
         transform.position = targetPos;
-       
-    }
-
-    void findSame()
-    {
-        for (int i = 0; i < inventory.items.Count; i++)
-        {
-            if (inventory.items[i].itemName == item.itemName)
-            {
-                inventoryUI.slots[i].SetSlotCount();
-                isFind = true;
-                break;
-            }
-        }
-        canDetect = false;
-        ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
 
     public void SetItem(Item _item) //아이템 셋팅
@@ -154,7 +120,7 @@ public class FieldItems : PickUp
         item.itemIcon = _item.itemIcon;
 
         item.efts = _item.efts;
-        item.itemCount = _item.itemCount;
+        item.itemCount = 1;
 
         item.maxHp = _item.maxHp;
         item.coolTime = _item.coolTime;
@@ -181,7 +147,7 @@ public class FieldItems : PickUp
         item.itemIcon = _item.itemIcon;
 
         item.efts = _item.efts;
-        item.itemCount = _item.itemCount;
+        item.itemCount = 1;
 
         item.maxHp = _item.maxHp;
         item.coolTime = _item.coolTime;
@@ -204,6 +170,7 @@ public class FieldItems : PickUp
     {
         if (!FindSame())        // 인벤토리에 이 아이템이 없으면
         {
+            canDetect = false;
             addItem();          // 새로 추가
         }
     }
@@ -216,17 +183,19 @@ public class FieldItems : PickUp
 
         isFind = false;
 
+
         for (int i = 0; i < inventory.items.Count; i++)
         {
             if (inventory.items[i].itemName == item.itemName)
             {
                 canDetect = false;
+                //inventory.items[i].itemCount++;
                 inventoryUI.slots[i].SetSlotCount();
                 isFind = true;
+                ObjectPoolingManager.Instance.Set(this.gameObject, flag);
                 break;
             }
         }
-        this.gameObject.SetActive(false);
 
         return isFind;
     }

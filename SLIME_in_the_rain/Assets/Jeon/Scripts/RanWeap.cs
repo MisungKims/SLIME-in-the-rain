@@ -7,8 +7,8 @@ public class RanWeap : MonoBehaviour
     public GameObject[] pos = new GameObject[3];
     [SerializeField]
     private GameObject[] debugPos = new GameObject[5];
-    //[SerializeField]
-    //private Vector3[] debugGelPos = new Vector3[5];
+    [SerializeField]
+    private Vector3[] debugGelPos = new Vector3[5];
 
 
     private void Start()
@@ -24,10 +24,10 @@ public class RanWeap : MonoBehaviour
             go.layer = go.transform.GetChild(0).gameObject.layer;
         }
 
-        /*for (int i = 0; i < debugGelPos.Length; i++)
+        for (int i = 0; i < debugGelPos.Length; i++)
         {
             if (ObjectPoolingManager.Instance) ObjectPoolingManager.Instance.Get(EObjectFlag.gelatin, debugGelPos[i]);
-        }*/
+        }
 
     }
 
