@@ -181,10 +181,11 @@ public class UIObjectPoolingManager : MonoBehaviour
             }
         }
 
+        hpSlime.gameObject.SetActive(false);
         stunText.gameObject.SetActive(false);
         noInventoryText.gameObject.SetActive(false);
         noWeaponText.gameObject.SetActive(false);
         inWaterText.gameObject.SetActive(false);
-}
+    }
     #endregion
 }
