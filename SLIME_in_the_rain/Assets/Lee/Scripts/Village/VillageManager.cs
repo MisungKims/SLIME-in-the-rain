@@ -15,7 +15,7 @@ public class VillageManager : MapManager
     StatManager statManager;
     JellyManager jellyManager;
     RuneManager runeManager;
-    LoadManager loadManager;
+    SingletonManager singletonManager;
 
     Inventory inventory;
 
@@ -29,7 +29,7 @@ public class VillageManager : MapManager
     private void Start()
     {
         //singletons
-        loadManager = LoadManager.Instance;
+        singletonManager = SingletonManager.Instance;
         slime = Slime.Instance;
 
         statManager = StatManager.Instance;
@@ -41,7 +41,7 @@ public class VillageManager : MapManager
         _camera = ICamera.Instance;
         sceneDesign = SceneDesign.Instance;
         settingCanvas = SettingCanvas.Instance;
-        loadManager.Init_Village();
+        singletonManager.Init_Village();
         StartCoroutine(Clear());
 
     }

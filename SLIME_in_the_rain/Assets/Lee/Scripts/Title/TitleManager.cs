@@ -12,18 +12,18 @@ public class TitleManager : MonoBehaviour
     SettingCanvas settingCanvas;
     SceneDesign sceneDesign;
     RuneManager runeManager;
-    LoadManager loadManager;
+    SingletonManager singletonManager;
 
 
     private void Start()
     {
         //singleton
-        loadManager = LoadManager.Instance;
+        singletonManager = SingletonManager.Instance;
         runeManager = RuneManager.Instance;
         settingCanvas = SettingCanvas.Instance;
         sceneDesign = SceneDesign.Instance;
 
-        loadManager.Init_Title();
+        singletonManager.Init_Title();
         setting = settingCanvas.transform.GetChild(0).gameObject;
 
         //OnClick
