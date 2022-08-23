@@ -221,7 +221,7 @@ public class SceneDesign : MonoBehaviour
         Debug.Log("Bool n "+isNomal);
         Debug.Log("Bool g " + isGimmick);
         Debug.Log("Bool b " + isBonus);
-        return 5;
+        return next;
     }
 
     public void SceneInit()     //VillageManager 끝나면 실행함
