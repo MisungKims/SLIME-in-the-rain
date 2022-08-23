@@ -11,7 +11,7 @@ using UnityEngine;
 public class UpText : FadeOutText
 {
     private float moveSpeed = 200f;
-    private UIObjectPoolingManager uiPoolingManager;
+    protected UIObjectPoolingManager uiPoolingManager;
 
     protected override void Awake()
     {
@@ -24,15 +24,4 @@ public class UpText : FadeOutText
     {
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);         // 위로 올라감
     }
-
-
-    #region 코루틴
-    // Fade Out 뒤 오브젝트 풀에 반환
-    protected override IEnumerator ActiveFalse()
-    {
-        yield return StartCoroutine(FadeOut());
-
-        uiPoolingManager.Set(this.gameObject, EUIFlag.damageText);
-    }
-    #endregion
 }
