@@ -51,6 +51,7 @@ public class Projectile : MonoBehaviour
     #region 유니티 함수
     protected virtual void OnEnable()
     {
+        //Debug.DrawLine(Slime.Instance.transform.position, transform.forward * 10f, Color.blue, 2f);
         StartCoroutine(Remove());
     }
 
@@ -82,6 +83,7 @@ public class Projectile : MonoBehaviour
     protected virtual void Move()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
+       //transform.Translate(dir * Time.deltaTime * speed);
     }
 
     // 데미지를 입힘

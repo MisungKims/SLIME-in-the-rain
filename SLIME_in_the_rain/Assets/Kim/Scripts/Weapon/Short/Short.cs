@@ -54,13 +54,10 @@ public class Short : Weapon
         {
             GameObject projectile = ObjectPoolingManager.Instance.Get(_flag, transform.position, Vector3.zero);
             projectile.GetComponent<Projectile>().isSkill = isSkill;
-
-            projectile.transform.forward = targetPos;
-
+            projectile.transform.LookAt(targetPos);
             lookRot = projectile.transform.eulerAngles;
             lookRot.x = 0;
             lookRot.z = 0;
-
             projectile.transform.eulerAngles = lookRot;
         }
     }

@@ -51,6 +51,8 @@ public class Weapon : MonoBehaviour
     private Camera cam;
     private Vector3 hitPos;
     protected Vector3 targetPos;
+    protected Vector3 dir;
+    private Vector3 rot;
 
     // 대시
     public float dashCoolTime;
@@ -67,6 +69,11 @@ public class Weapon : MonoBehaviour
     private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
 
     protected StatManager statManager;
+
+   
+
+    public GameObject go;
+    public GameObject cube;
     #endregion
 
     #region 유니티 함수
@@ -112,11 +119,16 @@ public class Weapon : MonoBehaviour
         ChangeWeapon();
     }
 
+    protected Vector3 weaponPos;
+
     public void ChangeWeapon()
     {
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
         UseRune();
+
+        if (slime.shootPlane != null)
+            slime.shootPlane.transform.position = weaponPos;
     }
 
     // 대시 쿨타임 코루틴
@@ -200,18 +212,19 @@ public class Weapon : MonoBehaviour
         //targetPos = hitPos - transform.position;
         //slime.transform.forward = targetPos;
 
-        Vector3 center = new Vector3(1920 / 2, 1080 / 2 ,0);
+        ///////////////////////////////////////////
 
-        //스크린기준
-        //                          마우스위치         화면 중앙
-        Vector3 dir = Input.mousePosition - center ;
-        // Debug.Log(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
-        targetPos = Vector3.zero;
-        targetPos.y = 90-  Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg ;
+        Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
 
-        slime.transform.eulerAngles = targetPos;
+        int shootLayerMask = 1 << LayerMask.NameToLayer("Shoot");
+        Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity, shootLayerMask);
 
-        Debug.Log("slime " + slime.transform.forward);
+        slime.transform.LookAt(hit.point);
+        targetPos = hit.point;
+        rot = slime.transform.eulerAngles;
+        rot.x = 0;
+        slime.transform.eulerAngles = rot;
+        
     }
 
     // 평타

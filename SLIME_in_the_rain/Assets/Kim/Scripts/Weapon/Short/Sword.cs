@@ -25,6 +25,7 @@ public class Sword : Short
     {
         base.Awake();
 
+        weaponPos = transform.position;
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;
         maxDashCoolTime = 1f;

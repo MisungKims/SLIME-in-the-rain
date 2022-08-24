@@ -168,10 +168,9 @@ public class FindingWayMap : MapManager
     // 씬이 시작될 때 길을 알려줌
     IEnumerator ShowRoad()
     {
-        GameObject smallHP = uIObjectPoolingManager.hpSlime.transform.parent.gameObject;
+        GameObject smallHP = uIObjectPoolingManager.slimeHpBarParent;
         smallHP.SetActive(false);
         yield return new WaitForSeconds(1f);
-        //yield return new WaitForSeconds(0.5f);
 
         canMoveCam = true;
         StartCoroutine(MoveCamera());

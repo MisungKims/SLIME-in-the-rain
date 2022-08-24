@@ -22,6 +22,7 @@ public class Bow : Weapon
     {
         base.Awake();
 
+        weaponPos = transform.position;
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);
         maxDashCoolTime = 2f;
@@ -46,13 +47,7 @@ public class Bow : Weapon
     {
         base.AutoAttack();         // 평타 애니메이션 재생
 
-        Arrow arrow = GetProjectile(this.targetPos);
-
-        //lookRot = arrow.transform.eulerAngles;
-        //lookRot.x = 0;
-        //lookRot.z = 0;
-
-        //arrow.transform.eulerAngles = lookRot;
+        Arrow arrow = GetProjectile();
     }
 
     // 스킬
@@ -67,7 +62,7 @@ public class Bow : Weapon
 
         for (float y = 180 - angle; y <= 180 + angle; y += interval)
         {
-            Arrow arrow = GetProjectile(this.targetPos);
+            Arrow arrow = GetProjectile();
             lookRot = arrow.transform.eulerAngles;
             lookRot.x = 0;
             lookRot.y += y + 180;
@@ -78,18 +73,16 @@ public class Bow : Weapon
     }
 
     // 투사체(화살) 생성
-    Arrow GetProjectile(Vector3 targetPos)
+    Arrow GetProjectile()
     {
         Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero).GetComponent<Arrow>();
         if (weaponRuneInfos[0].isActive) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
 
-       // arrow.transform.forward = this.targetPos;        // 화살 생성 뒤 마우스 방향을 바라봄
-
-        arrow.transform.eulerAngles = this.targetPos;
-
-        Debug.Log("projectile " + arrow.transform.forward);
-
-        arrow.dir = this.targetPos;
+        arrow.transform.LookAt(this.targetPos);
+        lookRot = arrow.transform.eulerAngles;
+        lookRot.x = 0;
+        lookRot.z = 0;
+        arrow.transform.eulerAngles = lookRot;
 
         return arrow;
     }

@@ -20,15 +20,15 @@ public class UIObjectPoolingManager : MonoBehaviour
     }
     #endregion
 
-
     public List<ObjectPool> uiPoolingList = new List<ObjectPool>();
 
+    public GameObject slimeHpBarParent;
     public Slider hpSlime;
     public FadeOutText stunText;
     public FadeOutText noInventoryText;
     public FadeOutText noWeaponText;
     public UpText inWaterText;
-    public Transform canvas;
+    public Canvas healthBarCanvas;
 
     private Vector3 originPos = Vector3.up * -279;
     private Vector3 upPos = Vector3.up * -230;
@@ -48,6 +48,7 @@ public class UIObjectPoolingManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        slimeHpBarParent = hpSlime.transform.parent.gameObject;
         InitCanvas();
     }
 
@@ -168,20 +169,29 @@ public class UIObjectPoolingManager : MonoBehaviour
         else textObject.GetComponent<RectTransform>().anchoredPosition = originPos;
     }
 
+    // 체력바 캔버스 설정
+    public void SetHealthBarCanvas()
+    {
+        healthBarCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+        healthBarCanvas.worldCamera = Camera.main;
+        healthBarCanvas.planeDistance = 0.5f;
+    }
+
     // canvas에 있는 모든 UI 제거
     public void InitUI()
     {
-        for (int i = 0; i < 2; i++)
+        Transform parent;
+        for (int i = 0; i < uiPoolingList.Count; i++)
         {
-            Transform child = canvas.GetChild(i);
-            for (int j = 0; j < child.childCount; j++)
+            parent = uiPoolingList[i].parent.transform;
+            for (int j = 0; j < parent.childCount; j++)
             {
-                if (child.GetChild(j).gameObject.activeSelf)
-                    Set(child.GetChild(j).gameObject, (EUIFlag)i);
+                if (parent.GetChild(j).gameObject.activeSelf)
+                    Set(parent.GetChild(j).gameObject, (EUIFlag)i);
             }
         }
 
-        hpSlime.transform.parent.gameObject.SetActive(false);
+        slimeHpBarParent.SetActive(false);
         stunText.gameObject.SetActive(false);
         noInventoryText.gameObject.SetActive(false);
         noWeaponText.gameObject.SetActive(false);
