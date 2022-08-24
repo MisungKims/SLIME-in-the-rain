@@ -21,7 +21,6 @@ public class ResultCanvas : MapManager
     public Button titleButton;
 
     //·é
-    private Transform runeSlot;
     private Image[] runeImage;
 
     Color color;
@@ -32,10 +31,9 @@ public class ResultCanvas : MapManager
     SingletonManager singletonManager;
     Slime slime;
     SceneDesign sceneDesign;
-    StatManager statManager;
     JellyManager jellyManager;
-    RuneManager runeManager;
     Inventory inventory;
+    ICamera _camera;
 
     
     // Start is called before the first frame update
@@ -45,12 +43,10 @@ public class ResultCanvas : MapManager
         singletonManager = SingletonManager.Instance;
         slime = Slime.Instance;
         sceneDesign = SceneDesign.Instance;
-        statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
-        runeManager = RuneManager.Instance;
         inventory = Inventory.Instance;
+        _camera = ICamera.Instance;
 
-        runeSlot = runeManager.gameObject.transform.GetChild(0);
 
         singletonManager.Init_Result();
 

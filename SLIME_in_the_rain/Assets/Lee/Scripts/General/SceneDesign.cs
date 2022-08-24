@@ -217,10 +217,6 @@ public class SceneDesign : MonoBehaviour
         {
             next = Random.Range(s_nomal, SceneManager.sceneCountInBuildSettings);
         }
-        Debug.Log("next " + next);
-        Debug.Log("Bool n "+isNomal);
-        Debug.Log("Bool g " + isGimmick);
-        Debug.Log("Bool b " + isBonus);
         return next;
     }
 
@@ -231,6 +227,28 @@ public class SceneDesign : MonoBehaviour
         goBoss = false; 
         finalClear = false;
         
+        bossCount = 0;
+
+        bossLevel = 0;
+        Timer = 0f;
+        mapCounting = 0;
+
+        //발표용 초기화
+        nomalCount = 0;
+        gimmickCount = 0;
+        bonusCount = 0;
+        isNomal = false;
+        isGimmick = false;
+        isBonus = false;
+
+    }
+    public void VillageSceneInit()        //VillageManager 끝나면 실행함
+    {
+        next = -1;
+        mapClear = false;
+        goBoss = false;
+        finalClear = false;
+
         bossCount = 0;
 
         bossLevel = 0;

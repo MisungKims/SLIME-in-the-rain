@@ -72,6 +72,9 @@ public class SingletonManager : MonoBehaviour
         //UI풀링매니저
         uIObjectPoolingManager.InitUI();
 
+        //씬디자인
+        sceneDesign.SceneInit();
+
         //싱글톤 SetActive: false
         slime.gameObject.SetActive(false);
         statManager.gameObject.SetActive(false);
@@ -164,6 +167,5 @@ public class SingletonManager : MonoBehaviour
         uIObjectPoolingManager.InitUI();
         //세팅 아이콘
         settingCanvas.settingIcon.SetActive(false);
-
     }
 }

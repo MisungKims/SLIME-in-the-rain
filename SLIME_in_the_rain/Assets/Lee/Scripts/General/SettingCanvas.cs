@@ -280,7 +280,6 @@ public class SettingCanvas : MonoBehaviour
         //씬 넘어가기전에 설정창, 팝업 닫음
         settingCanvas.SetActive(false);
         popup.SetActive(false);
-
         SceneManager.LoadScene(0);
     }
     #endregion
