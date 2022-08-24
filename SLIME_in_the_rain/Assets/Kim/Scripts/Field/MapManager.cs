@@ -27,6 +27,8 @@ public class MapManager : MonoBehaviour
         slime.RegisterMinimap();
         slime.transform.position = slimeSpawnPos.position;
         slime.SetCanAttack();
+
+        UIObjectPoolingManager.Instance.SetHealthBarCanvas();
     }
 
     // TODO:

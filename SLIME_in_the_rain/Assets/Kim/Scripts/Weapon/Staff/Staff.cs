@@ -80,21 +80,13 @@ public class Staff : Weapon
         // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
         projectile.isSkill = isSkill;
-        projectile.transform.forward = targetPos;
-
-        //LookAtPos(projectile, targetPos);
-        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
-    }
-
-    protected void LookAtPos(StaffProjectile projectile, Vector3 targetPos)
-    {
-        projectile.transform.LookAt(targetPos);      // 화살 생성 뒤 마우스 방향을 바라봄
-
+        projectile.transform.LookAt(targetPos);
         lookRot = projectile.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
-
         projectile.transform.eulerAngles = lookRot;
+
+        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
     }
 
     // 유도 투사체 룬을 가지고 있다면 사용할 수 있도록

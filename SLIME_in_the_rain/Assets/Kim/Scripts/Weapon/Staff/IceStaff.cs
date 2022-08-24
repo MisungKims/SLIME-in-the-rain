@@ -15,6 +15,7 @@ public class IceStaff : Staff
     {
         base.Awake();
 
+        weaponPos = projectilePos.position;
         weaponType = EWeaponType.iceStaff;
         projectileFlag = EProjectileFlag.ice;
         skillProjectileFlag = EProjectileFlag.iceSkill;
@@ -37,12 +38,14 @@ public class IceStaff : Staff
         // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
         projectile.isSkill = isSkill;
-        projectile.transform.forward = targetPos;
+        projectile.transform.LookAt(targetPos);
+        lookRot = projectile.transform.eulerAngles;
+        lookRot.x = 0;
+        lookRot.z = 0;
+        projectile.transform.eulerAngles = lookRot;
 
         MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
         StunRune(flag, projectile);     // 스턴 2배 룬을 가지고 있다면 사용
-
-       // LookAtPos(projectile, targetPos);
     }
 
     // 얼음 지팡이 룬이 있다면 스턴 시간 2배

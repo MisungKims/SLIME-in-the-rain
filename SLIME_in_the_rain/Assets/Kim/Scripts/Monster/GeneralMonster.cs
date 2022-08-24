@@ -35,7 +35,6 @@ public class GeneralMonster : Monster
     // 체력바
     private GameObject hpBarObject;
     private Slider hpBar;
-    private Vector3 hpBarPos = new Vector3(0, -0.65f, 0);
 
     private Camera mainCam;
     #endregion
@@ -132,9 +131,16 @@ public class GeneralMonster : Monster
     // 체력바의 위치를 조절하는 코루틴
     IEnumerator SetHPBarPos()
     {
+        RectTransform canvasRectTransform = UIObjectPoolingManager.Instance.healthBarCanvas.GetComponent<RectTransform>();
+        RectTransform hpBarRectTransform = hpBarObject.GetComponent<RectTransform>();
+
         while (hpBarObject)
         {
-            hpBarObject.transform.position = mainCam.WorldToScreenPoint(transform.position + hpBarPos);
+            Vector2 adjustedPosition = mainCam.WorldToScreenPoint(transform.position + Vector3.down * 0.65f);
+            adjustedPosition.x *= canvasRectTransform.rect.width / (float)mainCam.pixelWidth;
+            adjustedPosition.y *= canvasRectTransform.rect.height / (float)mainCam.pixelHeight;
+
+            hpBarRectTransform.anchoredPosition = adjustedPosition - canvasRectTransform.sizeDelta / 2f;
 
             yield return null;
         }

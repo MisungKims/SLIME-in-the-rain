@@ -26,7 +26,7 @@ public class Slime : MonoBehaviour
         }
     }
     #endregion
-
+    public GameObject shootPlane;
     public int killCount = 0;
     public bool isDungeonStart = false;
 
@@ -181,8 +181,6 @@ public class Slime : MonoBehaviour
 
     private void Update()
     {
-        //Debug.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * 0.7f, Color.blue);
-       
         SpaceBar();
         DetectWeapon();
     }
