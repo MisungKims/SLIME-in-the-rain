@@ -42,10 +42,6 @@ public class Slot : MonoBehaviour,IPointerUpHandler,IPointerEnterHandler,IPointe
         {
             Inventory.Instance.onChangedItem.Invoke();
         }
-        if (float.Parse(Inventory.Instance.items[slotNum].maxHp) > 0)
-        {
-            Slime.Instance.statManager.AddHPGelatin(float.Parse(Inventory.Instance.items[slotNum].maxHp), Inventory.Instance.items[slotNum].itemCount);
-        }
     }
 
     public void RemoveSlot() //제거 함수

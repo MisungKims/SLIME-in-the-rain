@@ -19,8 +19,8 @@ public class RuneShort : RuneWeapon
     {
         if (base.Use(weapon))
         {
-            weapon.stats.hitCount *= 3;         // 타수 3배
-            StatManager.Instance.ChangeStats(weapon);            // 스탯 변경
+            weapon.stats.hitCount += 2;         // 타수 3배
+            StatManager.Instance.ChangeWeapon(weapon);            // 스탯 변경
 
             return true;
         }

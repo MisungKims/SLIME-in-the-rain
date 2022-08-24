@@ -92,11 +92,6 @@ public class FieldItems : PickUp
     {
         inventory.items.Add(item);
 
-        if (float.Parse(item.maxHp) > 0)
-        {
-            slime.statManager.AddHP(float.Parse(item.maxHp));
-        }
-
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
 

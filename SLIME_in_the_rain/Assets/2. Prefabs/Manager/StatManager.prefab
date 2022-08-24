@@ -45,6 +45,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStats:
+    maxHP: 100
+    HP: 100
+    coolTime: 1
+    moveSpeed: 1.2
+    attackSpeed: 1
+    attackPower: 1
+    attackRange: 1
+    defensePower: 1
+    hitCount: 1
+    increasesDamage: 0
+  gelatinStat:
+    maxHP: 0
+    HP: 0
+    coolTime: 0
+    moveSpeed: 0
+    attackSpeed: 0
+    attackPower: 0
+    attackRange: 0
+    defensePower: 0
+    hitCount: 0
+    increasesDamage: 0
+  weaponStat:
     maxHP: 0
     HP: 0
     coolTime: 0

@@ -561,7 +561,7 @@ public class Slime : MonoBehaviour
         currentWeapon.transform.localPosition = Vector3.zero;
 
         // 변경한 무기의 스탯으로 변경
-        statManager.ChangeStats(currentWeapon);
+        statManager.ChangeWeapon(currentWeapon);
 
         //변경된 스탯 적용
         if (MainCanvas.Instance) MainCanvas.Instance.changeWeapon();
