@@ -69,7 +69,7 @@ public class SceneDesign : MonoBehaviour
     }
     IEnumerator StraightClear()
     {
-        while(!finalClear)
+        while (!finalClear)
         {
             yield return null;
         }
@@ -81,11 +81,11 @@ public class SceneDesign : MonoBehaviour
     }
     private void Update()
     {
-        if(!finalClear)
+        if (!finalClear)
         {
             Timer += Time.deltaTime;
         }
-        
+
     }
     #endregion
 
@@ -93,11 +93,11 @@ public class SceneDesign : MonoBehaviour
 
     public void MapCount()
     {
-        if(!goBoss)
+        if (!goBoss)
         {
             bossCount++;
             mapCounting++;
-            if (bossCount == stageNum)  
+            if (bossCount == stageNum)
             {
                 goBoss = true;
                 bossCount = 0;
@@ -114,7 +114,7 @@ public class SceneDesign : MonoBehaviour
                 gimmickCount++;
                 isGimmick = false;
             }
-            if(isBonus)
+            if (isBonus)
             {
                 bonusCount++;
                 isBonus = false;
@@ -173,17 +173,17 @@ public class SceneDesign : MonoBehaviour
         //} while (next == now);
 
         //발표용 함수
-        else if(2 > mapCounting)
+        else if (2 > mapCounting)
         {
             next = s_nomal + (nomalCount % 5);
             isNomal = true;
         }
-        else if(3 > mapCounting)
+        else if (3 > mapCounting)
         {
             next = s_gimmick + gimmickCount;
             isGimmick = true;
         }
-        else if(4 > mapCounting)
+        else if (4 > mapCounting)
         {
             next = s_bonus + bonusCount;
             isBonus = true;
@@ -217,20 +217,38 @@ public class SceneDesign : MonoBehaviour
         {
             next = Random.Range(s_nomal, SceneManager.sceneCountInBuildSettings);
         }
-        Debug.Log("next " + next);
-        Debug.Log("Bool n "+isNomal);
-        Debug.Log("Bool g " + isGimmick);
-        Debug.Log("Bool b " + isBonus);
         return next;
     }
 
-    public void SceneInit()     //VillageManager 끝나면 실행함
+    public void SceneInit()     //타이틀
     {
         next = -1;
-        mapClear = false;  
-        goBoss = false; 
+        mapClear = false;
+        goBoss = false;
         finalClear = false;
-        
+
+        bossCount = 0;
+
+        bossLevel = 0;
+        Timer = 0f;
+        mapCounting = 0;
+
+        //발표용 초기화
+        nomalCount = 0;
+        gimmickCount = 0;
+        bonusCount = 0;
+        isNomal = false;
+        isGimmick = false;
+        isBonus = false;
+
+    }
+    public void VillageSceneInit()        //VillageManager 끝나면 실행함
+    {
+        next = -1;
+        mapClear = false;
+        goBoss = false;
+        finalClear = false;
+
         bossCount = 0;
 
         bossLevel = 0;

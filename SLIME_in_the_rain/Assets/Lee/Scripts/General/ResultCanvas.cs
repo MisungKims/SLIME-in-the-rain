@@ -21,7 +21,6 @@ public class ResultCanvas : MapManager
     public Button titleButton;
 
     //룬
-    private Transform runeSlot;
     private Image[] runeImage;
 
     Color color;
@@ -32,12 +31,11 @@ public class ResultCanvas : MapManager
     SingletonManager singletonManager;
     Slime slime;
     SceneDesign sceneDesign;
-    StatManager statManager;
     JellyManager jellyManager;
-    RuneManager runeManager;
     Inventory inventory;
+    ICamera _camera;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,12 +43,10 @@ public class ResultCanvas : MapManager
         singletonManager = SingletonManager.Instance;
         slime = Slime.Instance;
         sceneDesign = SceneDesign.Instance;
-        statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
-        runeManager = RuneManager.Instance;
         inventory = Inventory.Instance;
+        _camera = ICamera.Instance;
 
-        runeSlot = runeManager.gameObject.transform.GetChild(0);
 
         singletonManager.Init_Result();
 
@@ -82,16 +78,16 @@ public class ResultCanvas : MapManager
 
     }
 
-    
+
 
     //1. 타이틀
     IEnumerator TitleText()
     {
-        if(sceneDesign.finalClear == true)
+        if (sceneDesign.finalClear == true)
         {
             titleText.text = "CLEAR!!!";
             titleText.color = new Color(1f, 0f, 0f, 1f);
-            StartCoroutine(CameraShake.StartShake(1f,10f));
+            StartCoroutine(CameraShake.StartShake(1f, 10f));
         }
         else
         {
@@ -106,7 +102,7 @@ public class ResultCanvas : MapManager
         }
         TypingAll();
     }
-    
+
     //2-2. 타이핑 효과
     IEnumerator Typing(TextMeshProUGUI[] typingText, string[] message, float speed)
     {
@@ -133,7 +129,7 @@ public class ResultCanvas : MapManager
         int reachedStage = (sceneDesign.mapCounting - sceneDesign.bossLevel);
         if (reachedStage % stage == 0)
         {
-            if(5>reachedStage)
+            if (5 > reachedStage)
             {
                 stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + (reachedStage % stage).ToString();
             }
@@ -150,15 +146,15 @@ public class ResultCanvas : MapManager
         textMeshArr[1] = playtimeText;
         Debug.Log(sceneDesign.Timer);
         int hour = (int)(sceneDesign.Timer / 3600);
-        int min = (int)((sceneDesign.Timer - (3600 * hour))/60);
+        int min = (int)((sceneDesign.Timer - (3600 * hour)) / 60);
         int sec = (int)((sceneDesign.Timer - ((3600 * hour) + (60 * min))));
-        stringArr[1] = "플레이 타임: " + hour.ToString("D2") +":"+min.ToString("D2")+":"+sec.ToString("D2");
+        stringArr[1] = "플레이 타임: " + hour.ToString("D2") + ":" + min.ToString("D2") + ":" + sec.ToString("D2");
 
         textMeshArr[2] = killcountText;
-        stringArr[2] = "잡은 몬스터 수: "+ slime.killCount;
+        stringArr[2] = "잡은 몬스터 수: " + slime.killCount;
 
         textMeshArr[3] = jellycountText;
-        stringArr[3] = "획득 젤리량: " + (jellyManager.JellyCount- sceneDesign.jellyInit).ToString();
+        stringArr[3] = "획득 젤리량: " + (jellyManager.JellyCount - sceneDesign.jellyInit).ToString();
 
         StartCoroutine(Typing(textMeshArr, stringArr, typingSpeed));
 
@@ -175,12 +171,12 @@ public class ResultCanvas : MapManager
                 color.a = j;
                 runeImage[i].color = color;
             }
-        }   
+        }
     }
 
 
     //Last. 버튼 onClick
-    void ClickButton(int sceneNum) 
+    void ClickButton(int sceneNum)
     {
         SceneManager.LoadScene(sceneNum);
 
@@ -190,9 +186,9 @@ public class ResultCanvas : MapManager
 
     void ResultGelatin()
     {
-        for (int i = 0, count = 0; i < inventory.items.Count; i++) 
+        for (int i = 0, count = 0; i < inventory.items.Count; i++)
         {
-            if(inventory.items[i].itemType == ItemType.gelatin)
+            if (inventory.items[i].itemType == ItemType.gelatin)
             {
                 Vector3 pos = gelatinObj.transform.position;
                 pos.x -= (count * 70);

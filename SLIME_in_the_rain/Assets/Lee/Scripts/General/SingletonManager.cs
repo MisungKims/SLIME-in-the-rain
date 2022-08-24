@@ -64,13 +64,16 @@ public class SingletonManager : MonoBehaviour
         settingCanvas.gameObject.SetActive(true);
 
         //////////////Manager////////////
-        
+
         //////////////UI////////////
         //세팅 아이콘
         settingCanvas.settingIcon.SetActive(false);
 
         //UI풀링매니저
         uIObjectPoolingManager.InitUI();
+
+        //씬디자인
+        sceneDesign.SceneInit();
 
         //싱글톤 SetActive: false
         slime.gameObject.SetActive(false);
@@ -116,9 +119,9 @@ public class SingletonManager : MonoBehaviour
         {
             jellyManager.JellyCount = 0;
         }
-        
+
         //씬디자인
-        sceneDesign.finalClear = false;
+        sceneDesign.SceneInit();
 
 
         //////////////UI////////////
@@ -164,6 +167,5 @@ public class SingletonManager : MonoBehaviour
         uIObjectPoolingManager.InitUI();
         //세팅 아이콘
         settingCanvas.settingIcon.SetActive(false);
-
     }
 }

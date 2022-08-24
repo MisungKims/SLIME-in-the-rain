@@ -45,29 +45,6 @@ public class VillageManager : MapManager
         StartCoroutine(Clear());
 
     }
-
-    private void Update()
-    {
-        #region 카메라 관련 조건문
-        if (ShopCanvas.activeSelf)       //esc로 끌때도 있고 버튼으로 끌때가 있음  //상점 꺼졌을때
-        {
-
-            slime.canMove = false;
-            _camera.Focus_Shop(this.gameObject);
-
-        }
-        else if (TowerCanvas.activeSelf)
-        {
-            slime.canMove = false;
-            _camera.Focus_Slime();
-        }
-        else
-        {
-            slime.canMove = true;
-            _camera.Focus_Slime();
-        }
-        #endregion
-    }
     IEnumerator Clear()
     {
         while (!slime.currentWeapon)
@@ -81,7 +58,7 @@ public class VillageManager : MapManager
         if (sceneDesign)
         {
 
-            sceneDesign.SceneInit();
+            sceneDesign.VillageSceneInit();
             Debug.Log("Execution Reset");
         }
         else
