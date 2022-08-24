@@ -552,6 +552,9 @@ public class Slime : MonoBehaviour
         currentWeapon.gameObject.layer = 7;
         currentWeapon.GetComponent<Outline>().enabled = false;
 
+
+       shootPlane.transform.position = currentWeapon.weaponPos;
+
         // 무기의 위치 설정
         ObjectPoolingManager.Instance.Set(currentWeapon.transform.parent.gameObject, EObjectFlag.weapon);
         currentWeapon.transform.parent = weaponPos;

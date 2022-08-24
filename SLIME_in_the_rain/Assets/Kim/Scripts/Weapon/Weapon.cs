@@ -119,16 +119,13 @@ public class Weapon : MonoBehaviour
         ChangeWeapon();
     }
 
-    protected Vector3 weaponPos;
+    public Vector3 weaponPos;
 
     public void ChangeWeapon()
     {
         slime.ChangeWeapon(this);
         transform.localEulerAngles = angle;
         UseRune();
-
-        if (slime.shootPlane != null)
-            slime.shootPlane.transform.position = weaponPos;
     }
 
     // 대시 쿨타임 코루틴
