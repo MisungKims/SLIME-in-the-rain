@@ -372,7 +372,7 @@ public class Slime : MonoBehaviour
 
     #region 함수
     // 슬라임과 오브젝트 사이의 거리를 구함
-    float GetDistance(Transform target)
+    public float GetDistance(Transform target)
     {
         Vector3 offset = transform.position - target.position;
 
@@ -447,10 +447,12 @@ public class Slime : MonoBehaviour
             return false;
         }
     }
-   
+
     #endregion
-    Collider lastCollider;
+
     #region 무기
+    Collider lastCollider;
+
     // 주변에 있는 무기 감지
     void DetectWeapon()
     {
@@ -467,10 +469,10 @@ public class Slime : MonoBehaviour
         {
             // 감지한 무기들 중 제일 가까운 거리에 있는 무기를 장착
 
-            int minIndex = 0;
-            float minDis = GetDistance(colliders[0].transform);
+            int minIndex = -1;
+            float minDis = Mathf.Infinity;
 
-            for (int i = 1; i < colliders.Length; i++)          // 가까운 거리에 있는 무기 찾기
+            for (int i = 0; i < colliders.Length; i++)          // 가까운 거리에 있는 무기 찾기
             {
                 float distance = GetDistance(colliders[i].transform);
 
@@ -482,25 +484,25 @@ public class Slime : MonoBehaviour
             }
 
             // Outline을 꺼야하는 오브젝트는 끔
-            if(lastCollider && !lastCollider.Equals(colliders[minIndex]))
-            {
-                outline = lastCollider.GetComponent<Outline>();
-                outline.enabled = false;
-                lastCollider = colliders[minIndex];
-            }
+            //if(lastCollider && !lastCollider.Equals(colliders[minIndex]))
+            if(lastCollider) DisableOutline(lastCollider);
 
+            lastCollider = colliders[minIndex];
             EquipWeapon(minIndex);
         }
         else
         {
-            if(lastCollider)            // 아무것도 감지하지 않을 때 오브젝트의 아웃라인 끄기
-            {
-                outline = lastCollider.GetComponent<Outline>();
-                outline.enabled = false;
-                lastCollider = null;
-            }
+            if(lastCollider) DisableOutline(lastCollider);           // 아무것도 감지하지 않을 때 오브젝트의 아웃라인 끄기
+
+            lastCollider = null;
         }
     }
+
+    void DisableOutline(Collider collider)
+    {
+        outline = collider.GetComponent<Outline>();
+        outline.enabled = false;
+    }    
 
     // 감지한 무기 G 키를 눌러 장착
     void EquipWeapon(int index)

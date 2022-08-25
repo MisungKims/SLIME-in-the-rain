@@ -19,6 +19,12 @@ public class Staff : Weapon
     protected EProjectileFlag projectileFlag;     // 생성할 투사체의 flag
     protected EProjectileFlag skillProjectileFlag;     // 생성할 스킬 투사체의 flag
 
+    //////// 룬
+    private Collider[] colliders;
+    private int monsterLayerMask;
+    private int minIndex = 0;
+    private float minDis;
+
     //////// 대시
     private Vector3 dashPos;
     private Vector3 offset;
@@ -30,17 +36,39 @@ public class Staff : Weapon
     // 평타
     protected override void AutoAttack()
     {
-        base.AutoAttack();
+        if (weaponRuneInfos[0].isActive)        // 유도 룬이 발동 중인지?
+        {
+            canLookAtMousePos = false; 
+            base.AutoAttack();
 
-        GetProjectile(projectileFlag, targetPos, false);
+            SetMissileProjectile(GetProjectile(projectileFlag, false));
+        }
+        else
+        {
+            canLookAtMousePos = true;
+            base.AutoAttack();
+
+            SetProjectileAngle(GetProjectile(projectileFlag, false));
+        }
     }
 
     // 스킬
     protected override void Skill()
     {
-        base.Skill();
+        if (weaponRuneInfos[0].isActive)        // 유도 룬이 발동 중인지?
+        {
+            canLookAtMousePos = false;
+            base.Skill();
 
-        GetProjectile(skillProjectileFlag, this.targetPos, true);
+            SetMissileProjectile(GetProjectile(skillProjectileFlag, true));
+        }
+        else
+        {
+            canLookAtMousePos = true;
+            base.Skill();
+
+            SetProjectileAngle(GetProjectile(skillProjectileFlag, true));
+        }
     }
 
     // 대시
@@ -59,9 +87,6 @@ public class Staff : Weapon
             dashPos = slimePos.position + slimePos.forward * dashDistance * Time.deltaTime;
             distance = Vector3.Distance(slimePos.position, dashPos);
 
-#if UNITY_EDITOR
-            Debug.DrawRay(slimePos.position + Vector3.up * 0.1f, slime.transform.forward * distance, Color.blue, 0.3f);
-#endif
             if (Physics.Raycast(slimePos.position + Vector3.up * 0.1f, slime.transform.forward, out RaycastHit hit, distance))
             {
                 if (hit.transform.gameObject.layer == 11) slimePos.position = hit.point - slimePos.forward * 0.5f;
@@ -75,28 +100,77 @@ public class Staff : Weapon
     }
 
     // 투사체 생성
-    public virtual void GetProjectile(EProjectileFlag flag, Vector3 targetPos, bool isSkill)
+    public virtual StaffProjectile GetProjectile(EProjectileFlag flag, bool isSkill)
     {
-        // 투사체 생성 뒤 마우스 방향을 바라봄
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
         projectile.isSkill = isSkill;
+
+        return projectile;
+    }
+
+    // 마우스 방향을 바라봄
+    protected void SetProjectileAngle(StaffProjectile projectile)
+    {
         projectile.transform.LookAt(targetPos);
         lookRot = projectile.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;
         projectile.transform.eulerAngles = lookRot;
+    }
+    
+    // 가까이 있는 적에게 유도
+    protected void SetMissileProjectile(StaffProjectile projectile)
+    {
+        Transform target = GetTarget();
 
-        MissileRune(projectile);        // 유도 투사체 룬을 가지고 있다면 사용
+        projectile.IsUseRune = true;
+        projectile.Target = target;
+
+        if(target != null)
+        {
+            SetSlimeAngle(target.position);
+
+            projectile.transform.LookAt(target);
+            lookRot = projectile.transform.eulerAngles;
+            lookRot.x = 0;
+            lookRot.z = 0;
+            projectile.transform.eulerAngles = lookRot;
+        }
+        else
+        {
+            LookAtMousePos();
+            SetProjectileAngle(projectile);
+        }
     }
 
-    // 유도 투사체 룬을 가지고 있다면 사용할 수 있도록
-    protected void MissileRune(StaffProjectile projectile)
+    // 제일 가까이 있는 타깃 찾기
+    private Transform GetTarget()
     {
-        if (weaponRuneInfos[0].isActive)
+        monsterLayerMask = 1 << LayerMask.NameToLayer("Monster");
+        colliders = Physics.OverlapSphere(transform.position, 30f, monsterLayerMask);
+
+        if (colliders.Length <= 0) return null;
+
+        minIndex = -1;
+        minDis = Mathf.Infinity;
+
+        for (int i = 0; i < colliders.Length; i++)
         {
-            projectile.IsUseRune = true;
-            projectile.Target = slime.target;
+            if (!colliders[i].GetComponent<Monster>().isDie)
+            {
+                distance = slime.GetDistance(colliders[i].transform);
+
+                if (minDis > distance)
+                {
+                    minDis = distance;
+                    minIndex = i;
+                }
+            }
         }
+
+        if (minIndex == -1) return null;
+
+        return colliders[minIndex].transform;
     }
     #endregion
 }

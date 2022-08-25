@@ -27,6 +27,9 @@ public class IceProjectile : StaffProjectile
     protected override void DoDamage(Collider other, bool isSkill)
     {
         Debug.Log(other.name);
+
+        HideProjectile(other);
+
         IDamage damagedObject = other.transform.GetComponent<IDamage>();
         if (damagedObject != null)
         {
