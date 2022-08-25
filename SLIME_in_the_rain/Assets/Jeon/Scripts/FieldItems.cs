@@ -34,62 +34,63 @@ public class FieldItems : PickUp
 
     #endregion
 
-    protected override IEnumerator DetectSlime()
-    {
-        slime = Slime.Instance;
-
-        // 슬라임과의 거리를 탐지
-        while (canDetect)
-        {
-            dir = (slime.transform.position - transform.position).normalized;
-
-            velocity = (velocity + acceleration * Time.deltaTime);      // 가속도
-
-            offset = slime.transform.position - transform.position;
-            distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
-
-            // 거리가 1과 같거나 작을 때 슬라임의 위치로 이동 (따라다님)
-            if (distance <= 1f)
-            {
-                // 무기는 인벤토리에 공간이 있을 때와 무기를 장착했을 때만 이동
-                if (item.itemType.Equals(ItemType.weapon) && !inventory.IsFull())
-                {
-                    if (!slime.currentWeapon) uIObjectPoolingManager.ShowNoWeaponText();            // 무기를 장착하지 않았을 때 텍스트를 보여줌
-                    else FollowSlime();
-                }
-                // 젤라틴은 인벤토리가 공간이 있을 때와, 공간이 없지만 인벤토리에 같은 것이 있을 때 움직임
-                else if (item.itemType.Equals(ItemType.gelatin))
-                {
-                    if (!inventory.IsFull()) FollowSlime();
-                    else if (isAlreadyGet()) FollowSlime();
-                    else uIObjectPoolingManager.ShowNoInventoryText();                                          // 인벤토리에 공간이 없을 때 텍스트를 보여줌
-                }
-            }
-            else
-            {
-                followTime = 0.2f;
-                velocity = 0.0f;
-            }
-            yield return null;
-        }
-    }
     #region 함수
     /// <summary>
     /// 아이템 획득
     /// </summary>
     public override void Get()
     {
-        AddInventory();
+        if (!inventory.getIng)
+        {
+            inventory.getIng = true;
+            if (inventory.items.Count < inventory.SlotCount) //인벤토리 공간 있을때
+            {
+                switch (item.itemType) //아이템 타입에 따라
+                {
+                    case ItemType.weapon:
+                        if (slime.currentWeapon == null)
+                        {
+                            uIObjectPoolingManager.ShowNoWeaponText();
+                            fullBag();
+                        }
+                        else
+                        {
+                            AddInventory();
+                        }
+                        break;
+                    case ItemType.gelatin:
+                        AddInventory();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (inventory.items.Count == inventory.SlotCount && item.itemType == ItemType.gelatin)
+            {
+                AddInventory();
+                if (!isFind)
+                {
+                    uIObjectPoolingManager.ShowNoInventoryText();
+                    fullBag();
+                }
+            }
+            else
+            {
+                uIObjectPoolingManager.ShowNoInventoryText();
+                fullBag();
+            }
+            inventory.getIng = false;
+        }
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
     }
+
 
     void addItem()
     {
         inventory.items.Add(item);
-
-        if (float.Parse(item.maxHp) > 0)
-        {
-            slime.statManager.AddHP(float.Parse(item.maxHp));
-        }
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }
@@ -177,11 +178,13 @@ public class FieldItems : PickUp
 
         isFind = false;
 
+
         for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i].itemName.Equals(item.itemName))
+            if (inventory.items[i].itemName == item.itemName)
             {
                 canDetect = false;
+                //inventory.items[i].itemCount++;
                 inventoryUI.slots[i].SetSlotCount();
                 isFind = true;
                 ObjectPoolingManager.Instance.Set(this.gameObject, flag);
@@ -191,62 +194,5 @@ public class FieldItems : PickUp
 
         return isFind;
     }
-
-    // 이 아이템이 인벤토리에 있는지?
-    private bool isAlreadyGet()
-    {
-        for (int i = 0; i < inventory.items.Count; i++)
-        {
-            if (inventory.items[i].itemName.Equals(item.itemName))
-                return true;
-        }
-
-        return false;
-    }
     #endregion
 }
-
-
-////////////////////////////////////
-/////if (!inventory.getIng)
-//{
-//    inventory.getIng = true;
-//    AddInventory();
-
-
-//    //if (!inventory.IsFull()) //인벤토리 공간 있을때
-//    //{
-//    //    AddInventory(); 
-
-//    //    //switch (item.itemType) //아이템 타입에 따라
-//    //    //{
-//    //    //    case ItemType.weapon:
-//    //    //        AddInventory();
-//    //    //        break;
-//    //    //    case ItemType.gelatin:
-//    //    //        AddInventory();
-//    //    //        break;
-//    //    //    default:
-//    //    //        break;
-//    //    //}
-//    //}
-//    //else if (inventory.items.Count == inventory.SlotCount && item.itemType == ItemType.gelatin)
-//    //{
-//    //    AddInventory();
-//    //    if (!isFind)
-//    //    {
-//    //        uIObjectPoolingManager.ShowNoInventoryText();
-//    //        fullBag();
-//    //    }
-//    //}
-//    //else
-//    //{
-//    //    uIObjectPoolingManager.ShowNoInventoryText();
-//    //    fullBag();
-//    //}
-//    inventory.getIng = false;
-//}
-//if (inventory.onChangedItem != null)
-//{
-//    inventory.onChangedItem.Invoke();
-//}

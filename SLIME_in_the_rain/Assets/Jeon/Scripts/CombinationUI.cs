@@ -29,43 +29,40 @@ public class CombinationUI : MonoBehaviour
             return;
         }
         instance = this;
-
-
     }
     [Header("Text")]
     public TextMeshProUGUI WarningTxt;
-    public TextMeshProUGUI gelatin1Txt;
-    public TextMeshProUGUI gelatin2Txt;
+    public TextMeshProUGUI gelatinLeftTxt;
+    public TextMeshProUGUI gelatinRightTxt;
     
     private Sprite lastComGelatin;
-    private Sprite lastGelatin1;
-    private Sprite lastGelatin2;
+    private Sprite lastgelatinLeft;
+    private Sprite lastgelatinRight;
     [Header("Image")]
     public Image ComGelatin;
-    public Image gelatin1;
-    public Image gelatin2;
+    public Image gelatinLeft;
+    public Image gelatinRight;
     
     public TMP_InputField countInputField;
     public GameObject input;
     private int countInput = 0;
     private int SelcetNum = -1;
 
-    public Item gelatin1It;
-    public Item gelatin2It;
+    public Item gelatinLeftIt;
+    public Item gelatinRightIt;
     public Item ComGelatinIt;
 
-    public int gelatin1Cont;
-    public int gelatin2Cont;
-    public int gelatin3Cont;
+    public int gelatinLeftCont;
+    public int gelatinRightCont;
+    public int gelatinResultCont;
 
 
-    private int slotNum1 = -1;
-    private int slotNum2 = -1;
+    private int slotLeft = -1;
+    private int slotRight = -1;
     Item SelectItem;
     bool firstSet = false;
     bool secondGelatin = false;
     bool secondCount = false;
-    bool sameGel = false;
 
     Inventory inventory;
 
@@ -77,8 +74,8 @@ public class CombinationUI : MonoBehaviour
         if (firstSet == false)
         {
             lastComGelatin = ComGelatin.sprite;
-            lastGelatin1 = gelatin1.sprite;
-            lastGelatin2 = gelatin2.sprite;
+            lastgelatinLeft = gelatinLeft.sprite;
+            lastgelatinRight = gelatinRight.sprite;
             firstSet = true;
         }
 
@@ -134,15 +131,15 @@ public class CombinationUI : MonoBehaviour
     {
         if (!secondCount)
         {
-            gelatin1Cont = _Count;
-            gelatin1Txt.text = gelatin1Cont.ToString();
+            gelatinLeftCont = _Count;
+            gelatinLeftTxt.text = gelatinLeftCont.ToString();
             
             secondCount = true;
         }
         else
         {
-            gelatin2Cont = _Count;
-            gelatin2Txt.text = gelatin2Cont.ToString();
+            gelatinRightCont = _Count;
+            gelatinRightTxt.text = gelatinRightCont.ToString();
             secondCount = false;
         }
     }
@@ -151,27 +148,27 @@ public class CombinationUI : MonoBehaviour
     {
         if(!secondGelatin)
         {
-            gelatin1It = SelectItem;
-            gelatin1.sprite = gelatin1It.itemIcon;
-            slotNum1 = SelcetNum;
+            gelatinLeftIt = SelectItem;
+            gelatinLeft.sprite = gelatinLeftIt.itemIcon;
+            slotLeft = SelcetNum;
             secondGelatin = true;
         }
         else
         {
-            gelatin2It = SelectItem;
-            gelatin2.sprite = gelatin2It.itemIcon;
-            slotNum2 = SelcetNum;
+            gelatinRightIt = SelectItem;
+            gelatinRight.sprite = gelatinRightIt.itemIcon;
+            slotRight = SelcetNum;
             secondGelatin = false;
         }
     }
-    public void WeaponDisGelatinAdd()//버튼 작동
+    public void combGelatinAdd()//버튼 작동
     {
-        if (gelatin1It != null && gelatin2It != null && gelatin1Cont >=0&& gelatin2Cont>=0)
+        if (gelatinLeftIt != null && gelatinRightIt != null && gelatinLeftCont >=0&& gelatinRightCont>=0)
         {
 
             if (inventory.SlotCount - inventory.items.Count >= 1)
             {
-                ComList(gelatin1It, gelatin1Cont, gelatin2It, gelatin2Cont);
+              StartCoroutine(ComList(gelatinLeftIt, gelatinLeftCont, gelatinRightIt, gelatinRightCont));
             }
 
             else
@@ -198,50 +195,47 @@ public class CombinationUI : MonoBehaviour
     private void init_Data() //리셋
     {
         ComGelatin.sprite = lastComGelatin;
-        gelatin1.sprite = lastGelatin1;
-        gelatin2.sprite = lastGelatin2;
+        gelatinLeft.sprite = lastgelatinLeft;
+        gelatinRight.sprite = lastgelatinRight;
 
         countInputField.transform.parent.gameObject.SetActive(false);
         countInput = 0;
-        gelatin1It = null;
-        gelatin2It = null;
-        gelatin1Cont = -1;
-        gelatin2Cont = -1;
-        gelatin3Cont = -1;
+        gelatinLeftIt = null;
+        gelatinRightIt = null;
+        gelatinLeftCont = -1;
+        gelatinRightCont = -1;
+        gelatinResultCont = -1;
         ComGelatinIt = null;
         SelcetNum = -1;
-        slotNum1 = -1;
-        slotNum2 = -1;
+        slotLeft = -1;
+        slotRight = -1;
         secondGelatin = false;
         secondCount = false;
-        sameGel = false;
-        gelatin1Txt.text = "";
-        gelatin2Txt.text = "";
+        gelatinLeftTxt.text = "";
+        gelatinRightTxt.text = "";
     }
 
-    public void inputEndCount(int _slotNum)
+    public void inputEndCount(int _slotNum) //개수 받기
     {
-
         countInputField.transform.parent.gameObject.SetActive(true);
 
         SelectItem = inventory.items[_slotNum];
         SelcetNum = _slotNum;
         GelatinCount();
-
     }
 
     #region 젤라틴조합리스트
-    void ComList(Item _gelatin1It,int _gelatin1Cont, Item _gelatin2It, int _gelatin2Cont)
+    IEnumerator ComList(Item _gelatinLeftIt,int _gelatinLeftCont, Item _gelatinRightIt, int _gelatinRightCont)
     {
-        string gelatin1St = _gelatin1It.itemName;
-        string gelatin2St = _gelatin2It.itemName;
+        string gelatinLeftSt = _gelatinLeftIt.itemName;
+        string gelatinRightSt = _gelatinRightIt.itemName;
 
-        switch (gelatin1St)
+        switch (gelatinLeftSt)
         {
             case "CyanGelatin":
-                if (_gelatin1Cont == _gelatin2Cont)
+                if (_gelatinLeftCont == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "YellowGelatin":
                             ComGelatinIt = Comb( "GreenGelatin");
@@ -260,9 +254,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "YellowGelatin":
-                if (_gelatin1Cont == _gelatin2Cont)
+                if (_gelatinLeftCont == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "CyanGelatin":
                             ComGelatinIt = Comb("GreenGelatin");
@@ -275,9 +269,9 @@ public class CombinationUI : MonoBehaviour
                             break;
                     }
                 }
-                else if ((_gelatin1Cont * 2) == _gelatin2Cont)
+                else if ((_gelatinLeftCont * 2) == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "GreenGelatin":
                             ComGelatinIt = Comb("LightGreenGelatin");
@@ -296,9 +290,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "MagentaGelatin":
-                if (_gelatin1Cont == _gelatin2Cont)
+                if (_gelatinLeftCont == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "CyanGelatin":
                             ComGelatinIt = Comb("BlueGelatin");
@@ -317,9 +311,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "RedGelatin":
-                if (_gelatin1Cont == _gelatin2Cont)
+                if (_gelatinLeftCont == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "BlueGelatin":
                             ComGelatinIt = Comb("PupleGelatin");
@@ -329,9 +323,9 @@ public class CombinationUI : MonoBehaviour
                             break;
                     }
                 }
-                else if (_gelatin1Cont ==(_gelatin2Cont *2))
+                else if (_gelatinLeftCont ==(_gelatinRightCont *2))
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "WhiteGelatin":
                             ComGelatinIt = Comb("PinkGelatin");
@@ -353,9 +347,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "GreenGelatin":
-                if (_gelatin1Cont == (_gelatin2Cont *2))
+                if (_gelatinLeftCont == (_gelatinRightCont *2))
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "YellowGelatin":
                             ComGelatinIt = Comb("LightGreenGelatin");
@@ -365,9 +359,9 @@ public class CombinationUI : MonoBehaviour
                             break;
                     }
                 }
-                else if ((_gelatin1Cont *2) == _gelatin2Cont)
+                else if ((_gelatinLeftCont *2) == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "RedGelatin":
                             ComGelatinIt = Comb("NavyGelatin");
@@ -383,9 +377,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "WhiteGelatin":
-                if ((_gelatin1Cont *2) == _gelatin2Cont)
+                if ((_gelatinLeftCont *2) == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "RedGelatin":
                             ComGelatinIt = Comb("PinkGelatin");
@@ -395,9 +389,9 @@ public class CombinationUI : MonoBehaviour
                             break;
                     }
                 }
-                else if ((_gelatin1Cont * 3) == _gelatin2Cont)
+                else if ((_gelatinLeftCont * 3) == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "BlueGelatin":
                             ComGelatinIt = Comb("SkyGelatin");
@@ -413,9 +407,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "BlueGelatin":
-                if (_gelatin1Cont == (_gelatin2Cont *3))
+                if (_gelatinLeftCont == (_gelatinRightCont *3))
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "WhiteGelatin":
                             ComGelatinIt = Comb("SkyGelatin");
@@ -425,9 +419,9 @@ public class CombinationUI : MonoBehaviour
                             break;
                     }
                 }
-                else if (_gelatin1Cont == _gelatin2Cont)
+                else if (_gelatinLeftCont == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "RedGelatin":
                             ComGelatinIt = Comb("PupleGelatin");
@@ -443,9 +437,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "NavyGelatin":
-                if (_gelatin1Cont == (_gelatin2Cont * 2))
+                if (_gelatinLeftCont == (_gelatinRightCont * 2))
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "PupleGelatin":
                             ComGelatinIt = Comb("BlackGelatin");
@@ -461,9 +455,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "PupleGelatin":
-                if (_gelatin1Cont == (_gelatin2Cont * 2))
+                if (_gelatinLeftCont == (_gelatinRightCont * 2))
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "LightGreenGelatin":
                             ComGelatinIt = Comb("GrayGelatin");
@@ -473,9 +467,9 @@ public class CombinationUI : MonoBehaviour
                             break;
                     }
                 }
-                else if ((_gelatin1Cont *2)== _gelatin2Cont)
+                else if ((_gelatinLeftCont *2)== _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "NavyGelatin":
                             ComGelatinIt = Comb("BlackGelatin");
@@ -491,9 +485,9 @@ public class CombinationUI : MonoBehaviour
                 }
                 break;
             case "LightGreenGelatin":
-                if ((_gelatin1Cont *2) == _gelatin2Cont)
+                if ((_gelatinLeftCont *2) == _gelatinRightCont)
                 {
-                    switch (gelatin2St)
+                    switch (gelatinRightSt)
                     {
                         case "PupleGelatin":
                             ComGelatinIt = Comb("GrayGelatin");
@@ -513,17 +507,17 @@ public class CombinationUI : MonoBehaviour
                 faildComb();
                 break;
         }
-        if (_gelatin1Cont >= _gelatin2Cont)
+        if (_gelatinLeftCont >= _gelatinRightCont)
         {
-            gelatin3Cont = _gelatin1Cont;
+            gelatinResultCont = _gelatinLeftCont;
         }
         else
         {
-            gelatin3Cont = _gelatin2Cont;
+            gelatinResultCont = _gelatinRightCont;
         }
-        if (ComGelatinIt != null && gelatin3Cont != -1)
+        if (ComGelatinIt != null && gelatinResultCont != -1)
         {
-            StartCoroutine(comok(_gelatin1Cont, _gelatin2Cont, gelatin3Cont));
+          yield return StartCoroutine(comok(_gelatinLeftCont, _gelatinRightCont, gelatinResultCont));
         }
         if (inventory.onChangedItem != null)
         {
@@ -531,27 +525,26 @@ public class CombinationUI : MonoBehaviour
         }
     }
 
-    IEnumerator comok(int _gelatin1Cont, int _gelatin2Cont , int _count)
+    IEnumerator comok(int _gelatinLeftCont, int _gelatinRightCont , int _count)
     {
         ComGelatin.sprite = ComGelatinIt.itemIcon;
-        StartCoroutine(Wt("젤라틴 합성 성공"));
+        //StartCoroutine(Wt("젤라틴 합성 성공"));
         yield return new WaitForSeconds(1.0f);
 
 
-        inventory.addItem(ComGelatinIt, _count);
+       /* inventory.addItem(ComGelatinIt, _count);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
-            if (inventory.items[i].itemName == gelatin1It.itemName)
+            if (inventory.items[i].itemName == gelatinLeftIt.itemName)
             {
-                inventory.items[i].itemCount -= _gelatin1Cont;
+                inventory.items[i].itemCount -= _gelatinLeftCont;
             }
-            else if (inventory.items[i].itemName == gelatin2It.itemName)
+            else if (inventory.items[i].itemName == gelatinRightIt.itemName)
             {
-                inventory.items[i].itemCount -= _gelatin2Cont;
+                inventory.items[i].itemCount -= _gelatinRightCont;
             }
-        }
-        InventoryUI.Instance.RedrawSlotUI();
+        }*/
         init_Data();
     }
 
@@ -560,23 +553,23 @@ public class CombinationUI : MonoBehaviour
     #endregion
     void faildComb()
     {
-        inventory.items[slotNum1].itemCount--;
-        inventory.items[slotNum2].itemCount--;
-        StartCoroutine(Wt("실패했습니다."));
-        init_Data();
+        inventory.items[slotLeft].itemCount--;
+        inventory.items[slotRight].itemCount--;
         if (inventory.onChangedItem != null)
         {
             inventory.onChangedItem.Invoke();
         }
+        init_Data();
+        StartCoroutine(Wt("실패했습니다."));
     }
 
 
     Item Comb(string flag)
     {
-        FieldItems tempGb;
+        Item tempGb;
         tempGb = ObjectPoolingManager.Instance.Get2(flag);
 
-        return tempGb.item;
+        return tempGb;
     }
 }
 

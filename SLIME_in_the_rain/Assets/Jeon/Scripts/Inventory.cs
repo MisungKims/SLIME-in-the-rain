@@ -25,8 +25,17 @@ public class Inventory : MonoBehaviour
 
     public delegate void OnChangedItem();
     public OnChangedItem onChangedItem;
-    
-   public List<Item> items = new List<Item>();
+
+    private List<Item> Items = new List<Item>();
+   public List<Item> items
+    {
+        get
+        { return Items; }
+        set
+        {
+            Items = value;
+        }
+    }
 
     private StatManager statManager;
 
@@ -52,7 +61,6 @@ public class Inventory : MonoBehaviour
         items.RemoveAt(_index);
         if (onChangedItem != null)
         {
-
         onChangedItem.Invoke();
         }
     }
@@ -65,7 +73,7 @@ public class Inventory : MonoBehaviour
         {
             if (items[i].itemCount <= 0)
             {
-                items.RemoveAt(i);
+                RemoveItem(i);
             }
         }
 
