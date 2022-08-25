@@ -546,6 +546,10 @@ public class CombinationUI : MonoBehaviour
             }
         }
         init_Data();
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
     }
 
 
@@ -561,6 +565,10 @@ public class CombinationUI : MonoBehaviour
         }
         init_Data();
         StartCoroutine(Wt("실패했습니다."));
+        if (inventory.onChangedItem != null)
+        {
+            inventory.onChangedItem.Invoke();
+        }
     }
 
 
