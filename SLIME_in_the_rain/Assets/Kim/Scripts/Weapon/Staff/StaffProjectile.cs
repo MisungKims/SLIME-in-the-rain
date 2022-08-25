@@ -24,13 +24,9 @@ public class StaffProjectile : Projectile
     protected override void Move()
     {
         if (isUseRune && target != null)          // 유도 룬 사용 시 타겟을 향해
-        {
-            transform.position = Vector3.MoveTowards(gameObject.transform.position, target.position, 0.1f);
-        }
+            transform.position = Vector3.MoveTowards(transform.position, target.position, 0.1f);
         else
-        {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
-        }
     }
     #endregion
 }

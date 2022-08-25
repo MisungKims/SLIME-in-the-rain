@@ -22,7 +22,7 @@ public class Bow : Weapon
     {
         base.Awake();
 
-        //weaponPos = transform.position;
+        canLookAtMousePos = true;
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);
         maxDashCoolTime = 2f;

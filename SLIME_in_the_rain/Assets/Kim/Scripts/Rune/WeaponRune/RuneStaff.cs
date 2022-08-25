@@ -10,11 +10,5 @@ using UnityEngine;
 
 public class RuneStaff : RuneWeapon
 {
-    #region 유니티 함수
 
-    #endregion
-
-    #region 함수
-
-    #endregion
 }

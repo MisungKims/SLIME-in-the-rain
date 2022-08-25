@@ -53,6 +53,7 @@ public class Weapon : MonoBehaviour
     protected Vector3 targetPos;
     protected Vector3 dir;
     private Vector3 rot;
+    protected bool canLookAtMousePos = true;
 
     // 대시
     public float dashCoolTime;
@@ -193,42 +194,28 @@ public class Weapon : MonoBehaviour
     // 마우스 클릭 위치를 바라봄
     public void LookAtMousePos()
     {
-        //Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
-
-        //RaycastHit hitResult;
-        //if (Physics.Raycast(ray, out hitResult))
-        //{
-        //    if (hitResult.transform.gameObject.layer == 8)
-        //        slime.target = hitResult.transform;        // 몬스터 레이어면 target을 설정 (유도 룬을 위해)
-        //    else slime.target = null;
-        //}
-        //else slime.target = null;
-
-        //hitPos = hitResult.point;
-        //hitPos.y = transform.position.y;
-        //targetPos = hitPos - transform.position;
-        //slime.transform.forward = targetPos;
-
-        ///////////////////////////////////////////
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
 
         int shootLayerMask = 1 << LayerMask.NameToLayer("Shoot");
         Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity, shootLayerMask);
 
-        slime.transform.LookAt(hit.point);
+        SetSlimeAngle(hit.point);
+        targetPos = hit.point;
+    }
+
+    // 슬라임의 각도를 조절
+    protected void SetSlimeAngle(Vector3 point)
+    {
+        slime.transform.LookAt(point);
         rot = slime.transform.eulerAngles;
         rot.x = 0;
         slime.transform.eulerAngles = rot;
-
-        targetPos = hit.point;
-
     }
 
     // 평타
     protected virtual void AutoAttack()
     {
-        LookAtMousePos();
+        if(canLookAtMousePos) LookAtMousePos();
         PlayAnim(AnimState.autoAttack);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
@@ -237,7 +224,7 @@ public class Weapon : MonoBehaviour
     // 스킬
     protected virtual void Skill()
     {
-        LookAtMousePos();
+        if (canLookAtMousePos) LookAtMousePos();
         PlayAnim(AnimState.skill);
 
         RuneManager.Instance.UseSkillRune();
