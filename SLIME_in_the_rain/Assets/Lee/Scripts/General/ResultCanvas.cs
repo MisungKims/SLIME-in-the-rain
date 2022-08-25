@@ -125,22 +125,21 @@ public class ResultCanvas : MapManager
 
         //결과 타이핑 
         textMeshArr[0] = stageText;
-        int stage = 5;
         int reachedStage = (sceneDesign.mapCounting - sceneDesign.bossLevel);
-        if (reachedStage % stage == 0)
+        if (reachedStage % sceneDesign.stageNum == 0)
         {
-            if (5 > reachedStage)
+            if (sceneDesign.s_nomal - 1 > reachedStage)
             {
-                stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + (reachedStage % stage).ToString();
+                stringArr[0] = "도달한 스테이지: " + (reachedStage / sceneDesign.stageNum).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
             }
             else
             {
-                stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + "Boss";
+                stringArr[0] = "도달한 스테이지: " + (reachedStage / sceneDesign.stageNum).ToString() + "-" + "Boss";
             }
         }
         else
         {
-            stringArr[0] = "도달한 스테이지: " + (reachedStage / stage).ToString() + "-" + (reachedStage % stage).ToString();
+            stringArr[0] = "도달한 스테이지: " + (reachedStage / sceneDesign.stageNum).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
         }
 
         textMeshArr[1] = playtimeText;

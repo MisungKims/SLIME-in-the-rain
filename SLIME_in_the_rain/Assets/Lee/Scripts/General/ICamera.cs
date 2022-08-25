@@ -104,7 +104,7 @@ public class ICamera : MonoBehaviour
     {
 
         vec3.x = slime.transform.position.x;
-        vec3.y = 8f;
+        vec3.y = 7.9f;
         vec3.z = slime.transform.position.z - 10f;
 
         Camera.main.transform.position = vec3;
@@ -115,7 +115,7 @@ public class ICamera : MonoBehaviour
     {
         slime.canMove = false;
         vec3.x = slime.transform.position.x - 7f;
-        vec3.y = 8f;
+        vec3.y = 9.1f;
         vec3.z = slime.transform.position.z - 10f;
         Camera.main.transform.position = vec3;
     }

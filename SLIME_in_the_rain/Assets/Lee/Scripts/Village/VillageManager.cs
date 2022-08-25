@@ -12,16 +12,10 @@ public class VillageManager : MapManager
 
     //cashing
     Slime slime;
-    StatManager statManager;
     JellyManager jellyManager;
-    RuneManager runeManager;
     SingletonManager singletonManager;
-
-    Inventory inventory;
-
-    ICamera _camera;
     SceneDesign sceneDesign;
-    SettingCanvas settingCanvas;
+    SoundManager sound;
     #endregion
 
     #region 유니티 라이프사이클
@@ -31,19 +25,18 @@ public class VillageManager : MapManager
         //singletons
         singletonManager = SingletonManager.Instance;
         slime = Slime.Instance;
-
-        statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
-        runeManager = RuneManager.Instance;
-
-        inventory = Inventory.Instance;
-
-        _camera = ICamera.Instance;
         sceneDesign = SceneDesign.Instance;
-        settingCanvas = SettingCanvas.Instance;
-        singletonManager.Init_Village();
-        StartCoroutine(Clear());
+        sound = SoundManager.Instance;
 
+        //소리: 배경음
+        sound.Play("Village", SoundManager.Sound.BGM);
+
+        //Init
+        singletonManager.Init_Village();
+        
+        //클리어 조건 정해줌
+        StartCoroutine(Clear());
     }
     IEnumerator Clear()
     {

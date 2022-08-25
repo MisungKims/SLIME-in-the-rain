@@ -46,7 +46,6 @@ public class PotalManager : MonoBehaviour
         inventoryUI = InventoryUI.Instance;
         statManager = StatManager.Instance;
 
-        Init();
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             _PotalCreate();
@@ -285,15 +284,6 @@ public class PotalManager : MonoBehaviour
         statManager.MultipleAttackRange(float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f);
         statManager.AddDefensePower(float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f);
         inventoryUI.ExpansionSlot(int.Parse(PlayerPrefs.GetString("InventorySlot" + "level")));
-    }
-
-    void Init()
-    {
-        sceneDesign.mapClear = false;
-        receiptCanvas.enabled = false;
-        potalMake = false;
-        doCollision = false;
-        doReceipt = true;
     }
 
 }

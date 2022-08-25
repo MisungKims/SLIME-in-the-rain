@@ -10,18 +10,16 @@ public class TitleManager : MonoBehaviour
     GameObject setting;
     //캐싱
     SettingCanvas settingCanvas;
-    SceneDesign sceneDesign;
-    RuneManager runeManager;
     SingletonManager singletonManager;
+    SoundManager sound;
 
 
     private void Start()
     {
         //singleton
         singletonManager = SingletonManager.Instance;
-        runeManager = RuneManager.Instance;
         settingCanvas = SettingCanvas.Instance;
-        sceneDesign = SceneDesign.Instance;
+        sound = SoundManager.Instance;
 
         singletonManager.Init_Title();
         setting = settingCanvas.transform.GetChild(0).gameObject;
@@ -31,6 +29,9 @@ public class TitleManager : MonoBehaviour
         buttons[i++].onClick.AddListener(delegate { StartButton(); });  //시작
         buttons[i++].onClick.AddListener(delegate { SettingButton(); });  //설정
         buttons[i++].onClick.AddListener(delegate { ExitGame(); });  //종료
+
+        //소리: 배경음
+        sound.Play("Title",SoundManager.Sound.BGM);
     }
 
     public void StartButton()

@@ -40,9 +40,9 @@ public class SceneDesign : MonoBehaviour
     public float Timer = 0f;
     public int jellyInit;
     public int bossLevel;
+    public int stageNum = 4;
 
     //private
-    int stageNum = 4;
     int bossCount;
     //발표용 변수
     int nomalCount = 0;
