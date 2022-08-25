@@ -591,6 +591,8 @@ public class Slime : MonoBehaviour
 
         PlayAnim(AnimState.die);
 
+        UIObjectPoolingManager.Instance.InitUI();
+
         life--;
         if (life <= 0) StartCoroutine(DieCoru());
         else StartCoroutine(Restart());
@@ -612,6 +614,8 @@ public class Slime : MonoBehaviour
         isDie = false;
         statManager.myStats.HP = statManager.myStats.maxHP * 0.5f;
         canMove = true;
+        UIObjectPoolingManager.Instance.slimeHpBarParent.SetActive(true);
+        // TODO : Monster의 hp bar를 null로 바꿔줘야 함
     }
 
     //// 데미지를 입음
