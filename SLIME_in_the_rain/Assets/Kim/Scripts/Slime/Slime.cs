@@ -26,6 +26,7 @@ public class Slime : MonoBehaviour
         }
     }
     #endregion
+
     public GameObject shootPlane;
     public int killCount = 0;
     public bool isDungeonStart = false;
@@ -551,9 +552,6 @@ public class Slime : MonoBehaviour
         currentWeapon = weapon;
         currentWeapon.gameObject.layer = 7;
         currentWeapon.GetComponent<Outline>().enabled = false;
-
-
-       shootPlane.transform.position = currentWeapon.weaponPos;
 
         // 무기의 위치 설정
         ObjectPoolingManager.Instance.Set(currentWeapon.transform.parent.gameObject, EObjectFlag.weapon);

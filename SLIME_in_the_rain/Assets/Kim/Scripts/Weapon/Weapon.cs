@@ -70,7 +70,9 @@ public class Weapon : MonoBehaviour
 
     protected StatManager statManager;
 
-   
+
+    //public Vector3 weaponPos;
+
 
     public GameObject go;
     public GameObject cube;
@@ -118,8 +120,6 @@ public class Weapon : MonoBehaviour
 
         ChangeWeapon();
     }
-
-    public Vector3 weaponPos;
 
     public void ChangeWeapon()
     {
@@ -211,17 +211,18 @@ public class Weapon : MonoBehaviour
 
         ///////////////////////////////////////////
 
-        Ray ray = GetCamera().ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         int shootLayerMask = 1 << LayerMask.NameToLayer("Shoot");
         Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity, shootLayerMask);
 
         slime.transform.LookAt(hit.point);
-        targetPos = hit.point;
         rot = slime.transform.eulerAngles;
         rot.x = 0;
         slime.transform.eulerAngles = rot;
-        
+
+        targetPos = hit.point;
+
     }
 
     // ÆòÅ¸
