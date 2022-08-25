@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7608006544007247196}
   m_Layer: 6
   m_Name: Sword
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,8 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  go: {fileID: 0}
+  cube: {fileID: 0}
   size: 0.65
 --- !u!114 &-292552373472322295
 MonoBehaviour:

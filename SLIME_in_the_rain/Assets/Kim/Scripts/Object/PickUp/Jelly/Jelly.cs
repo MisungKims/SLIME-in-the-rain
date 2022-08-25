@@ -25,7 +25,6 @@ public class Jelly : PickUp
         base.Awake();
 
         meshRenderer = GetComponent<MeshRenderer>();
-
         jellyManager = JellyManager.Instance;
     }
 
@@ -39,7 +38,7 @@ public class Jelly : PickUp
     #endregion
 
     #region 함수
-
+    // 젤리의 등급을 정함
     void InitJelly()
     {
         jellyGrade = JellyManager.Instance.GetRandomJelly();
@@ -54,6 +53,5 @@ public class Jelly : PickUp
 
         ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.jelly);       // 오브젝트 풀에 반환
     }
-
     #endregion
 }

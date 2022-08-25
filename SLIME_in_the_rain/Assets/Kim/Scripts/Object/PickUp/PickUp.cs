@@ -20,8 +20,10 @@ public abstract class PickUp : MonoBehaviour
     protected float distance;
     protected Vector3 dir;
     protected Vector3 targetPos;
-    private Vector3 offset;
-    private bool isDetect = false;
+    protected Vector3 offset;
+    protected bool isDetect = false;
+
+    protected float followTime = 0.2f;
     #endregion
 
     #region 유니티 함수
@@ -42,7 +44,7 @@ public abstract class PickUp : MonoBehaviour
     /// 슬라임 탐지 코루틴
     /// </summary>
     /// <returns></returns>
-    IEnumerator DetectSlime()
+    protected virtual IEnumerator DetectSlime()
     {
         slime = Slime.Instance;
 
@@ -57,22 +59,10 @@ public abstract class PickUp : MonoBehaviour
             distance = offset.sqrMagnitude;                             // 젤리와 슬라임 사이의 거리
 
             // 거리가 1과 같거나 작을 때 슬라임의 위치로 이동 (따라다님)
-            if (distance <= 1f)
-            {
-                if (!isDetect) isDetect = true;
-
-                targetPos = Vector3.zero;
-                targetPos.x = transform.position.x + (dir.x * velocity);
-                targetPos.y = transform.position.y;
-                targetPos.z = transform.position.z + (dir.z * velocity);
-
-                transform.position = targetPos;
-
-                // 거리가 많이 가까울 때 아이템 획득
-                if (distance < 0.5f) Get();
-            }
+            if (distance <= 1f) FollowSlime();
             else
             {
+                followTime = 0.2f;
                 velocity = 0.0f;
             }
 
@@ -82,9 +72,23 @@ public abstract class PickUp : MonoBehaviour
     #endregion
 
     #region 함수
+    // 슬라임을 따라다님
+    protected void FollowSlime()
+    {
+        if (!isDetect) isDetect = true;
 
+        targetPos = Vector3.zero;
+        targetPos.x = transform.position.x + (dir.x * velocity);
+        targetPos.y = transform.position.y;
+        targetPos.z = transform.position.z + (dir.z * velocity);
+
+        transform.position = targetPos;
+
+        // 0.2초 뒤에 아이템 획득
+        followTime -= Time.deltaTime;
+        if (followTime < 0) Get();
+    }
     // 아이템 획득
     public abstract void Get();
-
     #endregion
 }
