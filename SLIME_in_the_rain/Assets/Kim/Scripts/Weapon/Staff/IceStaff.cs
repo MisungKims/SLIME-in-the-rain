@@ -15,7 +15,7 @@ public class IceStaff : Staff
     {
         base.Awake();
 
-        weaponPos = projectilePos.position;
+        //weaponPos = projectilePos.position + Vector3.up * 2f;
         weaponType = EWeaponType.iceStaff;
         projectileFlag = EProjectileFlag.ice;
         skillProjectileFlag = EProjectileFlag.iceSkill;

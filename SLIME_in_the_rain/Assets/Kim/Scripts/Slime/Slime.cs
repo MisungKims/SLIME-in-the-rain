@@ -26,6 +26,7 @@ public class Slime : MonoBehaviour
         }
     }
     #endregion
+
     public GameObject shootPlane;
     public int killCount = 0;
     public bool isDungeonStart = false;

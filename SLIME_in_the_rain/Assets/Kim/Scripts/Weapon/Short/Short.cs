@@ -29,7 +29,7 @@ public class Short : Weapon
         DoDamage(false);
 
         // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(targetPos, false, EProjectileFlag.slash);
+        Missile(false, EProjectileFlag.slash);
     }
 
     // 오브젝트를 공격하면 데미지를 입힘
@@ -48,9 +48,9 @@ public class Short : Weapon
     }
 
     // 검기 발사
-    protected void Missile(Vector3 targetPos, bool isSkill, EProjectileFlag _flag)
+    protected void Missile(bool isSkill, EProjectileFlag _flag)
     {
-        if (weaponRuneInfos[1].isActive)       
+        if (weaponRuneInfos[1].isActive)
         {
             GameObject projectile = ObjectPoolingManager.Instance.Get(_flag, transform.position, Vector3.zero);
             projectile.GetComponent<Projectile>().isSkill = isSkill;

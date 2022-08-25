@@ -22,7 +22,7 @@ public class Bow : Weapon
     {
         base.Awake();
 
-        weaponPos = transform.position;
+        //weaponPos = transform.position;
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);
         maxDashCoolTime = 2f;
@@ -78,7 +78,7 @@ public class Bow : Weapon
         Arrow arrow = ObjectPoolingManager.Instance.Get(EProjectileFlag.arrow, transform.position, Vector3.zero).GetComponent<Arrow>();
         if (weaponRuneInfos[0].isActive) arrow.IsPenetrate = true;       // 룬을 가지고 있다면 관통 화살
 
-        arrow.transform.LookAt(this.targetPos);
+        arrow.transform.LookAt(targetPos);
         lookRot = arrow.transform.eulerAngles;
         lookRot.x = 0;
         lookRot.z = 0;

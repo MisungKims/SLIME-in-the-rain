@@ -25,7 +25,7 @@ public class Sword : Short
     {
         base.Awake();
 
-        weaponPos = transform.position;
+        //weaponPos = transform.position + Vector3.up;
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;
         maxDashCoolTime = 1f;
@@ -78,7 +78,7 @@ public class Sword : Short
         DoSkillDamage();
 
         // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(targetPos, true, EProjectileFlag.slash);
+        Missile(true, EProjectileFlag.slash);
     }
 
 

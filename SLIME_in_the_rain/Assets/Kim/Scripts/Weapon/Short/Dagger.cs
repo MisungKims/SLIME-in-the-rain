@@ -29,7 +29,7 @@ public class Dagger : Short
     {
         base.Awake();
 
-        weaponPos = transform.position;
+        //weaponPos = transform.position + Vector3.up;
         weaponType = EWeaponType.dagger;
         angle = new Vector3(90f, 0, 90f);
         maxDashCoolTime = 0.5f;
