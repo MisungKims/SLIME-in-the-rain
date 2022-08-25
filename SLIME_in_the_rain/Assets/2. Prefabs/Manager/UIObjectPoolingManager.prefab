@@ -523,6 +523,7 @@ MonoBehaviour:
   - copyObj: {fileID: 1146899958158517861, guid: 32ac42eb6039dbd46a8ff67e5a3be88b, type: 3}
     parent: {fileID: 1622678083358713066}
     initCount: 15
+  slimeHpBarParent: {fileID: 0}
   hpSlime: {fileID: 5501829311979917062}
   stunText: {fileID: 4507553687463553479}
   noInventoryText: {fileID: 4846246490763207139}
@@ -866,6 +867,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7371503468587392628, guid: 5770e7b67cb6a994e9c3d4dd425f00f5, type: 3}
+      propertyPath: idleTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5770e7b67cb6a994e9c3d4dd425f00f5, type: 3}
 --- !u!224 &3238652083275953181 stripped
@@ -983,6 +988,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8970028952542694248, guid: 37ab264153b254c43a195acd7a9dc210, type: 3}
+      propertyPath: idleTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37ab264153b254c43a195acd7a9dc210, type: 3}
 --- !u!224 &3717661430300583493 stripped
@@ -1008,6 +1017,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7614506753951923303}
     m_Modifications:
+    - target: {fileID: 1259936128238161885, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
+      propertyPath: idleTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259936128238161885, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
+      propertyPath: fadeOutSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2186699252502169332, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
       propertyPath: m_Name
       value: NoWeaponText
@@ -1101,6 +1118,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6057596616471713316, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
+      propertyPath: m_text
+      value: "G\uD0A4\uB97C \uB20C\uB7EC \uBB34\uAE30 \uC7A5\uCC29"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057596616471713316, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
       propertyPath: m_fontSize
       value: 32
       objectReference: {fileID: 0}
@@ -1115,10 +1136,10 @@ PrefabInstance:
     - target: {fileID: 6057596616471713316, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 6382057664037885324, guid: 7f99ae80e7210134b93641e817267651, type: 2}
+      objectReference: {fileID: 8744718372781633332, guid: 6c33582d93d54494ba7e7d8de180d612, type: 2}
     - target: {fileID: 6057596616471713316, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
       propertyPath: m_hasFontAssetChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e6309a26e757594bbddb38d2b9c8eb1, type: 3}
@@ -1236,6 +1257,10 @@ PrefabInstance:
     - target: {fileID: 3242115232683396647, guid: aa5a9fd160dbddb42bf199565efa7cea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4849565122029116377, guid: aa5a9fd160dbddb42bf199565efa7cea, type: 3}
+      propertyPath: idleTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5a9fd160dbddb42bf199565efa7cea, type: 3}
