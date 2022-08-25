@@ -316,7 +316,6 @@ public class StatManager : MonoBehaviour
     }
 
 
-
     public void AddGelatinMaxHP(float amount)
     {
         gelatinStat.maxHP = amount;

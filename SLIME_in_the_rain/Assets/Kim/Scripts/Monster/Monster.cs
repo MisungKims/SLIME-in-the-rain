@@ -444,19 +444,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         StartCoroutine(DieCoroutine());
     }
 
-    public void monsterDrop(int _round, int _range1, int _range2, Vector3 _pos)//아이템 드롭 -> 추후 몹, 오브젝트 잡았을때 랜덤값으로 출력되게 , 오브젝트 풀링 이랑 같이 사용하면 될듯
-    {
-        int count = Random.Range(0, _round + 1);
-        float ranRAddPos = Random.Range(0, 0.1f);
-        float ranFAddPos = Random.Range(0, 0.1f);
-        for (int i = 0; i < count; i++)
-        {
-            Item item = ItemDatabase.Instance.AllitemDB[Random.Range(_range1, _range2)];
-            Vector3 itemPos = _pos + (Vector3.right * ranRAddPos) + (Vector3.forward * ranFAddPos);
-            objectPoolingManager.GetFieldItem(item, itemPos);
-        }
-    }
-
     // 데미지를 입음
     bool HaveDamage(float damage)
     {
