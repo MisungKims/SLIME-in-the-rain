@@ -28,7 +28,7 @@ public class GetMoneyMap : MapManager
     #endregion
 
     private int jellyIndex = (int)EObjectFlag.jelly;
-    private int gelatinIndex = (int)EObjectFlag.gelatin;
+    //private int gelatinIndex = (int)EObjectFlag.gelatin;
    // private int randObj;
 
     [Header("-------------- Get Money Map")]
