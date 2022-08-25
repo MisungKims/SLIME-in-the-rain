@@ -160,6 +160,7 @@ public class Slime : MonoBehaviour
         SetCanAttack();
 
         stat = statManager.myStats;
+        stat.HP = 100;
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
@@ -216,7 +217,7 @@ public class Slime : MonoBehaviour
 
                 if(currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
 
-                yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
+                yield return new WaitForSeconds(2 - statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
                 isAttacking = false;
             }
@@ -410,7 +411,7 @@ public class Slime : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
 
-           if (!isFrontWall)  transform.position += direction * statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
+           if (!isFrontWall)  transform.position +=  direction *2.0f* statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {

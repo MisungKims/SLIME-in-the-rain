@@ -66,10 +66,12 @@ public class StatManager : MonoBehaviour
         InitStats();
     }
 
+
     private void Start()
     {
         slime = Slime.Instance;
         ChangeStats();
+        AddHP(myStats.maxHP);
     }
     #endregion
 
@@ -124,7 +126,7 @@ public class StatManager : MonoBehaviour
         maxStat(myStats.moveSpeed, weaponStat.moveSpeed);
 
         UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
-        UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
+        //UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 
     private void maxStat( float _myStat, float _weaponStat)//최대 범위제한
