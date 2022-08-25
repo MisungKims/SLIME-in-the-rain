@@ -221,11 +221,11 @@ public class StatManager : MonoBehaviour
         currentWeapon = slime.currentWeapon;
         if (currentWeapon)
         {
-            myStats.attackRange = currentWeapon.stats.attackRange * (extraStats.attackRange + gelatinStat.attackPower);
+            myStats.attackRange = currentWeapon.stats.attackRange * (extraStats.attackRange + gelatinStat.attackRange);
         }
         else
         {
-            myStats.attackRange = originStats.attackRange * (extraStats.attackRange + gelatinStat.attackPower);
+            myStats.attackRange = originStats.attackRange * (extraStats.attackRange + gelatinStat.attackRange);
         }
     }
 
