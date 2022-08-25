@@ -28,7 +28,7 @@ public class GetMoneyMap : MapManager
     #endregion
 
     private int jellyIndex = (int)EObjectFlag.jelly;
-    //private int gelatinIndex = (int)EObjectFlag.gelatin;
+    private int gelatinIndex = (int)EObjectFlag.gelatin;
    // private int randObj;
 
     [Header("-------------- Get Money Map")]
@@ -78,7 +78,6 @@ public class GetMoneyMap : MapManager
         InitObject();
     }
 
-
     #region ÄÚ·çÆ¾
     private IEnumerator Start()
     {
@@ -119,6 +118,7 @@ public class GetMoneyMap : MapManager
                 RandomPosition.GetRandomNavPoint(Vector3.zero, 10, out randPos);
                 randPos.y = 2.5f;
                 objectPoolingManager.Get((EObjectFlag)jellyIndex, randPos);
+                //objectPoolingManager.Get((EObjectFlag)Random.Range(jellyIndex, gelatinIndex + 1), randPos);
             }
 
             yield return new WaitForSeconds(Random.Range(1f, 2f));

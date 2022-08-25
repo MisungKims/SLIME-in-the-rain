@@ -18,20 +18,19 @@ public class FadeOutText : MonoBehaviour
 
     public bool isAgain;       // 다시 페이드 아웃 해야하는지?
 
-    private WaitForSeconds waitFor1s = new WaitForSeconds(1);
+    private WaitForSeconds waitForTime;
 
     [SerializeField]
-    private float idleTime = 0f;
-
-    //public TextMeshProUGUI textMesh;
-
+    private float idleTime = 1f;
+    [SerializeField]
+    private float fadeOutSpeed = 1.5f;
     #endregion
 
     #region 유니티 함수
     protected virtual void Awake()
     {
         material = GetComponent<TextMeshProUGUI>().fontMaterial;
-        //textMesh = GetComponent<TextMeshProUGUI>();
+        waitForTime = new WaitForSeconds(idleTime);
     }
 
     protected virtual void OnEnable()
@@ -46,8 +45,8 @@ public class FadeOutText : MonoBehaviour
     {
         material.SetColor("_FaceColor", Color.Lerp(Color.clear, Color.white, 1));
 
-        if (idleTime <= 0) yield return waitFor1s;
-        else yield return new WaitForSeconds(idleTime);
+        if (idleTime > 0) yield return waitForTime;
+        Debug.Log(idleTime);
 
         alpha = 1;
         while (alpha > 0)
@@ -58,14 +57,14 @@ public class FadeOutText : MonoBehaviour
                 isAgain = false;
                 material.SetColor("_FaceColor", Color.Lerp(Color.clear, Color.white, alpha));
 
-                yield return waitFor1s;
+                yield return waitForTime;
             }
 
             material.SetColor("_FaceColor", Color.Lerp(Color.clear, Color.white, alpha));
 
             yield return null;
 
-            alpha -= Time.deltaTime * 1.5f;
+            alpha -= Time.deltaTime * fadeOutSpeed;
         }
     }
 

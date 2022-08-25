@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3096576723380205761}
   m_Layer: 6
   m_Name: Bow
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,6 +74,7 @@ MonoBehaviour:
   maxDashCoolTime: 0
   isCanSkill: 1
   go: {fileID: 8948131283797835449}
+  cube: {fileID: 0}
 --- !u!114 &-4776996841089971269
 MonoBehaviour:
   m_ObjectHideFlags: 0

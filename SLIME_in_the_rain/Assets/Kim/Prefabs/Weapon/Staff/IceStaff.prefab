@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5914430299525577833}
   m_Layer: 6
   m_Name: IceStaff
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,6 +75,8 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  go: {fileID: 0}
+  cube: {fileID: 0}
   projectilePos: {fileID: 8885171396042535961}
 --- !u!114 &6526378493386958202
 MonoBehaviour:

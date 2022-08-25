@@ -457,18 +457,19 @@ public class Slime : MonoBehaviour
     void DetectWeapon()
     {
         if (isDie) return;
-
+        
         colliders = Physics.OverlapSphere(transform.position, detectRadius, weaponLayer);
 
         if (colliders.Length == 1)      // 감지한 무기가 한 개일 때
         {
+            if (lastCollider) DisableOutline(lastCollider);
             lastCollider = colliders[0];
+
             EquipWeapon(0);
         }
         else if (colliders.Length > 1)
         {
             // 감지한 무기들 중 제일 가까운 거리에 있는 무기를 장착
-
             int minIndex = -1;
             float minDis = Mathf.Infinity;
 
@@ -483,9 +484,7 @@ public class Slime : MonoBehaviour
                 }
             }
 
-            // Outline을 꺼야하는 오브젝트는 끔
-            //if(lastCollider && !lastCollider.Equals(colliders[minIndex]))
-            if(lastCollider) DisableOutline(lastCollider);
+            if(lastCollider) DisableOutline(lastCollider);              // 이전의 무기는 아웃라인을 끔
 
             lastCollider = colliders[minIndex];
             EquipWeapon(minIndex);
