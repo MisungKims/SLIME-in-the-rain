@@ -121,5 +121,15 @@ public class DungeonManager : MapManager
             ClearMap();
         }
     }
+
+
+    // 필드에 있는 모든 몬스터의 HP Bar를 풀링에 집어넣기
+    public void SetMonsterHPBar()
+    {
+        for (int i = 0; i < monsters.Count; i++)
+        {
+            monsters[i].HideHPBar();
+        }
+    }
     #endregion
 }

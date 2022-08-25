@@ -35,7 +35,7 @@ public class Boss : Monster
     private int minJellyCnt = 8;
     private int maxJellyCnt = 15;
 
-    private GameObject jelly;
+    //private GameObject jelly;
     private Vector3 jellyPos;
 
     // 캐싱
@@ -96,7 +96,7 @@ public class Boss : Monster
 
     #region 함수
     // HP바 세팅
-    protected void SetHPBar()
+    public void SetHPBar()
     {
         if (!hpBar.gameObject.activeSelf)
         {

@@ -356,7 +356,7 @@ public class Slime : MonoBehaviour
         {
             if (isInWater)
             {
-                stat.HP -= decreaseHPAmount;
+                statManager.AddHP(-decreaseHPAmount);
 
                 uIObjectPoolingManager.ShowInWaterText();
 
@@ -591,6 +591,11 @@ public class Slime : MonoBehaviour
 
         PlayAnim(AnimState.die);
 
+        if (DungeonManager.Instance) DungeonManager.Instance.SetMonsterHPBar();
+        else if (BossMapManager.Instance) BossMapManager.Instance.SetMonsterHPBar();
+
+        UIObjectPoolingManager.Instance.InitUI();
+
         life--;
         if (life <= 0) StartCoroutine(DieCoru());
         else StartCoroutine(Restart());
@@ -612,6 +617,10 @@ public class Slime : MonoBehaviour
         isDie = false;
         statManager.myStats.HP = statManager.myStats.maxHP * 0.5f;
         canMove = true;
+
+        if (BossMapManager.Instance) BossMapManager.Instance.ShowBossHPBar();
+
+        UIObjectPoolingManager.Instance.slimeHpBarParent.SetActive(true);
     }
 
     //// 데미지를 입음

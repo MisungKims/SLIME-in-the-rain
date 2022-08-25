@@ -309,8 +309,8 @@ public class StatManager : MonoBehaviour
     // Ω∫≈» √ ±‚»≠
     public void InitStats()
     {
-        originStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
-        myStats = new Stats(100, 100, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        originStats = new Stats(100, 100, 1f, 1.3f, 1f, 1f, 1f, 1f, 1, 0);
+        myStats = new Stats(100, 100, 1f, 1.3f, 1f, 1f, 1f, 1f, 1, 0);
         extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
         gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 1, 0);
     }
@@ -330,6 +330,8 @@ public class StatManager : MonoBehaviour
         {
             myStats.maxHP = originStats.maxHP + extraStats.maxHP + gelatinStat.maxHP;
         }
+
+        UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
     }
 
 
@@ -446,6 +448,8 @@ public class StatManager : MonoBehaviour
         {
             myStats.HP = sum;
         }
+
+        UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 
 }

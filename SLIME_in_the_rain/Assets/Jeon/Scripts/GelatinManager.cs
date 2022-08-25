@@ -54,8 +54,6 @@ public class GelatinManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {

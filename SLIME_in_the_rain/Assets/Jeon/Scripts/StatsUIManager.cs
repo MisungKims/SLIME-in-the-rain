@@ -52,8 +52,6 @@ public class StatsUIManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
-
-            DontDestroyOnLoad(this.gameObject);
         }
         else
         {

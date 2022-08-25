@@ -50,7 +50,7 @@ public class LifePanel : MonoBehaviour
             lifeImages[i].GetComponent<RectTransform>().anchoredPosition = positionArrays[life - 1].positions[i];
         }
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         // ¸¶Áö¸· »ý¸íÀº ±ôºý °Å¸®´Ù ²¨Áü
         for (int i = 0; i < 4; i++)
@@ -77,7 +77,7 @@ public class LifePanel : MonoBehaviour
         }
         statManager.myStats.HP = statManager.myStats.maxHP * 0.5f;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         canvas.enabled = false;
     }
