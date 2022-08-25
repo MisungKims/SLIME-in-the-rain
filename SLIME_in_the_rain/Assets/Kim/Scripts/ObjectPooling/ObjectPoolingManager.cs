@@ -358,32 +358,16 @@ public class ObjectPoolingManager : MonoBehaviour
     }
 
 
-    public FieldItems Get2(string type)
+    public Item Get2(string type)
     {
-        GameObject tempGb;
-
-        if (objectPoolingList[2].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
-        {
-            tempGb = objectPoolingList[2].queue.Dequeue();
-            tempGb.SetActive(true);
-        }
-        else         // 큐에 더이상 없으면 새로 생성
-        {
-            tempGb = GameObject.Instantiate(objectPoolingList[2].copyObj, objectPoolingList[2].parent.transform);
-        }
-
-        FieldItems tempfield;
-        tempfield = tempGb.GetComponent<FieldItems>();
-
         for (int i = 0; i < ItemDatabase.Instance.AllitemDB.Count; i++)
         {
             if (ItemDatabase.Instance.AllitemDB[i].itemName == type)
             {
-                tempfield.SetItemPool(ItemDatabase.Instance.AllitemDB[i]);
+                return ItemDatabase.Instance.AllitemDB[i];
             }
         }
-
-        return tempfield;
+        return null;
     }
 
 
