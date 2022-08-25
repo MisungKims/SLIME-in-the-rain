@@ -330,6 +330,8 @@ public class StatManager : MonoBehaviour
         {
             myStats.maxHP = originStats.maxHP + extraStats.maxHP + gelatinStat.maxHP;
         }
+
+        UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
     }
 
 
@@ -446,6 +448,8 @@ public class StatManager : MonoBehaviour
         {
             myStats.HP = sum;
         }
+
+        UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 
 }

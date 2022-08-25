@@ -28,7 +28,10 @@ public class MapManager : MonoBehaviour
         slime.transform.position = slimeSpawnPos.position;
         slime.SetCanAttack();
 
-        UIObjectPoolingManager.Instance.SetHealthBarCanvas();
+        UIObjectPoolingManager uIObjectPoolingManager = UIObjectPoolingManager.Instance;
+        uIObjectPoolingManager.SetHealthBarCanvas();
+        uIObjectPoolingManager.InitUI();
+        uIObjectPoolingManager.slimeHpBarParent.SetActive(true);
     }
 
     // TODO:
@@ -37,4 +40,5 @@ public class MapManager : MonoBehaviour
     {
        SceneDesign.Instance.mapClear = true;
     }
+
 }
