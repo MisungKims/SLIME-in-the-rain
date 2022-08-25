@@ -118,7 +118,13 @@ public class Inventory : MonoBehaviour
         else
         {
             items.Add(_item);
-            items[items.Count - 1].itemCount = _addCount;
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].itemName == _item.itemName)
+                {
+                    items[i].itemCount = _addCount;
+                }
+            }
         }
 
         if (onChangedItem != null)

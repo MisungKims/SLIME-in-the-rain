@@ -79,7 +79,7 @@ public class DissolutionUI : MonoBehaviour
 
     private void OnDisable()
     {
-        ResetData();
+        init_Data();
     }
 
 
@@ -205,7 +205,7 @@ public class DissolutionUI : MonoBehaviour
                 if (slotNum >= 0)
                 {
                     Inventory.Instance.RemoveItem(slotNum);
-                    ResetData();
+                    init_Data();
                     if (inventory.onChangedItem != null)
                     {
                         inventory.onChangedItem.Invoke();
@@ -246,7 +246,7 @@ public class DissolutionUI : MonoBehaviour
         WarningTxt.gameObject.SetActive(false);
     }
 
-    private void ResetData()
+    private void init_Data()
     {
         sameIndex = 0;
         sameIndex1 = -1;
