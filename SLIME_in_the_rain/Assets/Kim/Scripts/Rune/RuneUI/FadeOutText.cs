@@ -46,7 +46,6 @@ public class FadeOutText : MonoBehaviour
         material.SetColor("_FaceColor", Color.Lerp(Color.clear, Color.white, 1));
 
         if (idleTime > 0) yield return waitForTime;
-        Debug.Log(idleTime);
 
         alpha = 1;
         while (alpha > 0)
