@@ -289,8 +289,6 @@ public class Minimap : MonoBehaviour
 
         miniMapObjectDic.Add(obj, newIcon);
 
-        Debug.Log(obj.transform.parent.name);
-
         if (obj.CompareTag("Slime"))
         {
             slimeObj = obj;
