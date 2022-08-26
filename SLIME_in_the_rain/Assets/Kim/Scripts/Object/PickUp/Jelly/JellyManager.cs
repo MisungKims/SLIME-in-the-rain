@@ -15,6 +15,7 @@ public class JellyGrade
     public Material mat;
     public int weight;
     public int jellyAmount;
+    public Color textColor;
 }
 
 public class JellyManager : MonoBehaviour
@@ -98,8 +99,12 @@ public class JellyManager : MonoBehaviour
     }
     
     // Á©¸® È¹µæ Å×½ºÆ® ¼³Á¤
-    public void GetJelly(int value)
+    public void GetJelly(Jelly jelly)
     {
+        JellyGrade jellyGrade = jelly.jellyGrade;
+        int value = jellyGrade.jellyAmount;
+        Color color = jellyGrade.textColor;
+
         stringBuilder.Clear();
         stringBuilder.Append("+");
         stringBuilder.Append(value);
@@ -107,6 +112,7 @@ public class JellyManager : MonoBehaviour
 
         text = UIObjectPoolingManager.Instance.Get(EUIFlag.jellyAmountText).GetComponent<FadeOutText>();
         text.SetText(stringBuilder.ToString());
+        text.SetColor(color);
 
         textTransform = text.GetComponent<RectTransform>();
         textPos = textTransform.anchoredPosition;
@@ -114,6 +120,8 @@ public class JellyManager : MonoBehaviour
         textTransform.anchoredPosition = textPos;
 
         JellyCount += value;
+
+
     }
     #endregion
 }

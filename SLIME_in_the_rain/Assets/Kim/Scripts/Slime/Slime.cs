@@ -510,7 +510,9 @@ public class Slime : MonoBehaviour
         {
             outline = lastCollider.GetComponent<Outline>();
             outline.enabled = true;
-            UIObjectPoolingManager.Instance.ShowNoWeaponText(lastCollider.GetComponent<Weapon>().wName);            
+
+            if(lastCollider.GetComponent<Weapon>())
+                UIObjectPoolingManager.Instance.ShowNoWeaponText(lastCollider.GetComponent<Weapon>().wName);
         }
 
         
