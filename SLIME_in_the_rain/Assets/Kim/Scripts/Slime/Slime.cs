@@ -65,7 +65,7 @@ public class Slime : MonoBehaviour
     [SerializeField]
     private LayerMask weaponLayer;
 
-    private float detectRadius = 1.1f;      // 무기를 감지할 범위
+    private float detectRadius = 1f;      // 무기를 감지할 범위
 
     Collider[] colliders;
     Outline outline;
@@ -501,7 +501,7 @@ public class Slime : MonoBehaviour
     {
         outline = collider.GetComponent<Outline>();
         outline.enabled = false;
-    }    
+    }
 
     // 감지한 무기 G 키를 눌러 장착
     void EquipWeapon(int index)

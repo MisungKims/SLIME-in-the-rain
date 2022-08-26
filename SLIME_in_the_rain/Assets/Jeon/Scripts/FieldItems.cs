@@ -54,7 +54,7 @@ public class FieldItems : PickUp
                 // 무기는 인벤토리에 공간이 있을 때와 무기를 장착했을 때만 이동
                 if (item.itemType.Equals(ItemType.weapon) && !inventory.IsFull())
                 {
-                    if (!slime.currentWeapon) uIObjectPoolingManager.ShowNoWeaponText();            // 무기를 장착하지 않았을 때 텍스트를 보여줌
+                    if (!slime.currentWeapon) uIObjectPoolingManager.ShowNoWeaponText(item.itemExplain);            // 무기를 장착하지 않았을 때 텍스트를 보여줌
                     else FollowSlime();
                 }
                 // 젤라틴은 인벤토리가 공간이 있을 때와, 공간이 없지만 인벤토리에 같은 것이 있을 때 움직임
