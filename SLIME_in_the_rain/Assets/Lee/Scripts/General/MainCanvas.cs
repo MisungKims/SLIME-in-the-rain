@@ -187,7 +187,7 @@ public class MainCanvas : MonoBehaviour
         //무기 변환시 (새무기의 체력이랑 같을땐 그대로)
 
         //새무기의 체력이 더 높을시 -> 비율대로 체력을 넣음
-        if (beforeMaxHP < statManager.myStats.maxHP)
+        /*if (beforeMaxHP < statManager.myStats.maxHP)
         {
             statManager.myStats.HP = statManager.myStats.maxHP * (beforeHP / beforeMaxHP);
         }
@@ -200,7 +200,7 @@ public class MainCanvas : MonoBehaviour
         }
 
         beforeMaxHP = statManager.myStats.maxHP;
-        beforeHP = statManager.myStats.HP;
+        beforeHP = statManager.myStats.HP;*/
 
     }
 
