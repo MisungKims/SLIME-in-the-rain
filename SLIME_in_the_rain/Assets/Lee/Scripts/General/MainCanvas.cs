@@ -48,6 +48,9 @@ public class MainCanvas : MonoBehaviour
     //private
     float beforeMaxHP;
     float beforeHP;
+
+    [SerializeField]
+    private bool notShowCoolTime = false;       // 쿨타임 UI를 보여주지 않을건지?
     #endregion
 
     #region 유니티함수
@@ -75,7 +78,7 @@ public class MainCanvas : MonoBehaviour
         beforeMaxHP = statManager.myStats.maxHP;
         beforeHP = statManager.myStats.HP;
 
-        if(!slime.currentWeapon)
+        if(!slime.currentWeapon || notShowCoolTime)
         {
             skillCool.gameObject.SetActive(false);
             dashCool.gameObject.SetActive(false);
@@ -91,7 +94,7 @@ public class MainCanvas : MonoBehaviour
         hpSlime.maxValue = statManager.myStats.maxHP;
         hpSlime.value = statManager.myStats.HP;
         hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
-        if (slime.currentWeapon)
+        if (slime.currentWeapon && !notShowCoolTime)
         {
             //스킬 아이콘 꺼져있으면 켜주기
             if (!skillCool.gameObject.activeSelf)   skillCool.gameObject.SetActive(true);

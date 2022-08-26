@@ -374,7 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9155924871133365170}
   m_Layer: 5
-  m_Name: WeaponName
+  m_Name: JellyAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -559,6 +559,9 @@ MonoBehaviour:
   - copyObj: {fileID: 1146899958158517861, guid: 32ac42eb6039dbd46a8ff67e5a3be88b, type: 3}
     parent: {fileID: 1622678083358713066}
     initCount: 15
+  - copyObj: {fileID: 109465270521984461, guid: 5be313cecc9d7094d86b5d9efb5f6e60, type: 3}
+    parent: {fileID: 7083950070010162260}
+    initCount: 30
   slimeHpBarParent: {fileID: 0}
   hpSlime: {fileID: 5501829311979917062}
   stunText: {fileID: 4507553687463553479}

@@ -49,8 +49,8 @@ public class Jelly : PickUp
     // Á©¸® È¹µæ
     public override void Get()
     {
-        jellyManager.JellyCount += jellyAmount;
-
+        jellyManager.GetJelly(jellyAmount);
+       
         ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.jelly);       // ¿ÀºêÁ§Æ® Ç®¿¡ ¹ÝÈ¯
     }
     #endregion

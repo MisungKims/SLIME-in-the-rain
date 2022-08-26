@@ -7,7 +7,8 @@ using System.Text;
 public enum EUIFlag
 {
     damageText,
-    hpBar
+    hpBar,
+    jellyAmountText
 }
 
 public class UIObjectPoolingManager : MonoBehaviour

@@ -510,7 +510,10 @@ public class Slime : MonoBehaviour
         {
             outline = lastCollider.GetComponent<Outline>();
             outline.enabled = true;
+            UIObjectPoolingManager.Instance.ShowNoWeaponText(lastCollider.GetComponent<Weapon>().wName);            
         }
+
+        
 
         if (Input.GetKeyDown(KeyCode.G))
         {

@@ -10,6 +10,7 @@ using UnityEngine;
 
 public class UpText : FadeOutText
 {
+    [SerializeField]
     private float moveSpeed = 200f;
     protected UIObjectPoolingManager uiPoolingManager;
 
