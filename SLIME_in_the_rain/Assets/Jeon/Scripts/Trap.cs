@@ -21,6 +21,7 @@ public class Trap : MonoBehaviour
         if (other.CompareTag("Slime") && AvoidManager.Instance.isplay)
         {
             StartCoroutine(play(0.2f));
+            Slime.Instance.Damaged(-2f);
             Debug.Log("Damage");
         }
        

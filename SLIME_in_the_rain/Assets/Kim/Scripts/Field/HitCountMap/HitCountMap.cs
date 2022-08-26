@@ -69,6 +69,7 @@ public class HitCountMap : MapManager
             }
         }
     }
+    private bool spawnMonster = false;
 
     [Header("-------------- Description Text")]
     // 맵 설명 텍스트
@@ -231,6 +232,7 @@ public class HitCountMap : MapManager
     {
         Count = 0;
         isClear = false;
+        spawnMonster = false;
         npcSpeech1.SetActive(true);
         npcSpeech2.SetActive(false);
 
@@ -243,7 +245,11 @@ public class HitCountMap : MapManager
     // 카운트를 세는 텍스트를 설정
     void SetCountText()
     {
-        if (count == 1) StartCoroutine(SpawnMonster());
+        if(!spawnMonster)
+        {
+            StartCoroutine(SpawnMonster());
+            spawnMonster = true;
+        }
 
         sb.Clear();
         sb.Append(count.ToString());
