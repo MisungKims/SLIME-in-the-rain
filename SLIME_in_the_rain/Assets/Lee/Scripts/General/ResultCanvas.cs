@@ -23,17 +23,15 @@ public class ResultCanvas : MapManager
     //룬
     private Image[] runeImage;
 
-    Color color;
     float fadeInSpeed = 0.01f;
     float typingSpeed = 0.1f;
-    float waitTime = 2f;
 
     SingletonManager singletonManager;
     Slime slime;
     SceneDesign sceneDesign;
     JellyManager jellyManager;
     Inventory inventory;
-    ICamera _camera;
+    SoundManager sound;
 
 
     // Start is called before the first frame update
@@ -45,28 +43,29 @@ public class ResultCanvas : MapManager
         sceneDesign = SceneDesign.Instance;
         jellyManager = JellyManager.Instance;
         inventory = Inventory.Instance;
-        _camera = ICamera.Instance;
+        sound = SoundManager.Instance;
 
-
+        //Init
         singletonManager.Init_Result();
+        Init();
 
+        //소리: 배경음
+        if(sceneDesign.finalClear)
+        {
+            sound.Play("Clear", SoundManager.Sound.BGM);
+        }
+        else
+        {
+            sound.Play("Dead", SoundManager.Sound.BGM);
+        }
 
-
-
+        //룬 하나씩 보여주고싶음
         //for (int i = 0; i < runeImage.Length; i++)
         //{
         //    Color color = runeImage[i].color;
         //    color.a = 0;
         //    runeImage[i].color = color;
         //}
-
-        //초기화
-        titleText.text = "";
-        titleText.color = new Color32(255, 0, 0, 0);
-        stageText.text = "";
-        playtimeText.text = "";
-        killcountText.text = "";
-        jellycountText.text = "";
 
         //OnClick
         villageButton.onClick.AddListener(delegate { ClickButton(1); });
@@ -77,7 +76,17 @@ public class ResultCanvas : MapManager
         ResultGelatin();
 
     }
-
+    #region 함수, 코루틴 (플레이 기준으로 정렬함)
+    //0. 초기화
+    void Init()
+    {
+        titleText.text = "";
+        titleText.color = new Color32(255, 0, 0, 0);
+        stageText.text = "";
+        playtimeText.text = "";
+        killcountText.text = "";
+        jellycountText.text = "";
+    }
 
 
     //1. 타이틀
@@ -200,4 +209,5 @@ public class ResultCanvas : MapManager
             }
         }
     }
+    #endregion
 }

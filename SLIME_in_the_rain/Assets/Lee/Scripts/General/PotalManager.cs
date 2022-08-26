@@ -89,6 +89,7 @@ public class PotalManager : MonoBehaviour
                                 }
 
                                 Slime.Instance.canAttack = false;
+                                doReceipt = true;
                                 SetStat(ipotal.GetComponent<PotalCollider>().next);
                             }
                             else

@@ -34,11 +34,13 @@ public class MainCanvas : MonoBehaviour
     public TextMeshProUGUI hpText;
     [Header("젤리 Text")]
     public TextMeshProUGUI jellyText;
-    [Header(" ")]
+    [Header("스킬")]
     public Slider skillCool;
+    public Image skillImage;
     public TextMeshProUGUI skillText;
-    [Header(" ")]
+    [Header("대시")]
     public Slider dashCool;
+    public Image dashImage;
     public TextMeshProUGUI dashText;
     [Header("Dash")]
     public List<Sprite> dashSprite;
@@ -78,7 +80,7 @@ public class MainCanvas : MonoBehaviour
         beforeMaxHP = statManager.myStats.maxHP;
         beforeHP = statManager.myStats.HP;
 
-        if(!slime.currentWeapon || notShowCoolTime)
+        if (!slime.currentWeapon || notShowCoolTime)
         {
             skillCool.gameObject.SetActive(false);
             dashCool.gameObject.SetActive(false);
@@ -89,7 +91,7 @@ public class MainCanvas : MonoBehaviour
     void Update()
     {
         //HP 
-        hp.maxValue = statManager.myStats.maxHP;    
+        hp.maxValue = statManager.myStats.maxHP;
         hp.value = statManager.myStats.HP;
         hpSlime.maxValue = statManager.myStats.maxHP;
         hpSlime.value = statManager.myStats.HP;
@@ -97,7 +99,7 @@ public class MainCanvas : MonoBehaviour
         if (slime.currentWeapon && !notShowCoolTime)
         {
             //스킬 아이콘 꺼져있으면 켜주기
-            if (!skillCool.gameObject.activeSelf)   skillCool.gameObject.SetActive(true);
+            if (!skillCool.gameObject.activeSelf) skillCool.gameObject.SetActive(true);
 
             //스킬 쿨타임
             if (statManager.myStats.coolTime >= 1)
@@ -110,6 +112,7 @@ public class MainCanvas : MonoBehaviour
             }
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
 
+            //텍스트 표시: 상황에 따라 int형 or float형 
             if (slime.currentWeapon.CurrentCoolTime > 1)
             {
                 skillText.text = ((int)slime.currentWeapon.CurrentCoolTime).ToString();
@@ -124,12 +127,23 @@ public class MainCanvas : MonoBehaviour
                 //Debug.Log("-" + slime.currentWeapon.weaponType);
                 skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
             }
+            //스킬쿨타임중이면 skill아이콘 어둡게 쿨이 되면 다시 원상복구
+            if (slime.currentWeapon.CurrentCoolTime > 0)
+            {
+                skillImage.color = new Color(0.7f, 0.7f, 0.7f);
+            }
+            else
+            {
+                skillImage.color = new Color(1f, 1f, 1f);
+            }
+
+
 
             //스킬 아이콘 꺼져있으면 켜주기
             if (!dashCool.gameObject.activeSelf) dashCool.gameObject.SetActive(true);
 
             //대쉬
-            if(slime.currentWeapon.maxDashCoolTime >= 1)
+            if (slime.currentWeapon.maxDashCoolTime >= 1)
             {
                 dashCool.maxValue = (int)slime.currentWeapon.maxDashCoolTime;
             }
@@ -156,14 +170,14 @@ public class MainCanvas : MonoBehaviour
         }
         //젤리
         jellyText.text = jellyManager.JellyCount.ToString();
-        
+
     }
     #endregion
 
     #region 함수
 
     //무기 바꿨을때 HP 변환 관련 함수
-    public void changeWeapon()     
+    public void changeWeapon()
     {
         //Debug.Log(beforeHP);
         //Debug.Log(statManager.myStats.HP);
@@ -173,9 +187,9 @@ public class MainCanvas : MonoBehaviour
         //무기 변환시 (새무기의 체력이랑 같을땐 그대로)
 
         //새무기의 체력이 더 높을시 -> 비율대로 체력을 넣음
-        if (beforeMaxHP < statManager.myStats.maxHP)            
+        if (beforeMaxHP < statManager.myStats.maxHP)
         {
-            statManager.myStats.HP = statManager.myStats.maxHP * ( beforeHP / beforeMaxHP);
+            statManager.myStats.HP = statManager.myStats.maxHP * (beforeHP / beforeMaxHP);
         }
 
         //새무기의 체력이 더 낮고, 전의 체력이 보다 많을시 -> 최대 체력보단 피가 더 안참
@@ -184,16 +198,16 @@ public class MainCanvas : MonoBehaviour
         {
             statManager.myStats.HP = statManager.myStats.maxHP;
         }
-        
+
         beforeMaxHP = statManager.myStats.maxHP;
         beforeHP = statManager.myStats.HP;
 
     }
 
     //대시 아이콘 매칭
-    public Sprite Dash(EWeaponType weaponType)      
+    public Sprite Dash(EWeaponType weaponType)
     {
-        
+
         Sprite _sprite = null;
         switch (weaponType)
         {
@@ -218,7 +232,7 @@ public class MainCanvas : MonoBehaviour
         return _sprite;
     }
     //스킬 아이콘 매칭
-    public Sprite Skill(EWeaponType weaponType)     
+    public Sprite Skill(EWeaponType weaponType)
     {
 
         Sprite _sprite = null;

@@ -25,7 +25,6 @@ public class SoundManager : MonoBehaviour
     Dictionary<string, AudioClip> BGMs = new Dictionary<string, AudioClip>();
     Dictionary<string, AudioClip> SFXs = new Dictionary<string, AudioClip>();
 
-    SceneDesign sceneDesign;
     public enum Sound
     {
         BGM,
