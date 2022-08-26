@@ -11,12 +11,12 @@ using UnityEngine;
 public class Jelly : PickUp
 {
     #region 변수
-    private JellyGrade jellyGrade;
-    private int jellyAmount;
+    public JellyGrade jellyGrade;
     private MeshRenderer meshRenderer;
 
     // 캐싱
-    JellyManager jellyManager;
+    private JellyManager jellyManager;
+    private ObjectPoolingManager objectPoolingManager;
     #endregion
 
     #region 유니티 함수
@@ -26,6 +26,7 @@ public class Jelly : PickUp
 
         meshRenderer = GetComponent<MeshRenderer>();
         jellyManager = JellyManager.Instance;
+        objectPoolingManager = ObjectPoolingManager.Instance;
     }
 
     protected override void OnEnable()
@@ -41,17 +42,16 @@ public class Jelly : PickUp
     // 젤리의 등급을 정함
     void InitJelly()
     {
-        jellyGrade = JellyManager.Instance.GetRandomJelly();
+        jellyGrade = jellyManager.GetRandomJelly();
         meshRenderer.material = jellyGrade.mat;
-        jellyAmount = jellyGrade.jellyAmount;
     }
 
     // 젤리 획득
     public override void Get()
     {
-        jellyManager.GetJelly(jellyAmount);
-       
-        ObjectPoolingManager.Instance.Set(this.gameObject, EObjectFlag.jelly);       // 오브젝트 풀에 반환
+        jellyManager.GetJelly(this);
+
+        objectPoolingManager.Set(this.gameObject, EObjectFlag.jelly);       // 오브젝트 풀에 반환
     }
     #endregion
 }

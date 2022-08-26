@@ -25,13 +25,11 @@ public class FadeOutText : MonoBehaviour
     [SerializeField]
     private float fadeOutSpeed = 1.5f;
 
-    private TextMeshProUGUI textMeshProUGUI;
     #endregion
 
     #region 유니티 함수
     protected virtual void Awake()
     {
-        textMeshProUGUI = GetComponent<TextMeshProUGUI>();
         material = GetComponent<TextMeshProUGUI>().fontMaterial;
         waitForTime = new WaitForSeconds(idleTime);
     }
@@ -88,14 +86,12 @@ public class FadeOutText : MonoBehaviour
     // 텍스트를 설정
     public void SetText(string str)
     {
-        if (textMeshProUGUI = null) textMeshProUGUI = GetComponent<TextMeshProUGUI>();
-        textMeshProUGUI.text = str;
+        GetComponent<TextMeshProUGUI>().text = str;
     }
 
     // 텍스트의 색 설정
     public void SetColor(Color color)
     {
-        if (textMeshProUGUI = null) textMeshProUGUI = GetComponent<TextMeshProUGUI>();
-        textMeshProUGUI.color = color;
+        GetComponent<TextMeshProUGUI>().color = color;
     }
 }

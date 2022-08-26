@@ -52,9 +52,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAgain: 0
-  idleTime: 0.3
-  fadeOutSpeed: 1.6
-  moveSpeed: 320
+  idleTime: 0.4
+  fadeOutSpeed: 3.5
+  moveSpeed: 280
 --- !u!222 &8433147002817463970
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -85,15 +85,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: +100<size=18>J
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7f99ae80e7210134b93641e817267651, type: 2}
-  m_sharedMaterial: {fileID: 6382057664037885324, guid: 7f99ae80e7210134b93641e817267651, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6c33582d93d54494ba7e7d8de180d612, type: 2}
+  m_sharedMaterial: {fileID: 8744718372781633332, guid: 6c33582d93d54494ba7e7d8de180d612, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4283826431
+  m_fontColor: {r: 1, g: 0, b: 0.3391304, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23
-  m_fontSizeBase: 23
+  m_fontSize: 27
+  m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
