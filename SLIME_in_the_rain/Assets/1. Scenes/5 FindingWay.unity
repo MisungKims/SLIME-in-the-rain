@@ -2850,21 +2850,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 386496099146157134, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
+      propertyPath: notShowCoolTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7661899658134465266, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7661899659526388364, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7661899659526388364, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7661899659755242598, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7661899660085158813, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2876,11 +2880,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7661899660128303299, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7661899660128303299, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7661899660199001397, guid: 9a86821f62a43d3498affe38492154ea, type: 3}
       propertyPath: m_AnchorMax.x
@@ -24165,6 +24169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAgain: 0
   idleTime: 2
+  fadeOutSpeed: 1.5
 --- !u!1 &2006204855
 GameObject:
   m_ObjectHideFlags: 0
@@ -25754,6 +25759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAgain: 0
   idleTime: 2.5
+  fadeOutSpeed: 1.5
 --- !u!1 &1057284324659394125
 GameObject:
   m_ObjectHideFlags: 0
@@ -26040,3 +26046,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAgain: 0
   idleTime: 1.5
+  fadeOutSpeed: 1.5

@@ -118,11 +118,13 @@ public class FindingWayMap : MapManager
         base.Awake();
 
         uIObjectPoolingManager = UIObjectPoolingManager.Instance;
+
         slime = Slime.Instance;
         slime.rigid.constraints = RigidbodyConstraints.None;
         slime.rigid.constraints = RigidbodyConstraints.FreezeRotation;
         slime.canMove = false;
         slime.isCanDash = false;
+        slime.canAttack = false;
 
         originSpeed = 0f;
         if (StatManager.Instance.myStats.moveSpeed >= maxSpeed)
@@ -157,8 +159,6 @@ public class FindingWayMap : MapManager
         descText.SetActive(true);
         textTransform = descText.GetComponent<RectTransform>();
         textTransform.anchoredPosition = startTextPos;
-
-
     }
     #endregion
 
@@ -221,6 +221,7 @@ public class FindingWayMap : MapManager
         yield return new WaitForSeconds(1.5f);
 
         slime.canMove = true;
+        slime.canAttack = true;
     }
 
     // 맵 설명 텍스트

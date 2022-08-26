@@ -88,6 +88,14 @@ public class FadeOutText : MonoBehaviour
     // 텍스트를 설정
     public void SetText(string str)
     {
-        GetComponent<TextMeshProUGUI>().text = str;
+        if (textMeshProUGUI = null) textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+        textMeshProUGUI.text = str;
+    }
+
+    // 텍스트의 색 설정
+    public void SetColor(Color color)
+    {
+        if (textMeshProUGUI = null) textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+        textMeshProUGUI.color = color;
     }
 }

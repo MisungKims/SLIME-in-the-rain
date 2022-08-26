@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text;
 
 [System.Serializable]
 public class JellyGrade
@@ -35,13 +36,17 @@ public class JellyManager : MonoBehaviour
     #endregion
     [SerializeField]
     private int jellyCount = 0;
-    public int JellyCount { get { return jellyCount; } set { jellyCount = value; } }
+    public int JellyCount { get { return jellyCount; } set { jellyCount = value; }}
 
     // °¡ÁßÄ¡ ·£´ý
     [SerializeField]
     private JellyGrade[] jellyGrades = new JellyGrade[4];
     private int total = 0;
 
+    private StringBuilder stringBuilder = new StringBuilder();
+    private FadeOutText text;
+    private Vector3 textPos;
+    private RectTransform textTransform;
     #endregion
 
     #region À¯´ÏÆ¼ ÇÔ¼ö
@@ -62,8 +67,6 @@ public class JellyManager : MonoBehaviour
     }
 
     #endregion
-
-
 
     #region ÇÔ¼ö
     void InitWeight()
@@ -92,6 +95,25 @@ public class JellyManager : MonoBehaviour
         }
 
         return null;
+    }
+    
+    // Á©¸® È¹µæ Å×½ºÆ® ¼³Á¤
+    public void GetJelly(int value)
+    {
+        stringBuilder.Clear();
+        stringBuilder.Append("+");
+        stringBuilder.Append(value);
+        stringBuilder.Append("<size=18>J");
+
+        text = UIObjectPoolingManager.Instance.Get(EUIFlag.jellyAmountText).GetComponent<FadeOutText>();
+        text.SetText(stringBuilder.ToString());
+
+        textTransform = text.GetComponent<RectTransform>();
+        textPos = textTransform.anchoredPosition;
+        textPos.y += 60f;
+        textTransform.anchoredPosition = textPos;
+
+        JellyCount += value;
     }
     #endregion
 }
