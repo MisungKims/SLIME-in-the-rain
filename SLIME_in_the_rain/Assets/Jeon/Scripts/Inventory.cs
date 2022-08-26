@@ -52,7 +52,6 @@ public class Inventory : MonoBehaviour
         items.RemoveAt(_index);
         if (onChangedItem != null)
         {
-
         onChangedItem.Invoke();
         }
     }
@@ -65,7 +64,8 @@ public class Inventory : MonoBehaviour
         {
             if (items[i].itemCount <= 0)
             {
-                items.RemoveAt(i);
+                RemoveItem(i);
+
             }
         }
 

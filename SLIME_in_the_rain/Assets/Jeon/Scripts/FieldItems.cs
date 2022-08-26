@@ -92,6 +92,7 @@ public class FieldItems : PickUp
         }
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
+
     }
 
     void fullBag()
@@ -166,6 +167,12 @@ public class FieldItems : PickUp
         {
             canDetect = false;
             addItem();          // 새로 추가
+        }
+
+        if (inventory.onChangedItem != null)
+        {
+
+            inventory.onChangedItem.Invoke();
         }
     }
 
