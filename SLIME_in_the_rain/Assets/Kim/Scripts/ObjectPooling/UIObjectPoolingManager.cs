@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
 
 public enum EUIFlag
 {
@@ -32,6 +33,8 @@ public class UIObjectPoolingManager : MonoBehaviour
 
     private Vector3 originPos = Vector3.up * -279;
     private Vector3 upPos = Vector3.up * -230;
+
+    private StringBuilder stringBuilder = new StringBuilder();
     #endregion
 
     #region 유니티 함수
@@ -147,9 +150,15 @@ public class UIObjectPoolingManager : MonoBehaviour
         SetTextPosition(noInventoryText.gameObject, noWeaponText.gameObject);
     }
 
-    // 무기 없음 텍스트 보여줌
-    public void ShowNoWeaponText()
+    // 무기 획득 텍스트 보여줌
+    public void ShowNoWeaponText(string weaponName)
     {
+        stringBuilder.Clear();
+        stringBuilder.Append("[G키] ");
+        stringBuilder.Append(weaponName);
+        stringBuilder.Append(" 장착");
+        noWeaponText.SetText(stringBuilder.ToString());
+
         noWeaponText.ShowText();
         SetTextPosition(noWeaponText.gameObject, noInventoryText.gameObject);
     }

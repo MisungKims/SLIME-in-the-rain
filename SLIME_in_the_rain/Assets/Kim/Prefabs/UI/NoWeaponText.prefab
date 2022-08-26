@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAgain: 0
+  idleTime: 0.2
+  fadeOutSpeed: 5
 --- !u!222 &3261756464613732330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -80,7 +82,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBB34\uAE30\uAC00 \uC544\uC9C1 \uC5C6\uC2B5\uB2C8\uB2E4"
+  m_text: "G\uD0A4\uB97C \uB20C\uB7EC \uBB34\uAE30 \uC7A5\uCC29"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6c33582d93d54494ba7e7d8de180d612, type: 2}
   m_sharedMaterial: {fileID: 8744718372781633332, guid: 6c33582d93d54494ba7e7d8de180d612, type: 2}
@@ -107,8 +109,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33
-  m_fontSizeBase: 33
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
