@@ -70,7 +70,6 @@ public class Slot : MonoBehaviour,IPointerUpHandler,IPointerEnterHandler,IPointe
         {
             InventoryUI.Instance.ShowTooltip(item, slotNum);
         }
-       
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -80,6 +79,4 @@ public class Slot : MonoBehaviour,IPointerUpHandler,IPointerEnterHandler,IPointe
             InventoryUI.Instance.tooltip.SetActive(false);
         }
     }
-
-   
 }

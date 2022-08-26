@@ -84,24 +84,9 @@ public class FieldItems : PickUp
     {
         inventory.items.Add(item);
 
-        if (float.Parse(item.maxHp) > 0)
-        {
-            slime.statManager.AddHP(float.Parse(item.maxHp));
-        }
-
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
-
     }
 
-    void fullBag()
-    {
-        velocity = -velocity;
-        targetPos = Vector3.zero;
-        targetPos.x = transform.position.x + (dir.x * velocity);
-        targetPos.y = transform.position.y;
-        targetPos.z = transform.position.z + (dir.z * velocity);
-        transform.position = targetPos;
-    }
 
     public void SetItem(Item _item) //아이템 셋팅
     {
@@ -161,10 +146,18 @@ public class FieldItems : PickUp
     // 인벤토리에 아이템 추가
     public void AddInventory()
     {
-        if (!FindSame())        // 인벤토리에 이 아이템이 없으면
+        if (item.itemType == ItemType.gelatin)
         {
-            canDetect = false;
-            addItem();          // 새로 추가
+
+            if (!FindSame())        // 인벤토리에 이 아이템이 없으면
+            {
+                canDetect = false;
+                addItem();          // 새로 추가
+            }
+        }
+        else
+        {
+            addItem();
         }
 
         if (inventory.onChangedItem != null)
