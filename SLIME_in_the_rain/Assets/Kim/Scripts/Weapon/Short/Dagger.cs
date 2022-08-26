@@ -22,6 +22,9 @@ public class Dagger : Short
     // 돌진 베기
     private float detectRadius = 1f;
     private Stack<GameObject> damaged = new Stack<GameObject>();
+
+    [SerializeField]
+    private MeshRenderer[] meshRenderers;
     #endregion
 
     #region 유니티 함수
@@ -144,16 +147,28 @@ public class Dagger : Short
             }
         }
     }
+
+    // 그림자 설정
+    public override void SetShadow(bool value)
+    {
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            if (value)
+                meshRenderers[i].shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            else
+                meshRenderers[i].shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+    }
     #endregion
 
-//#if UNITY_EDITOR
-//    void OnDrawGizmosSelected()
-//    {
-//        // Draw a yellow sphere at the transform's position
-//        Gizmos.color = Color.yellow;
-//        Gizmos.DrawSphere(slime.transform.position, detectRadius);
-//    }
-//#endif
+    //#if UNITY_EDITOR
+    //    void OnDrawGizmosSelected()
+    //    {
+    //        // Draw a yellow sphere at the transform's position
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawSphere(slime.transform.position, detectRadius);
+    //    }
+    //#endif
 }
 
 

@@ -65,6 +65,10 @@ public class Weapon : MonoBehaviour
     private float currentCoolTime;
     public float CurrentCoolTime { get { return currentCoolTime; } }
 
+    // 머터리얼
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+
     // 캐싱
     private WaitForSeconds waitForDash;
     private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
@@ -94,6 +98,7 @@ public class Weapon : MonoBehaviour
     {
         dashCoolTime = 0f;
         currentCoolTime = 0f;
+        SetShadow(true);
     }
 
     protected virtual void Start()
@@ -269,6 +274,15 @@ public class Weapon : MonoBehaviour
         animState = state;
 
         anim.SetInteger("animation", (int)animState);
+    }
+
+    // 그림자 설정
+    public virtual void SetShadow(bool value)
+    {
+        if(value)
+            meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        else
+            meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
     private Camera GetCamera()

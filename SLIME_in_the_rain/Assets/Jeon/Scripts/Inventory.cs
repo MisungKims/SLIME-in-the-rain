@@ -169,14 +169,13 @@ public class Inventory : MonoBehaviour
                 saveExtraStats.attackRange += float.Parse(items[i].atkRange) * items[i].itemCount;
             }
         }
-        ///¡©∂Û∆æ Ω∫≈»π›øµ
-      /*  statManager.AddGelatinDefensePower(saveExtraStats.defensePower); 
+        statManager.AddGelatinDefensePower(saveExtraStats.defensePower);
         statManager.AddGelatinMaxHP(saveExtraStats.maxHP);
         statManager.AddGelatinMoveSpeed(saveExtraStats.moveSpeed);
         statManager.AddGelatinCoolTime(saveExtraStats.coolTime);
         statManager.AddGelatinAttackSpeed(saveExtraStats.attackSpeed);
         statManager.AddGelatinAttackPower(saveExtraStats.attackPower);
-        statManager.AddGelatinDefensePower(saveExtraStats.attackRange);*/
+        statManager.AddGelatinDefensePower(saveExtraStats.attackRange);
     }
     public void ResetInven()
     {

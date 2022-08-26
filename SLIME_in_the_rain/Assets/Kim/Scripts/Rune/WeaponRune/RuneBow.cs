@@ -20,7 +20,7 @@ public class RuneBow : RuneWeapon
         if (base.Use(weapon))
         {
             weapon.stats.increasesDamage += 50;       // 데미지 50% 증가
-            StatManager.Instance.ChangeWeapon(weapon);            // 스탯 변경
+            StatManager.Instance.ChangeStats(weapon);            // 스탯 변경
             
             return true;
         }
