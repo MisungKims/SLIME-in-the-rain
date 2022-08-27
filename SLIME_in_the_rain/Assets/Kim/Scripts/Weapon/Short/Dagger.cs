@@ -34,9 +34,10 @@ public class Dagger : Short
 
         canLookAtMousePos = true;
         weaponType = EWeaponType.dagger;
-        angle = new Vector3(90f, 0, 90f);
+        angle = Vector3.zero;
         maxDashCoolTime = 0.5f;
         flag = EProjectileFlag.dagger;
+        shadowScale = 1f;
     }
 
     protected override void Start()

@@ -16,6 +16,7 @@ public class StaffProjectile : Projectile
     protected override void OnEnable()
     {
         base.OnEnable();
+        transform.position = Vector3.down * 5f;
         isUseRune = false;
     }
     #endregion

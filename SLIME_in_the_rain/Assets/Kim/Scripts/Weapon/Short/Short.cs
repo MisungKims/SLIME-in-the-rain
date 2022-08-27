@@ -16,9 +16,41 @@ public class Short : Weapon
     protected EProjectileFlag flag;         // 어떤 종류의 투사체인지?
 
     [SerializeField]
-    float size = 2f;
+    protected GameObject shadow;
 
+    private bool isShowShadow = false;
+    private Vector3 scale;
+    protected float shadowScale = 0.5f;
     #endregion
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        StartCoroutine(ShowShadow());
+    }
+
+    // 공격 범위만큼 늘어나는 그림자
+    IEnumerator ShowShadow()
+    {
+        while (true)
+        {
+            if (isShowShadow && statManager.myStats.attackRange >= 1.1f)
+            {
+                shadow.SetActive(true);
+                scale = shadow.transform.localScale;
+                scale.y = statManager.myStats.attackRange * 2 + shadowScale;
+                shadow.transform.localScale = scale;
+
+                yield return new WaitForSeconds(0.2f);
+
+                shadow.SetActive(false);
+                isShowShadow = false;
+            }
+
+            yield return null;
+        }
+    }
 
     #region 함수
     // 평타
@@ -35,7 +67,9 @@ public class Short : Weapon
     // 오브젝트를 공격하면 데미지를 입힘
     protected void DoDamage(bool isSkill)
     {
-        RaycastHit[] hits = Physics.BoxCastAll(transform.position + Vector3.up * 0.1f, slime.transform.lossyScale * size, transform.forward, slime.transform.rotation, slime.Stat.attackRange);
+        isShowShadow = true;
+
+        RaycastHit[] hits = Physics.BoxCastAll(transform.position + Vector3.up * 0.1f, slime.transform.lossyScale * 0.5f, transform.forward, slime.transform.rotation, statManager.myStats.attackRange);
         for (int i = 0; i < hits.Length; i++)
         {
             if (hits[i].transform.CompareTag("DamagedObject"))
@@ -81,27 +115,29 @@ public class Short : Weapon
     }
     #endregion
 
-//#if UNITY_EDITOR
-//    private Color _rayColor = Color.red;
+    //#if UNITY_EDITOR
+    //private Color _rayColor = Color.red;
 
-//    void OnDrawGizmos()
-//    {
-//        Gizmos.color = _rayColor;
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = _rayColor;
 
-//        // 함수 파라미터 : 현재 위치, Box의 절반 사이즈, Ray의 방향, RaycastHit 결과, Box의 회전값, BoxCast를 진행할 거리
-//        if (true == Physics.BoxCast(transform.position + Vector3.up * 0.1f, slime.transform.lossyScale * size, slime.transform.forward, out RaycastHit hit, slime.transform.rotation, slime.Stat.attackRange))
-//        {
-//            // Hit된 지점까지 ray를 그려준다.
-//            Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, slime.transform.forward * hit.distance);
+    //    //// 함수 파라미터 : 현재 위치, Box의 절반 사이즈, Ray의 방향, RaycastHit 결과, Box의 회전값, BoxCast를 진행할 거리
+    //    //if (true == Physics.BoxCast(transform.position + Vector3.up * 0.1f, slime.transform.lossyScale / 2, transform.forward, out RaycastHit hit, slime.transform.rotation, statManager.myStats.attackRange))
+    //    //{
+    //    //    // Hit된 지점까지 ray를 그려준다.
+    //    //    Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * hit.distance);
 
-//            // Hit된 지점에 박스를 그려준다.
-//            Gizmos.DrawWireCube(transform.position + Vector3.up * 0.1f + slime.transform.forward * hit.distance, slime.transform.lossyScale * size);
-//        }
-//        else
-//        {
-//            // Hit가 되지 않았으면 최대 검출 거리로 ray를 그려준다.
-//            Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, slime.transform.forward * slime.Stat.attackRange);
-//        }
-//    }
-//#endif
+    //    //    // Hit된 지점에 박스를 그려준다.
+    //    //    Gizmos.DrawWireCube(transform.position + Vector3.up * 0.1f + transform.forward * hit.distance, slime.transform.lossyScale / 2);
+    //    //}
+    //    //else
+    //    //{
+    //    //    // Hit가 되지 않았으면 최대 검출 거리로 ray를 그려준다.
+    //    //    Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * statManager.myStats.attackRange);
+    //    //}
+
+    //    Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * statManager.myStats.attackRange);
+    //}
+    //#endif
 }

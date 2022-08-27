@@ -9,7 +9,6 @@ public class FireStaff : Staff
     {
         base.Awake();
 
-        //weaponPos = projectilePos.position;
         weaponType = EWeaponType.fireStaff;
         projectileFlag = EProjectileFlag.fire;
         skillProjectileFlag = EProjectileFlag.fireSkill;

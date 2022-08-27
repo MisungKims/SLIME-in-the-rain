@@ -26,7 +26,7 @@ public class Slime : MonoBehaviour
         }
     }
     #endregion
-
+    //public GameObject cube;
     public GameObject shootPlane;
     public int killCount = 0;
     public bool isDungeonStart = false;
@@ -168,16 +168,6 @@ public class Slime : MonoBehaviour
         StartCoroutine(DetectWall());
     }
 
-    //private void Start()
-    //{
-    //    stat = statManager.myStats;
-    //    StartCoroutine(AutoAttack());
-    //    StartCoroutine(Skill());
-    //    StartCoroutine(DecreaseHPInWater());
-    //    StartCoroutine(DetectWater());
-    //    StartCoroutine(DetectWall());
-    //}
-
     public bool isFrontWall = false;
 
     private void Update()
@@ -214,8 +204,8 @@ public class Slime : MonoBehaviour
                 isAttacking = true;
 
                 if(currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
-  
-                yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
+
+                yield return new WaitForSeconds((2 - statManager.myStats.attackSpeed) * 0.2f);           // 각 무기의 공속 스탯에 따라 대기
 
                 isAttacking = false;
             }
@@ -421,7 +411,7 @@ public class Slime : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, angle, 0);         // 회전
             }
 
-           if (!isFrontWall)  transform.position += direction * statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
+           if (!isFrontWall)  transform.position += direction * 2 * statManager.myStats.moveSpeed * Time.deltaTime;   // 이동
         }
         else
         {
