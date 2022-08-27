@@ -62,8 +62,8 @@ public class Weapon : MonoBehaviour
 
     // 스킬
     public bool isCanSkill = true;
-    private float currentCoolTime;
-    public float CurrentCoolTime { get { return currentCoolTime; } }
+    public float currentCoolTime;
+    public float CurrentCoolTime { get { return currentCoolTime; } set { currentCoolTime = value; } }
 
     // 머터리얼
     [SerializeField]

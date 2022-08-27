@@ -80,10 +80,15 @@ public class MainCanvas : MonoBehaviour
         beforeMaxHP = statManager.myStats.maxHP;
         beforeHP = statManager.myStats.HP;
 
+        //초기화 (씬 넘어갈때마다 무기의 스킬 정보를 불러옴)
         if (!slime.currentWeapon || notShowCoolTime)
         {
             skillCool.gameObject.SetActive(false);
             dashCool.gameObject.SetActive(false);
+        }
+        else if(slime.currentWeapon)
+        {
+            Init();
         }
     }
 
@@ -167,6 +172,16 @@ public class MainCanvas : MonoBehaviour
                 dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
 
             }
+
+            //스킬쿨타임중이면 Dash아이콘 어둡게 쿨이 되면 다시 원상복구
+            if (slime.currentWeapon.CurrentCoolTime > 0)
+            {
+                dashImage.color = new Color(0.7f, 0.7f, 0.7f);
+            }
+            else
+            {
+                dashImage.color = new Color(1f, 1f, 1f);
+            }
         }
         //젤리
         jellyText.text = jellyManager.JellyCount.ToString();
@@ -175,6 +190,21 @@ public class MainCanvas : MonoBehaviour
     #endregion
 
     #region 함수
+
+    void Init()
+    {
+        //씬 넘어갈대마다 대시 스킬쿨 초기화
+        slime.currentWeapon.CurrentCoolTime = 0f;
+        slime.currentWeapon.dashCoolTime = 0f;
+
+        skillText.text = " ";
+        skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
+        dashText.text = " ";
+        dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
+
+        
+
+    }
 
     //무기 바꿨을때 HP 변환 관련 함수
     public void changeWeapon()
