@@ -84,11 +84,7 @@ public class GetMoneyMap : MapManager
         yield return new WaitForSeconds(1f);
 
         objectPoolingManager = ObjectPoolingManager.Instance;
-        ////////////////-------------
-        //StartCoroutine(TimeCount());
-        //StartCoroutine(SpwanMoney());
 
-        ////////////////-------------
         StartCoroutine(SpwanJelly());
         StartCoroutine(SpwanGelatin());
         StartCoroutine(SpawnSpeedUp());
@@ -138,7 +134,7 @@ public class GetMoneyMap : MapManager
 
         while (second > 0)
         {
-            time = Random.Range(5f, 10f);
+            time = Random.Range(5f, 8f);
             while (time > 0 && second > 0)
             {
                 time -= Time.deltaTime;

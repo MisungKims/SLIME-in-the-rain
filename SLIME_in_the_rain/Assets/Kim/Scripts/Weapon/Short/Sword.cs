@@ -13,7 +13,7 @@ public class Sword : Short
     #region 변수
     // 대시
     float originSpeed;
-    float dashSpeed = 2.5f;
+    float dashSpeed = 2f;
     float dashDuration = 2.5f;
 
     bool isDashing;

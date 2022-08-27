@@ -94,7 +94,7 @@ public class Weapon : MonoBehaviour
         waitForDash = new WaitForSeconds(dashCoolTime);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         dashCoolTime = 0f;
         currentCoolTime = 0f;

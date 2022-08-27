@@ -114,7 +114,8 @@ public class StatManager : MonoBehaviour
     public void ChangeStats()
     {
         myStats.maxHP = originStats.maxHP + weaponStat.maxHP + extraStats.maxHP + gelatinStat.maxHP;
-        myStats.coolTime = originStats.coolTime + ((weaponStat.coolTime + extraStats.coolTime + gelatinStat.coolTime) * 0.01f);
+        //myStats.coolTime = originStats.coolTime + ((weaponStat.coolTime + extraStats.coolTime + gelatinStat.coolTime) * 0.01f);
+        myStats.coolTime = weaponStat.coolTime - ((extraStats.coolTime + gelatinStat.coolTime) * 0.01f);            // 쿨타임은 각 무기의 기본 쿨타임이 기준이 되어야 함 (일단 임의로 변경)
         myStats.moveSpeed = originStats.moveSpeed + ((weaponStat.moveSpeed + extraStats.moveSpeed + gelatinStat.moveSpeed) * 0.01f);
         myStats.attackSpeed = originStats.attackSpeed + ((weaponStat.attackSpeed + extraStats.attackSpeed + gelatinStat.attackSpeed) * 0.01f);
         myStats.attackPower = originStats.attackPower + weaponStat.attackPower + extraStats.attackPower + gelatinStat.attackPower;
@@ -152,7 +153,8 @@ public class StatManager : MonoBehaviour
         weaponStat.hitCount = weapon.stats.hitCount;
         weaponStat.increasesDamage = weapon.stats.increasesDamage;
 
-        UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
+        ChangeStats();
+
         UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 

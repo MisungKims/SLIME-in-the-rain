@@ -104,6 +104,7 @@ public class Staff : Weapon
     {
         StaffProjectile projectile = ObjectPoolingManager.Instance.Get(flag, projectilePos.position, Vector3.zero).GetComponent<StaffProjectile>();
         projectile.isSkill = isSkill;
+        Debug.Log(projectile.transform.position);
 
         return projectile;
     }

@@ -13,9 +13,9 @@ public class SpeedUp : PickUp
   
     public override void Get()
     {
-        GetMoneyMap.Instance.sumSpeed += 1.5f;
+        GetMoneyMap.Instance.sumSpeed += 100f;
 
-        StatManager.Instance.AddMoveSpeed(1.5f);
+        StatManager.Instance.AddMoveSpeed(100f);
 
         gameObject.SetActive(false);
     }
