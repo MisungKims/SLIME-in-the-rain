@@ -64,6 +64,7 @@ public class MoneyBox : MonoBehaviour, IDamage
     {
         box.SetActive(false);
         destroyBox.SetActive(true);
+        if(Minimap.Instance) Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
 
         anim.SetBool("TakeDamaged", true);
 
@@ -76,8 +77,6 @@ public class MoneyBox : MonoBehaviour, IDamage
             yield return null;
         }
 
-        Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
-       
         objectPoolingManager.Set(this.gameObject, EObjectFlag.box);
     }
 
@@ -96,7 +95,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         randObj = Random.Range(0, 100);       
 
         spawnPos = transform.position;
-        
+
         if (randObj <= 40)  // 젤리
         {
             spawnPos.y = 3f;
@@ -109,7 +108,7 @@ public class MoneyBox : MonoBehaviour, IDamage
         }
         else      // 무기
         {
-            spawnPos.y += 0.5f;
+            spawnPos.y += 0.3f;
             pickUpObj = objectPoolingManager.Get(EObjectFlag.weapon, spawnPos);
         }
 

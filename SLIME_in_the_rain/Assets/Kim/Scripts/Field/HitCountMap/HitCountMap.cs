@@ -41,15 +41,11 @@ public class HitCountMap : MapManager
 
     private List<GameObject> monsterArr = new List<GameObject>();
 
-    [SerializeField]
-    private GameObject[] props;
-    [SerializeField]
-    private Transform[] propPos;
 
     [Header("-------------- Count")]
     [SerializeField]
     private TextMeshProUGUI countText;
-    [SerializeField]
+
     private int maxCount = 50;          // 만족해야하는 타수
 
     private StringBuilder sb = new StringBuilder();
@@ -124,7 +120,7 @@ public class HitCountMap : MapManager
         int randJellyCount = Random.Range(20, 30);      // 재화 드롭 개수
         for (int i = 0; i < randJellyCount; i++)
         {
-            moneyPos = prop.transform.position;     // 재화의 위치
+            moneyPos = Slime.Instance.transform.position;     // 재화의 위치
             moneyPos.x += Random.Range(-1f, 1f);
             moneyPos.y += 2f;
             moneyPos.z += Random.Range(-1f, 1f);
@@ -235,6 +231,27 @@ public class HitCountMap : MapManager
         spawnMonster = false;
         npcSpeech1.SetActive(true);
         npcSpeech2.SetActive(false);
+
+        switch (Slime.Instance.currentWeapon.wName)
+        {
+            case "활":
+                maxCount = 100;
+                break;
+            case "불 지팡이":
+                maxCount = 80;
+                break;
+            case "얼음 지팡이":
+                maxCount = 80;
+                break;
+            case "단검":
+                maxCount = 80;
+                break;
+            case "양손검":
+                maxCount = 60;
+                break;
+            default:
+                break;
+        }
 
         for (int i = 0; i < monsters.childCount; i++)
         {

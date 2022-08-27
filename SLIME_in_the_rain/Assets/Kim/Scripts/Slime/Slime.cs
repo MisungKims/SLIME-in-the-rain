@@ -214,7 +214,7 @@ public class Slime : MonoBehaviour
                 isAttacking = true;
 
                 if(currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
-
+  
                 yield return new WaitForSeconds(statManager.myStats.attackSpeed);           // 각 무기의 공속 스탯에 따라 대기
 
                 isAttacking = false;
@@ -247,7 +247,7 @@ public class Slime : MonoBehaviour
     // 스페이스바 누르면 앞으로 대시
     void SpaceBar()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove)
+        if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove && isCanDash)
         {
             isDash = true;
 

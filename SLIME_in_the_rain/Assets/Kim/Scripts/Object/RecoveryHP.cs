@@ -113,11 +113,13 @@ public class RecoveryHP : MonoBehaviour
         slimeParticle.SetActive(true);
         StartCoroutine(SetParticlePos());
 
+        float temp = statManager.myStats.maxHP * 0.01f;
+
         while (statManager.myStats.HP < statManager.myStats.maxHP)
         {
             statManager.AddHP(1f);
 
-            yield return waitForSeconds;
+            yield return new WaitForSeconds(speed / temp);
         }
 
         statManager.myStats.HP = statManager.myStats.maxHP;
