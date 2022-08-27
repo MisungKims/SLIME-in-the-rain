@@ -27,7 +27,8 @@ public class StatsUIManager : MonoBehaviour
     public TextMeshProUGUI weaponColorC;
     public TextMeshProUGUI weaponSkillC;
     [Header("스탯UI")]
-    public Image weaponI;
+    public Image weaponI; 
+    public Sprite transparentS;          // 투명 이미지
     public TextMeshProUGUI statHPC;
     public TextMeshProUGUI statATKC;
     public TextMeshProUGUI statDEFC;
@@ -101,7 +102,7 @@ public class StatsUIManager : MonoBehaviour
         }
         else
         {
-            weaponI.sprite = null;
+            weaponI.sprite = transparentS;
         }
     
         
