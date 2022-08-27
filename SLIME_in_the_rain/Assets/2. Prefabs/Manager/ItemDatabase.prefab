@@ -635,6 +635,9 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  meshRenderer: {fileID: 2008556058788714512}
+  go: {fileID: 0}
+  cube: {fileID: 0}
 --- !u!33 &5440368782504975020
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1157,12 +1160,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8f712eb6ee4ca5f4fab934b16e01ea04, type: 2}
   - {fileID: 11400000, guid: 54ce9eb5c2efc474ca0409ff06cbfa4e, type: 2}
   fieldItemPrefab: {fileID: 4631997835977516517, guid: b99551b5603218e458e58198cb78a78a, type: 3}
-  pos:
-  - {x: 2, y: 2.5, z: -1}
-  - {x: 2.5, y: 2.5, z: 1}
-  - {x: 4, y: 2.5, z: 2}
-  - {x: 3, y: 2.5, z: 1}
-  - {x: 2, y: 2.5, z: 3}
   ItemDbT: {fileID: 4900000, guid: 70967e5dcc131ae45bb8e088ec18bc57, type: 3}
 --- !u!1 &3645846747926098697
 GameObject:
@@ -1732,6 +1729,9 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  meshRenderer: {fileID: 5144895923084061545}
+  go: {fileID: 0}
+  cube: {fileID: 0}
   size: 2
 --- !u!95 &5128544985948173807
 Animator:
@@ -1840,6 +1840,9 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  meshRenderer: {fileID: 817227592277240887}
+  go: {fileID: 0}
+  cube: {fileID: 0}
   projectilePos: {fileID: 8705228441692885096}
 --- !u!33 &5664068510875206495
 MeshFilter:
@@ -1996,7 +1999,17 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  meshRenderer: {fileID: 0}
+  go: {fileID: 0}
+  cube: {fileID: 0}
   size: 2
+  meshRenderers:
+  - {fileID: 2172887449807652472}
+  - {fileID: 3303718061828028608}
+  - {fileID: 1729364267960070785}
+  - {fileID: 4908935859247991371}
+  - {fileID: 7821045389497172721}
+  - {fileID: 7269937612856718516}
 --- !u!65 &1604904598615324347
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2710,6 +2723,9 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  meshRenderer: {fileID: 421372504764296562}
+  go: {fileID: 0}
+  cube: {fileID: 0}
   projectilePos: {fileID: 7279753346514590327}
 --- !u!33 &6368468044747531264
 MeshFilter:
