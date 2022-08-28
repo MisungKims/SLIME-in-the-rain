@@ -42,12 +42,14 @@ public class StatManager : MonoBehaviour
     public void InitStats() // originStats = maxHP 100, coolTime 1, moveSpeed 1, atkPower 10, atkSpeed 1, defensePower 0, atkRange 1, hitCount 1, increases 0 ±‚¡ÿ
     {
         originStats = new Stats(100f, 100f, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
-        myStats = new Stats(0f, 100f, 0f, 0f, 0f, 0, 0, 0, 1, 0);
+        myStats = new Stats(0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1, 0);
         extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 1, 0);
         gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
         weaponStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
 
         ChangeStats();
+
+        AddHP(myStats.maxHP);
     }
 
 
@@ -64,16 +66,11 @@ public class StatManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        //InitStats();
     }
-
 
     private void Start()
     {
         slime = Slime.Instance;
-       // ChangeStats();
-       
     }
     #endregion
 
