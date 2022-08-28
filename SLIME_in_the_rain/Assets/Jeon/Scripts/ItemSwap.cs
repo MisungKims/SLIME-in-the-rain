@@ -25,7 +25,7 @@ public class ItemSwap : ItemEffect
         }
         else
         {
-            Slime.Instance.EquipWeapon(ObjectPoolingManager.Instance.Get(eWeaponType).GetComponent<Weapon>());
+            Slime.Instance.EquipWeapon(ObjectPoolingManager.Instance.Get(eWeaponType, Vector3.zero).GetComponent<Weapon>());
             return true;
         }
     }

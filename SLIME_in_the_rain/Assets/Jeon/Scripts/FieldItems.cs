@@ -109,10 +109,35 @@ public class FieldItems : PickUp
         item.defPower = _item.defPower;
         item.increase = _item.increase;
 
-        GameObject.Instantiate(item.itemGB, this.transform.position, Quaternion.identity).transform.parent = transform;
-
-        if (item.itemType.Equals(ItemType.gelatin)) flag = EObjectFlag.gelatin;
-        else if (item.itemType.Equals(ItemType.weapon)) flag = EObjectFlag.weapon;
+        if (item.itemType.Equals(ItemType.gelatin))
+        {
+            GameObject.Instantiate(item.itemGB, this.transform.position, Quaternion.identity).transform.parent = transform;
+            flag = EObjectFlag.gelatin;
+        }
+        else if (item.itemType.Equals(ItemType.weapon))
+        {
+            switch (item.itemName)
+            {
+                case "Dagger":
+                    ObjectPoolingManager.Instance.Get(EWeaponType.dagger, transform.position).transform.SetParent(transform);
+                    break;
+                case "Sword":
+                    ObjectPoolingManager.Instance.Get(EWeaponType.sword, transform.position).transform.SetParent(transform);
+                    break;
+                case "IceStaff":
+                    ObjectPoolingManager.Instance.Get(EWeaponType.iceStaff, transform.position).transform.SetParent(transform);
+                    break;
+                case "FireStaff":
+                    ObjectPoolingManager.Instance.Get(EWeaponType.fireStaff, transform.position).transform.SetParent(transform);
+                    break;
+                case "Bow":
+                    ObjectPoolingManager.Instance.Get(EWeaponType.bow, transform.position).transform.SetParent(transform);
+                    break;
+                default:
+                    break;
+            }
+            flag = EObjectFlag.weapon;
+        }
     }
 
     public void SetItemPool(Item _item) //아이템 셋팅

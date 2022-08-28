@@ -526,8 +526,6 @@ public class Slime : MonoBehaviour
                 UIObjectPoolingManager.Instance.ShowNoWeaponText(lastCollider.GetComponent<Weapon>().wName);
         }
 
-        
-
         if (Input.GetKeyDown(KeyCode.G))
         {
             if(colliders[index].transform.parent)
@@ -557,8 +555,8 @@ public class Slime : MonoBehaviour
         if (currentWeapon)
         {
             currentWeapon.gameObject.layer = 6;
-            Destroy(currentWeapon.gameObject);
-           // ObjectPoolingManager.Instance.Set(currentWeapon);
+            //Destroy(currentWeapon.gameObject);
+            ObjectPoolingManager.Instance.Set(currentWeapon);
             currentWeapon = null;
         }
     }
@@ -571,7 +569,7 @@ public class Slime : MonoBehaviour
         currentWeapon.GetComponent<Outline>().enabled = false;
 
         // 무기의 위치 설정
-        ObjectPoolingManager.Instance.Set(currentWeapon.transform.parent.gameObject, EObjectFlag.weapon);
+        //ObjectPoolingManager.Instance.Set(currentWeapon.transform.parent.gameObject, EObjectFlag.weapon, false);
         currentWeapon.transform.parent = weaponPos;
        
         currentWeapon.transform.localPosition = Vector3.zero;
