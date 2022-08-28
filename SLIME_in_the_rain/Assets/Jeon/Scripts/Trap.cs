@@ -22,7 +22,7 @@ public class Trap : MonoBehaviour
         {
             StartCoroutine(play(0.2f));
             Slime.Instance.Damaged(-2f);
-            Debug.Log("Damage");
+            //Debug.Log("Damage");
         }
        
     }

@@ -195,4 +195,13 @@ public class AvoidManager : MapManager
             yield return null;
         }
     }
+
+    public void JellyUseingTime()
+    {
+        if (JellyManager.Instance.JellyCount >= 500 && playCountTime > 5)
+        {
+            playCountTime -= 5;
+            JellyManager.Instance.JellyCount -= 500;
+        }
+    }
 }
