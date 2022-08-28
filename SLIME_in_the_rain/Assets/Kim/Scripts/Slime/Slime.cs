@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class Slime : MonoBehaviour
 {
@@ -193,13 +194,15 @@ public class Slime : MonoBehaviour
         isStun = false;
     }
 
+   
+
     #region 코루틴
     // 무기를 들고 있을 때 좌클릭하면 평타
     IEnumerator AutoAttack()
     {
         while (true)
         {
-            if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && !isStun && Input.GetMouseButtonDown(0))
+            if (IsCanAttack() && !EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
             {
                 isAttacking = true;
 
@@ -219,7 +222,7 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (IsCanSkill())
+            if (IsCanAttack() && currentWeapon.isCanSkill && !EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(1))
             {
                 isAttacking = true;
 
@@ -437,17 +440,13 @@ public class Slime : MonoBehaviour
     #endregion
 
     #region 공격
-    // 스킬을 사용할 수 있는지?
-    bool IsCanSkill()
+    // 공격을 할 수 있는지?
+    bool IsCanAttack()
     {
-        if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && currentWeapon.isCanSkill && !isStun && Input.GetMouseButtonDown(1))
-        {
+        if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && !isStun)
             return true;
-        }
         else
-        {
             return false;
-        }
     }
 
     #endregion
@@ -568,9 +567,7 @@ public class Slime : MonoBehaviour
         currentWeapon.gameObject.layer = 7;
         currentWeapon.GetComponent<Outline>().enabled = false;
 
-        // 무기의 위치 설정
-        //ObjectPoolingManager.Instance.Set(currentWeapon.transform.parent.gameObject, EObjectFlag.weapon, false);
-        currentWeapon.transform.parent = weaponPos;
+        currentWeapon.transform.SetParent(weaponPos);
        
         currentWeapon.transform.localPosition = Vector3.zero;
 

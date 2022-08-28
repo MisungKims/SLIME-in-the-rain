@@ -38,7 +38,7 @@ public class Projectile : MonoBehaviour
 
     public bool isSkill;
 
-    public Vector3 dir;
+    //public Vector3 dir;
 
     [SerializeField]
     private float removeTime = 2f;
@@ -83,7 +83,6 @@ public class Projectile : MonoBehaviour
     protected virtual void Move()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
-       //transform.Translate(dir * Time.deltaTime * speed);
     }
 
     // 데미지를 입힘

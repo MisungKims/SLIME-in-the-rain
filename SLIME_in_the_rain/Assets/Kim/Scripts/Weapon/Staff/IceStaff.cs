@@ -15,11 +15,9 @@ public class IceStaff : Staff
         maxDashCoolTime = 5f;
     }
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
-        UIseting("얼음지팡이", "파란색", "얼음공격"); //내용 정보 셋팅 //jeon 추가
+        UIseting("얼음지팡이", "파란색", "얼음 공격"); //내용 정보 셋팅 //jeon 추가
     }
 
     #endregion

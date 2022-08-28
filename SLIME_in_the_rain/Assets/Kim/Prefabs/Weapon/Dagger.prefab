@@ -360,10 +360,10 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  currentCoolTime: 0
   meshRenderer: {fileID: 0}
   go: {fileID: 0}
   cube: {fileID: 0}
-  size: 0.65
   shadow: {fileID: 7459772486024036060}
   meshRenderers:
   - {fileID: 7388492609759174918}
@@ -372,6 +372,7 @@ MonoBehaviour:
   - {fileID: 579252539545286254}
   - {fileID: 6430905371110413420}
   - {fileID: 5844448884150082796}
+  mesh: {fileID: 3897186435907525163}
 --- !u!114 &5995180065132828981
 MonoBehaviour:
   m_ObjectHideFlags: 0

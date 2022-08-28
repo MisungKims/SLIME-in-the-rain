@@ -10,9 +10,18 @@ public class StaffProjectile : Projectile
 
     private Transform target;
     public Transform Target { set { target = value; } }
+
+   // private Vector3 scale;
+   // private StatManager statManager;
     #endregion
 
     #region 유니티 함수
+
+    //private void Awake()
+    //{
+    //    statManager = StatManager.Instance;
+    //}
+
     protected override void OnEnable()
     {
         base.OnEnable();
