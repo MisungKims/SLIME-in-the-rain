@@ -206,33 +206,33 @@ public class MainCanvas : MonoBehaviour
 
     }
 
-    //무기 바꿨을때 HP 변환 관련 함수
-    public void changeWeapon()
-    {
-        //Debug.Log(beforeHP);
-        //Debug.Log(statManager.myStats.HP);
-        //Debug.Log(beforeMaxHP);
-        //Debug.Log(statManager.myStats.maxHP);
+    ////무기 바꿨을때 HP 변환 관련 함수
+    //public void changeWeapon()
+    //{
+    //    //Debug.Log(beforeHP);
+    //    //Debug.Log(statManager.myStats.HP);
+    //    //Debug.Log(beforeMaxHP);
+    //    //Debug.Log(statManager.myStats.maxHP);
 
-        //무기 변환시 (새무기의 체력이랑 같을땐 그대로)
+    //    //무기 변환시 (새무기의 체력이랑 같을땐 그대로)
 
-        //새무기의 체력이 더 높을시 -> 비율대로 체력을 넣음
-        /*if (beforeMaxHP < statManager.myStats.maxHP)
-        {
-            statManager.myStats.HP = statManager.myStats.maxHP * (beforeHP / beforeMaxHP);
-        }
+    //    //새무기의 체력이 더 높을시 -> 비율대로 체력을 넣음
+    //    if (beforeMaxHP < statManager.myStats.maxHP)
+    //    {
+    //        statManager.myStats.HP = statManager.myStats.maxHP * (beforeHP / beforeMaxHP);
+    //    }
 
-        //새무기의 체력이 더 낮고, 전의 체력이 보다 많을시 -> 최대 체력보단 피가 더 안참
-        else if (beforeMaxHP > statManager.myStats.maxHP && beforeHP > statManager.myStats.maxHP)
+    //    //새무기의 체력이 더 낮고, 전의 체력이 보다 많을시 -> 최대 체력보단 피가 더 안참
+    //    else if (beforeMaxHP > statManager.myStats.maxHP && beforeHP > statManager.myStats.maxHP)
 
-        {
-            statManager.myStats.HP = statManager.myStats.maxHP;
-        }
+    //    {
+    //        statManager.myStats.HP = statManager.myStats.maxHP;
+    //    }
 
-        beforeMaxHP = statManager.myStats.maxHP;
-        beforeHP = statManager.myStats.HP;*/
+    //    beforeMaxHP = statManager.myStats.maxHP;
+    //    beforeHP = statManager.myStats.HP;
 
-    }
+    //}
 
     //대시 아이콘 매칭
     public Sprite Dash(EWeaponType weaponType)

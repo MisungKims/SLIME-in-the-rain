@@ -33,6 +33,8 @@ public class Dagger : Short
     {
         base.Awake();
 
+        attackSound = "Weapon/Dagger/Attack";
+        skillSound = "Weapon/Dagger/Skill";
         canLookAtMousePos = true;
         weaponType = EWeaponType.dagger;
         angle = Vector3.zero;
@@ -90,6 +92,7 @@ public class Dagger : Short
         slime.Dash();           // 일반 대시
 
         yield return new WaitForSeconds(0.07f);        // 대시가 끝날 때까지 대기
+        sound.Play(attackSound, SoundManager.Sound.SFX);
         PlayAnim(AnimState.autoAttack);
         StartCoroutine(CheckAnimEnd("AutoAttack"));
 

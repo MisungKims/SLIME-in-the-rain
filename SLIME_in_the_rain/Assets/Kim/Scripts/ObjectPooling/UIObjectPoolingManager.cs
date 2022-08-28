@@ -8,7 +8,8 @@ public enum EUIFlag
 {
     damageText,
     hpBar,
-    jellyAmountText
+    jellyAmountText,
+    monsterStunText
 }
 
 public class UIObjectPoolingManager : MonoBehaviour

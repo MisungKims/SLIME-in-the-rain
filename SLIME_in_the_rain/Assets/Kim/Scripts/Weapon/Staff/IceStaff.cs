@@ -9,6 +9,8 @@ public class IceStaff : Staff
     {
         base.Awake();
 
+        attackSound = "Weapon/IceStaff/Attack";
+        skillSound = "Weapon/IceStaff/Skill";
         weaponType = EWeaponType.iceStaff;
         projectileFlag = EProjectileFlag.ice;
         skillProjectileFlag = EProjectileFlag.iceSkill;

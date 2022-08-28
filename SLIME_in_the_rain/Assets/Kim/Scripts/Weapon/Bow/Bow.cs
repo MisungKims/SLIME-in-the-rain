@@ -22,6 +22,8 @@ public class Bow : Weapon
     {
         base.Awake();
 
+        attackSound = "Weapon/Bow/Attack";
+        skillSound = "Weapon/Bow/Skill";
         canLookAtMousePos = true;
         weaponType = EWeaponType.bow;
         angle = new Vector3(0f, -90f, 0f);

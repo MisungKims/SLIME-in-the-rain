@@ -24,8 +24,6 @@ public class MetalonBaby : Monster
 
     [SerializeField]
     private MinimapWorldObject minimapWorldObject;
-
-    private Camera mainCam;
     #endregion
 
     #region 유니티 함수
@@ -33,10 +31,7 @@ public class MetalonBaby : Monster
     {
         base.Awake();
 
-        mainCam = Camera.main;
         projectileAtk = 2;
-
-        //TryStartChase();
     }
 
     private void OnEnable()
@@ -61,9 +56,16 @@ public class MetalonBaby : Monster
     // 체력바의 위치를 조절하는 코루틴
     IEnumerator SetHPBarPos()
     {
+        RectTransform canvasRectTransform = UIObjectPoolingManager.Instance.healthBarCanvas.GetComponent<RectTransform>();
+        RectTransform hpBarRectTransform = hpBarObject.GetComponent<RectTransform>();
+
         while (hpBarObject)
         {
-            hpBarObject.transform.position = mainCam.WorldToScreenPoint(transform.position + hpBarPos);
+            Vector2 adjustedPosition = cam.WorldToScreenPoint(transform.position + Vector3.down * 0.65f);
+            adjustedPosition.x *= canvasRectTransform.rect.width / (float)cam.pixelWidth;
+            adjustedPosition.y *= canvasRectTransform.rect.height / (float)cam.pixelHeight;
+
+            hpBarRectTransform.anchoredPosition = adjustedPosition - canvasRectTransform.sizeDelta / 2f;
 
             yield return null;
         }

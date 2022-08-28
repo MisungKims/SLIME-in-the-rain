@@ -114,6 +114,8 @@ public class Slime : MonoBehaviour
     public bool IsInWater { get { return isInWater; } }
 
     private float decreaseHPAmount = 1f;  // 물 안에서 감소될 체력의 양
+    [SerializeField]
+    private GameObject waterRipples;
 
     [SerializeField]
     private MinimapWorldObject minimapWorldObject;
@@ -329,6 +331,8 @@ public class Slime : MonoBehaviour
                         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                         if (currentWeapon) currentWeapon.SetShadow(false);
                     }
+
+                    if (!waterRipples.activeSelf) waterRipples.SetActive(true);
                 }
                 else
                 {
@@ -340,6 +344,8 @@ public class Slime : MonoBehaviour
                         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                         if (currentWeapon) currentWeapon.SetShadow(true);
                     }
+
+                    if (waterRipples.activeSelf) waterRipples.SetActive(false);
                 }
             }
 
@@ -355,7 +361,8 @@ public class Slime : MonoBehaviour
         {
             if (isInWater)
             {
-                TakeDamage(-decreaseHPAmount);
+                statManager.AddHP(-decreaseHPAmount);
+                if (statManager.myStats.HP <= 0) Die();
 
                 uIObjectPoolingManager.ShowInWaterText();
 
@@ -568,9 +575,6 @@ public class Slime : MonoBehaviour
         // 변경한 무기의 스탯으로 변경
         statManager.ChangeWeapon(currentWeapon);
 
-        //변경된 스탯 적용
-        if (MainCanvas.Instance) MainCanvas.Instance.changeWeapon();
-
         // 슬라임의 색 변경
         ChangeMaterial();              
     }
@@ -646,18 +650,19 @@ public class Slime : MonoBehaviour
     {
         float damageReduction = stat.defensePower / (1 + stat.defensePower);
         float damage = monsterStats.attackPower * (1 - damageReduction) * -1;
-        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
+
         TakeDamage(-2);
     }
 
     public void Damaged(float damageAmount)
     {
-        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
         TakeDamage(damageAmount);
     }
 
     private void TakeDamage(float damageAmount)
     {
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
+
         statManager.AddHP(damageAmount);
         if(statManager.myStats.HP <= 0) Die();
         else PlayAnim(AnimState.damaged);

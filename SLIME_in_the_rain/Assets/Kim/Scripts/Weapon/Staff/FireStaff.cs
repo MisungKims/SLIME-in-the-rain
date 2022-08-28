@@ -9,6 +9,8 @@ public class FireStaff : Staff
     {
         base.Awake();
 
+        attackSound = "Weapon/FireStaff/Attack";
+        skillSound = "Weapon/FireStaff/Skill";
         weaponType = EWeaponType.fireStaff;
         projectileFlag = EProjectileFlag.fire;
         skillProjectileFlag = EProjectileFlag.fireSkill;
