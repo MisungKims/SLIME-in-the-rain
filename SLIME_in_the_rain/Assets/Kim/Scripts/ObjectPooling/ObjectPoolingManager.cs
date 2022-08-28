@@ -106,7 +106,7 @@ public class ObjectPoolingManager : MonoBehaviour
             for (int j = 0; j < weaponPoolingList[i].initCount; j++)
             {
                 GameObject tempGb = GameObject.Instantiate(weaponPoolingList[i].copyObj, weaponPoolingList[i].parent.transform);
-                tempGb.name = j.ToString();
+                tempGb.name = tempGb.GetComponent<Weapon>().weaponType.ToString() + j.ToString();
                 tempGb.gameObject.SetActive(false);
                 weaponPoolingList[i].queue.Enqueue(tempGb);
             }
@@ -136,15 +136,15 @@ public class ObjectPoolingManager : MonoBehaviour
 
         if (flag.Equals(EObjectFlag.gelatin))       // 반환하려는 오브젝트가 젤라틴일 때 아이템 설정 필요
         {
-            if(tempGb.transform.childCount > 0)
-                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(0, 3)]);
-            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 3)]);
+            if (tempGb.transform.childCount > 0 && tempGb.transform.GetChild(0).GetComponent<Weapon>())
+                Set(tempGb.transform.GetChild(0).GetComponent<Weapon>());
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 3)]);
         }
         else if (flag.Equals(EObjectFlag.weapon))       // 반환하려는 오브젝트가 무기일 때 아이템 설정 필요
         {
-            if (tempGb.transform.childCount > 0)
-                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(15, 20)]);
-            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(15, 20)]);
+            if (tempGb.transform.childCount > 0 && tempGb.transform.GetChild(0).GetComponent<Weapon>())
+                Set(tempGb.transform.GetChild(0).GetComponent<Weapon>());
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(15, 20)]);
         }
 
 
@@ -177,15 +177,17 @@ public class ObjectPoolingManager : MonoBehaviour
 
         if (item != null)
         {
-            if (tempGb.transform.childCount > 0)
-                tempGb.GetComponent<FieldItems>().SetItemPool(item);
-            else tempGb.GetComponent<FieldItems>().SetItem(item);
+            if (tempGb.transform.childCount > 0 && tempGb.transform.GetChild(0).GetComponent<Weapon>())
+                Set(tempGb.transform.GetChild(0).GetComponent<Weapon>());
+
+            tempGb.GetComponent<FieldItems>().SetItem(item);
         } 
         else
         {
-            if (tempGb.transform.childCount > 0)
-                tempGb.GetComponent<FieldItems>().SetItemPool(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
-            else tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
+            if (tempGb.transform.childCount > 0 && tempGb.transform.GetChild(0).GetComponent<Weapon>())
+                Set(tempGb.transform.GetChild(0).GetComponent<Weapon>());
+
+            tempGb.GetComponent<FieldItems>().SetItem(ItemDatabase.Instance.AllitemDB[Random.Range(0, 20)]);
         }
            
         tempGb.transform.position = pos;
@@ -199,15 +201,17 @@ public class ObjectPoolingManager : MonoBehaviour
     /// </summary>
     public void Set(GameObject gb, EObjectFlag flag)
     {
-        if (flag.Equals(EObjectFlag.weapon)) flag = EObjectFlag.gelatin;
-
         int index = (int)flag;
         gb.SetActive(false);
 
-       // if (flag.Equals(EObjectFlag.minimapIcon)) gb.transform.SetParent(objectPoolingList[index].parent.transform);     // 미니맵 아이콘은 부모 변경 필요
+        if (flag.Equals(EObjectFlag.gelatin))
+            Destroy(gb.transform.GetChild(0).gameObject);
+        else if (flag.Equals(EObjectFlag.weapon))
+            Set(gb.transform.GetChild(0).GetComponent<Weapon>());
 
         objectPoolingList[index].queue.Enqueue(gb);
     }
+
 
     /// <summary>
     /// 투사체 오브젝트를 반환
@@ -269,7 +273,7 @@ public class ObjectPoolingManager : MonoBehaviour
     /// <summary>
     /// 무기 오브젝트를 반환
     /// </summary>
-    public GameObject Get(EWeaponType type)
+    public GameObject Get(EWeaponType type, Vector3 pos)
     {
         int index = (int)type;
         GameObject tempGb;
@@ -283,6 +287,8 @@ public class ObjectPoolingManager : MonoBehaviour
         {
             tempGb = GameObject.Instantiate(weaponPoolingList[index].copyObj, weaponPoolingList[index].parent.transform);
         }
+
+        tempGb.transform.position = pos;
 
         return tempGb;
     }
@@ -321,7 +327,7 @@ public class ObjectPoolingManager : MonoBehaviour
     public void AllSet()
     {
         // 오브젝트
-        Transform[] childArr;
+        //Transform[] childArr;
         for (int i = 0; i < objectParent.childCount; i++)
         {
             Transform child = objectParent.GetChild(i);
@@ -343,18 +349,31 @@ public class ObjectPoolingManager : MonoBehaviour
             }
         }
 
-        // 무기
-        childArr = weaponParent.GetComponentsInChildren<Transform>();
-        if (childArr != null)
+
+
+        Transform parent;
+        for (int i = 0; i < weaponPoolingList.Count; i++)
         {
-            for (int i = 1; i < childArr.Length; i++)
+            parent = weaponPoolingList[i].parent.transform;
+            for (int j = 0; j < parent.childCount; j++)
             {
-                if (childArr[i] != transform && childArr[i].gameObject.activeSelf)
-                {
-                    Set(childArr[i].GetComponent<Weapon>());
-                }
+                if (parent.GetChild(j).gameObject.activeSelf)
+                    Set(parent.GetChild(j).GetComponent<Weapon>());
             }
         }
+
+        // 무기
+        //childArr = weaponParent.GetComponentsInChildren<Transform>();
+        //if (childArr != null)
+        //{
+        //    for (int i = 1; i < childArr.Length; i++)
+        //    {
+        //        if (childArr[i] != transform && childArr[i].gameObject.activeSelf)
+        //        {
+        //            Set(childArr[i].GetComponent<Weapon>());
+        //        }
+        //    }
+        //}
     }
 
 
