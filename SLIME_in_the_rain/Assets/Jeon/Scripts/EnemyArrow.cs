@@ -38,8 +38,7 @@ public class EnemyArrow : Projectile
     #region ÇÔ¼ö
     public void DamageSlime(int atkType)
     {
-            Debug.Log("damaged");
-            Slime.Instance.Damaged(stats, atkType);
+        Slime.Instance.Damaged(-atkType);
     }
 
     #endregion

@@ -153,6 +153,7 @@ public class FieldItems : PickUp
             {
                 canDetect = false;
                 addItem();          // 새로 추가
+                StatManager.Instance.myStats.HP += float.Parse(item.maxHp);
             }
         }
         else

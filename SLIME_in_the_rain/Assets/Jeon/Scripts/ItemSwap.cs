@@ -25,7 +25,11 @@ public class ItemSwap : ItemEffect
         }
         else
         {
-            Slime.Instance.EquipWeapon(ObjectPoolingManager.Instance.Get(eWeaponType).GetComponent<Weapon>());
+            /*FieldItems fieldItems = ObjectPoolingManager.Instance.Get(eWeaponType).transform.parent.GetComponent<FieldItems>();
+            if (fieldItems) fieldItems.canDetect = false;
+            fieldItems.SendMessage("DoAttach", SendMessageOptions.DontRequireReceiver);
+            Slime.Instance.RemoveCurrentWeapon();*/
+            Slime.Instance.EquipWeapon(ObjectPoolingManager.Instance.Get(eWeaponType));
             return true;
         }
     }

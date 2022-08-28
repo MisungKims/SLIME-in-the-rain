@@ -269,19 +269,19 @@ public class ObjectPoolingManager : MonoBehaviour
     /// <summary>
     /// 무기 오브젝트를 반환
     /// </summary>
-    public GameObject Get(EWeaponType type)
+    public Weapon Get(EWeaponType type)
     {
         int index = (int)type;
-        GameObject tempGb;
+        Weapon tempGb;
 
         if (weaponPoolingList[index].queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
         {
-            tempGb = weaponPoolingList[index].queue.Dequeue();
-            tempGb.SetActive(true);
+            tempGb = weaponPoolingList[index].queue.Dequeue().GetComponent<Weapon>();
+            tempGb.gameObject.SetActive(true);
         }
         else         // 큐에 더이상 없으면 새로 생성
         {
-            tempGb = GameObject.Instantiate(weaponPoolingList[index].copyObj, weaponPoolingList[index].parent.transform);
+            tempGb = GameObject.Instantiate(weaponPoolingList[index].copyObj, weaponPoolingList[index].parent.transform).GetComponent<Weapon>();
         }
 
         return tempGb;
