@@ -113,7 +113,7 @@ public class Slime : MonoBehaviour
     private bool isInWater = false;
     public bool IsInWater { get { return isInWater; } }
 
-    private float decreaseHPAmount = 0.5f;  // 물 안에서 감소될 체력의 양
+    private float decreaseHPAmount = 1f;  // 물 안에서 감소될 체력의 양
 
     [SerializeField]
     private MinimapWorldObject minimapWorldObject;
@@ -329,9 +329,6 @@ public class Slime : MonoBehaviour
                         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
                         if (currentWeapon) currentWeapon.SetShadow(false);
                     }
-                        
-
-                    
                 }
                 else
                 {
@@ -343,9 +340,6 @@ public class Slime : MonoBehaviour
                         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
                         if (currentWeapon) currentWeapon.SetShadow(true);
                     }
-                        
-
-                    
                 }
             }
 
