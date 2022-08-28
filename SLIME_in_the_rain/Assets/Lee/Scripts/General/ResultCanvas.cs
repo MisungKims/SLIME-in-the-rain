@@ -162,7 +162,8 @@ public class ResultCanvas : MapManager
         stringArr[2] = "¿‚¿∫ ∏ÛΩ∫≈Õ ºˆ: " + slime.killCount;
 
         textMeshArr[3] = jellycountText;
-        stringArr[3] = "»πµÊ ¡©∏Æ∑Æ: " + (jellyManager.JellyCount - sceneDesign.jellyInit).ToString();
+        stringArr[3] = "æÚ¿∫ ¡©∏Æ∑Æ: " + jellyManager.JellyGetCount; //(jellyManager.JellyCount - sceneDesign.jellyInit).ToString();
+
 
         StartCoroutine(Typing(textMeshArr, stringArr, typingSpeed));
 

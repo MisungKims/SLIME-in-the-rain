@@ -21,6 +21,7 @@ public class VillageCanvas : MonoBehaviour
     {
         if (TowerCollider.onStay)
         {
+            Debug.Log(TowerCollider.onStay);
             if (Input.GetKeyDown(KeyCode.G))
             {
                 switch (TowerCollider.thisObject.tag)

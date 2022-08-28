@@ -61,7 +61,8 @@ public class VillageManager : MapManager
 
         if (jellyManager)
         {
-            sceneDesign.jellyInit = jellyManager.JellyCount;
+            //sceneDesign.jellyInit = jellyManager.JellyCount;
+            jellyManager.JellyGetCount = 0;
             Debug.Log("Execution sceneDesign.jellyInit");
         }
         else

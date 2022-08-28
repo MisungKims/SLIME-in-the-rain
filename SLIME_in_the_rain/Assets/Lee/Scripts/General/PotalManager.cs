@@ -238,7 +238,8 @@ public class PotalManager : MonoBehaviour
     }
     IEnumerator Wait(int next)
     {
-        while(doReceipt)
+        slime.canMove = false;
+        while (doReceipt)
         {
             yield return null;
         }
@@ -249,6 +250,7 @@ public class PotalManager : MonoBehaviour
         {
             yield return null;
         }
+        slime.canMove = true;
         //다음씬으로 넘어감
         SceneManager.LoadScene(next);
         receiptCanvas.enabled = false;
@@ -256,6 +258,7 @@ public class PotalManager : MonoBehaviour
     }
     IEnumerator Typing(TextMeshProUGUI typingText, string message, float speed)
     {
+        
         int coloring = 0;
         for (int i = 0; i < message.Length; i++)
         {

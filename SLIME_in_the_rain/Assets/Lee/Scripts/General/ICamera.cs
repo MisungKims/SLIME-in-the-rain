@@ -106,9 +106,7 @@ public class ICamera : MonoBehaviour
         vec3.x = slime.transform.position.x;
         vec3.y = 7.9f;
         vec3.z = slime.transform.position.z - 10f;
-
-        Camera.main.transform.position = vec3;
-        Camera.main.transform.rotation = Quaternion.Euler(Vector3.right * 30);
+        Camera.main.transform.SetPositionAndRotation(vec3, Quaternion.Euler(Vector3.right * 30));
         Camera.main.orthographicSize = 5f;
     }
     public void Shop()
@@ -119,17 +117,13 @@ public class ICamera : MonoBehaviour
         vec3.z = slime.transform.position.z - 10f;
         Camera.main.transform.position = vec3;
     }
-    IEnumerator Result()
-    {
-        while (true)
-        {
-            vec3.x = 960f;
-            vec3.y = 540f;
-            vec3.z = -500f;
-            Camera.main.transform.position = vec3;
-            Camera.main.transform.rotation = new Quaternion();
-            Camera.main.orthographicSize = 583f;
-        }
+    public void Result()
+    {   
+        vec3.x = 960f;
+        vec3.y = 540f;
+        vec3.z = -500f;
+        Camera.main.transform.SetPositionAndRotation(vec3, new Quaternion());
+        Camera.main.orthographicSize = 583f;
 
     }
 }

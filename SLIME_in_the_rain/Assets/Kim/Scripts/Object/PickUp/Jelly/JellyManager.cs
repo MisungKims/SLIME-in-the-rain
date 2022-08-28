@@ -37,7 +37,9 @@ public class JellyManager : MonoBehaviour
     #endregion
     [SerializeField]
     private int jellyCount = 0;
+    private int jellyGetCount = 0;
     public int JellyCount { get { return jellyCount; } set { jellyCount = value; }}
+    public int JellyGetCount { get { return jellyGetCount; } set { jellyGetCount = value; } }
 
     // °¡ÁßÄ¡ ·£´ý
     [SerializeField]
@@ -120,7 +122,7 @@ public class JellyManager : MonoBehaviour
         textTransform.anchoredPosition = textPos;
 
         JellyCount += value;
-
+        JellyGetCount += value;
 
     }
     #endregion
