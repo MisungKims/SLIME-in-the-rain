@@ -250,6 +250,7 @@ public class HitCountMap : MapManager
                 maxCount = 60;
                 break;
             default:
+                maxCount = 80;
                 break;
         }
 

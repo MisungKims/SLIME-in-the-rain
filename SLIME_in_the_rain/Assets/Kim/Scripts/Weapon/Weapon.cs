@@ -96,14 +96,10 @@ public class Weapon : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        PlayAnim(AnimState.idle);
         dashCoolTime = 0f;
         currentCoolTime = 0f;
         SetShadow(true);
-    }
-
-    protected virtual void Start()
-    {
-        PlayAnim(AnimState.idle);
     }
 
     #endregion

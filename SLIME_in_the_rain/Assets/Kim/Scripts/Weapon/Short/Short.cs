@@ -27,6 +27,7 @@ public class Short : Weapon
     {
         base.OnEnable();
 
+        shadow.transform.localPosition = Vector3.zero;
         StartCoroutine(ShowShadow());
     }
 

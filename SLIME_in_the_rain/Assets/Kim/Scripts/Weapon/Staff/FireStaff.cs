@@ -15,9 +15,8 @@ public class FireStaff : Staff
         maxDashCoolTime = 5f;
     }
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         UIseting("불지팡이", "빨간색", "화염방사"); //내용 정보 셋팅 //jeon 추가
     }
     #endregion

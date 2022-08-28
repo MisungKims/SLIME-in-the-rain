@@ -635,6 +635,7 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  currentCoolTime: 0
   meshRenderer: {fileID: 2008556058788714512}
   go: {fileID: 0}
   cube: {fileID: 0}
@@ -1730,10 +1731,10 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  currentCoolTime: 0
   meshRenderer: {fileID: 5144895923084061545}
   go: {fileID: 0}
   cube: {fileID: 0}
-  size: 2
   shadow: {fileID: 3794873482767935566}
 --- !u!95 &5128544985948173807
 Animator:
@@ -1842,6 +1843,7 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  currentCoolTime: 0
   meshRenderer: {fileID: 817227592277240887}
   go: {fileID: 0}
   cube: {fileID: 0}
@@ -2002,10 +2004,10 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  currentCoolTime: 0
   meshRenderer: {fileID: 0}
   go: {fileID: 0}
   cube: {fileID: 0}
-  size: 2
   shadow: {fileID: 3409763939965848198}
   meshRenderers:
   - {fileID: 2172887449807652472}
@@ -2014,6 +2016,7 @@ MonoBehaviour:
   - {fileID: 4908935859247991371}
   - {fileID: 7821045389497172721}
   - {fileID: 7269937612856718516}
+  mesh: {fileID: 4352715969032541363}
 --- !u!65 &1604904598615324347
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2727,6 +2730,7 @@ MonoBehaviour:
   dashCoolTime: 0
   maxDashCoolTime: 0
   isCanSkill: 1
+  currentCoolTime: 0
   meshRenderer: {fileID: 421372504764296562}
   go: {fileID: 0}
   cube: {fileID: 0}

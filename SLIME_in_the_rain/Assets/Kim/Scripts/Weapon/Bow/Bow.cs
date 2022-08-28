@@ -28,11 +28,9 @@ public class Bow : Weapon
         maxDashCoolTime = 2f;
     }
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
-
-        UIseting("활", "노란색", "애쉬w"); //내용 정보 셋팅 //jeon 추가
+        UIseting("활", "노란색", "부채꼴로 발사"); //내용 정보 셋팅 //jeon 추가
     }
 
     #endregion

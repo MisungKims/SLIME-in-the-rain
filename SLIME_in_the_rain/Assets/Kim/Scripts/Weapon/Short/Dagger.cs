@@ -25,6 +25,7 @@ public class Dagger : Short
 
     [SerializeField]
     private MeshRenderer[] meshRenderers;
+
     #endregion
 
     #region 유니티 함수
@@ -40,10 +41,9 @@ public class Dagger : Short
         shadowScale = 1f;
     }
 
-    protected override void Start()
-    {
-        base.Start();
 
+    private void Start()
+    {
         UIseting("단검", "회색", "은신"); //내용 정보 셋팅 //jeon 추가
     }
 
