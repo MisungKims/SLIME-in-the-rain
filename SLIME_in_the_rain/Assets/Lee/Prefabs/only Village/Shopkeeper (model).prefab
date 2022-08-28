@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050927099635323777}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050927099635323785}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050927099635323787}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3594791133062446345}
   - component: {fileID: 3250278753841326241}
   - component: {fileID: 7103255384496924677}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Shopkeeper (model)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2575433
+  m_Radius: 0.6
   m_Center: {x: 0.00084666413, y: 0.13952677, z: 0.0004366637}
 --- !u!1 &5050927099635814319
 GameObject:
@@ -205,6 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5050927099635323791}
   - component: {fileID: 5050927099649409705}
+  - component: {fileID: 5285579949321106548}
   m_Layer: 11
   m_Name: Mini_poho
   m_TagString: Untagged
@@ -282,3 +283,16 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.18698455, z: 0}
     m_Extent: {x: 0.2570305, y: 0.18807195, z: 0.25703043}
   m_DirtyAABB: 0
+--- !u!135 &5285579949321106548
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050927099635814319}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.28
+  m_Center: {x: 0, y: 0.18807188, z: 0}
