@@ -74,8 +74,10 @@ public class Weapon : MonoBehaviour
     private WaitForSeconds waitForRotate = new WaitForSeconds(0.01f);       // 슬라임의 회전을 기다리는
 
     protected StatManager statManager;
+    protected SoundManager sound;
 
-
+    protected string attackSound;
+    protected string skillSound;
     //public Vector3 weaponPos;
 
 
@@ -88,6 +90,7 @@ public class Weapon : MonoBehaviour
     {
         slime = Slime.Instance;
         statManager = StatManager.Instance;
+        sound = SoundManager.Instance;
         cam = Camera.main;
         outline = GetComponent<Outline>();
 
@@ -217,7 +220,10 @@ public class Weapon : MonoBehaviour
     protected virtual void AutoAttack()
     {
         if(canLookAtMousePos) LookAtMousePos();
+
         PlayAnim(AnimState.autoAttack);
+
+        sound.Play(attackSound, SoundManager.Sound.SFX);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
     }
@@ -227,6 +233,8 @@ public class Weapon : MonoBehaviour
     {
         if (canLookAtMousePos) LookAtMousePos();
         PlayAnim(AnimState.skill);
+
+        sound.Play(skillSound, SoundManager.Sound.SFX);
 
         RuneManager.Instance.UseSkillRune();
 

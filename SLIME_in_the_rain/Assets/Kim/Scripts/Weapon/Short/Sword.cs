@@ -25,6 +25,8 @@ public class Sword : Short
     {
         base.Awake();
 
+        attackSound = "Weapon/Sword/Attack";
+        skillSound = "Weapon/Sword/Skill";
         canLookAtMousePos = true;
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;

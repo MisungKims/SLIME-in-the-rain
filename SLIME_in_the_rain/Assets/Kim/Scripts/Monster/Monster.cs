@@ -107,7 +107,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     protected DungeonManager dungeonManager;
     protected Slime slime;
     private DamageText damageText;
-    private Camera cam;
+    protected Camera cam;
     protected WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     
     #endregion
@@ -345,7 +345,18 @@ public abstract class Monster : MonoBehaviour, IDamage
         if (isChasing) isChasing = false;
 
         nav.SetDestination(transform.position);
-        
+
+        // 기절 텍스트의 위치 설정
+        GameObject stunText = uiPoolingManager.Get(EUIFlag.monsterStunText);
+        RectTransform canvasRectTransform = UIObjectPoolingManager.Instance.healthBarCanvas.GetComponent<RectTransform>();
+        RectTransform stunTextTransform = stunText.GetComponent<RectTransform>();
+
+        Vector2 adjustedPosition = cam.WorldToScreenPoint(transform.position + Vector3.up * 0.65f);
+        adjustedPosition.x *= canvasRectTransform.rect.width / (float)cam.pixelWidth;
+        adjustedPosition.y *= canvasRectTransform.rect.height / (float)cam.pixelHeight;
+
+        stunTextTransform.anchoredPosition = adjustedPosition - canvasRectTransform.sizeDelta / 2f;
+
         yield return new WaitForSeconds(time);
 
         isStun = false;
@@ -405,6 +416,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
     }
 
+    
     // 스턴
     public virtual void Stun(float stunTime)
     {
@@ -414,10 +426,11 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         stunDamaged = true;
 
-        if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
-        {
-            if(!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
-        }
+        if (!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
+        //if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
+        //{
+        //    if(!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
+        //}
     }
 
     // 죽음

@@ -36,7 +36,7 @@ public class GeneralMonster : Monster
     private GameObject hpBarObject;
     private Slider hpBar;
 
-    private Camera mainCam;
+    
     #endregion
 
     #region 유니티 함수
@@ -45,8 +45,7 @@ public class GeneralMonster : Monster
         base.Awake();
 
         addCountAmount = 10f;
-        mainCam = Camera.main;
-
+        
         if(DungeonManager.Instance) mapRange = DungeonManager.Instance.mapRange;
         else mapRange = 8;
 
@@ -136,9 +135,9 @@ public class GeneralMonster : Monster
 
         while (hpBarObject)
         {
-            Vector2 adjustedPosition = mainCam.WorldToScreenPoint(transform.position + Vector3.down * 0.65f);
-            adjustedPosition.x *= canvasRectTransform.rect.width / (float)mainCam.pixelWidth;
-            adjustedPosition.y *= canvasRectTransform.rect.height / (float)mainCam.pixelHeight;
+            Vector2 adjustedPosition = cam.WorldToScreenPoint(transform.position + Vector3.down * 0.65f);
+            adjustedPosition.x *= canvasRectTransform.rect.width / (float)cam.pixelWidth;
+            adjustedPosition.y *= canvasRectTransform.rect.height / (float)cam.pixelHeight;
 
             hpBarRectTransform.anchoredPosition = adjustedPosition - canvasRectTransform.sizeDelta / 2f;
 

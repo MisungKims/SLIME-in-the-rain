@@ -33,25 +33,14 @@ public class StatManager : MonoBehaviour
     public Stats gelatinStat;           // 젤라틴 스탯 ///////////////////////////// - > 수시로 감소하거나 증가하기 때문에 +=으로는 힘듬
     public Stats weaponStat;
 
+
+    private float beforeMaxHP;
+    private float beforeHP;
+
     //////// 캐싱
     private Slime slime;
     private Weapon currentWeapon;
     #endregion
-
-    // 스탯 초기화
-    public void InitStats() // originStats = maxHP 100, coolTime 1, moveSpeed 1, atkPower 10, atkSpeed 1, defensePower 0, atkRange 1, hitCount 1, increases 0 기준
-    {
-        originStats = new Stats(100f, 100f, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
-        myStats = new Stats(0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1, 0);
-        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 1, 0);
-        gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
-        weaponStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
-
-        ChangeStats();
-
-        AddHP(myStats.maxHP);
-    }
-
 
     #region 유니티 함수
     void Awake()
@@ -75,7 +64,22 @@ public class StatManager : MonoBehaviour
     #endregion
 
     #region 함수
+    // 스탯 초기화
+    public void InitStats() // originStats = maxHP 100, coolTime 1, moveSpeed 1, atkPower 10, atkSpeed 1, defensePower 0, atkRange 1, hitCount 1, increases 0 기준
+    {
+        originStats = new Stats(100f, 100f, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        myStats = new Stats(0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1, 0);
+        extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 1, 0);
+        gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
+        weaponStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
 
+        ChangeStats();
+
+        AddHP(myStats.maxHP);
+
+        beforeMaxHP = myStats.maxHP;
+        beforeHP = myStats.HP;
+    }
 
     // amount 만큼 증가값을 반환
     // ex) HP 30% 증가값
@@ -126,7 +130,6 @@ public class StatManager : MonoBehaviour
         maxStat(myStats.moveSpeed, weaponStat.moveSpeed);
 
         UIObjectPoolingManager.Instance.hpSlime.maxValue = myStats.maxHP;
-        //UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
 
     private void maxStat(float _myStat, float _weaponStat)//최대 범위제한
@@ -152,8 +155,32 @@ public class StatManager : MonoBehaviour
 
         ChangeStats();
 
+        SetWeaponHP();
+
         UIObjectPoolingManager.Instance.hpSlime.value = myStats.HP;
     }
+
+    //무기 바꿨을때 HP 변환 관련 함수
+    public void SetWeaponHP()
+    {
+        //무기 변환시 (새무기의 체력이랑 같을땐 그대로)
+
+        //새무기의 체력이 더 높을시 -> 비율대로 체력을 넣음
+        if (beforeMaxHP < myStats.maxHP)
+        {
+            myStats.HP = myStats.maxHP * (beforeHP / beforeMaxHP);
+        }
+
+        //새무기의 체력이 더 낮고, 전의 체력이 보다 많을시 -> 최대 체력보단 피가 더 안참
+        else if (beforeMaxHP > myStats.maxHP && beforeHP > myStats.maxHP)
+        {
+            myStats.HP = myStats.maxHP;
+        }
+
+        beforeMaxHP = myStats.maxHP;
+        beforeHP = myStats.HP;
+    }
+
 
     // Max Hp 스탯 변경
     public void AddMaxHP(float amount)
@@ -249,7 +276,7 @@ public class StatManager : MonoBehaviour
         ChangeStats();
     }
 
-
+    
     /// TODO : 데미지 구현
 
     // 평타 데미지 반환
