@@ -355,7 +355,7 @@ public class Slime : MonoBehaviour
         {
             if (isInWater)
             {
-                statManager.AddHP(-decreaseHPAmount);
+                TakeDamage(-decreaseHPAmount);
 
                 uIObjectPoolingManager.ShowInWaterText();
 
@@ -646,20 +646,18 @@ public class Slime : MonoBehaviour
     {
         float damageReduction = stat.defensePower / (1 + stat.defensePower);
         float damage = monsterStats.attackPower * (1 - damageReduction) * -1;
-
-        TakeDamage(damage);
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
+        TakeDamage(-2);
     }
 
     public void Damaged(float damageAmount)
     {
-        TakeDamage(-2);
+        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
+        TakeDamage(damageAmount);
     }
 
     private void TakeDamage(float damageAmount)
     {
-        StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
-
-        damageAmount = -2;
         statManager.AddHP(damageAmount);
         if(statManager.myStats.HP <= 0) Die();
         else PlayAnim(AnimState.damaged);

@@ -316,7 +316,7 @@ public class ObjectPoolingManager : MonoBehaviour
             for (int j = 1; j < childArr.Length; j++)
             {
                 getMoneyMap.GetParticle(childArr[j].position);
-                Set(childArr[j].gameObject, (EObjectFlag)i);
+                childArr[j].gameObject.SetActive(false);
 
                 yield return new WaitForSeconds(0.000001f * Time.deltaTime);
             }
