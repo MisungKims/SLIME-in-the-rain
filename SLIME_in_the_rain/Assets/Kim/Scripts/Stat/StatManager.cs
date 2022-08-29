@@ -122,7 +122,7 @@ public class StatManager : MonoBehaviour
         myStats.attackPower = originStats.attackPower + weaponStat.attackPower + extraStats.attackPower + gelatinStat.attackPower;
         myStats.attackRange = originStats.attackRange + ((weaponStat.attackRange + extraStats.attackRange + gelatinStat.attackRange) * 0.01f);
         myStats.defensePower = originStats.defensePower + weaponStat.defensePower + extraStats.defensePower + gelatinStat.defensePower;
-        myStats.hitCount = originStats.hitCount * extraStats.hitCount;
+        myStats.hitCount = originStats.hitCount * weaponStat.hitCount * extraStats.hitCount;
         myStats.increasesDamage = originStats.increasesDamage + ((weaponStat.increasesDamage + extraStats.increasesDamage + gelatinStat.increasesDamage) * 0.01f);
 
         maxStat(myStats.coolTime, weaponStat.coolTime);

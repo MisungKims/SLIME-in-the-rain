@@ -336,14 +336,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    maxHP: 100
+    maxHP: 30
     HP: 30
-    coolTime: 10
-    moveSpeed: 1.5
-    attackSpeed: 0.1
-    attackPower: 1
-    attackRange: 0.25
-    defensePower: 1
+    coolTime: 5
+    moveSpeed: 20
+    attackSpeed: 50
+    attackPower: 0
+    attackRange: 0
+    defensePower: 5
     hitCount: 1
     increasesDamage: 0
   weaponRuneInfos:
@@ -372,7 +372,6 @@ MonoBehaviour:
   - {fileID: 579252539545286254}
   - {fileID: 6430905371110413420}
   - {fileID: 5844448884150082796}
-  mesh: {fileID: 3897186435907525163}
 --- !u!114 &5995180065132828981
 MonoBehaviour:
   m_ObjectHideFlags: 0
