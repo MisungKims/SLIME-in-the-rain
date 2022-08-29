@@ -71,8 +71,6 @@ public class InventoryUI : MonoBehaviour
         CombinationUI.SetActive(activeCombination);
         DissolutionUI.SetActive(activeDissolution);
         addButtonCostText.text = expansCost.ToString() + "J";
-
-
     }
     private void Update()
     {
@@ -94,7 +92,7 @@ public class InventoryUI : MonoBehaviour
             activeDissolution = false;
             activeStatsUI = false;
         }
-
+        inventroyPanel.SetActive(activeInventory);
         statsUI.SetActive(activeStatsUI);
         CombinationUI.SetActive(activeCombination);
         DissolutionUI.SetActive(activeDissolution);
@@ -151,6 +149,7 @@ public class InventoryUI : MonoBehaviour
             wT.ShowText();
         }
     }
+
 
     public void ExpansionSlot(int _level)
     {

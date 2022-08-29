@@ -523,6 +523,10 @@ public class CombinationUI : MonoBehaviour
         {
             inventory.onChangedItem.Invoke();
         }
+        if (gelatinResultCont > 0)
+        {
+            StatManager.Instance.AddHP(float.Parse(ComGelatinIt.maxHp) * gelatinResultCont);
+        }
     }
 
     IEnumerator comok(int _gelatinLeftCont, int _gelatinRightCont , int _count)
@@ -531,8 +535,6 @@ public class CombinationUI : MonoBehaviour
         StartCoroutine(Wt("젤라틴 합성 성공"));
         yield return new WaitForSeconds(1.0f);
 
-
-        inventory.addItem(ComGelatinIt, _count);
 
         for (int i = 0; i < inventory.items.Count; i++)
         {
@@ -545,6 +547,7 @@ public class CombinationUI : MonoBehaviour
                 inventory.items[i].itemCount -= _gelatinRightCont;
             }
         }
+        inventory.addItem(ComGelatinIt, _count);
         init_Data();
         if (inventory.onChangedItem != null)
         {
