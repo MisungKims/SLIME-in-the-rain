@@ -111,7 +111,7 @@ public class StatsUIManager : MonoBehaviour
         statDEFC.text = statManager.myStats.defensePower.ToString() + "(" + statManager.gelatinStat.defensePower.ToString() + ")";
         statATKSPDC.text = statManager.myStats.attackSpeed.ToString();
         statMOVESPDC.text = statManager.myStats.moveSpeed.ToString();
-        statCOOLC.text = statManager.myStats.coolTime.ToString();
+        statCOOLC.text = (statManager.extraStats.coolTime + statManager.gelatinStat.coolTime).ToString() + "%";
     }
     #endregion
 }

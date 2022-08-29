@@ -29,7 +29,7 @@ public class StatManager : MonoBehaviour
     //////// 스탯
     private Stats originStats;      // 기본 스탯
     public Stats myStats;           // 현재 스탯
-    private Stats extraStats;       // 룬, 농장 등으로 추가될 스탯 증가량 - > 감소할 일 이 없거나 한번만 증가하는 수치들 += 사용한번만 하면 됨
+    public Stats extraStats;       // 룬, 농장 등으로 추가될 스탯 증가량 - > 감소할 일 이 없거나 한번만 증가하는 수치들 += 사용한번만 하면 됨
     public Stats gelatinStat;           // 젤라틴 스탯 ///////////////////////////// - > 수시로 감소하거나 증가하기 때문에 +=으로는 힘듬
     public Stats weaponStat;
 
