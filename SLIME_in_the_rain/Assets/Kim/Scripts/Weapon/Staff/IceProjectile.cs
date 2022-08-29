@@ -20,7 +20,7 @@ public class IceProjectile : StaffProjectile
     {
         base.OnEnable();
 
-        stunTime = 1f;
+        stunTime = 2f;
     }
     #endregion
 

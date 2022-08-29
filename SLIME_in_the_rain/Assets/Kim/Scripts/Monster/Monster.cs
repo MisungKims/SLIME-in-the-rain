@@ -213,8 +213,6 @@ public abstract class Monster : MonoBehaviour, IDamage
         isJumpHit = true;
     }
 
-
-
     // 감지된 슬라임을 쫓음
     protected virtual IEnumerator Chase()
     {
@@ -338,30 +336,40 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
     }
 
+    private GameObject stunText;
+
     // 스턴 코루틴
     IEnumerator DoStun(float time)
     {
+        isHit = true;
         isStun = true;
-        if (isChasing) isChasing = false;
+        isChasing = false;
+        HaveDamage(0.5f);
 
         nav.SetDestination(transform.position);
-
-        // 기절 텍스트의 위치 설정
-        GameObject stunText = uiPoolingManager.Get(EUIFlag.monsterStunText);
-        RectTransform canvasRectTransform = UIObjectPoolingManager.Instance.healthBarCanvas.GetComponent<RectTransform>();
-        RectTransform stunTextTransform = stunText.GetComponent<RectTransform>();
-
-        Vector2 adjustedPosition = cam.WorldToScreenPoint(transform.position + Vector3.up * 0.65f);
-        adjustedPosition.x *= canvasRectTransform.rect.width / (float)cam.pixelWidth;
-        adjustedPosition.y *= canvasRectTransform.rect.height / (float)cam.pixelHeight;
-
-        stunTextTransform.anchoredPosition = adjustedPosition - canvasRectTransform.sizeDelta / 2f;
+        
+        StartCoroutine(SetStunTextPos());       // 기절 텍스트
 
         yield return new WaitForSeconds(time);
 
+        isHit = false;
         isStun = false;
         stunDamaged = false;
         TryStartChase();
+    }
+
+    IEnumerator SetStunTextPos()
+    {
+        stunText = uiPoolingManager.Get(EUIFlag.monsterStunText);
+
+        while (stunText.activeSelf)
+        {
+            stunText.transform.position = cam.WorldToScreenPoint(transform.position + Vector3.up * 0.65f);
+
+            yield return null;
+        }
+
+        stunText = null;
     }
 
 
