@@ -97,6 +97,7 @@ public class MainCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(slime.currentWeapon.weaponType);
         //HP 
         hp.maxValue = statManager.myStats.maxHP;
         hp.value = statManager.myStats.HP;
@@ -132,22 +133,16 @@ public class MainCanvas : MonoBehaviour
             else
             {
                 skillText.text = " ";
-                //Debug.Log("-" + slime.currentWeapon.weaponType);
-                skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
+                skillImage.sprite = Skill(slime.currentWeapon.weaponType);
             }
-            //스킬쿨타임중이면 skill아이콘 어둡게 쿨이 되면 다시 원상복구
-            if (slime.currentWeapon.CurrentCoolTime > 0)
+            if(slime.currentWeapon.skillBuffTime > 0)
             {
-                skillImage.color = new Color(0.7f, 0.7f, 0.7f);
-            }
-            else
-            {
-                skillImage.color = new Color(1f, 1f, 1f);
+                skillBuffTime.gameObject.SetActive(true);
+                skillBuffTime.fillAmount = 1 - (slime.currentWeapon.skillBuffTime / 5);
             }
 
 
-
-            //스킬 아이콘 꺼져있으면 켜주기
+            //대시 아이콘 꺼져있으면 켜주기
             if (!dashCool.gameObject.activeSelf) dashCool.gameObject.SetActive(true);
 
             //대쉬
@@ -172,17 +167,7 @@ public class MainCanvas : MonoBehaviour
             else    //스킬 쿨타임 돌아옴
             {
                 dashText.text = " ";
-                dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
-            }
-
-            //스킬쿨타임중이면 Dash아이콘 어둡게 쿨이 되면 다시 원상복구
-            if (slime.currentWeapon.CurrentCoolTime > 0)
-            {
-                dashImage.color = new Color(0.7f, 0.7f, 0.7f);
-            }
-            else
-            {
-                dashImage.color = new Color(1f, 1f, 1f);
+                dashImage.sprite = Dash(slime.currentWeapon.weaponType);
             }
         }
         //젤리
@@ -203,9 +188,6 @@ public class MainCanvas : MonoBehaviour
         skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
         dashText.text = " ";
         dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
-
-        
-
     }
 
     ////무기 바꿨을때 HP 변환 관련 함수

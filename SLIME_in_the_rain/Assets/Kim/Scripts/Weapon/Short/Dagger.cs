@@ -58,6 +58,7 @@ public class Dagger : Short
         slime.isStealth = true;
         slimeMat = slime.SkinnedMesh.material;
 
+
         // 반투명하게
         alpha = maxAlpha;
         while (alpha >= minAlpha)
@@ -69,7 +70,14 @@ public class Dagger : Short
             yield return null;
         }
 
-        yield return new WaitForSeconds(skillDuration);
+        ///////////////////수정/////////////////////
+        skillBuffTime = skillDuration;
+        while ( skillBuffTime > 0)
+        {
+            skillBuffTime -= Time.deltaTime;
+            yield return null;
+        }
+        //yield return new WaitForSeconds(skillDuration);
 
         // 원래대로
         alpha = slimeMat.color.a;

@@ -58,11 +58,13 @@ public class Weapon : MonoBehaviour
     // 대시
     public float dashCoolTime;
     public float maxDashCoolTime;
+    public float dashBuffTime;
     protected bool isDash = false;
 
     // 스킬
     public bool isCanSkill = true;
     public float currentCoolTime;
+    public float skillBuffTime;
     public float CurrentCoolTime { get { return currentCoolTime; } set { currentCoolTime = value; } }
 
     // 머터리얼
