@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
    public List<Item> items = new List<Item>();
 
     private StatManager statManager;
-
+    private InventoryUI inventoryUI;
     private float sAtkRange;
     public bool getIng = false;
 
@@ -87,6 +87,7 @@ public class Inventory : MonoBehaviour
     {
        SlotCount = 4;
         statManager = StatManager.Instance;
+        inventoryUI = InventoryUI.Instance;
     }
 
     #endregion
@@ -131,6 +132,9 @@ public class Inventory : MonoBehaviour
         {
             onChangedItem.Invoke();
         }
+
+
+        statManager.AddHP(float.Parse(_item.maxHp) * _addCount);
     }
 
     public bool findSame(Item _item)
@@ -170,24 +174,29 @@ public class Inventory : MonoBehaviour
             }
         }
         ///¡©∂Û∆æ Ω∫≈»π›øµ
-      /*  statManager.AddGelatinDefensePower(saveExtraStats.defensePower); 
-        statManager.AddGelatinMaxHP(saveExtraStats.maxHP);
-        statManager.AddGelatinMoveSpeed(saveExtraStats.moveSpeed);
-        statManager.AddGelatinCoolTime(saveExtraStats.coolTime);
-        statManager.AddGelatinAttackSpeed(saveExtraStats.attackSpeed);
-        statManager.AddGelatinAttackPower(saveExtraStats.attackPower);
-        statManager.AddGelatinDefensePower(saveExtraStats.attackRange);*/
+        statManager.ChangeGelatinDefensePower(saveExtraStats.defensePower);
+        statManager.ChangeGelatinMaxHP(saveExtraStats.maxHP);
+        statManager.ChangeGelatinMoveSpeed(saveExtraStats.moveSpeed);
+        statManager.ChangeGelatinCoolTime(saveExtraStats.coolTime);
+        statManager.ChangeGelatinAttackSpeed(saveExtraStats.attackSpeed);
+        statManager.ChangeGelatinAttackPower(saveExtraStats.attackPower);
+        statManager.ChangeGelatinAttackRange(saveExtraStats.attackRange);
     }
     public void ResetInven()
     {
+        inventoryUI.activeInventory = false;
+        inventoryUI. activeStatsUI = false;
+        inventoryUI.activeCombination = false;
+        inventoryUI.activeDissolution = false;
+
         items.Clear();
          SlotCount = 4;
         if (onChangedItem != null)
         {
             onChangedItem.Invoke();
         }
-        InventoryUI.Instance.expansCost = 5;
-        InventoryUI.Instance.addButtonCostText.text = InventoryUI.Instance.expansCost.ToString() + "J";
+        inventoryUI.expansCost = 5;
+        inventoryUI.addButtonCostText.text = inventoryUI.expansCost.ToString() + "J";
 
         if (onSlotCountChange != null)
         {

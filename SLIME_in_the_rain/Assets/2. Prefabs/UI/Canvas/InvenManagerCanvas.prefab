@@ -1692,6 +1692,7 @@ GameObject:
   - component: {fileID: 4300663526641590324}
   - component: {fileID: 4300663526641590327}
   - component: {fileID: 4300663526641590326}
+  - component: {fileID: 4500018840959232857}
   m_Layer: 5
   m_Name: ExpansionButton
   m_TagString: Untagged
@@ -1830,6 +1831,51 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 7, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &4500018840959232857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663526641590328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMovefalse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMoveTrue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4300663526695416665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,6 +3036,7 @@ GameObject:
   - component: {fileID: 4300663526788706357}
   - component: {fileID: 4300663526788706356}
   - component: {fileID: 4300663526788706359}
+  - component: {fileID: 2063010179457853230}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -3127,6 +3174,51 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 7, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &2063010179457853230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663526788706361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMovefalse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMoveTrue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4300663526791693826
 GameObject:
   m_ObjectHideFlags: 0
@@ -6365,7 +6457,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 45, y: 0}
+  m_AnchoredPosition: {x: 92, y: 0}
   m_SizeDelta: {x: 285.55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4300663527459260896
@@ -6917,6 +7009,7 @@ GameObject:
   - component: {fileID: 4300663527660965478}
   - component: {fileID: 4300663527660965481}
   - component: {fileID: 4300663527660965480}
+  - component: {fileID: 9115798694471570234}
   m_Layer: 5
   m_Name: Combination
   m_TagString: Untagged
@@ -7054,6 +7147,51 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 7, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &9115798694471570234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663527660965482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMovefalse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMoveTrue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4300663527675961300
 GameObject:
   m_ObjectHideFlags: 0
@@ -11183,7 +11321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: " \uCFE8\uD0C0\uC784 :"
+  m_text: " \uC2A4\uD0AC \uCFE8\uD0C0\uC784 :"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7f99ae80e7210134b93641e817267651, type: 2}
   m_sharedMaterial: {fileID: 6382057664037885324, guid: 7f99ae80e7210134b93641e817267651, type: 2}
@@ -11675,6 +11813,7 @@ GameObject:
   - component: {fileID: 4300663528558808952}
   - component: {fileID: 4300663528558808955}
   - component: {fileID: 4300663528558808954}
+  - component: {fileID: 5105529604110801412}
   m_Layer: 5
   m_Name: Dissolution
   m_TagString: Untagged
@@ -11812,6 +11951,51 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 7, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &5105529604110801412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663528558808956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMovefalse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMoveTrue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4300663528563581789
 GameObject:
   m_ObjectHideFlags: 0

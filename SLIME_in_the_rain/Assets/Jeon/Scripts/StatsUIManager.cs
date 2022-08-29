@@ -107,8 +107,8 @@ public class StatsUIManager : MonoBehaviour
     
         
         statHPC.text = statManager.myStats.HP.ToString() + " / " + statManager.myStats.maxHP.ToString();
-        statATKC.text = statManager.myStats.attackPower.ToString();
-        statDEFC.text = statManager.myStats.defensePower.ToString();
+        statATKC.text = statManager.myStats.attackPower.ToString() + "("+statManager.gelatinStat.attackPower.ToString() + ")";
+        statDEFC.text = statManager.myStats.defensePower.ToString() + "(" + statManager.gelatinStat.defensePower.ToString() + ")";
         statATKSPDC.text = statManager.myStats.attackSpeed.ToString();
         statMOVESPDC.text = statManager.myStats.moveSpeed.ToString();
         statCOOLC.text = statManager.myStats.coolTime.ToString();

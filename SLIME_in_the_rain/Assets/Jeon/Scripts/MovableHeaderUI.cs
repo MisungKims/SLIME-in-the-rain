@@ -8,6 +8,8 @@ public class MovableHeaderUI : MonoBehaviour, IPointerDownHandler, IDragHandler
     [SerializeField]
     private Transform targetTr; // 이동될 UI
 
+    private bool canMove = true;
+
     private Vector2 beginPoint;
     private Vector2 moveBegin;
 
@@ -49,8 +51,22 @@ public class MovableHeaderUI : MonoBehaviour, IPointerDownHandler, IDragHandler
     // 드래그 : 마우스 커서 위치로 이동
     void IDragHandler.OnDrag(PointerEventData eventData)
     {
+        if (canMove)
+        {
+
         targetTr.position = beginPoint + (eventData.position - moveBegin);
+        }
     }
+
+    public void conMoveTrue()
+    {
+        canMove = true;
+    }
+    public void conMovefalse()
+    {
+        canMove = false;
+    }
+
 
     IEnumerator xLock(int _Pos)
     {

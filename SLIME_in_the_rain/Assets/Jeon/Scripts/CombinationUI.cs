@@ -532,8 +532,6 @@ public class CombinationUI : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
 
-        inventory.addItem(ComGelatinIt, _count);
-
         for (int i = 0; i < inventory.items.Count; i++)
         {
             if (inventory.items[i].itemName == gelatinLeftIt.itemName)
@@ -545,6 +543,7 @@ public class CombinationUI : MonoBehaviour
                 inventory.items[i].itemCount -= _gelatinRightCont;
             }
         }
+        inventory.addItem(ComGelatinIt, _count);
         init_Data();
         if (inventory.onChangedItem != null)
         {
@@ -559,6 +558,7 @@ public class CombinationUI : MonoBehaviour
     {
         inventory.items[slotLeft].itemCount--;
         inventory.items[slotRight].itemCount--;
+        StatManager.Instance.AddHP(0);
         init_Data();
         StartCoroutine(Wt("실패했습니다."));
         if (inventory.onChangedItem != null)

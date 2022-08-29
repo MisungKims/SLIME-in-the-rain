@@ -169,38 +169,8 @@ public class DissolutionUI : MonoBehaviour
 
             if (inventory.SlotCount - inventory.items.Count >= 2 - sameIndex)
             {
-                if (sameIndex1 == -1 && sameIndex2 == -1)
-                {
-                    addItem(gelatin1It);
-                    addItem(gelatin2It);
-                }
-                else if (sameIndex1 >= 0 && sameIndex2 == -1)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        inventory.items[sameIndex1].itemCount++;
-                    }
-                    addItem(gelatin2It);
-                }
-                else if (sameIndex1 == -1 && sameIndex2 >= 0)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        inventory.items[sameIndex2].itemCount++;
-                    }
-                    addItem(gelatin1It);
-                }
-                else
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        inventory.items[sameIndex1].itemCount++;
-                    }
-                    for (int i = 0; i < 5; i++)
-                    {
-                        inventory.items[sameIndex2].itemCount++;
-                    }
-                }
+                inventory.addItem(gelatin1It, 5);
+                inventory.addItem(gelatin2It, 5);
 
                 if (slotNum >= 0)
                 {
@@ -220,19 +190,6 @@ public class DissolutionUI : MonoBehaviour
         else
         {
             StartCoroutine(Wt("무기를 선택해주세요."));
-        }
-    }
-
-
-
-    void addItem(Item _item)
-    {
-        inventory.items.Add(_item);
-        inventory.items[inventory.items.Count - 1].itemCount += 5;
-
-        if (inventory.onChangedItem != null)
-        {
-            inventory.onChangedItem.Invoke();
         }
     }
 
