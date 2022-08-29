@@ -196,8 +196,6 @@ public class Slime : MonoBehaviour
         isStun = false;
     }
 
-   
-
     #region 코루틴
     // 무기를 들고 있을 때 좌클릭하면 평타
     IEnumerator AutoAttack()
