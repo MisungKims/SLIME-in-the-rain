@@ -29,5 +29,16 @@ public class FireProjectile : StaffProjectile
             }
         }
     }
+
+    //protected override void Move()
+    //{
+    //    if (isUseRune && target != null)          // 유도 룬 사용 시 타겟을 향해
+    //    {
+    //        Vector3 dir = target.position - transform.position;
+    //        transform.Translate(dir.normalized * speed * 0.5f * Time.deltaTime);
+    //    }
+    //    else
+    //        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    //}
     #endregion
 }

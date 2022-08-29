@@ -627,7 +627,7 @@ public class Slime : MonoBehaviour
         statManager.myStats.HP = statManager.myStats.maxHP * 0.5f;
         canMove = true;
 
-        if (BossMapManager.Instance) BossMapManager.Instance.ShowBossHPBar();
+        if (BossMapManager.Instance && !BossMapManager.Instance.boss.isDie) BossMapManager.Instance.ShowBossHPBar();
 
         UIObjectPoolingManager.Instance.slimeHpBarParent.SetActive(true);
     }

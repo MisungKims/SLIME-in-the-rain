@@ -5,14 +5,12 @@ using UnityEngine;
 public class StaffProjectile : Projectile
 {
     #region 변수
-    private bool isUseRune = false;
+    protected bool isUseRune = false;
     public bool IsUseRune { set { isUseRune = value; } }
 
-    private Transform target;
+    protected Transform target;
     public Transform Target { set { target = value; } }
 
-   // private Vector3 scale;
-   // private StatManager statManager;
     #endregion
 
     #region 유니티 함수
@@ -34,7 +32,7 @@ public class StaffProjectile : Projectile
     protected override void Move()
     {
         if (isUseRune && target != null)          // 유도 룬 사용 시 타겟을 향해
-            transform.position = Vector3.MoveTowards(transform.position, target.position, 0.1f);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         else
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
