@@ -39,8 +39,6 @@ public class SingletonManager : MonoBehaviour
     SceneDesign sceneDesign;
     [SerializeField]
     SettingCanvas settingCanvas;
-    [SerializeField]
-    TutorialManager tutorialManager;
 
     void Awake()
     {
@@ -102,7 +100,6 @@ public class SingletonManager : MonoBehaviour
         itemDatabase.gameObject.SetActive(true);
         inventory.gameObject.SetActive(true);
         inventoryUI.gameObject.SetActive(true);
-        tutorialManager.gameObject.SetActive(true);
 
         //////////////Manager////////////
         //ΩΩ∂Û¿”

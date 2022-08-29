@@ -38,10 +38,12 @@ public class MainCanvas : MonoBehaviour
     public Slider skillCool;
     public Image skillImage;
     public TextMeshProUGUI skillText;
+    public Image skillBuffTime;
     [Header("대시")]
     public Slider dashCool;
     public Image dashImage;
     public TextMeshProUGUI dashText;
+    public Image dashBuffTime;
     [Header("Dash")]
     public List<Sprite> dashSprite;
     [Header("Skill")]
@@ -116,6 +118,7 @@ public class MainCanvas : MonoBehaviour
                 skillCool.maxValue = statManager.myStats.coolTime;
             }
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
+            //skillBuffTime.fillAmount = (1/slime.currentWeapon.cool)
 
             //텍스트 표시: 상황에 따라 int형 or float형 
             if (slime.currentWeapon.CurrentCoolTime > 1)
@@ -170,7 +173,6 @@ public class MainCanvas : MonoBehaviour
             {
                 dashText.text = " ";
                 dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
-
             }
 
             //스킬쿨타임중이면 Dash아이콘 어둡게 쿨이 되면 다시 원상복구

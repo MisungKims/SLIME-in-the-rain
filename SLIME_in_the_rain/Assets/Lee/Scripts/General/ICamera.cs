@@ -7,23 +7,7 @@ using UnityEngine.SceneManagement;
 public class ICamera : MonoBehaviour
 {
     #region º¯¼ö
-    #region ½Ì±ÛÅæ
-    private static ICamera instance = null;
-    public static ICamera Instance
-    {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
-    }
-    #endregion
-
-    public GameObject rainPrefab;
-
+    
     private Vector3 vec3;
     private GameObject shopCanvas;
     bool isStd = false;
@@ -31,19 +15,7 @@ public class ICamera : MonoBehaviour
     Slime slime;
     #endregion
 
-    private void Awake()
-    {
-        if (null == instance)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
-    }
-    private void Start()
+    private void OnEnable()
     {
         slime = Slime.Instance;
 
@@ -58,11 +30,13 @@ public class ICamera : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().buildIndex == 0)
         {
+            Debug.Log("not STD");
             isStd = false;
             Title();
         }
         else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
+            Debug.Log("not STD");
             isStd = false;
             Result();
         }
@@ -103,6 +77,7 @@ public class ICamera : MonoBehaviour
 
     public void Title()
     {
+        Debug.Log("Title Camera");
         vec3.x = -3f;
         vec3.y = 6f;
         vec3.z = -14f;
@@ -111,6 +86,7 @@ public class ICamera : MonoBehaviour
     }
     public void Std()
     {
+        Debug.Log("STD Camera");
         vec3.x = slime.transform.position.x;
         vec3.y = 13.0f;
         vec3.z = slime.transform.position.z - 19.0f;
@@ -119,6 +95,7 @@ public class ICamera : MonoBehaviour
     }
     public void Shop()
     {
+        Debug.Log("Shop Camera");
         slime.canMove = false;
         vec3.x = slime.transform.position.x - 7f;
         vec3.y = 9.1f;
@@ -126,7 +103,8 @@ public class ICamera : MonoBehaviour
         Camera.main.transform.position = vec3;
     }
     public void Result()
-    {   
+    {
+        Debug.Log("Result Camera");
         vec3.x = 960f;
         vec3.y = 540f;
         vec3.z = -500f;
