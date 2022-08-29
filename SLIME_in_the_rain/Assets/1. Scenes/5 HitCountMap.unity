@@ -5249,19 +5249,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9659258
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.2588191
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5269,7 +5269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 3748451239221046963, guid: 0181837ad5970e74487e6469b8b33a89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -29388,7 +29388,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476925237}
-  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -29401,7 +29401,7 @@ Transform:
   - {fileID: 1808907393}
   m_Father: {fileID: 0}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
 --- !u!1 &1478130879
 GameObject:
   m_ObjectHideFlags: 0
@@ -44974,7 +44974,6 @@ MonoBehaviour:
   prop: {fileID: 263419816}
   monsters: {fileID: 659388303}
   countText: {fileID: 903739088}
-  maxCount: 100
   descText: {fileID: 174640472}
   particlePooling:
     copyObj: {fileID: 8339382786434403109, guid: 1cc0492cd97a5014ea65af69c1694ce7, type: 3}
