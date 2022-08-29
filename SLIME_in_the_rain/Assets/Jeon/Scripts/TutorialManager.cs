@@ -46,12 +46,14 @@ public class TutorialManager : MonoBehaviour
             else
             {
                 tutorial.SetActive(false);
+                __init__();
             }
         }
     }
 
     private void OnEnable()
     {
+        tutorial.SetActive(true);
         __init__();
     }
 

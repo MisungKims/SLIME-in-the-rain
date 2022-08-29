@@ -266,7 +266,7 @@ public class InventoryUI : MonoBehaviour
         }
         if (float.Parse(_item.coolTime) > 0)
         {
-            StatsUIManager.Instance.optionText.text += "ÄðÅ¸ÀÓ : " + _item.coolTime + "%\n";
+            StatsUIManager.Instance.optionText.text += "½ºÅ³ ÄðÅ¸ÀÓ : " + _item.coolTime + "%\n";
             toolCount++;
         }
         if (float.Parse(_item.moveSpeed) > 0)
