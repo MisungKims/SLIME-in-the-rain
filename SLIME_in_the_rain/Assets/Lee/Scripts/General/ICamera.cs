@@ -22,6 +22,8 @@ public class ICamera : MonoBehaviour
     }
     #endregion
 
+    public GameObject rainPrefab;
+
     private Vector3 vec3;
     private GameObject shopCanvas;
     bool isStd = false;
@@ -104,15 +106,14 @@ public class ICamera : MonoBehaviour
         vec3.x = -3f;
         vec3.y = 6f;
         vec3.z = -14f;
-        Camera.main.transform.position = vec3;
-        Camera.main.transform.rotation = Quaternion.Euler(Vector3.right * 30);
+        Camera.main.transform.SetPositionAndRotation(vec3, Quaternion.Euler(Vector3.right * 30));
         Camera.main.orthographicSize = 3f;
     }
     public void Std()
     {
         vec3.x = slime.transform.position.x;
-        vec3.y = 7.9f;
-        vec3.z = slime.transform.position.z - 10f;
+        vec3.y = 13.0f;
+        vec3.z = slime.transform.position.z - 19.0f;
         Camera.main.transform.SetPositionAndRotation(vec3, Quaternion.Euler(Vector3.right * 30));
         Camera.main.orthographicSize = 5f;
     }
