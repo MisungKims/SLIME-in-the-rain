@@ -11,9 +11,11 @@ public class TowerManager : MonoBehaviour
     public Button priceButton;
     public TextMeshProUGUI farmPriceText;
     public TextMeshProUGUI farmExplainText;
+    public TextMeshProUGUI farmStatText;
 
     //private
     string level;
+    float farmStat  = 0.1f;
 
     //singleton
     JellyManager jellyManager;
@@ -29,11 +31,11 @@ public class TowerManager : MonoBehaviour
         jellyManager = JellyManager.Instance;
         //OnClick
         priceButton.onClick.AddListener(delegate { ClickEvent(); });
-        
+
     }
     private void OnEnable()
     {
-        if(TowerCollider.thisObject != null)
+        if (TowerCollider.thisObject != null)
         {
             Texting();
         }
@@ -61,53 +63,75 @@ public class TowerManager : MonoBehaviour
     {
         level = PlayerPrefs.GetString(TowerCollider.thisObject.name + "level");
         int intLevel = int.Parse(level);
+        int _price;
+        string _stat;
+        string _farmType;
+        string color;
         //ÇöÀç Å¸¿ö Á¤º¸ Á¤¸®
         switch (TowerCollider.thisObject.name)
         {
             case "MaxHP":
-                farmNameText.text = "ÃÖ´ëÃ¼·Â ¹ö¼¸ ³óÀå";
-                farmExplainText.text = "[ ÃÖ´ë Ã¼·Â ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "ÃÖ´ëÃ¼·Â";
+                _farmType = "¹ö¼¸¹ç";
+                _price = 10;
+                color = "ff0000";
                 break;
             case "CoolTime":
-                farmNameText.text = "ÄðÅ¸ÀÓ ²É ³óÀå";
-                farmExplainText.text = "[ ÄðÅ¸ÀÓ °¨¼Ò ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "ÄðÅ¸ÀÓ";
+                _farmType = "²É¹ç";
+                _price = 10;
+                color = "99ccff";
                 break;
             case "MoveSpeed":
-                farmNameText.text = "ÀÌµ¿¼Óµµ ²É ³óÀå";
-                farmExplainText.text = "[ ÀÌµ¿¼Óµµ ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "ÀÌµ¿¼Óµµ";
+                _farmType = "²É¹ç";
+                _price = 10;
+                color = "a33b39";
                 break;
             case "AttackSpeed":
-                farmNameText.text = "°ø°Ý¼Óµµ ²É ³óÀå";
-                farmExplainText.text = "[ °ø°Ý¼Óµµ ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "°ø°Ý¼Óµµ";
+                _farmType = "²É¹ç";
+                _price = 10;
+                color = "ffD400";
                 break;
             case "AttackPower":
-                farmNameText.text = "Èû ¹ö¼¸ ³óÀå";
-                farmExplainText.text = "[ Èû ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "°ø°Ý·Â";
+                _farmType = "¹ö¼¸¹ç";
+                _price = 10;
+                color = "8e0023";
                 break;
             case "MultipleAttackRange":
-                farmNameText.text = "°ø°Ý¹üÀ§ ¹ö¼¸ ³óÀå";
-                farmExplainText.text = "[ °ø°Ý¹üÀ§ ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "°ø°Ý¹üÀ§";
+                _farmType = "¹ö¼¸¹ç";
+                _price = 10;
+                color = "6f4f28";
                 break;
             case "DefensePower":
-                farmNameText.text = "¹æ¾î·Â ¹ö¼¸ ³óÀå";
-                farmExplainText.text = "[ ¹æ¾î·Â ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel) + 10).ToString();
+                _stat = "¹æ¾î·Â";
+                _farmType = "¹ö¼¸¹ç"; 
+                _price = 10;
+                color = "964b00";
                 break;
             case "InventorySlot":
-                farmNameText.text = "ÀÎº¥ ½½·Ô È®Àå ±¤¼®";
-                farmExplainText.text = "[ ±âº» ÀÎº¥Åä¸® ½½·Ô ]" + " +" + level;
-                farmPriceText.text = ((int)(intLevel * intLevel)+100).ToString();
+                _stat = "ÀÎº¥Åä¸® ½½·Ô";
+                _farmType = "±¤¹°"; 
+                _price = 100;
+                farmStat = 1;
+                color = "ffffff";
                 break;
             case "Empty":
             default:
+                _stat = "ºó";
+                _farmType = "¶¥";
+                _price = 0;
+                farmStat = 0;
+                color = "000000";
                 break;
         }
+        farmNameText.text = _stat +" "+ _farmType;
+        farmExplainText.text = $"(ÇöÀç ·¹º§ +{level})";
+        farmPriceText.text = ((intLevel * intLevel) + _price).ToString();
+        farmStatText.text = $"<color=#{color}>[{_stat}]</color> +{intLevel * farmStat}";
     }
     
     #endregion
