@@ -102,7 +102,7 @@ public class Sword : Short
 
         Transform slimeTransform = slime.transform;
 
-        Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, slime.Stat.attackRange);
+        Collider[] colliders = Physics.OverlapSphere(slimeTransform.position, statManager.myStats.attackRange * 1.5f);
 
         bool isShaking = false;
 
