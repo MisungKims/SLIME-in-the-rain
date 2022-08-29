@@ -57,6 +57,11 @@ public class UIObjectPoolingManager : MonoBehaviour
         InitCanvas();
     }
 
+    private void Update()
+    {
+        hpSlime.maxValue = StatManager.Instance.myStats.maxHP;
+        hpSlime.value = StatManager.Instance.myStats.HP;
+    }
     #endregion
 
     #region ÇÔ¼ö

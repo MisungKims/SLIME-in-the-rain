@@ -36,7 +36,7 @@ public class Short : Weapon
     {
         while (true)
         {
-            if (isShowShadow && statManager.myStats.attackRange >= 1.1f)
+            if (isShowShadow && statManager.myStats.attackRange >= 1.01f)
             {
                 shadow.SetActive(true);
                 scale = shadow.transform.localScale;

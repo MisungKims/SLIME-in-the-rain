@@ -52,9 +52,6 @@ public class Slime : MonoBehaviour
     [SerializeField]
     private Material baseMat;
 
-    private Stats stat;
-    public Stats Stat { get { return stat; } }
-
     public bool isDie;
 
     //////// 무기
@@ -123,10 +120,8 @@ public class Slime : MonoBehaviour
     //////// 캐싱
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
     private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
-    private WaitForSeconds waitForDash;
 
     public StatManager statManager;
-    private MainCanvas mainCanvas;
 
     #endregion
 
@@ -148,8 +143,6 @@ public class Slime : MonoBehaviour
         rigidbodyConstraints = rigid.constraints;
         anim = GetComponent<Animator>();
         shield.SetActive(false);
-
-        
     }
 
     private void OnEnable()
@@ -163,7 +156,8 @@ public class Slime : MonoBehaviour
 
         SetCanAttack();
 
-        stat = statManager.myStats;
+        life = 1;
+
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
@@ -195,6 +189,7 @@ public class Slime : MonoBehaviour
         isAttacking = false;
         isStun = false;
     }
+ 
 
     #region 코루틴
     // 무기를 들고 있을 때 좌클릭하면 평타
@@ -202,15 +197,18 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (IsCanAttack() && !EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
-                isAttacking = true;
+                if (IsCanAttack())
+                {
+                    isAttacking = true;
 
-                if(currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
+                    if (currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
 
-                yield return new WaitForSeconds((2 - statManager.myStats.attackSpeed) * 0.2f);           // 각 무기의 공속 스탯에 따라 대기
+                    yield return new WaitForSeconds((2 - statManager.myStats.attackSpeed) * 0.2f);           // 각 무기의 공속 스탯에 따라 대기
 
-                isAttacking = false;
+                    isAttacking = false;
+                }
             }
 
             yield return null;
@@ -222,15 +220,18 @@ public class Slime : MonoBehaviour
     {
         while (true)
         {
-            if (IsCanAttack() && currentWeapon.isCanSkill && !EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
-                isAttacking = true;
+                if (IsCanAttack() && currentWeapon.isCanSkill)
+                {
+                    isAttacking = true;
 
-                currentWeapon.SendMessage("Skill", SendMessageOptions.DontRequireReceiver);
+                    currentWeapon.SendMessage("Skill", SendMessageOptions.DontRequireReceiver);
 
-                yield return waitForAttack;         // 0.2초 대기
+                    yield return waitForAttack;         // 0.2초 대기
 
-                isAttacking = false;
+                    isAttacking = false;
+                }
             }
 
             yield return null;
@@ -443,9 +444,16 @@ public class Slime : MonoBehaviour
     bool IsCanAttack()
     {
         if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && !isStun)
+        {
+            //if (!EventSystem.current.IsPointerOverGameObject())
+            //    return true;
+            //else if(EventSystem.current.currentSelectedGameObject && EventSystem.current.currentSelectedGameObject.CompareTag("HpBar"))
+            //    return true;
+
             return true;
-        else
-            return false;
+        }
+
+       return false;
     }
 
     #endregion
@@ -646,7 +654,7 @@ public class Slime : MonoBehaviour
     // 데미지를 입음
     public void Damaged(Stats monsterStats, int atkType)
     {
-        float damageReduction = stat.defensePower / (1 + stat.defensePower);
+        float damageReduction = statManager.myStats.defensePower / (1 + statManager.myStats.defensePower);
         float damage = monsterStats.attackPower * (1 - damageReduction) * -1;
 
         TakeDamage(-2);

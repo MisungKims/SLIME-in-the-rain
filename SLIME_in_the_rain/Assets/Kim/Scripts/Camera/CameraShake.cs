@@ -23,23 +23,37 @@ public class CameraShake : MonoBehaviour
     // duration : 유지시간, magnitude : 강도
     public static IEnumerator StartShake(float duration, float magnitude)
     {
-        if (!isShaking)
+        float timer = 0;
+        cameraOriginalPos = cam.transform.localPosition;
+
+        while (timer <= duration)
         {
-            isShaking = true;
+            cam.transform.localPosition = Random.insideUnitSphere * magnitude + cameraOriginalPos;
 
-            float timer = 0;
-            cameraOriginalPos = cam.transform.localPosition;
-
-            while (timer <= duration)
-            {
-                cam.transform.localPosition = Random.insideUnitSphere * magnitude + cameraOriginalPos;
-
-                timer += Time.deltaTime;
-                yield return null;
-            }
-
-            isShaking = false;
-            cam.transform.localPosition = cameraOriginalPos;
+            timer += Time.deltaTime;
+            yield return null;
         }
+
+        isShaking = false;
+        cam.transform.localPosition = cameraOriginalPos;
+
+        //if (!isShaking)
+        //{
+        //    isShaking = true;
+
+        //    float timer = 0;
+        //    cameraOriginalPos = cam.transform.localPosition;
+
+        //    while (timer <= duration)
+        //    {
+        //        cam.transform.localPosition = Random.insideUnitSphere * magnitude + cameraOriginalPos;
+
+        //        timer += Time.deltaTime;
+        //        yield return null;
+        //    }
+
+        //    isShaking = false;
+        //    cam.transform.localPosition = cameraOriginalPos;
+        //}
     }
 }

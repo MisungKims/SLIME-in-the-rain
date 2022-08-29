@@ -113,9 +113,9 @@ public class Boss : Monster
         hpBar.value = stats.HP;
 
         sb.Clear();
-        sb.Append(hpBar.value % 1 == 0 ? hpBar.value.ToString() : hpBar.value.ToString("f1"));
+        sb.Append(hpBar.value.ToString("f1"));
         sb.Append("/");
-        sb.Append(hpBar.maxValue);
+        sb.Append(hpBar.maxValue.ToString("f1"));
         hPText.text = sb.ToString();
     }
 

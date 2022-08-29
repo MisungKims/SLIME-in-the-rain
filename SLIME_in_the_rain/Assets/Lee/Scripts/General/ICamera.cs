@@ -86,7 +86,7 @@ public class ICamera : MonoBehaviour
     }
     public void Std()
     {
-        Debug.Log("STD Camera");
+        //Debug.Log("STD Camera");
         vec3.x = slime.transform.position.x;
         vec3.y = 13.0f;
         vec3.z = slime.transform.position.z - 19.0f;
