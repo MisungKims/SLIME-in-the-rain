@@ -99,7 +99,7 @@ public class Slime : MonoBehaviour
     public bool isStealth;      // 은신 중인지?
 
     //////// 데미지
-    private bool isStun;
+    public bool isStun;
     private Color red = new Color(255, 83, 83, 255);
 
     //////// 이동
@@ -191,7 +191,6 @@ public class Slime : MonoBehaviour
     {
         canAttack = true;
         isDie = false;
-        canMove = true;
         isAttacking = false;
         isStun = false;
     }
