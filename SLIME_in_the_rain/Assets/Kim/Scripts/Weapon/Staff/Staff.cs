@@ -30,6 +30,7 @@ public class Staff : Weapon
     private Vector3 offset;
     private float distance;
     private float dashDistance = 400f;   // 대시할 거리
+
     #endregion
 
     #region 함수

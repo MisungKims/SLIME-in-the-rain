@@ -27,8 +27,7 @@ public class BossMapManager : MapManager
     }
     #endregion
 
-    [SerializeField]
-    private Boss boss;
+    public Boss boss;
     [SerializeField]
     private SelectRuneWindow selectRuneWindow;
 
