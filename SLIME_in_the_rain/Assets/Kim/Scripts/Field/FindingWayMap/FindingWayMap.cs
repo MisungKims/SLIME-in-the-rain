@@ -129,7 +129,7 @@ public class FindingWayMap : MapManager
         originSpeed = 0f;
         if (StatManager.Instance.myStats.moveSpeed >= maxSpeed)
         {
-            originSpeed = StatManager.Instance.myStats.moveSpeed;
+            originSpeed = StatManager.Instance.myStats.moveSpeed;/////////************************
             StatManager.Instance.myStats.moveSpeed = maxSpeed;
         }
 

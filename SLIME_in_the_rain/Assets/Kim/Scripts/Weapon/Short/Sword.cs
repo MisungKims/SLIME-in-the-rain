@@ -13,7 +13,7 @@ public class Sword : Short
     #region 변수
     // 대시
     float originSpeed;
-    float dashSpeed = 2f;
+    float dashSpeed = 200f;
     float dashDuration = 2.5f;
 
     bool isDashing;
@@ -50,12 +50,12 @@ public class Sword : Short
             isDashing = true;
             slime.DashTime = dashDuration;
 
-            originSpeed = statManager.myStats.moveSpeed;
-            statManager.myStats.moveSpeed += dashSpeed;
+
+            statManager.AddMoveSpeed(dashSpeed);
             
             yield return new WaitForSeconds(dashDuration);
 
-            statManager.myStats.moveSpeed = originSpeed;
+            statManager.AddMoveSpeed(-dashSpeed);
             isDashing = false;
             slime.DashTime = slime.originDashTime;
         }
