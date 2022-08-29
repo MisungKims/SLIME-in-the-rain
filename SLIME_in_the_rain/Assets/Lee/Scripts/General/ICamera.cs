@@ -76,20 +76,28 @@ public class ICamera : MonoBehaviour
             }
             else
             {
-                if (!shopCanvas.activeSelf)
+                if(shopCanvas.activeSelf)
                 {
-                    slime.canMove = true;
-                    Std();
+                    StartCoroutine(ShopOpen());
                 }
                 else
                 {
-                    slime.canMove = false;
-                    Shop();
+                    Std();
                 }
-
             }
         }
     }
+    IEnumerator ShopOpen()
+    {
+        Shop();
+        slime.canMove = false;
+        while (shopCanvas.activeSelf)
+        {
+            yield return null;
+        }
+        slime.canMove = true;
+    }
+
 
     public void Title()
     {
@@ -102,7 +110,6 @@ public class ICamera : MonoBehaviour
     }
     public void Std()
     {
-
         vec3.x = slime.transform.position.x;
         vec3.y = 7.9f;
         vec3.z = slime.transform.position.z - 10f;

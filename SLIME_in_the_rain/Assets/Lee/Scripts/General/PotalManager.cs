@@ -25,6 +25,7 @@ public class PotalManager : MonoBehaviour
     //private
     Vector3 vec3;
     float typingSpeed = 0.05f;
+    float farmStat = 0.1f;
 
     //bool
     bool potalMake;
@@ -223,13 +224,13 @@ public class PotalManager : MonoBehaviour
     {   
         receiptCanvas.enabled = true;
         string str
-            = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f).ToString() + "\n"
-            + "<color=#99ccff>" + "쿨타임 감소량" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f).ToString() + "\n"
-            + "<color=#a33b39>" + "이동 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f) + "\n"
-            + "<color=#ffD400>" + "공격 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * 0.1f) + "\n"
-            + "<color=#8e0023>" + "공격력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * 0.1f) + "\n"
-            + "<color=#6f4f28>" + "공격 범위" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f) + "\n"
-            + "<color=#964b00>" + "방어력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f) + "\n"
+            = "<color=#ff0000>" + "최대 체력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * farmStat).ToString() + "\n"
+            + "<color=#99ccff>" + "쿨타임 감소량" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * farmStat).ToString() + "\n"
+            + "<color=#a33b39>" + "이동 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * farmStat) + "\n"
+            + "<color=#ffD400>" + "공격 속도" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * farmStat) + "\n"
+            + "<color=#8e0023>" + "공격력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * farmStat) + "\n"
+            + "<color=#6f4f28>" + "공격 범위" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * farmStat) + "\n"
+            + "<color=#964b00>" + "방어력" + "</color>" + " +" + (float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * farmStat) + "\n"
             + "<color=#ffffff>" + "인벤토리 슬롯" + "</color>" + " +" + (int.Parse(PlayerPrefs.GetString("InventorySlot" + "level")));
 
         StartCoroutine(Typing(receiptText, str, typingSpeed));
@@ -241,6 +242,7 @@ public class PotalManager : MonoBehaviour
         slime.canMove = false;
         while (doReceipt)
         {
+            slime.canMove = false;
             yield return null;
         }
         anyKeyPressText.SetActive(true);
@@ -280,13 +282,13 @@ public class PotalManager : MonoBehaviour
     }
     void AddStat()
     {
-        statManager.AddMaxHP(float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * 0.1f);
-        statManager.AddCoolTime(float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * 0.1f);
-        statManager.AddMoveSpeed(float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * 0.1f);
-        statManager.AddAttackSpeed(float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * 0.1f);
-        statManager.AddAttackPower(float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * 0.1f);
-        statManager.MultipleAttackRange(float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * 0.1f);
-        statManager.AddDefensePower(float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * 0.1f);
+        statManager.AddMaxHP(float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * farmStat);
+        statManager.AddCoolTime(float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * farmStat);
+        statManager.AddMoveSpeed(float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * farmStat);
+        statManager.AddAttackSpeed(float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * farmStat);
+        statManager.AddAttackPower(float.Parse(PlayerPrefs.GetString("AttackPower" + "level")) * farmStat);
+        statManager.MultipleAttackRange(float.Parse(PlayerPrefs.GetString("MultipleAttackRange" + "level")) * farmStat);
+        statManager.AddDefensePower(float.Parse(PlayerPrefs.GetString("DefensePower" + "level")) * farmStat);
         inventoryUI.ExpansionSlot(int.Parse(PlayerPrefs.GetString("InventorySlot" + "level")));
     }
 
