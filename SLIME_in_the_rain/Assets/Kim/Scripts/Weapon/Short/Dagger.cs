@@ -72,9 +72,10 @@ public class Dagger : Short
 
         ///////////////////¼öÁ¤/////////////////////
         skillBuffTime = skillDuration;
-        while ( skillBuffTime > 0)
+        currentSkillBuffTime = skillDuration;
+        while (currentSkillBuffTime > 0)
         {
-            skillBuffTime -= Time.deltaTime;
+            currentSkillBuffTime -= Time.deltaTime;
             yield return null;
         }
         //yield return new WaitForSeconds(skillDuration);

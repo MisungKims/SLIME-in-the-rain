@@ -97,7 +97,6 @@ public class MainCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(slime.currentWeapon.weaponType);
         //HP 
         hp.maxValue = statManager.myStats.maxHP;
         hp.value = statManager.myStats.HP;
@@ -119,8 +118,6 @@ public class MainCanvas : MonoBehaviour
                 skillCool.maxValue = statManager.myStats.coolTime;
             }
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
-            //skillBuffTime.fillAmount = (1/slime.currentWeapon.cool)
-
             //텍스트 표시: 상황에 따라 int형 or float형 
             if (slime.currentWeapon.CurrentCoolTime > 1)
             {
@@ -135,10 +132,15 @@ public class MainCanvas : MonoBehaviour
                 skillText.text = " ";
                 skillImage.sprite = Skill(slime.currentWeapon.weaponType);
             }
-            if(slime.currentWeapon.skillBuffTime > 0)
+            //버프 시간 표시
+            if(slime.currentWeapon.currentSkillBuffTime > 0)
             {
                 skillBuffTime.gameObject.SetActive(true);
-                skillBuffTime.fillAmount = 1 - (slime.currentWeapon.skillBuffTime / 5);
+                skillBuffTime.fillAmount = slime.currentWeapon.currentSkillBuffTime / slime.currentWeapon.skillBuffTime;
+            }
+            else
+            {
+                skillBuffTime.gameObject.SetActive(false);
             }
 
 
@@ -168,6 +170,16 @@ public class MainCanvas : MonoBehaviour
             {
                 dashText.text = " ";
                 dashImage.sprite = Dash(slime.currentWeapon.weaponType);
+            }
+            //버프 시간 표시
+            if (slime.currentWeapon.currentDashBuffTime > 0)
+            {
+                dashBuffTime.gameObject.SetActive(true);
+                dashBuffTime.fillAmount = slime.currentWeapon.currentDashBuffTime / slime.currentWeapon.dashBuffTime;
+            }
+            else
+            {
+                dashBuffTime.gameObject.SetActive(false);
             }
         }
         //젤리
