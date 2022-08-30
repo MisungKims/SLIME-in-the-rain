@@ -37,23 +37,44 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tutorial.transform.gameObject.activeSelf)
+        {
+            cantMove();
+        }
+
         if (Input.GetKeyDown(KeyCode.F1))
         {
             if (!tutorial.transform.gameObject.activeSelf)
             {
                 tutorial.SetActive(true);
+                cantMove();
             }
             else
             {
-                tutorial.SetActive(false);
-                __init__();
+                offThis();
             }
         }
     }
 
-    private void OnEnable()
+    void cantMove()
     {
-        tutorial.SetActive(true);
+        Slime.Instance.canMove = false;
+        Debug.Log("isf");
+    }
+   public void offThis()
+    {
+        tutorial.SetActive(false);
+        Slime.Instance.canMove =true;
+        __init__();
+    }
+
+    private void Start()
+    {
+        if (!tutorial.transform.gameObject.activeSelf)
+        {
+            tutorial.SetActive(true);
+            cantMove();
+        }
         __init__();
     }
 
