@@ -315,9 +315,12 @@ public class ObjectPoolingManager : MonoBehaviour
             childArr = objectParent.GetChild(i).GetComponentsInChildren<Transform>();
             for (int j = 1; j < childArr.Length; j++)
             {
-                getMoneyMap.GetParticle(childArr[j].position);
-                childArr[j].gameObject.SetActive(false);
-
+                if (childArr[j] && childArr[j].gameObject.activeSelf)
+                {
+                    getMoneyMap.GetParticle(childArr[j].position);
+                    childArr[j].gameObject.SetActive(false);
+                }
+                
                 yield return new WaitForSeconds(0.000001f * Time.deltaTime);
             }
         }
