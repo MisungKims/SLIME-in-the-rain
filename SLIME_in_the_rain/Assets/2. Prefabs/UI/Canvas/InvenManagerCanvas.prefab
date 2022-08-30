@@ -1455,7 +1455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4300663526624939049
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2276,7 +2276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4300663526715970506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5247,6 +5247,7 @@ GameObject:
   - component: {fileID: 4300663527246428993}
   - component: {fileID: 4300663527246428992}
   - component: {fileID: 4300663527246428995}
+  - component: {fileID: 8168110793483545299}
   m_Layer: 5
   m_Name: ActDissolution
   m_TagString: Untagged
@@ -5384,6 +5385,51 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 7, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &8168110793483545299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663527246428997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMovefalse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMoveTrue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4300663527283824876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5506,6 +5552,7 @@ GameObject:
   - component: {fileID: 4300663527304537785}
   - component: {fileID: 4300663527304537784}
   - component: {fileID: 4300663527304537787}
+  - component: {fileID: 2507194886545002759}
   m_Layer: 5
   m_Name: ActComb
   m_TagString: Untagged
@@ -5643,6 +5690,51 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 7, y: -5}
   m_UseGraphicAlpha: 1
+--- !u!114 &2507194886545002759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663527304537789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMovefalse
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4300663527457631513}
+          m_TargetAssemblyTypeName: MovableHeaderUI, Assembly-CSharp
+          m_MethodName: conMoveTrue
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4300663527352370557
 GameObject:
   m_ObjectHideFlags: 0
@@ -6290,6 +6382,7 @@ GameObject:
   - component: {fileID: 4300663527457631511}
   - component: {fileID: 4300663527457631510}
   - component: {fileID: 4300663527457631513}
+  - component: {fileID: 3788227490090130388}
   m_Layer: 5
   m_Name: InvenManagerCanvas
   m_TagString: Untagged
@@ -6422,6 +6515,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTr: {fileID: 4300663527155192221}
+--- !u!114 &3788227490090130388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300663527457631512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef90d97aa7fcf64a89450330b89e57e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4300663527459260901
 GameObject:
   m_ObjectHideFlags: 0
