@@ -603,6 +603,7 @@ public class Slime : MonoBehaviour
         isDie = true;
         statManager.myStats.HP = 0;
         canMove = false;
+        SoundManager.Instance.Play("Slime/Die", SoundManager.Sound.SFX);
 
         PlayAnim(AnimState.die);
 

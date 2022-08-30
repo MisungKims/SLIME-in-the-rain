@@ -18,6 +18,8 @@ public class Earthworm : Boss
 
     [SerializeField]
     private Transform projectilePos;
+
+    
     #endregion
 
     protected override void Awake()
@@ -88,6 +90,9 @@ public class Earthworm : Boss
 
         randAttack = 0;
         anim.SetInteger("attack", randAttack);
+
+
+        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         PlayAnim(EMonsterAnim.attack);
 
