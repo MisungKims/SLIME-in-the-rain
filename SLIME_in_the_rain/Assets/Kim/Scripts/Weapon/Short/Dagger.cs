@@ -69,7 +69,15 @@ public class Dagger : Short
             yield return null;
         }
 
-        yield return new WaitForSeconds(skillDuration);
+        ///////////////////수정/////////////////////
+        skillBuffTime = skillDuration;
+        currentSkillBuffTime = skillDuration;
+        while (currentSkillBuffTime > 0)
+        {
+            currentSkillBuffTime -= Time.deltaTime;
+            yield return null;
+        }
+        //yield return new WaitForSeconds(skillDuration);
 
         // 원래대로
         alpha = slimeMat.color.a;

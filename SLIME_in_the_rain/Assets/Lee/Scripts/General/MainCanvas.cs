@@ -118,8 +118,6 @@ public class MainCanvas : MonoBehaviour
                 skillCool.maxValue = statManager.myStats.coolTime;
             }
             skillCool.value = slime.currentWeapon.CurrentCoolTime;
-            //skillBuffTime.fillAmount = (1/slime.currentWeapon.cool)
-
             //텍스트 표시: 상황에 따라 int형 or float형 
             if (slime.currentWeapon.CurrentCoolTime > 1)
             {
@@ -132,22 +130,21 @@ public class MainCanvas : MonoBehaviour
             else
             {
                 skillText.text = " ";
-                //Debug.Log("-" + slime.currentWeapon.weaponType);
-                skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
+                skillImage.sprite = Skill(slime.currentWeapon.weaponType);
             }
-            //스킬쿨타임중이면 skill아이콘 어둡게 쿨이 되면 다시 원상복구
-            if (slime.currentWeapon.CurrentCoolTime > 0)
+            //버프 시간 표시
+            if(slime.currentWeapon.currentSkillBuffTime > 0)
             {
-                skillImage.color = new Color(0.7f, 0.7f, 0.7f);
+                skillBuffTime.gameObject.SetActive(true);
+                skillBuffTime.fillAmount = slime.currentWeapon.currentSkillBuffTime / slime.currentWeapon.skillBuffTime;
             }
             else
             {
-                skillImage.color = new Color(1f, 1f, 1f);
+                skillBuffTime.gameObject.SetActive(false);
             }
 
 
-
-            //스킬 아이콘 꺼져있으면 켜주기
+            //대시 아이콘 꺼져있으면 켜주기
             if (!dashCool.gameObject.activeSelf) dashCool.gameObject.SetActive(true);
 
             //대쉬
@@ -172,17 +169,17 @@ public class MainCanvas : MonoBehaviour
             else    //스킬 쿨타임 돌아옴
             {
                 dashText.text = " ";
-                dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
+                dashImage.sprite = Dash(slime.currentWeapon.weaponType);
             }
-
-            //스킬쿨타임중이면 Dash아이콘 어둡게 쿨이 되면 다시 원상복구
-            if (slime.currentWeapon.CurrentCoolTime > 0)
+            //버프 시간 표시
+            if (slime.currentWeapon.currentDashBuffTime > 0)
             {
-                dashImage.color = new Color(0.7f, 0.7f, 0.7f);
+                dashBuffTime.gameObject.SetActive(true);
+                dashBuffTime.fillAmount = slime.currentWeapon.currentDashBuffTime / slime.currentWeapon.dashBuffTime;
             }
             else
             {
-                dashImage.color = new Color(1f, 1f, 1f);
+                dashBuffTime.gameObject.SetActive(false);
             }
         }
         //젤리
@@ -203,9 +200,6 @@ public class MainCanvas : MonoBehaviour
         skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
         dashText.text = " ";
         dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
-
-        
-
     }
 
     ////무기 바꿨을때 HP 변환 관련 함수

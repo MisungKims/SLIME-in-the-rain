@@ -30,7 +30,7 @@ public class Sword : Short
         canLookAtMousePos = true;
         weaponType = EWeaponType.sword;
         angle = Vector3.zero;
-        maxDashCoolTime = 1f;
+        maxDashCoolTime = 4f;
         flag = EProjectileFlag.sword;
     }
 
@@ -52,8 +52,16 @@ public class Sword : Short
 
 
             statManager.AddMoveSpeed(dashSpeed);
-            
-            yield return new WaitForSeconds(dashDuration);
+
+            ///////////////////¼öÁ¤/////////////////////
+            dashBuffTime = dashDuration;
+            currentDashBuffTime = dashDuration;
+            while (currentDashBuffTime > 0)
+            {
+                currentDashBuffTime -= Time.deltaTime;
+                yield return null;
+            }
+            //yield return new WaitForSeconds(dashDuration);
 
             statManager.AddMoveSpeed(-dashSpeed);
             isDashing = false;

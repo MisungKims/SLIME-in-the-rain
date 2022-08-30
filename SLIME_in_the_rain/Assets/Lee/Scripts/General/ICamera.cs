@@ -30,13 +30,11 @@ public class ICamera : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            Debug.Log("not STD");
             isStd = false;
             Title();
         }
         else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            Debug.Log("not STD");
             isStd = false;
             Result();
         }
@@ -86,7 +84,6 @@ public class ICamera : MonoBehaviour
     }
     public void Std()
     {
-        //Debug.Log("STD Camera");
         vec3.x = slime.transform.position.x;
         vec3.y = 13.0f;
         vec3.z = slime.transform.position.z - 19.0f;
@@ -95,7 +92,6 @@ public class ICamera : MonoBehaviour
     }
     public void Shop()
     {
-        Debug.Log("Shop Camera");
         slime.canMove = false;
         vec3.x = slime.transform.position.x - 7f;
         vec3.y = 9.1f;

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7290453658409912452}
   - component: {fileID: 7290453658409912453}
   m_Layer: 0
-  m_Name: LoadManager
+  m_Name: SingletonManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,3 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d274b29d8494f40488883d365d4eeaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slime: {fileID: 0}
+  statManager: {fileID: 0}
+  uIObjectPoolingManager: {fileID: 0}
+  runeManager: {fileID: 0}
+  itemDatabase: {fileID: 0}
+  jellyManager: {fileID: 0}
+  inventory: {fileID: 0}
+  inventoryUI: {fileID: 0}
+  sceneDesign: {fileID: 0}
+  settingCanvas: {fileID: 0}
