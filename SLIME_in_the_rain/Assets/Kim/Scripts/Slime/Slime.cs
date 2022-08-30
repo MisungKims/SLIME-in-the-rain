@@ -117,11 +117,15 @@ public class Slime : MonoBehaviour
     [SerializeField]
     private MinimapWorldObject minimapWorldObject;
 
+    private bool isPlayingWaterSound = false;
+
     //////// 캐싱
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
     private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
 
-    public StatManager statManager;
+    [SerializeField]
+    private StatManager statManager;
+
 
     #endregion
 
@@ -152,7 +156,9 @@ public class Slime : MonoBehaviour
         isCanDash = true;
 
         isInWater = false;
+        isPlayingWaterSound = false;
         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+
 
         SetCanAttack();
 
@@ -557,8 +563,9 @@ public class Slime : MonoBehaviour
         if (currentWeapon)
         {
             currentWeapon.gameObject.layer = 6;
-            //Destroy(currentWeapon.gameObject);
+
             ObjectPoolingManager.Instance.Set(currentWeapon);
+
             currentWeapon = null;
         }
     }
@@ -566,6 +573,8 @@ public class Slime : MonoBehaviour
     // 무기 변경
     public void ChangeWeapon(Weapon weapon)
     {
+        SoundManager.Instance.Play("Weapon/WeaponSwipe", SoundManager.Sound.SFX);
+
         currentWeapon = weapon;
         currentWeapon.gameObject.layer = 7;
         currentWeapon.GetComponent<Outline>().enabled = false;
@@ -664,8 +673,11 @@ public class Slime : MonoBehaviour
 
     private void TakeDamage(float damageAmount)
     {
-        if (shield.activeSelf) return;
-
+        if (shield.activeSelf)
+        {
+            UIObjectPoolingManager.Instance.ShowShieldText();
+            return;
+        }
         StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
 
         statManager.AddHP(damageAmount);
@@ -692,7 +704,6 @@ public class Slime : MonoBehaviour
     public void InitSlime()
     {
         Life = 1;
-
         skinnedMesh.material = baseMat;
         RemoveCurrentWeapon();
     }

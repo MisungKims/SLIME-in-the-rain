@@ -153,20 +153,11 @@ public abstract class Monster : MonoBehaviour, IDamage
                 PlayAnim(EMonsterAnim.die);
             }
             else if (isJumpHit) PlayAnim(EMonsterAnim.jumpHit);
-            else if (isHit)
-            {
-                if (isStun)
-                {
-                    PlayAnim(EMonsterAnim.stun);
-                }
-                else
-                {
-                    PlayAnim(EMonsterAnim.hit);
-                }
-            }
+            else if (isStun) PlayAnim(EMonsterAnim.stun);
             else if (!isAttacking)
             {
-                if (isChasing)
+                if (isHit) PlayAnim(EMonsterAnim.hit);
+                else if (isChasing)
                 {
                     if (nav.velocity.Equals(Vector3.zero))
                     {

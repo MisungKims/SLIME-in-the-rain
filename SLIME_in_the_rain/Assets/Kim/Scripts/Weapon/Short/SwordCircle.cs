@@ -32,7 +32,7 @@ public class SwordCircle : MonoBehaviour
         {
             pos = transform.position;
             pos.x = slime.transform.position.x;
-            pos.z = slime.transform.position.z;
+            pos.z = slime.transform.position.z - 0.9f;
 
             transform.position = pos;
             time -= Time.deltaTime;

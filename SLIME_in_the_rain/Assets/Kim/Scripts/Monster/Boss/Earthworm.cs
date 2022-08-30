@@ -12,7 +12,7 @@ public class Earthworm : Boss
 {
     #region 변수
     private float chaseCount;
-    private float maxCount = 2f;
+    private float maxCount = 1f;
 
     Vector3 lookRot;
 
@@ -91,9 +91,14 @@ public class Earthworm : Boss
         randAttack = 0;
         anim.SetInteger("attack", randAttack);
 
-        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
-
         PlayAnim(EMonsterAnim.attack);
+        
+        yield return new WaitForSeconds(0.3f);
+
+        //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash  == -153225821) soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
+
+        //if (!isHit) 
 
         // 공격 애니메이션이 끝날 때 까지 대기
         while (!canAttack)
@@ -130,7 +135,6 @@ public class Earthworm : Boss
         randAttack = 1;
         anim.SetInteger("attack", randAttack);
         PlayAnim(EMonsterAnim.attack);
-        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -149,6 +153,8 @@ public class Earthworm : Boss
     #region 함수
     private void GetProjectile()
     {
+        soundManager.Play("Boss1/LongAttack", SoundManager.Sound.SFX);
+
         // 투사체 발사
         MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent<MonsterProjectile>();
         projectile.monster = this;

@@ -101,6 +101,7 @@ public class FindingWayMap : MapManager
     // 캐싱
     private Slime slime;
     private UIObjectPoolingManager uIObjectPoolingManager;
+    private SoundManager soundManager;
     #endregion
 
     #region 유니티 함수
@@ -116,7 +117,10 @@ public class FindingWayMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Gimmick", SoundManager.Sound.BGM);
+
+        soundManager = SoundManager.Instance;
+        soundManager.Play("Gimmick", SoundManager.Sound.BGM);
+
         uIObjectPoolingManager = UIObjectPoolingManager.Instance;
 
         slime = Slime.Instance;
@@ -181,6 +185,8 @@ public class FindingWayMap : MapManager
             yield return new WaitForSeconds(0.2f);
 
             roadList[i].GetComponent<RoadObject>().ChangeMesh(true);
+
+            soundManager.Play("FindingWayMap/FindingWayMap3", SoundManager.Sound.SFX);
         }
 
         yield return new WaitForSeconds(1.8f);
@@ -209,6 +215,8 @@ public class FindingWayMap : MapManager
         movingCamera.enabled = false;
 
         yield return new WaitForSeconds(0.5f);
+
+        soundManager.Play("FindingWayMap/FindingWayMap1", SoundManager.Sound.SFX);
 
         particleObject.SetActive(true);
 
@@ -394,6 +402,8 @@ public class FindingWayMap : MapManager
         base.ClearMap();
 
         // 저주 해제 알림
+        soundManager.Play("FindingWayMap/FindingWayMap2", SoundManager.Sound.SFX);
+
         Vector3 particlePos = slime.transform.position;
         particlePos.y = 2.5f;
         particleObject2.transform.position = particlePos;

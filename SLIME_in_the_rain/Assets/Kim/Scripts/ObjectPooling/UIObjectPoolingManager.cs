@@ -31,6 +31,7 @@ public class UIObjectPoolingManager : MonoBehaviour
     public FadeOutText noInventoryText;
     public FadeOutText noWeaponText;
     public UpText inWaterText;
+    public UpText shieldText;
     public Canvas healthBarCanvas;
 
     private Vector3 originPos = Vector3.up * -279;
@@ -148,6 +149,15 @@ public class UIObjectPoolingManager : MonoBehaviour
     {
         inWaterText.ShowText();
         inWaterText.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 72f;
+    }
+
+    // 실드 텍스트 보여줌
+    public void ShowShieldText()
+    {
+        if (shieldText.gameObject.activeSelf) return;
+
+        shieldText.ShowText();
+        shieldText.GetComponent<RectTransform>().anchoredPosition = Vector3.up * 72f;
     }
 
     // 인벤토리에 공간 없음 텍스트 보여줌
