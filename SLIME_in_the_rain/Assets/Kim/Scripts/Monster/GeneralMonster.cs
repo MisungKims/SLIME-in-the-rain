@@ -169,6 +169,7 @@ public class GeneralMonster : Monster
 
         uiPoolingManager.Set(hpBarObject, EUIFlag.hpBar);
         hpBar = null;
+        hpBarObject = null;
     }
 
     // 슬라임 추적 시도

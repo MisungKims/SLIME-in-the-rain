@@ -11,6 +11,8 @@ public class StaffProjectile : Projectile
     protected Transform target;
     public Transform Target { set { target = value; } }
 
+    [SerializeField]
+    private float decreaseRange = 0.6f;
     #endregion
 
     #region 유니티 함수
@@ -22,7 +24,7 @@ public class StaffProjectile : Projectile
 
     protected override void OnEnable()
     {
-        removeTime = StatManager.Instance.myStats.attackRange * 0.4f;
+        removeTime = StatManager.Instance.myStats.attackRange * decreaseRange;
         transform.position = Vector3.down * 5f;
         isUseRune = false;
 

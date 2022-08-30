@@ -156,8 +156,6 @@ public class Slime : MonoBehaviour
 
         SetCanAttack();
 
-        life = 1;
-
         StartCoroutine(AutoAttack());
         StartCoroutine(Skill());
         StartCoroutine(DecreaseHPInWater());
@@ -172,7 +170,6 @@ public class Slime : MonoBehaviour
         SpaceBar();
         DetectWeapon();
     }
-
 
     void FixedUpdate()
     {
@@ -190,7 +187,6 @@ public class Slime : MonoBehaviour
         isStun = false;
     }
  
-
     #region 코루틴
     // 무기를 들고 있을 때 좌클릭하면 평타
     IEnumerator AutoAttack()
@@ -695,6 +691,8 @@ public class Slime : MonoBehaviour
     // 슬라임 초기화
     public void InitSlime()
     {
+        Life = 1;
+
         skinnedMesh.material = baseMat;
         RemoveCurrentWeapon();
     }
