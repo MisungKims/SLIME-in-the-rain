@@ -17,6 +17,7 @@ public class Jelly : PickUp
     // 캐싱
     private JellyManager jellyManager;
     private ObjectPoolingManager objectPoolingManager;
+    private SoundManager soundManager;
     #endregion
 
     #region 유니티 함수
@@ -27,6 +28,7 @@ public class Jelly : PickUp
         meshRenderer = GetComponent<MeshRenderer>();
         jellyManager = JellyManager.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
+        soundManager = SoundManager.Instance;
     }
 
     protected override void OnEnable()

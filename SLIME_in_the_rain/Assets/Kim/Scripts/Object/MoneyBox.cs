@@ -32,6 +32,8 @@ public class MoneyBox : MonoBehaviour, IDamage
     // 미니맵
     [SerializeField]
     private MinimapWorldObject minimapObj;
+
+    private SoundManager soundManager;
     #endregion
 
     #region 유니티 함수
@@ -39,6 +41,7 @@ public class MoneyBox : MonoBehaviour, IDamage
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        soundManager = SoundManager.Instance;
     }
 
     private void Start()
@@ -62,9 +65,12 @@ public class MoneyBox : MonoBehaviour, IDamage
 
     IEnumerator TakeDamaged()
     {
+        soundManager.Play("Money/CrashBox", SoundManager.Sound.SFX);
+
         box.SetActive(false);
         destroyBox.SetActive(true);
-        if(Minimap.Instance) Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
+
+        if (Minimap.Instance) Minimap.Instance.RemoveMinimapIcon(minimapObj);     // 미니맵에서 제거
 
         anim.SetBool("TakeDamaged", true);
 
