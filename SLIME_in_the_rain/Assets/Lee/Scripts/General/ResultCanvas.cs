@@ -139,16 +139,16 @@ public class ResultCanvas : MapManager
         {
             if (sceneDesign.s_nomal - 1 > reachedStage)
             {
-                stringArr[0] = "도달한 스테이지: " + (reachedStage / sceneDesign.stageNum).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
+                stringArr[0] = "도달한 스테이지: " + ((reachedStage / sceneDesign.stageNum) + 1).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
             }
             else
             {
-                stringArr[0] = "도달한 스테이지: " + (reachedStage / sceneDesign.stageNum).ToString() + "-" + "Boss";
+                stringArr[0] = "도달한 스테이지: " + ((reachedStage / sceneDesign.stageNum) + 1).ToString() + "-" + "Boss";
             }
         }
         else
         {
-            stringArr[0] = "도달한 스테이지: " + (reachedStage / sceneDesign.stageNum).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
+            stringArr[0] = "도달한 스테이지: " + ((reachedStage / sceneDesign.stageNum) + 1).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
         }
 
         textMeshArr[1] = playtimeText;

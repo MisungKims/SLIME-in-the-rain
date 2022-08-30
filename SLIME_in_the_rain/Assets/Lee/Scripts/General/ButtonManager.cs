@@ -50,6 +50,11 @@ public class ButtonManager : MonoBehaviour                                 //¥Ÿ¿
                         canvasList[i].SetActive(false);
                         inventoryUI.activeInventory = false;
                     }
+                    else if(canvasList[i] == TutorialManager.Instance.tutorial)
+                    {
+                        canvasList[i].SetActive(false);
+                        Slime.Instance.canMove = true;
+                    }
                     else
                     {
                         canvasList[i].SetActive(false);
