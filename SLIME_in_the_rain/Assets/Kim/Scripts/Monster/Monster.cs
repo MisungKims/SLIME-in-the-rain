@@ -153,20 +153,20 @@ public abstract class Monster : MonoBehaviour, IDamage
                 PlayAnim(EMonsterAnim.die);
             }
             else if (isJumpHit) PlayAnim(EMonsterAnim.jumpHit);
-            else if(!isAttacking)
+            else if (isHit)
             {
-                if (isHit)
+                if (isStun)
                 {
-                    if (isStun)
-                    {
-                        PlayAnim(EMonsterAnim.stun);
-                    }
-                    else
-                    {
-                        PlayAnim(EMonsterAnim.hit);
-                    }
+                    PlayAnim(EMonsterAnim.stun);
                 }
-                else if (isChasing)
+                else
+                {
+                    PlayAnim(EMonsterAnim.hit);
+                }
+            }
+            else if (!isAttacking)
+            {
+                if (isChasing)
                 {
                     if (nav.velocity.Equals(Vector3.zero))
                     {
@@ -200,8 +200,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                     }
                 }
             }
-            
-            yield return null;
+                yield return null;
         }
     }
 
@@ -587,21 +586,21 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     #endregion
 
-    void OnDrawGizmos()
-    {
+    //void OnDrawGizmos()
+    //{
 
-        RaycastHit hit;
+    //    RaycastHit hit;
        
-        bool isHit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 2f, transform.forward, out hit, transform.rotation, stats.attackRange);
-        Gizmos.color = Color.red;
-        if (isHit)
-        {
-            Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-            Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
-        }
-        else
-        {
-            Gizmos.DrawRay(transform.position, transform.forward * stats.attackRange);
-        }
-    }
+    //    bool isHit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 2f, transform.forward, out hit, transform.rotation, stats.attackRange);
+    //    Gizmos.color = Color.red;
+    //    if (isHit)
+    //    {
+    //        Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+    //        Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
+    //    }
+    //    else
+    //    {
+    //        Gizmos.DrawRay(transform.position, transform.forward * stats.attackRange);
+    //    }
+    //}
 }

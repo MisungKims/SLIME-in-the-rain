@@ -91,7 +91,6 @@ public class Earthworm : Boss
         randAttack = 0;
         anim.SetInteger("attack", randAttack);
 
-
         soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         PlayAnim(EMonsterAnim.attack);
@@ -131,6 +130,7 @@ public class Earthworm : Boss
         randAttack = 1;
         anim.SetInteger("attack", randAttack);
         PlayAnim(EMonsterAnim.attack);
+        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         yield return new WaitForSeconds(0.5f);
 
