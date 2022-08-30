@@ -80,5 +80,6 @@ public class LifePanel : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         canvas.enabled = false;
+        UIObjectPoolingManager.Instance.slimeHpBarParent.SetActive(true);
     }
 }

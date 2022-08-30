@@ -11,6 +11,7 @@ using UnityEngine;
 public class FireProjectile : StaffProjectile
 {
     #region 함수
+
     // 데미지를 입힘
     protected override void DoDamage(Collider other, bool isSkill)
     {
