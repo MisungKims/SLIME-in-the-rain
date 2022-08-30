@@ -79,29 +79,6 @@ public class SoundManager : MonoBehaviour
             audioSource.PlayOneShot(audioClip);
         }
     }
-    //소리 시작 시간
-    public void Play(AudioClip audioClip, Sound type, float time)
-    {
-        if (audioClip == null)
-            return;
-
-        if (type == Sound.BGM) // BGM 배경음악 재생
-        {
-            AudioSource audioSource = audioSources[(int)Sound.BGM];
-            if (audioSource.isPlaying)
-                audioSource.Stop();
-
-            audioSource.clip = audioClip;
-            audioSource.time = time;
-            audioSource.Play();
-        }
-        else // SFX 효과음 재생
-        {
-            AudioSource audioSource = audioSources[(int)Sound.SFX];
-            audioSource.time = time;
-            audioSource.PlayOneShot(audioClip);
-        }
-    }
     /// <summary>
     /// 소리 파일 디렉토리 대로 string 입력(Resoures/Sounds/.. BGM or SFX)
     /// </summary>
@@ -111,18 +88,6 @@ public class SoundManager : MonoBehaviour
     {
         AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type);
-    }
-    /// <summary>
-    /// n초 부터 재생하기
-    /// </summary>
-    /// <param name="path"></param>
-    /// <param name="type"></param>
-    /// <param name="time"></param>
-    /// 
-    public void Play(string path, Sound type, float time)
-    {
-        AudioClip audioClip = GetOrAddAudioClip(path, type);
-        Play(audioClip, type, time);
     }
 
     AudioClip GetOrAddAudioClip(string path, Sound type)

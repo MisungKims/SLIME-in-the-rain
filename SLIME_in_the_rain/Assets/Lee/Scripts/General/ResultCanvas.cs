@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class ResultCanvas : MapManager
 {
+    [Header("로딩용 판넬")]
+    public Image panel;
     [Header("")]
     public TextMeshProUGUI titleText;
     [Header("")]
@@ -23,6 +25,7 @@ public class ResultCanvas : MapManager
     //룬
     private Image[] runeImage;
 
+    float loadSpeed = 2f;
     float fadeInSpeed = 0.01f;
     float typingSpeed = 0.1f;
 
@@ -49,8 +52,10 @@ public class ResultCanvas : MapManager
         singletonManager.Init_Result();
         Init();
 
+        StartCoroutine(Loading());
+
         //소리: 배경음
-        if(sceneDesign.finalClear)
+        if (sceneDesign.finalClear)
         {
             sound.Play("Clear", SoundManager.Sound.BGM);
         }
@@ -87,7 +92,21 @@ public class ResultCanvas : MapManager
         killcountText.text = "";
         jellycountText.text = "";
     }
-
+    //로딩
+    IEnumerator Loading()
+    {
+        panel.gameObject.SetActive(true);
+        float time = loadSpeed;
+        Color color = panel.color;
+        while (time > 0) 
+        {
+            color.a = time / loadSpeed;
+            panel.color = color;
+            time -= Time.deltaTime;
+            yield return null;
+        }
+        panel.gameObject.SetActive(false);
+    }
 
     //1. 타이틀
     IEnumerator TitleText()
@@ -152,7 +171,6 @@ public class ResultCanvas : MapManager
         }
 
         textMeshArr[1] = playtimeText;
-        Debug.Log(sceneDesign.Timer);
         int hour = (int)(sceneDesign.Timer / 3600);
         int min = (int)((sceneDesign.Timer - (3600 * hour)) / 60);
         int sec = (int)((sceneDesign.Timer - ((3600 * hour) + (60 * min))));
