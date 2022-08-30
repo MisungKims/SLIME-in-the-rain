@@ -70,6 +70,7 @@ public class Metalon : Boss
             if(randAttack == 2) anim.SetInteger("attack", 0);
             else anim.SetInteger("attack", randAttack);
             PlayAnim(EMonsterAnim.attack);
+            soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
         }
 
         //// 공격 애니메이션이 끝날 때 까지 대기

@@ -22,9 +22,11 @@ public class StaffProjectile : Projectile
 
     protected override void OnEnable()
     {
-        base.OnEnable();
+        removeTime = StatManager.Instance.myStats.attackRange * 0.4f;
         transform.position = Vector3.down * 5f;
         isUseRune = false;
+
+        base.OnEnable();
     }
     #endregion
 

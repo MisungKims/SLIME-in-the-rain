@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
     //public Vector3 dir;
 
     [SerializeField]
-    private float removeTime = 2f;
+    protected float removeTime = 2f;
 
     // Ä³½Ì
    // WaitForSeconds waitFor1s = new WaitForSeconds(1f);

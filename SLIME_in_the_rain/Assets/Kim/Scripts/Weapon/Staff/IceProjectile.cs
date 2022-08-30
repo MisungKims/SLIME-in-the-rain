@@ -11,16 +11,18 @@ using UnityEngine;
 public class IceProjectile : StaffProjectile
 {
     #region 변수
-    private float stunTime = 2f;
+    private float stunTime = 3f;
     public float StunTime { get { return stunTime; } set { stunTime = value; } }
     #endregion
 
     #region 유니티 함수
     protected override void OnEnable()
     {
+        removeTime = StatManager.Instance.myStats.attackRange;
+
         base.OnEnable();
 
-        stunTime = 2f;
+        stunTime = 3f;
     }
     #endregion
 

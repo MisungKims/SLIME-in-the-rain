@@ -87,6 +87,7 @@ public class Orc : Boss
         anim.SetInteger("attack", randAttack);
 
         PlayAnim(EMonsterAnim.attack);
+        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         // 공격 애니메이션이 끝날 때 까지 대기
         while (!canAttack)
@@ -121,6 +122,7 @@ public class Orc : Boss
         randAttack = 2;
         anim.SetInteger("attack", 1);
         PlayAnim(EMonsterAnim.attack);
+        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         while (!canAttack)      // 애니메이션이 끝날 때 까지
         {

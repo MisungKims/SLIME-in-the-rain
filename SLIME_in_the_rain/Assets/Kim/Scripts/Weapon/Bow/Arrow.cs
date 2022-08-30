@@ -17,6 +17,8 @@ public class Arrow : Projectile
 
     protected override void OnEnable()
     {
+        removeTime = StatManager.Instance.myStats.attackRange * 0.5f;
+
         base.OnEnable();
 
         isPenetrate = false;
