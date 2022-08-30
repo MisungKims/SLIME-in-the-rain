@@ -10,7 +10,7 @@ public class ICamera : MonoBehaviour
     
     private Vector3 vec3;
     private GameObject shopCanvas;
-    bool isStd = false;
+    bool isSTD = false;
 
     Slime slime;
     #endregion
@@ -21,32 +21,31 @@ public class ICamera : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex > 2)
         {
-            isStd = true;
+            isSTD = true;
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             shopCanvas = GameObject.Find("VillageCanvas").transform.Find("Shop").gameObject;
-            isStd = true;
+            isSTD = true;
         }
         else if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            isStd = false;
+            isSTD = false;
             Title();
         }
         else if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            isStd = false;
-            Result();
+            isSTD = false;
         }
     }
 
     private void Update()
     {
-        if (isStd)
+        if (isSTD)
         {
             if (SceneManager.GetActiveScene().buildIndex != 1)
             {
-                Std();
+                STD();
             }
             else
             {
@@ -56,9 +55,18 @@ public class ICamera : MonoBehaviour
                 }
                 else
                 {
-                    Std();
+                    STD();
                 }
             }
+        }
+        else
+        {
+            //DontDestroy 코루틴 끌수가 없어서 Update에서 실행
+            if(SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                Result();
+            }
+
         }
     }
     IEnumerator ShopOpen()
@@ -75,14 +83,13 @@ public class ICamera : MonoBehaviour
 
     public void Title()
     {
-        Debug.Log("Title Camera");
         vec3.x = -3f;
         vec3.y = 6f;
         vec3.z = -14f;
         Camera.main.transform.SetPositionAndRotation(vec3, Quaternion.Euler(Vector3.right * 30));
         Camera.main.orthographicSize = 3f;
     }
-    public void Std()
+    public void STD()
     {
         vec3.x = slime.transform.position.x;
         vec3.y = 13.0f;
@@ -100,7 +107,6 @@ public class ICamera : MonoBehaviour
     }
     public void Result()
     {
-        Debug.Log("Result Camera");
         vec3.x = 960f;
         vec3.y = 540f;
         vec3.z = -500f;
