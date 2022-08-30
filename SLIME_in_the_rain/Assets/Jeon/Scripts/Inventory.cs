@@ -134,7 +134,7 @@ public class Inventory : MonoBehaviour
         }
 
 
-        statManager.AddHP(float.Parse(_item.maxHp) * _addCount);
+        statManager.AddHP(0);
     }
 
     public bool findSame(Item _item)

@@ -558,13 +558,13 @@ public class CombinationUI : MonoBehaviour
     {
         inventory.items[slotLeft].itemCount--;
         inventory.items[slotRight].itemCount--;
-        StatManager.Instance.AddHP(0);
         init_Data();
         StartCoroutine(Wt("실패했습니다."));
         if (inventory.onChangedItem != null)
         {
             inventory.onChangedItem.Invoke();
         }
+        StatManager.Instance.AddHP(0);
     }
 
 
