@@ -112,8 +112,11 @@ public class Short : Weapon
             {
                 RuneManager.Instance.UseAttackRune(hitObj.gameObject);
 
-                if (isSkill) StartCoroutine(CameraShake.StartShake(0.1f, 0.2f));
-                else StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
+                if(hitObj.GetComponent<Monster>() && !hitObj.GetComponent<Monster>().isDie)
+                {
+                    if (isSkill) StartCoroutine(CameraShake.StartShake(0.1f, 0.2f));
+                    else StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
+                }
             }
         }
     }
