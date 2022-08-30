@@ -25,7 +25,7 @@ public class DamageText : UpText
         set 
         { 
             damage = value; 
-            text.text = damage % 1 == 0 ? damage.ToString() : damage.ToString("f1");
+            text.text = (damage * 10f).ToString();
 
             text.color = red;
         }

@@ -226,9 +226,7 @@ public class HitCountMap : MapManager
     // 맵 초기설정
     private void InitMap()
     {
-        Count = 0;
         isClear = false;
-        spawnMonster = false;
         npcSpeech1.SetActive(true);
         npcSpeech2.SetActive(false);
 
@@ -238,21 +236,25 @@ public class HitCountMap : MapManager
                 maxCount = 100;
                 break;
             case "불 지팡이":
-                maxCount = 80;
+                maxCount = 70;
                 break;
             case "얼음 지팡이":
-                maxCount = 80;
+                maxCount = 70;
                 break;
             case "단검":
-                maxCount = 80;
-                break;
-            case "양손검":
                 maxCount = 60;
                 break;
+            case "양손검":
+                maxCount = 50;
+                break;
             default:
-                maxCount = 80;
+                maxCount = 70;
                 break;
         }
+
+        spawnMonster = true;
+        Count = 0;
+        spawnMonster = false;
 
         for (int i = 0; i < monsters.childCount; i++)
         {

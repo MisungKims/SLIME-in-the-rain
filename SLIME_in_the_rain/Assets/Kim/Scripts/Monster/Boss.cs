@@ -104,18 +104,18 @@ public class Boss : Monster
         }
 
         bossNameText.text = bossName;
-        hpBar.maxValue = stats.maxHP;
+        hpBar.maxValue = stats.maxHP * 10f;
         ShowHPBar();
     }
 
     public override void ShowHPBar()
     {
-        hpBar.value = stats.HP;
+        hpBar.value = stats.HP * 10f;
 
         sb.Clear();
-        sb.Append(hpBar.value.ToString("f1"));
+        sb.Append(hpBar.value.ToString());
         sb.Append("/");
-        sb.Append(hpBar.maxValue.ToString("f1"));
+        sb.Append(hpBar.maxValue.ToString());
         hPText.text = sb.ToString();
     }
 

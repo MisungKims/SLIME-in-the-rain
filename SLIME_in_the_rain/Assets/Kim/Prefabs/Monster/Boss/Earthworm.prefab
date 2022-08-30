@@ -53,13 +53,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd764e5c599bf6d47a2ec3ce657eee81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttackImmediately: 0
   attackTypeCount: 2
   nav: {fileID: 0}
   stats:
-    maxHP: 5
-    HP: 5
+    maxHP: 20
+    HP: 20
     coolTime: 0
-    moveSpeed: 1.2
+    moveSpeed: 1.6
     attackSpeed: 0
     attackPower: 0
     attackRange: 2.2
@@ -74,9 +75,11 @@ MonoBehaviour:
   isDie: 0
   minimapObj: {fileID: 5504095940615669373}
   detectRange: 5
+  bossName: 
   bossNameText: {fileID: 0}
   hpBar: {fileID: 0}
   hPText: {fileID: 0}
+  bossMapManager: {fileID: 0}
   projectilePos: {fileID: 4708387516906988239}
 --- !u!95 &6779430112852531860
 Animator:

@@ -24,11 +24,7 @@ public class MonsterProjectile : Projectile
     // 데미지를 입힘
     protected override void DoDamage(Collider other, bool isSkill)
     {
-        if (monster)
-        {
-            monster.CameraShaking(0.1f, 0.05f);
-            Slime.Instance.Damaged(monster.Stats, monster.projectileAtk);
-        }
+        if (monster) Slime.Instance.Damaged(monster.Stats, monster.projectileAtk);
 
         ObjectPoolingManager.Instance.Set(this.gameObject, flag);
     }

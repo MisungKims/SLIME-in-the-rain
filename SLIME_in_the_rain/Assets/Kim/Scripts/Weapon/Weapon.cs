@@ -81,8 +81,7 @@ public class Weapon : MonoBehaviour
     //public Vector3 weaponPos;
 
 
-    public GameObject go;
-    public GameObject cube;
+    
     #endregion
 
     #region 유니티 함수
@@ -276,8 +275,9 @@ public class Weapon : MonoBehaviour
     protected void PlayAnim(AnimState state)
     {
         animState = state;
-
+        anim.speed *= statManager.myStats.attackSpeed * 0.01f;
         anim.SetInteger("animation", (int)animState);
+        anim.speed = 1;
     }
 
     // 그림자 설정

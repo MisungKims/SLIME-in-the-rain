@@ -1301,11 +1301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f9be123743f0541accafcc87a5fa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttackImmediately: 0
   attackTypeCount: 1
   nav: {fileID: 0}
   stats:
-    maxHP: 5
-    HP: 5
+    maxHP: 10
+    HP: 10
     coolTime: 0
     moveSpeed: 0.9
     attackSpeed: 0
