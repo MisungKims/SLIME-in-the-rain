@@ -38,8 +38,6 @@ public class RuneShield : Rune, IDashRune
     #region 함수
     public void Dash()
     {
-        float amount = statManager.GetIncrementStat("HP", 30);          // TODO : 실드 생성
-
         StartCoroutine(DetectDash());
     }
     #endregion

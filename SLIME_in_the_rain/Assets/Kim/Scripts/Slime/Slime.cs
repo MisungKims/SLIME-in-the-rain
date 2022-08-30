@@ -667,6 +667,8 @@ public class Slime : MonoBehaviour
 
     private void TakeDamage(float damageAmount)
     {
+        if (shield.activeSelf) return;
+
         StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
 
         statManager.AddHP(damageAmount);

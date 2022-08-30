@@ -12,7 +12,7 @@ public class Earthworm : Boss
 {
     #region º¯¼ö
     private float chaseCount;
-    private float maxCount = 3f;
+    private float maxCount = 2f;
 
     Vector3 lookRot;
 

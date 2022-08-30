@@ -403,7 +403,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        CameraShaking(0.1f, 0.08f);
+        //CameraShaking(0.1f, 0.08f);
 
         if (HaveDamage(statManager.GetAutoAtkDamage()))
         {
@@ -416,7 +416,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        if (!isJumpHit) CameraShaking(0.1f, 0.2f);
+        //if (!isJumpHit) CameraShaking(0.1f, 0.2f);
 
         if (HaveDamage(statManager.GetSkillDamage()))
         {
@@ -430,7 +430,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        CameraShaking(0.1f, 0.23f);
+        //CameraShaking(0.1f, 0.23f);
 
         stunDamaged = true;
 

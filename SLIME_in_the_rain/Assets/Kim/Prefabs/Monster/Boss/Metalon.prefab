@@ -1049,13 +1049,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69548377d5db6bb498205fa4ac391224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAttackImmediately: 0
   attackTypeCount: 3
   nav: {fileID: 0}
   stats:
-    maxHP: 5
-    HP: 5
+    maxHP: 30
+    HP: 30
     coolTime: 0
-    moveSpeed: 2
+    moveSpeed: 2.1
     attackSpeed: 0
     attackPower: 0
     attackRange: 2.8
@@ -1070,9 +1071,11 @@ MonoBehaviour:
   isDie: 0
   minimapObj: {fileID: 1041776209786214764}
   detectRange: 5
+  bossName: 
   bossNameText: {fileID: 0}
   hpBar: {fileID: 0}
   hPText: {fileID: 0}
+  bossMapManager: {fileID: 0}
   spiders:
   - {fileID: 0}
   - {fileID: 0}

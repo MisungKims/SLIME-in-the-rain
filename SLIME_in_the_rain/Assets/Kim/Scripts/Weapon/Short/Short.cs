@@ -111,6 +111,9 @@ public class Short : Weapon
             if (hitObj.gameObject.layer == 8)       // 데미지를 입히는 오브젝트가 몬스터일 때 룬 발동
             {
                 RuneManager.Instance.UseAttackRune(hitObj.gameObject);
+
+                if (isSkill) StartCoroutine(CameraShake.StartShake(0.1f, 0.2f));
+                else StartCoroutine(CameraShake.StartShake(0.1f, 0.08f));
             }
         }
     }
