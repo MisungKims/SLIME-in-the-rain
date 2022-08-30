@@ -40,6 +40,7 @@ public class Boss : Monster
 
     // 캐싱
     private WaitForSeconds waitFor6s = new WaitForSeconds(6f);
+    protected SoundManager soundManager;
 
     [SerializeField]
     BossMapManager bossMapManager;
@@ -54,6 +55,8 @@ public class Boss : Monster
         maxAtkTime = 1.5f;
 
         StartCoroutine(DetectSlime());          // 슬라임 감지 시작
+
+        soundManager = SoundManager.Instance;
     }
 
     #endregion
