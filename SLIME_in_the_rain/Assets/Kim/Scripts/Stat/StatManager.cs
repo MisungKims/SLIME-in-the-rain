@@ -67,7 +67,7 @@ public class StatManager : MonoBehaviour
     // 스탯 초기화
     public void InitStats() // originStats = maxHP 100, coolTime 1, moveSpeed 1, atkPower 10, atkSpeed 1, defensePower 0, atkRange 1, hitCount 1, increases 0 기준
     {
-        originStats = new Stats(100f, 100f, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        originStats = new Stats(100f, 100f, 1f, 1.2f, 1f, 10f, 1f, 1f, 1, 0);
         myStats = new Stats(0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1, 0);
         extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 1, 0);
         gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);

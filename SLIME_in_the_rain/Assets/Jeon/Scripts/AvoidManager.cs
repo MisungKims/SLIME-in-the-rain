@@ -137,8 +137,8 @@ public class AvoidManager : MapManager
             playCountTime = 0;
             countDownText.text = $"{playCountTime:N1}";
 
-            SceneDesign.Instance.mapClear = true;
             isplay = false;
+            ClearMap();
         }
     }
 
