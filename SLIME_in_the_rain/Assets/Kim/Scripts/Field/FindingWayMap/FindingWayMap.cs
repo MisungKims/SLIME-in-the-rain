@@ -116,7 +116,7 @@ public class FindingWayMap : MapManager
         }
 
         base.Awake();
-
+        SoundManager.Instance.Play("Gimmick", SoundManager.Sound.BGM);
         uIObjectPoolingManager = UIObjectPoolingManager.Instance;
 
         slime = Slime.Instance;

@@ -32,6 +32,7 @@ public class AvoidManager : MapManager
         }
 
         base.Awake();
+        SoundManager.Instance.Play("Gimmick", SoundManager.Sound.BGM);
         for (int i = 0; i < traps.Length; i++)
         {
             Vector3 tempPos;

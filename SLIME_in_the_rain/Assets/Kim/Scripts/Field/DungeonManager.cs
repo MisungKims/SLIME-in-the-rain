@@ -62,8 +62,9 @@ public class DungeonManager : MapManager
         {
             Destroy(this.gameObject);
         }
-
+        
         base.Awake();
+        SoundManager.Instance.Play("Dungeon", SoundManager.Sound.BGM);
 
         for (int i = 0; i < monstersObject.childCount; i++)
         {
