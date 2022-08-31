@@ -226,7 +226,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                 if (!canAttack) canAttack = true;
 
                 // 슬라임을 쫓아다님
-                if (nav.enabled) nav.SetDestination(target.position);
+                if (nav.enabled && !isDie) nav.SetDestination(target.position);
 
                 if (!doDamage) IsAttacking = false;         // 데미지를 입히는 중일 때 공격할 수 없도록
             }
