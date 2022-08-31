@@ -11,7 +11,7 @@ using UnityEngine;
 public class Metalon : Boss
 {
     #region 변수
-    private float spawnBabyTime = 5f;
+    private float spawnBabyTime = 3f;
     private bool canSpawnBaby = true;
 
 
@@ -70,14 +70,10 @@ public class Metalon : Boss
             if(randAttack == 2) anim.SetInteger("attack", 0);
             else anim.SetInteger("attack", randAttack);
             PlayAnim(EMonsterAnim.attack);
-            soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
-        }
 
-        //// 공격 애니메이션이 끝날 때 까지 대기
-        //while (!canAttack)
-        //{
-        //    yield return null;
-        //}
+            Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+            if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -153225821 || anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -274583130) soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
+        }
 
         // 랜덤한 시간동안 대기
         if (randAttack == 2) randAtkTime = 1f;
@@ -90,6 +86,7 @@ public class Metalon : Boss
         }
 
         IsAttacking = false;
+        TryStartChase();
     }
 
     // 새끼 거미가 전부 죽어야 다시 소환할 수 있음
@@ -140,6 +137,7 @@ public class Metalon : Boss
 
         IsAttacking = false;
         canAttack = true;
+        TryStartChase();
     }
     #endregion
 

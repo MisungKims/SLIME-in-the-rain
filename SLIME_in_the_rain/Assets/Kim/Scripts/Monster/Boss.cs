@@ -51,8 +51,8 @@ public class Boss : Monster
     {
         base.Awake();
 
-        minAtkTime = 0.5f;
-        maxAtkTime = 1.5f;
+        minAtkTime = 0.3f;
+        maxAtkTime = 1f;
 
         StartCoroutine(DetectSlime());          // 슬라임 감지 시작
 
