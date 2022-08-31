@@ -12,6 +12,7 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
 
     SettingCanvas settingCanvas;
     InventoryUI inventoryUI;
+    TutorialManager tutorial;
 
     #endregion
 
@@ -21,17 +22,27 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
     {
         settingCanvas = SettingCanvas.Instance;
         inventoryUI = InventoryUI.Instance;
+        tutorial = TutorialManager.Instance;
 
-        canvasList = new List<GameObject>();
-        canvasList.Add(settingCanvas.popup);
-        canvasList.Add(settingCanvas.settingCanvas);
-        canvasList.Add(inventoryUI.inventroyPanel);
-        canvasList.Add(TutorialManager.Instance.tutorial);
+
+        
 
         if (SceneManager.GetActiveScene().buildIndex ==1)
         {
+            canvasList = new List<GameObject>();
+            canvasList.Add(settingCanvas.popup);
+            canvasList.Add(settingCanvas.settingCanvas);
+            canvasList.Add(tutorial.tutorial);
+            canvasList.Add(inventoryUI.inventroyPanel);
             canvasList.Add(GameObject.Find("VillageCanvas").transform.Find("Shop").gameObject);
             canvasList.Add(GameObject.Find("VillageCanvas").transform.Find("Tower").gameObject);
+        }
+        else
+        {
+            canvasList = new List<GameObject>();
+            canvasList.Add(settingCanvas.popup);
+            canvasList.Add(settingCanvas.settingCanvas);
+            canvasList.Add(inventoryUI.inventroyPanel);
         }
     }
 
@@ -50,10 +61,9 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
                         canvasList[i].SetActive(false);
                         inventoryUI.activeInventory = false;
                     }
-                    else if(canvasList[i] == TutorialManager.Instance.tutorial)
+                    else if(canvasList[i] == tutorial.tutorial)
                     {
-                        canvasList[i].SetActive(false);
-                        Slime.Instance.canMove = true;
+                        tutorial.offThis();
                     }
                     else
                     {

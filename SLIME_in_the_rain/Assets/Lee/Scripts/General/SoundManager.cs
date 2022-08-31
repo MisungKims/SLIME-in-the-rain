@@ -90,6 +90,51 @@ public class SoundManager : MonoBehaviour
         Play(audioClip, type);
     }
 
+
+
+
+    /// <summary>
+    /// 나중에 꺼야함
+    /// </summary>
+    /// <param name="audioClip">소리 직접 넣기 가능</param>
+    /// <param name="type">SoundManager내 타입 있음</param>
+    public AudioSource LoofSFX(AudioClip audioClip)
+    {
+        if (audioClip == null)
+            return null;
+
+        AudioSource audioSource = audioSources[(int)SoundType.SFX];
+        audioSource.clip = audioClip;
+        audioSource.loop = true;
+        audioSource.Play();
+        return audioSource;
+    }
+
+    /// <summary>
+    /// 소리 파일 디렉토리 대로 string 입력(Resoures/Sounds/.. BGM or SFX)
+    /// </summary>
+    /// <param name="path">디렉토리를 string으로 입력</param>
+    /// <param name="type">SoundManager내 타입 있음</param>
+    /// <param name="onLoof">true하면 루프 됨</param>
+    public AudioSource LoofSFX(string path)
+    {
+        AudioClip audioClip = GetOrAddAudioClip(path, SoundType.SFX);
+        return LoofSFX(audioClip);
+    }
+
+    public void StopLoofSFX(AudioSource audioSource)
+    {
+        audioSource.Stop();
+        audioSource.loop = false;
+        audioSource.clip = null;
+    }
+
+    /// <summary>
+    /// 소리파일 딕셔너리에 추가함
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
     AudioClip GetOrAddAudioClip(string path, SoundType type)
     {
         if (path.Contains("Sounds/") == false)

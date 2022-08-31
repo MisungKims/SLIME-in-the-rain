@@ -264,6 +264,9 @@ public class SettingCanvas : MonoBehaviour
 
     void ResetButton()
     {
+        //¡©∏Æ √ ±‚»≠
+        PlayerPrefs.DeleteKey("jellyCount");
+        //Ω∫≈»√ ±‚»≠
         PlayerPrefs.DeleteKey("MaxHP" + "level");
         PlayerPrefs.DeleteKey("CoolTime" + "level");
         PlayerPrefs.DeleteKey("MoveSpeed" + "level");

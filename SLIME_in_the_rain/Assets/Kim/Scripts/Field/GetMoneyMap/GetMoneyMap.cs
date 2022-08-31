@@ -151,12 +151,15 @@ public class GetMoneyMap : MapManager
     // 시간을 세는 코루틴
     IEnumerator TimeCount()
     {
+        
+        //AudioSource _audio =  SoundManager.Instance.LoofSFX("Dungeon/Timer");
         while (second > 0)
         {
             yield return new WaitForSeconds(1f);
 
             Second--;
         }
+        //SoundManager.Instance.StopLoofSFX(_audio);
         StartCoroutine(objectPoolingManager.SetMoney());
 
         StatManager.Instance.AddMoveSpeed(sumSpeed * -1);
