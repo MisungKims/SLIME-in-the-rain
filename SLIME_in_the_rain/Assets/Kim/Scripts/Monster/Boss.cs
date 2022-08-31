@@ -113,7 +113,7 @@ public class Boss : Monster
 
     public override void ShowHPBar()
     {
-        hpBar.value = stats.HP * 10f;
+        hpBar.value = stats.HP;
 
         sb.Clear();
         sb.Append(hpBar.value.ToString());
