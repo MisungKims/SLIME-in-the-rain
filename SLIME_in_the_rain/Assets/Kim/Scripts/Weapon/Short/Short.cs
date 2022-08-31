@@ -61,8 +61,12 @@ public class Short : Weapon
 
         DoDamage(false);
 
-        // 검기 발사 룬을 가지고 있을 때 검기 발사
-        Missile(false, EProjectileFlag.slash);
+        if (Random.Range(0f,1.0f)>0.6f)
+        {
+            // 검기 발사 룬을 가지고 있을 때 검기 발사
+            Missile(false, EProjectileFlag.slash);
+        }
+      
     }
 
     // 오브젝트를 공격하면 데미지를 입힘
@@ -91,8 +95,8 @@ public class Short : Weapon
             projectile.GetComponent<Projectile>().isSkill = isSkill;
             projectile.transform.LookAt(targetPos);
             lookRot = projectile.transform.eulerAngles;
-            lookRot.x = 0;
-            lookRot.z = 0;
+            lookRot.x = 90;
+            lookRot.z = -90;
             projectile.transform.eulerAngles = lookRot;
         }
     }

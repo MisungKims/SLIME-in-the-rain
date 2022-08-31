@@ -59,7 +59,6 @@ public class TutorialManager : MonoBehaviour
     void cantMove()
     {
         Slime.Instance.canMove = false;
-        Debug.Log("isf");
     }
    public void offThis()
     {
