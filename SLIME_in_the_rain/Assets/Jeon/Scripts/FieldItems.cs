@@ -192,7 +192,7 @@ public class FieldItems : PickUp
 
             inventory.onChangedItem.Invoke();
         }
-        StatManager.Instance.AddHP(float.Parse(item.maxHp));
+        //StatManager.Instance.AddHP(float.Parse(item.maxHp));
     }
 
     // 인벤토리에서 같은 아이템을 찾아 카운트를 증가시킴
