@@ -315,7 +315,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                 {
                     if (currentAnim.Equals(EMonsterAnim.attack) && !doDamage && !noDamage)
                     {
-                        yield return new WaitForSeconds(0.1f);
+                        yield return new WaitForSeconds(0.15f);
                         
                         DamageSlime(randAttack);     // 공격 애니메이션 실행 시 슬라임이 데미지 입도록
                     }
