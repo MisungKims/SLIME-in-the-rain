@@ -11,7 +11,7 @@ using UnityEngine;
 public class Orc : Boss
 {
     private float chaseCount;
-    private float maxCount = 3f;
+    private float maxCount = 2f;
 
     private float stunTime = 2f;        // 슬라임이 스턴할 시간
 
@@ -36,35 +36,32 @@ public class Orc : Boss
     {
         while (CanChase())
         {
-            if (!isHit)
+            // 몬스터의 공격 범위 안에 슬라임이 있다면 단거리 공격 시작
+            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+            if (atkRangeColliders.Length > 0)
             {
-                // 몬스터의 공격 범위 안에 슬라임이 있다면 단거리 공격 시작
-                atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-                if (atkRangeColliders.Length > 0)
-                {
-                    isInRange = true;
-                    if (!isAttacking && canAttack) StartCoroutine(ShortAttack());
+                isInRange = true;
+                if (!isAttacking && canAttack) StartCoroutine(ShortAttack());
 
-                    chaseCount = 0;
-                }
-                else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 3초~5초 후에 원거리 공격
+                chaseCount = 0;
+            }
+            else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 3초~5초 후에 원거리 공격
+            {
+                isInRange = false;
+                if (!isAttacking)
                 {
-                    isInRange = false;
-                    if (!isAttacking)
+                    PlayAnim(EMonsterAnim.run);
+
+                    chaseCount += Time.deltaTime;
+
+                    if (chaseCount >= maxCount)
                     {
-                        PlayAnim(EMonsterAnim.run);
-
-                        chaseCount += Time.deltaTime;
-
-                        if (chaseCount >= maxCount)
-                        {
-                            yield return StartCoroutine(LongAttack());
-                        }
+                        yield return StartCoroutine(LongAttack());
                     }
                 }
-
-                if (!isAttacking) nav.SetDestination(target.position);
             }
+
+            if (!isAttacking) nav.SetDestination(target.position);
 
             yield return null;
         }
@@ -87,7 +84,9 @@ public class Orc : Boss
         anim.SetInteger("attack", randAttack);
 
         PlayAnim(EMonsterAnim.attack);
-        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
+        yield return new WaitForSeconds(0.15f);
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -270903256) soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
 
         // 공격 애니메이션이 끝날 때 까지 대기
         while (!canAttack)

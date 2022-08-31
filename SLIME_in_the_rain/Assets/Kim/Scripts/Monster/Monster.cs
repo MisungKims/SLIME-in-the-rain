@@ -100,6 +100,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     [SerializeField]
     private MinimapWorldObject minimapObj;
 
+    protected float damageTime = 0.1f;
+
     // 캐싱
     private StatManager statManager;
     protected ObjectPoolingManager objectPoolingManager;
@@ -315,7 +317,7 @@ public abstract class Monster : MonoBehaviour, IDamage
                 {
                     if (currentAnim.Equals(EMonsterAnim.attack) && !doDamage && !noDamage)
                     {
-                        yield return new WaitForSeconds(0.15f);
+                        yield return new WaitForSeconds(damageTime);
                         
                         DamageSlime(randAttack);     // 공격 애니메이션 실행 시 슬라임이 데미지 입도록
                     }
@@ -514,14 +516,25 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected virtual void AttackRaycast(int atkType)
     {
-        RaycastHit[] hits = Physics.BoxCastAll(transform.position + Vector3.up * 0.1f, transform.lossyScale * 2f, transform.forward, transform.rotation, stats.attackRange);
-        for (int i = 0; i < hits.Length; i++)
+        bool hit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange, 1 << LayerMask.NameToLayer("Slime"));
+       
+        if (hit)
         {
-            if (hits[i].transform.CompareTag("Slime"))
-            {
-                slime.Damaged(stats, atkType);
-            }
+#if UNITY_EDITOR
+            Debug.DrawLine(transform.position + Vector3.up * 0.1f, transform.position + Vector3.up * 0.1f + transform.forward * stats.attackRange, Color.blue, 0.5f);
+#endif
+            slime.Damaged(stats, atkType);
         }
+
+        //RaycastHit[] hits = Physics.BoxCastAll(transform.position + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange * Time.deltaTime);
+        //Debug.DrawLine(transform.position + Vector3.up * 0.1f, transform.position + Vector3.up * 0.1f + transform.forward * stats.attackRange * Time.deltaTime, Color.red, 0.5f);
+        //for (int i = 0; i < hits.Length; i++)
+        //{
+        //    if (hits[i].transform.CompareTag("Slime"))
+        //    {
+        //        slime.Damaged(stats, atkType);
+        //    }
+        //}
     }
 
     // 슬라임 추적 시도
@@ -577,21 +590,28 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     #endregion
 
-    //void OnDrawGizmos()
-    //{
+#if UNITY_EDITOR    
+    void OnDrawGizmos()
+    {
 
-    //    RaycastHit hit;
-       
-    //    bool isHit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 2f, transform.forward, out hit, transform.rotation, stats.attackRange);
-    //    Gizmos.color = Color.red;
-    //    if (isHit)
-    //    {
-    //        Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-    //        Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
-    //    }
-    //    else
-    //    {
-    //        Gizmos.DrawRay(transform.position, transform.forward * stats.attackRange);
-    //    }
-    //}
+       // RaycastHit hit;
+
+        bool isHit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange, 1 << LayerMask.NameToLayer("Slime"));
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * stats.attackRange);
+        //if (isHit)
+        //{
+        //    //Gizmos.color = Color.red;
+        //    //Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * stats.attackRange * Time.deltaTime);
+        //    //Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+        //    Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, transform.lossyScale);
+        //}
+        //else
+        //{
+        //    Gizmos.color = Color.blue;
+        //    Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * stats.attackRange * Time.deltaTime);
+        //    //Gizmos.DrawRay(transform.position, transform.forward * stats.attackRange);
+        //}
+    }
+#endif
 }
