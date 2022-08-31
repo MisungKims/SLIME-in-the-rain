@@ -61,7 +61,7 @@ public class ProjectileMonster : GeneralMonster
         while (randAtkTime > 0)
         {
             randAtkTime -= Time.deltaTime;
-            if(target && !isInRange) nav.SetDestination(target.position);
+            if(target && !isInRange && !isDie) nav.SetDestination(target.position);
 
             yield return null;
         }
