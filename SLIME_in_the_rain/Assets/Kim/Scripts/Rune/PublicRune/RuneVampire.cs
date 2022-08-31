@@ -18,7 +18,8 @@ public class RuneVampire : Rune, IAttackRune
         this.monster = monster.GetComponent<Monster>();
 
         // ÈíÇ÷ 20%
-        float amount = (this.monster.Stats.HP * 20) * 0.01f;
+        //float amount = (this.monster.Stats.HP * 20) * 0.01f;
+        float amount = (statManager.myStats.attackPower * 20) * 0.01f;
         statManager.AddHP(amount);
     }
     #endregion
