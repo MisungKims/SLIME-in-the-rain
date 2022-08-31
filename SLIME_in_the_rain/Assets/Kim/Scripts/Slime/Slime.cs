@@ -660,10 +660,10 @@ public class Slime : MonoBehaviour
     // 데미지를 입음
     public void Damaged(Stats monsterStats, int atkType)
     {
-        float damageReduction = statManager.myStats.defensePower / (1 + statManager.myStats.defensePower);
-        float damage = monsterStats.attackPower * (1 - damageReduction) * -1;
-
-        TakeDamage(-2);
+        /*float damageReduction = statManager.myStats.defensePower / (1 + statManager.myStats.defensePower);*/
+        float damage = monsterStats.attackPower  - statManager.myStats.defensePower;
+        Debug.Log(damage);
+        TakeDamage(-damage);
     }
 
     public void Damaged(float damageAmount)

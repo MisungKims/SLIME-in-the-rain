@@ -65,9 +65,9 @@ public class StatManager : MonoBehaviour
 
     #region 함수
     // 스탯 초기화
-    public void InitStats() // originStats = maxHP 100, coolTime 1, moveSpeed 1, atkPower 10, atkSpeed 1, defensePower 0, atkRange 1, hitCount 1, increases 0 기준
+    public void InitStats() // originStats = maxHP 100, hp 100, coolTime 1, moveSpeed 1.2,  atkSpeed 1, atkPower 10,, atkRange 1,defensePower 0, hitCount 1, increases 0 기준
     {
-        originStats = new Stats(100f, 100f, 1f, 1.2f, 1f, 1f, 1f, 1f, 1, 0);
+        originStats = new Stats(100f, 100f, 0f, 1.2f, 1f, 10f, 1f, 0, 1, 0);
         myStats = new Stats(0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1, 0);
         extraStats = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 1, 0);
         gelatinStat = new Stats(0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0, 0);
@@ -123,7 +123,7 @@ public class StatManager : MonoBehaviour
         myStats.attackRange = originStats.attackRange + ((weaponStat.attackRange + extraStats.attackRange + gelatinStat.attackRange) * 0.01f);
         myStats.defensePower = originStats.defensePower + weaponStat.defensePower + extraStats.defensePower + gelatinStat.defensePower;
         myStats.hitCount = originStats.hitCount * weaponStat.hitCount * extraStats.hitCount;
-        myStats.increasesDamage = originStats.increasesDamage + ((weaponStat.increasesDamage + extraStats.increasesDamage + gelatinStat.increasesDamage) * 0.01f);
+        myStats.increasesDamage = originStats.increasesDamage + weaponStat.increasesDamage + extraStats.increasesDamage + gelatinStat.increasesDamage;
 
         maxStat(myStats.coolTime, weaponStat.coolTime);
         maxStat(myStats.attackSpeed, weaponStat.attackSpeed);
@@ -282,7 +282,7 @@ public class StatManager : MonoBehaviour
     // 평타 데미지 반환
     public float GetAutoAtkDamage()
     {
-        float damage = 1f;
+        float damage = myStats.attackPower;
 
         damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
 
@@ -292,7 +292,7 @@ public class StatManager : MonoBehaviour
     // 스킬 데미지 반환
     public float GetSkillDamage()
     {
-        float damage = 2f;
+        float damage = myStats.attackPower * 1.5f;
 
         damage += (damage * myStats.increasesDamage) * 0.01f;        // 데미지 증가량 계산
 
