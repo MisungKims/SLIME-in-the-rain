@@ -12,7 +12,7 @@ public class Earthworm : Boss
 {
     #region 변수
     private float chaseCount;
-    private float maxCount = 1f;
+    private float maxCount = 0.5f;
 
     Vector3 lookRot;
 
@@ -39,37 +39,34 @@ public class Earthworm : Boss
         while (CanChase())
         {
             nav.speed = chaseSpeed;
-            if (!isHit)
+            // 몬스터의 공격 범위 안에 슬라임이 있다면 단거리 공격 시작
+            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+            if (atkRangeColliders.Length > 0)
             {
-                // 몬스터의 공격 범위 안에 슬라임이 있다면 단거리 공격 시작
-                atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-                if (atkRangeColliders.Length > 0)
-                {
-                    isInRange = true;
-                    if (!isAttacking && canAttack) StartCoroutine(ShortAttack());
+                isInRange = true;
+                if (!isAttacking && canAttack) yield return StartCoroutine(ShortAttack());
 
-                    chaseCount = 0;
-                }
-                else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 3초? 후에 원거리 공격
+                chaseCount = 0;
+            }
+            else if (atkRangeColliders.Length <= 0)         // 공격 범위에 슬라임이 없다면 원거리 공격
+            {
+                isInRange = false;
+                if (!isAttacking)
                 {
-                    isInRange = false;
-                    if (!isAttacking)
+                    PlayAnim(EMonsterAnim.run);
+
+                    chaseCount += Time.deltaTime;
+
+                    // 1초가 지나면 투사체 발사
+                    if (chaseCount >= maxCount)
                     {
-                        PlayAnim(EMonsterAnim.run);
-
-                        chaseCount += Time.deltaTime;
-
-                        // 3초가 지나면 투사체 발사
-                        if (chaseCount >= maxCount)
-                        {
-                            yield return StartCoroutine(LongAttack());
-                        }
+                        yield return StartCoroutine(LongAttack());
                     }
                 }
-
-                if (!isAttacking) nav.SetDestination(target.position);
             }
-           
+
+            if (!isAttacking) nav.SetDestination(target.position);
+
             yield return null;
         }
 
