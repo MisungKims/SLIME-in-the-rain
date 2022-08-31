@@ -91,8 +91,8 @@ public class Short : Weapon
             projectile.GetComponent<Projectile>().isSkill = isSkill;
             projectile.transform.LookAt(targetPos);
             lookRot = projectile.transform.eulerAngles;
-            lookRot.x = 0;
-            lookRot.z = 0;
+            lookRot.x = 90;
+            lookRot.z = -90;
             projectile.transform.eulerAngles = lookRot;
         }
     }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Slash : Projectile
 {
+    protected override void Move()
+    {
+        transform.Translate(Vector3.left * Time.deltaTime * speed);
+    }
     // 데미지를 입힘
     protected override void DoDamage(Collider other, bool isSkill)
     {
