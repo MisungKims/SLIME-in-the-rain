@@ -681,6 +681,8 @@ public class Slime : MonoBehaviour
 
     private void TakeDamage(float damageAmount)
     {
+        if (isDie) return;
+
         if (shield.activeSelf)
         {
             UIObjectPoolingManager.Instance.ShowShieldText();
