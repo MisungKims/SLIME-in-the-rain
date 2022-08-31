@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Sound
+{
+    BGM,
+    SFX,
+    MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
+}
 
 public class SoundManager : MonoBehaviour
 { 
@@ -25,12 +31,7 @@ public class SoundManager : MonoBehaviour
     Dictionary<string, AudioClip> BGMs = new Dictionary<string, AudioClip>();
     Dictionary<string, AudioClip> SFXs = new Dictionary<string, AudioClip>();
 
-    public enum Sound
-    {
-        BGM,
-        SFX,
-        MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
-    }
+
 
     void Awake()
     {

@@ -10,7 +10,6 @@ using UnityEngine;
 
 public class ProjectileMonster : GeneralMonster
 {
-
     private Vector3 lookRot;
     public EProjectileFlag flag;
     public Vector3 projectilePos;
@@ -23,21 +22,18 @@ public class ProjectileMonster : GeneralMonster
         while (CanChase())
         {
             nav.speed = chaseSpeed;
-            if (!isHit)
+            // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
+            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+            if (atkRangeColliders.Length > 0)
             {
-                // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
-                atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-                if (atkRangeColliders.Length > 0)
-                {
-                    isInRange = true;
-                }
-                else if (atkRangeColliders.Length <= 0)
-                {
-                    isInRange = false;
-                }
-
-                yield return StartCoroutine(Attack());
+                isInRange = true;
             }
+            else if (atkRangeColliders.Length <= 0)
+            {
+                isInRange = false;
+            }
+
+            yield return StartCoroutine(Attack());
 
             yield return null;
         }

@@ -78,8 +78,8 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     // 공격 후 대기 시간
     protected float randAtkTime;
-    protected float minAtkTime = 0.3f;
-    protected float maxAtkTime = 1.5f;
+    protected float minAtkTime = 0.1f;
+    protected float maxAtkTime = 0.8f;
 
     // 스턴
     protected bool isJumpHit = false;
@@ -152,10 +152,12 @@ public abstract class Monster : MonoBehaviour, IDamage
         {
             if (isDie)
             {
+                nav.SetDestination(transform.position);
                 PlayAnim(EMonsterAnim.die);
             }
             else if (isJumpHit) PlayAnim(EMonsterAnim.jumpHit);
             else if (isStun) PlayAnim(EMonsterAnim.stun);
+            
             else if (!isAttacking)
             {
                 if (isHit) PlayAnim(EMonsterAnim.hit);
@@ -211,27 +213,22 @@ public abstract class Monster : MonoBehaviour, IDamage
         while (CanChase())
         {
             nav.speed = chaseSpeed;
-            if (!isHit)
+            // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
+            atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
+            if (atkRangeColliders.Length > 0 && !isAttacking && canAttack)
             {
-                // 몬스터의 공격 범위 안에 슬라임이 있다면 공격 시작
-                atkRangeColliders = Physics.OverlapSphere(transform.position, stats.attackRange, slimeLayer);
-                if (atkRangeColliders.Length > 0 && !isAttacking && canAttack)
-                {
-                    isInRange = true;
-                    StartCoroutine(Attack());
-                }
-                else if (atkRangeColliders.Length <= 0 && !isAttacking)
-                {
-                    isInRange = false;
-                    if (!canAttack) canAttack = true;
+                isInRange = true;
+                StartCoroutine(Attack());
+            }
+            else if (atkRangeColliders.Length <= 0 && !isAttacking)
+            {
+                isInRange = false;
+                if (!canAttack) canAttack = true;
 
-                    // 슬라임을 쫓아다님
-                    if(nav.enabled) nav.SetDestination(target.position);
+                // 슬라임을 쫓아다님
+                if (nav.enabled) nav.SetDestination(target.position);
 
-                    if (!doDamage) IsAttacking = false;         // 데미지를 입히는 중일 때 공격할 수 없도록
-                }
-
-                yield return null;
+                if (!doDamage) IsAttacking = false;         // 데미지를 입히는 중일 때 공격할 수 없도록
             }
 
             yield return null;
@@ -335,8 +332,11 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         isHit = true;
         isStun = true;
-        isChasing = false;
+
         HaveDamage(0.5f);
+
+        isChasing = false;
+        
 
         nav.SetDestination(transform.position);
         
@@ -346,7 +346,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
         isHit = false;
         isStun = false;
-        stunDamaged = false;
+        //stunDamaged = false;
         TryStartChase();
     }
 
@@ -376,8 +376,11 @@ public abstract class Monster : MonoBehaviour, IDamage
     #endregion
 
     #region 함수
-    protected bool CanChase()
+    protected virtual bool CanChase()
     {
+        if(isAttackImmediately)
+            return target && isChasing && !isStun && !isDie && !isHit && !isJumpHit && !slime.isDie;
+
         return target && isChasing && !isStun && !isDie && !isHit && !isJumpHit && !slime.isStealth && !slime.isDie;
     }
 
@@ -388,7 +391,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         StartCoroutine(CameraShake.StartShake(duration, magnitude));
     }
 
-    bool stunDamaged = false;
+   //bool stunDamaged = false;
 
     // 슬라임의 평타에 데미지를 입음
     public virtual void AutoAtkDamaged()
@@ -422,15 +425,9 @@ public abstract class Monster : MonoBehaviour, IDamage
     {
         if (isDie) return;
 
-        //CameraShaking(0.1f, 0.23f);
-
-        stunDamaged = true;
+        //stunDamaged = true;
 
         if (!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
-        //if (HaveDamage(statManager.GetSkillDamage()))       // 죽지 않았을 때
-        //{
-        //    if(!isStun) StartCoroutine(DoStun(stunTime));               // 스턴 코루틴 실행
-        //}
     }
 
     // 죽음
@@ -460,6 +457,9 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 데미지를 입음
     bool HaveDamage(float damage)
     {
+        isHit = true;
+
+        StartCoroutine(StopHit());
         StartCoroutine(damageCoru(damage));
 
         return !isDie;
@@ -480,13 +480,20 @@ public abstract class Monster : MonoBehaviour, IDamage
             }
             else
             {
-                if(!stunDamaged) isHit = true;
                 stats.HP = result;
                 ShowDamage(damage);
             }
 
             yield return new WaitForSeconds(0.08f);
         }
+    }
+
+    IEnumerator StopHit()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (isHit) isHit = false;
+        TryStartChase();
     }
 
     // 데미지 피격 수치 UI로 보여줌

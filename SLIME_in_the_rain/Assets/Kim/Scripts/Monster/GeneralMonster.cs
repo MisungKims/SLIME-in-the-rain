@@ -95,10 +95,7 @@ public class GeneralMonster : Monster
 
             yield return null;
         }
-
-        
     }
-
 
 
     // 슬라임 추적을 시작하고 시간이 지나도 공격을 못하면 추적 중지

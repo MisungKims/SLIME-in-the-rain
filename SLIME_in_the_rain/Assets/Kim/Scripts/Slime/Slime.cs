@@ -117,7 +117,7 @@ public class Slime : MonoBehaviour
     [SerializeField]
     private MinimapWorldObject minimapWorldObject;
 
-    private bool isPlayingWaterSound = false;
+   // private bool isPlayingWaterSound = false;
 
     //////// 캐싱
     private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // 공격을 기다리는
@@ -156,7 +156,7 @@ public class Slime : MonoBehaviour
         isCanDash = true;
 
         isInWater = false;
-        isPlayingWaterSound = false;
+        //isPlayingWaterSound = false;
         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
 
@@ -573,8 +573,9 @@ public class Slime : MonoBehaviour
     // 무기 변경
     public void ChangeWeapon(Weapon weapon)
     {
-        SoundManager.Instance.Play("Weapon/WeaponSwipe", SoundManager.Sound.SFX);
+        SoundManager.Instance.Play("Weapon/WeaponSwipe", SoundType.SFX);
 
+        if(isStealth) isStealth = false;
         currentWeapon = weapon;
         currentWeapon.gameObject.layer = 7;
         currentWeapon.GetComponent<Outline>().enabled = false;
@@ -608,7 +609,7 @@ public class Slime : MonoBehaviour
         isDie = true;
         statManager.myStats.HP = 0;
         canMove = false;
-        SoundManager.Instance.Play("Slime/Die", SoundManager.Sound.SFX);
+        SoundManager.Instance.Play("Slime/Die", Sound.SFX);
 
         PlayAnim(AnimState.die);
 
@@ -661,8 +662,11 @@ public class Slime : MonoBehaviour
     public void Damaged(Stats monsterStats, int atkType)
     {
         /*float damageReduction = statManager.myStats.defensePower / (1 + statManager.myStats.defensePower);*/
-        float damage = monsterStats.attackPower  - statManager.myStats.defensePower;
-        Debug.Log(damage);
+        float damage = monsterStats.attackPower - statManager.myStats.defensePower;
+        if (damage <= 0)
+        {
+            damage = 0;
+        }
         TakeDamage(-damage);
     }
 
@@ -678,6 +682,8 @@ public class Slime : MonoBehaviour
             UIObjectPoolingManager.Instance.ShowShieldText();
             return;
         }
+        if (isStealth) return;
+
         StartCoroutine(CameraShake.StartShake(0.1f, 0.05f));
 
         statManager.AddHP(damageAmount);
@@ -704,6 +710,7 @@ public class Slime : MonoBehaviour
     public void InitSlime()
     {
         Life = 1;
+        isStealth = false;
         skinnedMesh.material = baseMat;
         RemoveCurrentWeapon();
     }

@@ -95,7 +95,7 @@ public class HitCountMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Gimmick", SoundManager.Sound.BGM);
+        SoundManager.Instance.Play("Gimmick", Sound.BGM);
         InitObject();
         InitMap();
     }
@@ -233,19 +233,19 @@ public class HitCountMap : MapManager
         switch (Slime.Instance.currentWeapon.wName)
         {
             case "활":
-                maxCount = 100;
+                maxCount = 90;
                 break;
             case "불 지팡이":
-                maxCount = 70;
+                maxCount = 50;
                 break;
             case "얼음 지팡이":
-                maxCount = 70;
+                maxCount = 50;
                 break;
             case "단검":
-                maxCount = 60;
+                maxCount = 90;
                 break;
             case "양손검":
-                maxCount = 50;
+                maxCount = 40;
                 break;
             default:
                 maxCount = 70;
