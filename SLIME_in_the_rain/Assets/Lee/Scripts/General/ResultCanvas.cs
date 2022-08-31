@@ -58,11 +58,11 @@ public class ResultCanvas : MapManager
         //소리: 배경음
         if (sceneDesign.finalClear)
         {
-            sound.Play("Clear", SoundManager.Sound.BGM);
+            sound.Play("Clear", SoundType.BGM);
         }
         else
         {
-            sound.Play("Dead", SoundManager.Sound.BGM);
+            sound.Play("Dead", SoundType.BGM);
         }
 
         //룬 하나씩 보여주고싶음

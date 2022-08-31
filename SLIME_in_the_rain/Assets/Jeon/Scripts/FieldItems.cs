@@ -77,7 +77,7 @@ public class FieldItems : PickUp
     /// </summary>
     public override void Get()
     {
-        SoundManager.Instance.Play("Money/GetMoney", SoundManager.Sound.SFX);
+        SoundManager.Instance.Play("Money/GetMoney", SoundType.SFX);
 
         AddInventory();
     }

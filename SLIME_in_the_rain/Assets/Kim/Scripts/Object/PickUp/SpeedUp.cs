@@ -17,7 +17,7 @@ public class SpeedUp : PickUp
 
         StatManager.Instance.AddMoveSpeed(100f);
 
-        SoundManager.Instance.Play("Money/GetSpeed", SoundManager.Sound.SFX);
+        SoundManager.Instance.Play("Money/GetSpeed", SoundType.SFX);
 
         gameObject.SetActive(false);
     }

@@ -100,7 +100,7 @@ public class Dagger : Short
         slime.Dash();           // 일반 대시
 
         yield return new WaitForSeconds(0.07f);        // 대시가 끝날 때까지 대기
-        sound.Play(attackSound, SoundManager.Sound.SFX);
+        sound.Play(attackSound, SoundType.SFX);
         PlayAnim(AnimState.autoAttack);
         StartCoroutine(CheckAnimEnd("AutoAttack"));
 

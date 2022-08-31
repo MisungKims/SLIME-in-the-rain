@@ -30,7 +30,7 @@ public class VillageManager : MapManager
         sound = SoundManager.Instance;
 
         //소리: 배경음
-        sound.Play("Village", SoundManager.Sound.BGM);
+        sound.Play("Village", SoundType.BGM);
 
         //Init
         singletonManager.Init_Village();

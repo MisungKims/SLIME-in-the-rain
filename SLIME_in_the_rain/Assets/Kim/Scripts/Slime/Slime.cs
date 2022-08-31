@@ -573,7 +573,7 @@ public class Slime : MonoBehaviour
     // 무기 변경
     public void ChangeWeapon(Weapon weapon)
     {
-        SoundManager.Instance.Play("Weapon/WeaponSwipe", SoundManager.Sound.SFX);
+        SoundManager.Instance.Play("Weapon/WeaponSwipe", SoundType.SFX);
 
         currentWeapon = weapon;
         currentWeapon.gameObject.layer = 7;
@@ -608,7 +608,7 @@ public class Slime : MonoBehaviour
         isDie = true;
         statManager.myStats.HP = 0;
         canMove = false;
-        SoundManager.Instance.Play("Slime/Die", SoundManager.Sound.SFX);
+        SoundManager.Instance.Play("Slime/Die", SoundType.SFX);
 
         PlayAnim(AnimState.die);
 

@@ -51,7 +51,7 @@ public class BossMapManager : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Boss", SoundManager.Sound.BGM);
+        SoundManager.Instance.Play("Boss", SoundType.BGM);
     }
 
     public void DieBoss()

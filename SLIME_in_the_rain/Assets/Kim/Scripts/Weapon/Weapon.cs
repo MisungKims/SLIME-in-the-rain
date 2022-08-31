@@ -230,7 +230,7 @@ public class Weapon : MonoBehaviour
 
         PlayAnim(AnimState.autoAttack);
 
-        sound.Play(attackSound, SoundManager.Sound.SFX);
+        sound.Play(attackSound, SoundType.SFX);
 
         StartCoroutine(CheckAnimEnd("AutoAttack"));
     }
@@ -241,7 +241,7 @@ public class Weapon : MonoBehaviour
         if (canLookAtMousePos) LookAtMousePos();
         PlayAnim(AnimState.skill);
 
-        sound.Play(skillSound, SoundManager.Sound.SFX);
+        sound.Play(skillSound, SoundType.SFX);
 
         RuneManager.Instance.UseSkillRune();
 

@@ -26,6 +26,7 @@ public class VillageCanvas : MonoBehaviour
                 switch (TowerCollider.thisObject.tag)
                 {
                     case "Shop":
+                        SoundManager.Instance.Play("ShopKeeper/Voice", SoundType.SFX);
                         ShopOpen();
                         break;
                     case "Tower":

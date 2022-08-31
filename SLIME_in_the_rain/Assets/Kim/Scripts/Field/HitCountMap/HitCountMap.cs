@@ -95,7 +95,7 @@ public class HitCountMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Gimmick", SoundManager.Sound.BGM);
+        SoundManager.Instance.Play("Gimmick", SoundType.BGM);
         InitObject();
         InitMap();
     }

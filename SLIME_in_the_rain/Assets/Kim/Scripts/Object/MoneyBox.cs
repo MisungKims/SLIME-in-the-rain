@@ -65,7 +65,7 @@ public class MoneyBox : MonoBehaviour, IDamage
 
     IEnumerator TakeDamaged()
     {
-        soundManager.Play("Money/CrashBox", SoundManager.Sound.SFX);
+        soundManager.Play("Money/CrashBox", SoundType.SFX);
 
         box.SetActive(false);
         destroyBox.SetActive(true);

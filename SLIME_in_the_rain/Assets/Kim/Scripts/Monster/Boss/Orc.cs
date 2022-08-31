@@ -86,7 +86,7 @@ public class Orc : Boss
         PlayAnim(EMonsterAnim.attack);
         yield return new WaitForSeconds(0.15f);
         Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -270903256) soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
+        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -270903256) soundManager.Play("Boss1/Attack", SoundType.SFX);
 
         // 공격 애니메이션이 끝날 때 까지 대기
         while (!canAttack)
@@ -121,7 +121,7 @@ public class Orc : Boss
         randAttack = 2;
         anim.SetInteger("attack", 1);
         PlayAnim(EMonsterAnim.attack);
-        soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
+        soundManager.Play("Boss1/Attack", SoundType.SFX);
 
         while (!canAttack)      // 애니메이션이 끝날 때 까지
         {

@@ -59,7 +59,7 @@ public class ButtonManager : MonoBehaviour                                 //다�
                     {
                         canvasList[i].SetActive(false);
                     }
-                    SoundManager.Instance.Play("UI/Button/Click", SoundManager.Sound.SFX);
+                    SoundManager.Instance.Play("UI/Button/Click", SoundType.SFX);
                     break;
                 }
                 //기본 화면 일때 ESC 누르면 설정창 뜸
@@ -70,7 +70,7 @@ public class ButtonManager : MonoBehaviour                                 //다�
                 if (unenable == canvasList.Count)
                 {
                     canvasList[1].SetActive(true);
-                    SoundManager.Instance.Play("UI/Button/On", SoundManager.Sound.SFX);
+                    SoundManager.Instance.Play("UI/Button/On", SoundType.SFX);
                 }
             }
         }

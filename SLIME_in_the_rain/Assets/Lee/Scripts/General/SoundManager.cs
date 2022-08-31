@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+public enum SoundType
+{
+    BGM,
+    SFX,
+    MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
+}
 
 public class SoundManager : MonoBehaviour
 { 
@@ -21,16 +26,11 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    AudioSource[] audioSources = new AudioSource[(int)Sound.MaxCount];
+    AudioSource[] audioSources = new AudioSource[(int)SoundType.MaxCount];
     Dictionary<string, AudioClip> BGMs = new Dictionary<string, AudioClip>();
     Dictionary<string, AudioClip> SFXs = new Dictionary<string, AudioClip>();
 
-    public enum Sound
-    {
-        BGM,
-        SFX,
-        MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
-    }
+
 
     void Awake()
     {
@@ -50,7 +50,7 @@ public class SoundManager : MonoBehaviour
         {
             audioSources[i] = this.transform.GetChild(i).GetComponent<AudioSource>();
         }
-        GetOrAddAudioClip("Title", Sound.BGM);
+        GetOrAddAudioClip("Title", SoundType.BGM);
     }
 
     //오디오 플레이 함수
@@ -59,14 +59,14 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="audioClip">소리 직접 넣기 가능</param>
     /// <param name="type">SoundManager내 타입 있음</param>
-    public void Play(AudioClip audioClip, Sound type)
+    public void Play(AudioClip audioClip, SoundType type)
     {
         if (audioClip == null)
             return;
 
-        if (type == Sound.BGM) // BGM 배경음악 재생
+        if (type == SoundType.BGM) // BGM 배경음악 재생
         {
-            AudioSource audioSource = audioSources[(int)Sound.BGM];
+            AudioSource audioSource = audioSources[(int)SoundType.BGM];
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
@@ -75,7 +75,7 @@ public class SoundManager : MonoBehaviour
         }
         else // SFX 효과음 재생
         {
-            AudioSource audioSource = audioSources[(int)Sound.SFX];
+            AudioSource audioSource = audioSources[(int)SoundType.SFX];
             audioSource.PlayOneShot(audioClip);
         }
     }
@@ -84,20 +84,20 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="path">디렉토리를 string으로 입력</param>
     /// <param name="type">SoundManager내 타입 있음</param>
-    public void Play(string path, Sound type)
+    public void Play(string path, SoundType type)
     {
         AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type);
     }
 
-    AudioClip GetOrAddAudioClip(string path, Sound type)
+    AudioClip GetOrAddAudioClip(string path, SoundType type)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{type}/{path}"; // Sound 폴더 안에 저장될 수 있도록, $붙이면 컴파일러에서 {}가 변수인걸 알아서 구분함
 
         AudioClip audioClip = null;
 
-        if (type == Sound.BGM) // BGM 배경음악 클립 붙이기
+        if (type == SoundType.BGM) // BGM 배경음악 클립 붙이기
         {
             if (BGMs.TryGetValue(path, out audioClip) == false)
             {

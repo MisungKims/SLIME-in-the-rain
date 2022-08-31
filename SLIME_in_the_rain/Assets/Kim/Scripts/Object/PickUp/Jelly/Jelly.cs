@@ -53,7 +53,7 @@ public class Jelly : PickUp
     {
         jellyManager.GetJelly(this);
 
-        soundManager.Play("Money/GetMoney", SoundManager.Sound.SFX);
+        soundManager.Play("Money/GetMoney", SoundType.SFX);
 
         objectPoolingManager.Set(this.gameObject, EObjectFlag.jelly);       // 오브젝트 풀에 반환
     }
