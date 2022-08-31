@@ -28,6 +28,8 @@ public class ResultCanvas : MapManager
     float loadSpeed = 2f;
     float fadeInSpeed = 0.01f;
     float typingSpeed = 0.1f;
+    float viewGelatinSpeed = 0.5f;
+    bool doCycle;
 
     SingletonManager singletonManager;
     Slime slime;
@@ -35,7 +37,6 @@ public class ResultCanvas : MapManager
     JellyManager jellyManager;
     Inventory inventory;
     SoundManager sound;
-
 
     // Start is called before the first frame update
     void Start()
@@ -76,11 +77,10 @@ public class ResultCanvas : MapManager
         villageButton.onClick.AddListener(delegate { ClickButton(1); });
         titleButton.onClick.AddListener(delegate { ClickButton(0); });
 
-        //타이틀 -> 결과Texting -> 룬 -> 젤라틴 순으로 뜹니다
-        StartCoroutine(TitleText());
-        ResultGelatin();
+        StartCoroutine(ResultCycle());
 
     }
+
     #region 함수, 코루틴 (플레이 기준으로 정렬함)
     //0. 초기화
     void Init()
@@ -91,6 +91,7 @@ public class ResultCanvas : MapManager
         playtimeText.text = "";
         killcountText.text = "";
         jellycountText.text = "";
+
     }
     //로딩
     IEnumerator Loading()
@@ -107,7 +108,19 @@ public class ResultCanvas : MapManager
         }
         panel.gameObject.SetActive(false);
     }
+    IEnumerator ResultCycle()
+    {
+        //타이틀 -> 결과Texting -> 룬 -> 젤라틴 순으로 뜹니다
+        doCycle = false;
+        StartCoroutine(TitleText());
+        while(!doCycle)
+        {
+            yield return null;
+        }
+        StartCoroutine(ResultGelatin());
+    }
 
+    #region ResultCycle에서 쓰는 메서드
     //1. 타이틀
     IEnumerator TitleText()
     {
@@ -129,6 +142,7 @@ public class ResultCanvas : MapManager
             }
         }
         TypingAll();
+
     }
 
     //2-2. 타이핑 효과
@@ -142,6 +156,7 @@ public class ResultCanvas : MapManager
                 yield return new WaitForSeconds(speed);
             }
         }
+        doCycle = true;
     }
 
 
@@ -154,21 +169,23 @@ public class ResultCanvas : MapManager
         //결과 타이핑 
         textMeshArr[0] = stageText;
         int reachedStage = (sceneDesign.mapCounting - sceneDesign.bossLevel);
+        string stage;
         if (reachedStage % sceneDesign.stageNum == 0)
         {
             if (sceneDesign.s_nomal - 1 > reachedStage)
             {
-                stringArr[0] = "도달한 스테이지: " + ((reachedStage / sceneDesign.stageNum) + 1).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
+                stage = (reachedStage % sceneDesign.stageNum).ToString();
             }
             else
             {
-                stringArr[0] = "도달한 스테이지: " + ((reachedStage / sceneDesign.stageNum) + 1).ToString() + "-" + "Boss";
+                stage = "Boss";
             }
         }
         else
         {
-            stringArr[0] = "도달한 스테이지: " + ((reachedStage / sceneDesign.stageNum) + 1).ToString() + "-" + (reachedStage % sceneDesign.stageNum).ToString();
+            stage = (reachedStage % sceneDesign.stageNum).ToString();
         }
+        stringArr[0] = $"마지막 클리어 스테이지: {((reachedStage / sceneDesign.stageNum) + 1)}-{stage}";
 
         textMeshArr[1] = playtimeText;
         int hour = (int)(sceneDesign.Timer / 3600);
@@ -200,6 +217,27 @@ public class ResultCanvas : MapManager
             }
         }
     }
+    //젤라틴 반영
+    IEnumerator ResultGelatin()
+    {
+        for (int i = 0, count = 0; i < inventory.items.Count; i++)
+        {
+            if (inventory.items[i].itemType == ItemType.gelatin)
+            {
+                Vector3 pos = gelatinObj.transform.position;
+                pos.x += (count * 70);
+                GameObject _image = Instantiate(gelatinObj, pos, Quaternion.Euler(Vector3.zero));
+                _image.transform.parent = gelatinObj.transform.parent;
+                _image.SetActive(true);
+                _image.GetComponent<Image>().sprite = inventory.items[i].itemIcon;
+                _image.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (inventory.items[i].itemCount).ToString();
+                count++;
+                StartCoroutine(CameraShake.StartShake(0.1f, 1.0f));
+                yield return new WaitForSeconds(viewGelatinSpeed);
+            }
+        }
+    }
+    #endregion
 
 
     //Last. 버튼 onClick
@@ -211,22 +249,5 @@ public class ResultCanvas : MapManager
         PlayerPrefs.SetInt("jellyCount", jellyManager.JellyCount);
     }
 
-    void ResultGelatin()
-    {
-        for (int i = 0, count = 0; i < inventory.items.Count; i++)
-        {
-            if (inventory.items[i].itemType == ItemType.gelatin)
-            {
-                Vector3 pos = gelatinObj.transform.position;
-                pos.x -= (count * 70);
-                GameObject _image = Instantiate(gelatinObj, pos, Quaternion.Euler(Vector3.zero));
-                _image.transform.parent = gelatinObj.transform.parent;
-                _image.SetActive(true);
-                _image.GetComponent<Image>().sprite = inventory.items[i].itemIcon;
-                _image.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (inventory.items[i].itemCount).ToString();
-                count++;
-            }
-        }
-    }
     #endregion
 }

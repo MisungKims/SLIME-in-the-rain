@@ -156,12 +156,14 @@ public class SingletonManager : MonoBehaviour
         slime.transform.localScale = Vector3.one * 500f;
         slime.transform.rotation = Quaternion.Euler(Vector3.up * -180);
         slime.canAttack = false;
+        Debug.Log(slime.canAttack);
 
         //////////////UI////////////
         //∑È
         Transform runeSlot = runeManager.gameObject.transform.GetChild(0);
         Vector3 pos;
-        pos.x = 410f; pos.y = 250f; pos.z = 0;
+        pos.x = 410f; pos.y = 225f; pos.z = 0;
+        runeSlot.position = pos;
         runeSlot.localScale = Vector3.one * 1.2f;
         if (!runeManager.transform.GetChild(0).gameObject.activeSelf)
         {
@@ -171,5 +173,8 @@ public class SingletonManager : MonoBehaviour
         uIObjectPoolingManager.InitUI();
         //ºº∆√ æ∆¿Ãƒ‹
         settingCanvas.settingIcon.SetActive(false);
+
+        //ΩÃ±€≈Ê SetActive: false
+        inventoryUI.gameObject.SetActive(false);
     }
 }

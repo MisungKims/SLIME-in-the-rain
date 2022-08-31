@@ -197,9 +197,9 @@ public class MainCanvas : MonoBehaviour
         slime.currentWeapon.dashCoolTime = 0f;
 
         skillText.text = " ";
-        skillCool.transform.GetChild(0).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
+        skillCool.transform.GetChild(1).GetComponent<Image>().sprite = Skill(slime.currentWeapon.weaponType);
         dashText.text = " ";
-        dashCool.transform.GetChild(0).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
+        dashCool.transform.GetChild(1).GetComponent<Image>().sprite = Dash(slime.currentWeapon.weaponType);
     }
 
     ////무기 바꿨을때 HP 변환 관련 함수
