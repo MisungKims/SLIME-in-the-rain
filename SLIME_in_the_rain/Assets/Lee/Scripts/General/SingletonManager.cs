@@ -103,10 +103,14 @@ public class SingletonManager : MonoBehaviour
 
         //////////////Manager////////////
         //ΩΩ∂Û¿”
-        slime.InitSlime();
         slime.transform.localScale = Vector3.one;
         slime.transform.rotation = Quaternion.Euler(Vector3.zero);
         slime.canAttack = true;
+        slime.isCanDash = true;
+        //slime.currentWeapon.isCanSkill = true;
+        slime.InitSlime();
+
+
 
         //Ω∫≈»  
         statManager.InitStats();
@@ -156,6 +160,8 @@ public class SingletonManager : MonoBehaviour
         slime.transform.localScale = Vector3.one * 500f;
         slime.transform.rotation = Quaternion.Euler(Vector3.up * -180);
         slime.canAttack = false;
+        slime.isCanDash = false;
+        slime.currentWeapon.isCanSkill = false;
         Debug.Log(slime.canAttack);
 
         //////////////UI////////////

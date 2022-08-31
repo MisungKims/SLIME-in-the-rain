@@ -30,6 +30,7 @@ public class ResultCanvas : MapManager
     float typingSpeed = 0.1f;
     float viewGelatinSpeed = 0.5f;
     bool doCycle;
+    Vector3 slimePos;
 
     SingletonManager singletonManager;
     Slime slime;
@@ -80,6 +81,10 @@ public class ResultCanvas : MapManager
         StartCoroutine(ResultCycle());
 
     }
+    private void Update()
+    {
+        slime.transform.localPosition = slimePos;
+    }
 
     #region 함수, 코루틴 (플레이 기준으로 정렬함)
     //0. 초기화
@@ -91,7 +96,9 @@ public class ResultCanvas : MapManager
         playtimeText.text = "";
         killcountText.text = "";
         jellycountText.text = "";
-
+        slimePos.x = 1400;
+        slimePos.y = 440;
+        slimePos.z = 0;
     }
     //로딩
     IEnumerator Loading()
