@@ -1,6 +1,6 @@
 /**
- * @brief ½½¶óÀÓ ¿ÀºêÁ§Æ®
- * @author ±è¹Ì¼º
+ * @brief ìŠ¬ë¼ìž„ ì˜¤ë¸Œì íŠ¸
+ * @author ê¹€ë¯¸ì„±
  * @date 22-07-24
  */
 
@@ -12,8 +12,8 @@ using UnityEngine.EventSystems;
 
 public class Slime : MonoBehaviour
 {
-    #region º¯¼ö
-    #region ½Ì±ÛÅæ
+    #region ë³€ìˆ˜
+    #region ì‹±ê¸€í†¤
     private static Slime instance = null;
     public static Slime Instance
     {
@@ -47,70 +47,70 @@ public class Slime : MonoBehaviour
     private Animator anim;
 
     [SerializeField]
-    private SkinnedMeshRenderer skinnedMesh;            // ½½¶óÀÓÀÇ Material
+    private SkinnedMeshRenderer skinnedMesh;            // ìŠ¬ë¼ìž„ì˜ Material
     public SkinnedMeshRenderer SkinnedMesh { get { return skinnedMesh; } }
     [SerializeField]
     private Material baseMat;
 
     public bool isDie;
 
-    //////// ¹«±â
-    [Header("------------ ¹«±â")]
-    public Transform weaponPos;     // ¹«±â ÀåÂø ½Ã ¹«±âÀÇ parent
+    //////// ë¬´ê¸°
+    [Header("------------ ë¬´ê¸°")]
+    public Transform weaponPos;     // ë¬´ê¸° ìž¥ì°© ì‹œ ë¬´ê¸°ì˜ parent
 
-    public Weapon currentWeapon;    // ÀåÂø ÁßÀÎ ¹«±â
+    public Weapon currentWeapon;    // ìž¥ì°© ì¤‘ì¸ ë¬´ê¸°
 
     [SerializeField]
     private LayerMask weaponLayer;
 
-    private float detectRadius = 1f;      // ¹«±â¸¦ °¨ÁöÇÒ ¹üÀ§
+    private float detectRadius = 1f;      // ë¬´ê¸°ë¥¼ ê°ì§€í•  ë²”ìœ„
 
     Collider[] colliders;
     Outline outline;
 
-    //////// ´ë½Ã
-    [Header("------------ ´ë½Ã")]
-    // ´ë½Ã °Å¸®
+    //////// ëŒ€ì‹œ
+    [Header("------------ ëŒ€ì‹œ")]
+    // ëŒ€ì‹œ ê±°ë¦¬
     public float originDashDistance = 5.5f;
     private float dashDistance;
     public float DashDistance { set { dashDistance = value; } }
 
-    // ´ë½Ã Áö¼Ó ½Ã°£
+    // ëŒ€ì‹œ ì§€ì† ì‹œê°„
     public float originDashTime = 0.4f;
     private float dashTime;
     public float DashTime { get { return dashTime; } set { dashTime = value; } }
     private float currentDashTime;
 
 
-    public bool isDash { get; set; }                // ´ë½Ã ÁßÀÎÁö?
-    public bool isCanDash;     // ´ë½Ã °¡´ÉÇÑÁö?
+    public bool isDash { get; set; }                // ëŒ€ì‹œ ì¤‘ì¸ì§€?
+    public bool isCanDash;     // ëŒ€ì‹œ ê°€ëŠ¥í•œì§€?
 
     public GameObject shield;
 
-    //////// °ø°Ý
+    //////// ê³µê²©
     public bool canAttack;
     public Transform target;
 
-    public bool isAttacking;   // ÆòÅ¸ ÁßÀÎÁö?
+    public bool isAttacking;   // í‰íƒ€ ì¤‘ì¸ì§€?
 
-    public bool isStealth;      // Àº½Å ÁßÀÎÁö?
+    public bool isStealth;      // ì€ì‹  ì¤‘ì¸ì§€?
 
-    //////// µ¥¹ÌÁö
+    //////// ë°ë¯¸ì§€
     private bool isStun;
     private Color red = new Color(255, 83, 83, 255);
 
-    //////// ÀÌµ¿
-    enum AnimState { idle, move, dash, damaged, die }     // ¾Ö´Ï¸ÞÀÌ¼ÇÀÇ »óÅÂ
+    //////// ì´ë™
+    enum AnimState { idle, move, dash, damaged, die }     // ì• ë‹ˆë©”ì´ì…˜ì˜ ìƒíƒœ
     AnimState animState = AnimState.idle;
 
-    private Vector3 direction;                  // ÀÌµ¿ ¹æÇâ
+    private Vector3 direction;                  // ì´ë™ ë°©í–¥
 
     public bool canMove = true;
 
     private bool isInWater = false;
     public bool IsInWater { get { return isInWater; } }
 
-    private float decreaseHPAmount = 1f;  // ¹° ¾È¿¡¼­ °¨¼ÒµÉ Ã¼·ÂÀÇ ¾ç
+    private float decreaseHPAmount = 1f;  // ë¬¼ ì•ˆì—ì„œ ê°ì†Œë  ì²´ë ¥ì˜ ì–‘
     [SerializeField]
     private GameObject waterRipples;
 
@@ -119,8 +119,8 @@ public class Slime : MonoBehaviour
 
    // private bool isPlayingWaterSound = false;
 
-    //////// Ä³½Ì
-    private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // °ø°ÝÀ» ±â´Ù¸®´Â
+    //////// ìºì‹±
+    private WaitForSeconds waitForAttack = new WaitForSeconds(0.2f);       // ê³µê²©ì„ ê¸°ë‹¤ë¦¬ëŠ”
     private WaitForSeconds waitFor2s = new WaitForSeconds(2f);
 
     [SerializeField]
@@ -129,7 +129,7 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    #region À¯´ÏÆ¼ ÇÔ¼ö
+    #region ìœ ë‹ˆí‹° í•¨ìˆ˜
     void Awake()
     {
         if (null == instance)
@@ -183,7 +183,7 @@ public class Slime : MonoBehaviour
     }
     #endregion
 
-    // °ø°ÝÀ» ÇÒ ¼ö ÀÖµµ·Ï
+    // ê³µê²©ì„ í•  ìˆ˜ ìžˆë„ë¡
     public void SetCanAttack()
     {
         canAttack = true;
@@ -193,8 +193,8 @@ public class Slime : MonoBehaviour
         isStun = false;
     }
  
-    #region ÄÚ·çÆ¾
-    // ¹«±â¸¦ µé°í ÀÖÀ» ¶§ ÁÂÅ¬¸¯ÇÏ¸é ÆòÅ¸
+    #region ì½”ë£¨í‹´
+    // ë¬´ê¸°ë¥¼ ë“¤ê³  ìžˆì„ ë•Œ ì¢Œí´ë¦­í•˜ë©´ í‰íƒ€
     IEnumerator AutoAttack()
     {
         while (true)
@@ -207,7 +207,7 @@ public class Slime : MonoBehaviour
 
                     if (currentWeapon) currentWeapon.SendMessage("AutoAttack", SendMessageOptions.DontRequireReceiver);
 
-                    yield return new WaitForSeconds((2 - statManager.myStats.attackSpeed) * 0.2f);           // °¢ ¹«±âÀÇ °ø¼Ó ½ºÅÈ¿¡ µû¶ó ´ë±â
+                    yield return new WaitForSeconds((2 - statManager.myStats.attackSpeed) * 0.2f);           // ê° ë¬´ê¸°ì˜ ê³µì† ìŠ¤íƒ¯ì— ë”°ë¼ ëŒ€ê¸°
 
                     isAttacking = false;
                 }
@@ -217,7 +217,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ¹«±â¸¦ µé°í ÀÖÀ» ¶§ ¿ìÅ¬¸¯ÇÏ¸é ½ºÅ³
+    // ë¬´ê¸°ë¥¼ ë“¤ê³  ìžˆì„ ë•Œ ìš°í´ë¦­í•˜ë©´ ìŠ¤í‚¬
     IEnumerator Skill()
     {
         while (true)
@@ -230,7 +230,7 @@ public class Slime : MonoBehaviour
 
                     currentWeapon.SendMessage("Skill", SendMessageOptions.DontRequireReceiver);
 
-                    yield return waitForAttack;         // 0.2ÃÊ ´ë±â
+                    yield return waitForAttack;         // 0.2ì´ˆ ëŒ€ê¸°
 
                     isAttacking = false;
                 }
@@ -240,7 +240,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ½ºÆäÀÌ½º¹Ù ´©¸£¸é ¾ÕÀ¸·Î ´ë½Ã
+    // ìŠ¤íŽ˜ì´ìŠ¤ë°” ëˆ„ë¥´ë©´ ì•žìœ¼ë¡œ ëŒ€ì‹œ
     void SpaceBar()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isDash && canMove && isCanDash)
@@ -258,12 +258,12 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ´ë½Ã ÄÚ·çÆ¾
+    // ëŒ€ì‹œ ì½”ë£¨í‹´
     IEnumerator DoDash()
     {
         isCanDash = false;
 
-        PlayAnim(AnimState.dash);       // ´ë½Ã ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà
+        PlayAnim(AnimState.dash);       // ëŒ€ì‹œ ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
 
         currentDashTime = dashTime;
         while (currentDashTime > 0 && !isFrontWall)
@@ -273,7 +273,7 @@ public class Slime : MonoBehaviour
             yield return null;
         }
 
-        PlayAnim(AnimState.idle);       // ´ë½Ã ¾Ö´Ï¸ÞÀÌ¼Ç ½ÇÇà
+        PlayAnim(AnimState.idle);       // ëŒ€ì‹œ ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
 
         dashDistance = originDashDistance;
         dashTime = originDashTime;
@@ -282,7 +282,7 @@ public class Slime : MonoBehaviour
         isCanDash = true;
     }
 
-    // ¾Õ¿¡ º®ÀÌ ÀÖ´ÂÁö °¨Áö
+    // ì•žì— ë²½ì´ ìžˆëŠ”ì§€ ê°ì§€
     IEnumerator DetectWall()
     {
         while (true)
@@ -302,7 +302,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ½ºÅÏ ÄÚ·çÆ¾
+    // ìŠ¤í„´ ì½”ë£¨í‹´
     IEnumerator DoStun(float stunTime)
     {
         isStun = true;
@@ -313,20 +313,20 @@ public class Slime : MonoBehaviour
         isStun = false;
     }
 
-    // ¹° À§¿¡ ÀÖ´ÂÁö °¨Áö
+    // ë¬¼ ìœ„ì— ìžˆëŠ”ì§€ ê°ì§€
     private IEnumerator DetectWater()
     {
         while (true)
         {
-            // ½½¶óÀÓÀÇ À§Ä¡¿¡¼­ °ø°Ý °Å¸®¸¸Å­ ray¸¦ ½ô
+            // ìŠ¬ë¼ìž„ì˜ ìœ„ì¹˜ì—ì„œ ê³µê²© ê±°ë¦¬ë§Œí¼ rayë¥¼ ì¨
             RaycastHit hit;
             if (Physics.Raycast(transform.position + Vector3.up * 0.1f, Vector3.down, out hit, 2f))
             {
                 if (hit.transform.gameObject.layer == 4)
                 {
-                    isInWater = true;       // water ·¹ÀÌ¾îÀÏ ¶§
+                    isInWater = true;       // water ë ˆì´ì–´ì¼ ë•Œ
 
-                    // ¹° À§¿¡¼­´Â ±×¸²ÀÚ¸¦ ¾ø¾Ú
+                    // ë¬¼ ìœ„ì—ì„œëŠ” ê·¸ë¦¼ìžë¥¼ ì—†ì•°
                     if (SkinnedMesh.shadowCastingMode.Equals(UnityEngine.Rendering.ShadowCastingMode.On))
                     {
                         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -339,7 +339,7 @@ public class Slime : MonoBehaviour
                 {
                     isInWater = false;
 
-                    // ¶¥ À§¿¡¼­´Â ±×¸²ÀÚ ÀÖÀ½
+                    // ë•… ìœ„ì—ì„œëŠ” ê·¸ë¦¼ìž ìžˆìŒ
                     if (SkinnedMesh.shadowCastingMode.Equals(UnityEngine.Rendering.ShadowCastingMode.Off))
                     {
                         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
@@ -354,7 +354,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ¹° À§¿¡ ÀÖÀ¸¸é Ã¼·Â °¨¼Ò
+    // ë¬¼ ìœ„ì— ìžˆìœ¼ë©´ ì²´ë ¥ ê°ì†Œ
     private IEnumerator DecreaseHPInWater()
     {
         UIObjectPoolingManager uIObjectPoolingManager = UIObjectPoolingManager.Instance;
@@ -377,8 +377,8 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    #region ÇÔ¼ö
-    // ½½¶óÀÓ°ú ¿ÀºêÁ§Æ® »çÀÌÀÇ °Å¸®¸¦ ±¸ÇÔ
+    #region í•¨ìˆ˜
+    // ìŠ¬ë¼ìž„ê³¼ ì˜¤ë¸Œì íŠ¸ ì‚¬ì´ì˜ ê±°ë¦¬ë¥¼ êµ¬í•¨
     public float GetDistance(Transform target)
     {
         Vector3 offset = transform.position - target.position;
@@ -386,7 +386,7 @@ public class Slime : MonoBehaviour
         return offset.sqrMagnitude;
     }
 
-    // ¾Ö´Ï¸ÞÀÌ¼Ç ÇÃ·¹ÀÌ
+    // ì• ë‹ˆë©”ì´ì…˜ í”Œë ˆì´
     void PlayAnim(AnimState state)
     {
         animState = state;
@@ -394,8 +394,8 @@ public class Slime : MonoBehaviour
         anim.SetInteger("animation", (int)animState);
     }
 
-    #region ¿òÁ÷ÀÓ
-    // ½½¶óÀÓÀÇ ¿òÁ÷ÀÓ
+    #region ì›€ì§ìž„
+    // ìŠ¬ë¼ìž„ì˜ ì›€ì§ìž„
     void Move()
     {
         if (isDie || !canMove || isAttacking || isDash || isStun) return;
@@ -413,10 +413,10 @@ public class Slime : MonoBehaviour
             {
                 float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
-                transform.rotation = Quaternion.Euler(0, angle, 0);         // È¸Àü
+                transform.rotation = Quaternion.Euler(0, angle, 0);         // íšŒì „
             }
 
-           if (!isFrontWall)  transform.position += direction * 2 * statManager.myStats.moveSpeed * Time.deltaTime;   // ÀÌµ¿
+           if (!isFrontWall)  transform.position += direction * 2 * statManager.myStats.moveSpeed * Time.deltaTime;   // ì´ë™
         }
         else
         {
@@ -427,10 +427,10 @@ public class Slime : MonoBehaviour
     }
 
 
-    // ´ë½Ã
+    // ëŒ€ì‹œ
     public void Dash()
     {
-        // ´ë½Ã¸¦ ÇÒ ¼ö ¾øÀ» ¶§ return
+        // ëŒ€ì‹œë¥¼ í•  ìˆ˜ ì—†ì„ ë•Œ return
         if (!canMove || !isCanDash || isStun || isDie)
         {
             isDash = false;
@@ -441,8 +441,8 @@ public class Slime : MonoBehaviour
     }
     #endregion
 
-    #region °ø°Ý
-    // °ø°ÝÀ» ÇÒ ¼ö ÀÖ´ÂÁö?
+    #region ê³µê²©
+    // ê³µê²©ì„ í•  ìˆ˜ ìžˆëŠ”ì§€?
     bool IsCanAttack()
     {
         if (canAttack && !isDie && canMove && !isAttacking && currentWeapon && !isStun)
@@ -460,10 +460,10 @@ public class Slime : MonoBehaviour
 
     #endregion
 
-    #region ¹«±â
+    #region ë¬´ê¸°
     Collider lastCollider;
 
-    // ÁÖº¯¿¡ ÀÖ´Â ¹«±â °¨Áö
+    // ì£¼ë³€ì— ìžˆëŠ” ë¬´ê¸° ê°ì§€
     void DetectWeapon()
     {
         if (isDie) return;
@@ -479,7 +479,7 @@ public class Slime : MonoBehaviour
         
         colliders = Physics.OverlapSphere(transform.position, detectRadius, weaponLayer);
 
-        if (colliders.Length == 1)      // °¨ÁöÇÑ ¹«±â°¡ ÇÑ °³ÀÏ ¶§
+        if (colliders.Length == 1)      // ê°ì§€í•œ ë¬´ê¸°ê°€ í•œ ê°œì¼ ë•Œ
         {
             if (lastCollider) DisableOutline(lastCollider);
             lastCollider = colliders[0];
@@ -488,11 +488,11 @@ public class Slime : MonoBehaviour
         }
         else if (colliders.Length > 1)
         {
-            // °¨ÁöÇÑ ¹«±âµé Áß Á¦ÀÏ °¡±î¿î °Å¸®¿¡ ÀÖ´Â ¹«±â¸¦ ÀåÂø
+            // ê°ì§€í•œ ë¬´ê¸°ë“¤ ì¤‘ ì œì¼ ê°€ê¹Œìš´ ê±°ë¦¬ì— ìžˆëŠ” ë¬´ê¸°ë¥¼ ìž¥ì°©
             int minIndex = -1;
             float minDis = Mathf.Infinity;
 
-            for (int i = 0; i < colliders.Length; i++)          // °¡±î¿î °Å¸®¿¡ ÀÖ´Â ¹«±â Ã£±â
+            for (int i = 0; i < colliders.Length; i++)          // ê°€ê¹Œìš´ ê±°ë¦¬ì— ìžˆëŠ” ë¬´ê¸° ì°¾ê¸°
             {
                 float distance = GetDistance(colliders[i].transform);
 
@@ -503,14 +503,14 @@ public class Slime : MonoBehaviour
                 }
             }
 
-            if(lastCollider) DisableOutline(lastCollider);              // ÀÌÀüÀÇ ¹«±â´Â ¾Æ¿ô¶óÀÎÀ» ²û
+            if(lastCollider) DisableOutline(lastCollider);              // ì´ì „ì˜ ë¬´ê¸°ëŠ” ì•„ì›ƒë¼ì¸ì„ ë”
 
             lastCollider = colliders[minIndex];
             EquipWeapon(minIndex);
         }
         else
         {
-            if(lastCollider) DisableOutline(lastCollider);           // ¾Æ¹«°Íµµ °¨ÁöÇÏÁö ¾ÊÀ» ¶§ ¿ÀºêÁ§Æ®ÀÇ ¾Æ¿ô¶óÀÎ ²ô±â
+            if(lastCollider) DisableOutline(lastCollider);           // ì•„ë¬´ê²ƒë„ ê°ì§€í•˜ì§€ ì•Šì„ ë•Œ ì˜¤ë¸Œì íŠ¸ì˜ ì•„ì›ƒë¼ì¸ ë„ê¸°
 
             lastCollider = null;
         }
@@ -522,7 +522,7 @@ public class Slime : MonoBehaviour
         outline.enabled = false;
     }
 
-    // °¨ÁöÇÑ ¹«±â G Å°¸¦ ´­·¯ ÀåÂø
+    // ê°ì§€í•œ ë¬´ê¸° G í‚¤ë¥¼ ëˆŒëŸ¬ ìž¥ì°©
     void EquipWeapon(int index)
     {
         if (lastCollider)
@@ -549,7 +549,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ÀÎº¥Åä¸®¿¡¼­ Å¬¸¯ ½Ã ¹«±â ÀåÂø
+    // ì¸ë²¤í† ë¦¬ì—ì„œ í´ë¦­ ì‹œ ë¬´ê¸° ìž¥ì°©
     public void EquipWeapon(Weapon weapon)
     {
         RemoveCurrentWeapon();
@@ -557,7 +557,7 @@ public class Slime : MonoBehaviour
         weapon.ChangeWeapon();
     }
 
-    // ÇöÀç ¹«±â¸¦ ¾ø¾Ú
+    // í˜„ìž¬ ë¬´ê¸°ë¥¼ ì—†ì•°
     public void RemoveCurrentWeapon()
     {
         if (currentWeapon)
@@ -570,7 +570,7 @@ public class Slime : MonoBehaviour
         }
     }
 
-    // ¹«±â º¯°æ
+    // ë¬´ê¸° ë³€ê²½
     public void ChangeWeapon(Weapon weapon)
     {
         SoundManager.Instance.Play("Weapon/WeaponSwipe", SoundType.SFX);
@@ -584,14 +584,14 @@ public class Slime : MonoBehaviour
        
         currentWeapon.transform.localPosition = Vector3.zero;
 
-        // º¯°æÇÑ ¹«±âÀÇ ½ºÅÈÀ¸·Î º¯°æ
+        // ë³€ê²½í•œ ë¬´ê¸°ì˜ ìŠ¤íƒ¯ìœ¼ë¡œ ë³€ê²½
         statManager.ChangeWeapon(currentWeapon);
 
-        // ½½¶óÀÓÀÇ »ö º¯°æ
+        // ìŠ¬ë¼ìž„ì˜ ìƒ‰ ë³€ê²½
         ChangeMaterial();              
     }
 
-    // ½½¶óÀÓÀÇ »ö(¸ÓÅÍ¸®¾ó) º¯°æ
+    // ìŠ¬ë¼ìž„ì˜ ìƒ‰(ë¨¸í„°ë¦¬ì–¼) ë³€ê²½
     void ChangeMaterial()
     {
         if (currentWeapon)
@@ -609,7 +609,9 @@ public class Slime : MonoBehaviour
         isDie = true;
         statManager.myStats.HP = 0;
         canMove = false;
-        SoundManager.Instance.Play("Slime/Die", Sound.SFX);
+
+        SoundManager.Instance.Play("Slime/Die", SoundType.SFX);
+
 
         PlayAnim(AnimState.die);
 
@@ -645,11 +647,11 @@ public class Slime : MonoBehaviour
         UIObjectPoolingManager.Instance.slimeHpBarParent.SetActive(true);
     }
 
-    //// µ¥¹ÌÁö¸¦ ÀÔÀ½
+    //// ë°ë¯¸ì§€ë¥¼ ìž…ìŒ
     //public void Damaged(float amount)
     //{
-    //    // ´ë¹ÌÁö = ¸ó½ºÅÍ °ø°Ý·Â * (1 - ¹æ¾îÀ²)
-    //    // ¹æ¾îÀ² = ¹æ¾î·Â / (1 + ¹æ¾î·Â)
+    //    // ëŒ€ë¯¸ì§€ = ëª¬ìŠ¤í„° ê³µê²©ë ¥ * (1 - ë°©ì–´ìœ¨)
+    //    // ë°©ì–´ìœ¨ = ë°©ì–´ë ¥ / (1 + ë°©ì–´ë ¥)
 
     //    float damageReduction = stat.defensePower / (1 + stat.defensePower);
     //    stat.HP -= amount * (1 - damageReduction);
@@ -658,11 +660,13 @@ public class Slime : MonoBehaviour
     //}
 
 
-    // µ¥¹ÌÁö¸¦ ÀÔÀ½
+    // ë°ë¯¸ì§€ë¥¼ ìž…ìŒ
     public void Damaged(Stats monsterStats, int atkType)
     {
         /*float damageReduction = statManager.myStats.defensePower / (1 + statManager.myStats.defensePower);*/
+
         float damage = monsterStats.attackPower - statManager.myStats.defensePower;
+
         if (damage <= 0)
         {
             damage = 0;
@@ -691,7 +695,7 @@ public class Slime : MonoBehaviour
         else PlayAnim(AnimState.damaged);
     }
 
-    // ½ºÅÏ
+    // ìŠ¤í„´
     public void Stun(float stunTime)
     {
         UIObjectPoolingManager.Instance.ShowStunText();
@@ -706,7 +710,7 @@ public class Slime : MonoBehaviour
         if(Minimap.Instance) Minimap.Instance.RegisterMinimapWorldObject(minimapWorldObject);
     }
 
-    // ½½¶óÀÓ ÃÊ±âÈ­
+    // ìŠ¬ë¼ìž„ ì´ˆê¸°í™”
     public void InitSlime()
     {
         Life = 1;

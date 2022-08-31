@@ -40,6 +40,6 @@ public class RecoveryHPMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Recovery", SoundManager.Sound.BGM);
+        SoundManager.Instance.Play("Recovery", SoundType.BGM);
     }
 }

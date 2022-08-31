@@ -119,7 +119,7 @@ public class FindingWayMap : MapManager
         base.Awake();
 
         soundManager = SoundManager.Instance;
-        soundManager.Play("Gimmick", SoundManager.Sound.BGM);
+        soundManager.Play("Gimmick", SoundType.BGM);
 
         uIObjectPoolingManager = UIObjectPoolingManager.Instance;
 
@@ -186,7 +186,7 @@ public class FindingWayMap : MapManager
 
             roadList[i].GetComponent<RoadObject>().ChangeMesh(true);
 
-            soundManager.Play("FindingWayMap/FindingWayMap3", SoundManager.Sound.SFX);
+            soundManager.Play("FindingWayMap/FindingWayMap3", SoundType.SFX);
         }
 
         yield return new WaitForSeconds(1.8f);
@@ -216,7 +216,7 @@ public class FindingWayMap : MapManager
 
         yield return new WaitForSeconds(0.5f);
 
-        soundManager.Play("FindingWayMap/FindingWayMap1", SoundManager.Sound.SFX);
+        soundManager.Play("FindingWayMap/FindingWayMap1", SoundType.SFX);
 
         particleObject.SetActive(true);
 
@@ -402,7 +402,7 @@ public class FindingWayMap : MapManager
         base.ClearMap();
 
         // 저주 해제 알림
-        soundManager.Play("FindingWayMap/FindingWayMap2", SoundManager.Sound.SFX);
+        soundManager.Play("FindingWayMap/FindingWayMap2", SoundType.SFX);
 
         Vector3 particlePos = slime.transform.position;
         particlePos.y = 2.5f;

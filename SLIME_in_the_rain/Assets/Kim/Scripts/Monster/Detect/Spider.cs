@@ -22,7 +22,7 @@ public class Spider : DetectingMonster
     {
         base.Awake();
 
-        projectileAtk = 2;
+        projectileAtk = 8;
     }
 
     // 공격 코루틴

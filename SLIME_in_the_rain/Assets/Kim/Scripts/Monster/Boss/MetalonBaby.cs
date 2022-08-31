@@ -31,7 +31,7 @@ public class MetalonBaby : Monster
     {
         base.Awake();
 
-        projectileAtk = 2;
+        projectileAtk = 10;
     }
 
     private void OnEnable()

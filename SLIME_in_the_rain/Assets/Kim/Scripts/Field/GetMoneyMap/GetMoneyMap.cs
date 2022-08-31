@@ -73,7 +73,7 @@ public class GetMoneyMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Money", SoundManager.Sound.BGM);
+        SoundManager.Instance.Play("Money", SoundType.BGM);
         Second = 25;
         InitObject();
     }

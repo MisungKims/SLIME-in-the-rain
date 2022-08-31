@@ -29,7 +29,7 @@ public class Earthworm : Boss
         bossName = "지렁이";
         SetHPBar();
 
-        projectileAtk = 1;
+        projectileAtk = 20;
     }
 
     #region 코루틴
@@ -93,7 +93,7 @@ public class Earthworm : Boss
         yield return new WaitForSeconds(0.3f);
 
         //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash  == -153225821) soundManager.Play("Boss1/Attack", SoundManager.Sound.SFX);
+        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash  == -153225821) soundManager.Play("Boss1/Attack", SoundType.SFX);
 
         //if (!isHit) 
 
@@ -150,7 +150,7 @@ public class Earthworm : Boss
     #region 함수
     private void GetProjectile()
     {
-        soundManager.Play("Boss1/LongAttack", SoundManager.Sound.SFX);
+        soundManager.Play("Boss1/LongAttack", SoundType.SFX);
 
         // 투사체 발사
         MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent<MonsterProjectile>();

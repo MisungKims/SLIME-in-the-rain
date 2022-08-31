@@ -1,6 +1,6 @@
 /**
- * @brief ¿ÀºêÁ§Æ® nÈ¸ Å¸°İ ½Ã Å¬¸®¾î ¸Ê
- * @author ±è¹Ì¼º
+ * @brief ì˜¤ë¸Œì íŠ¸ níšŒ íƒ€ê²© ì‹œ í´ë¦¬ì–´ ë§µ
+ * @author ê¹€ë¯¸ì„±
  * @date 22-08-09
  */
 
@@ -12,8 +12,8 @@ using TMPro;
 
 public class HitCountMap : MapManager
 {
-    #region º¯¼ö
-    #region ½Ì±ÛÅæ
+    #region ë³€ìˆ˜
+    #region ì‹±ê¸€í†¤
     private static HitCountMap instance = null;
     public static HitCountMap Instance
     {
@@ -46,12 +46,12 @@ public class HitCountMap : MapManager
     [SerializeField]
     private TextMeshProUGUI countText;
 
-    private int maxCount = 50;          // ¸¸Á·ÇØ¾ßÇÏ´Â Å¸¼ö
+    private int maxCount = 50;          // ë§Œì¡±í•´ì•¼í•˜ëŠ” íƒ€ìˆ˜
 
     private StringBuilder sb = new StringBuilder();
 
     private bool isClear = false;
-    private int count;                  // ÇöÀç Å¸¼ö
+    private int count;                  // í˜„ì¬ íƒ€ìˆ˜
     public int Count
     {
         get { return count; }
@@ -68,7 +68,7 @@ public class HitCountMap : MapManager
     private bool spawnMonster = false;
 
     [Header("-------------- Description Text")]
-    // ¸Ê ¼³¸í ÅØ½ºÆ®
+    // ë§µ ì„¤ëª… í…ìŠ¤íŠ¸
     [SerializeField]
     private GameObject descText;
     private Vector2 startTextPos = new Vector2(0, 55);
@@ -79,10 +79,10 @@ public class HitCountMap : MapManager
 
     [Header("-------------- Object Pool")]
     [SerializeField]
-    private ObjectPool particlePooling;     // ÆÄÆ¼Å¬ ¿ÀºêÁ§Æ® Ç®¸µ
+    private ObjectPool particlePooling;     // íŒŒí‹°í´ ì˜¤ë¸Œì íŠ¸ í’€ë§
     #endregion
 
-    #region À¯´ÏÆ¼ ÇÔ¼ö
+    #region ìœ ë‹ˆí‹° í•¨ìˆ˜
     protected override void Awake()
     {
         if (null == instance)
@@ -95,7 +95,9 @@ public class HitCountMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Gimmick", Sound.BGM);
+
+        SoundManager.Instance.Play("Gimmick", SoundType.BGM);
+
         InitObject();
         InitMap();
     }
@@ -107,7 +109,7 @@ public class HitCountMap : MapManager
 
     #endregion
 
-    #region ÄÚ·çÆ¾
+    #region ì½”ë£¨í‹´
     IEnumerator DisableProps()
     {
         prop.gameObject.SetActive(false);
@@ -117,21 +119,21 @@ public class HitCountMap : MapManager
         Vector3 moneyPos;
         int randObj; 
         
-        int randJellyCount = Random.Range(20, 30);      // ÀçÈ­ µå·Ó °³¼ö
+        int randJellyCount = Random.Range(20, 30);      // ì¬í™” ë“œë¡­ ê°œìˆ˜
         for (int i = 0; i < randJellyCount; i++)
         {
-            moneyPos = Slime.Instance.transform.position;     // ÀçÈ­ÀÇ À§Ä¡
+            moneyPos = Slime.Instance.transform.position;     // ì¬í™”ì˜ ìœ„ì¹˜
             moneyPos.x += Random.Range(-1f, 1f);
             moneyPos.y += 2f;
             moneyPos.z += Random.Range(-1f, 1f);
 
-            randObj = Random.Range(0, 2);         // È®·ü¿¡ µû¶ó Á©¸®, Á©¶óÆ¾, ¹«±â¸¦ Á¤ÇÔ
+            randObj = Random.Range(0, 2);         // í™•ë¥ ì— ë”°ë¼ ì ¤ë¦¬, ì ¤ë¼í‹´, ë¬´ê¸°ë¥¼ ì •í•¨
             switch (randObj)
             {
-                case 0:   // Á©¸®
+                case 0:   // ì ¤ë¦¬
                     objectPoolingManager.Get(EObjectFlag.jelly, moneyPos);
                     break;
-                case 1:   // Á©¶óÆ¾
+                case 1:   // ì ¤ë¼í‹´
                     objectPoolingManager.Get(EObjectFlag.gelatin, moneyPos);
                     break;
                 default:
@@ -161,7 +163,7 @@ public class HitCountMap : MapManager
         }
     }
 
-    // ¸Ê ¼³¸í ÅØ½ºÆ®
+    // ë§µ ì„¤ëª… í…ìŠ¤íŠ¸
     IEnumerator ShowDescText()
     {
         descText.SetActive(true);
@@ -170,7 +172,7 @@ public class HitCountMap : MapManager
 
         yield return new WaitForSeconds(0.5f);
 
-        // ÅØ½ºÆ®°¡ ³»·Á¿È
+        // í…ìŠ¤íŠ¸ê°€ ë‚´ë ¤ì˜´
         offset = textTransform.anchoredPosition - endTextPos;
         distance = offset.sqrMagnitude;
 
@@ -186,7 +188,7 @@ public class HitCountMap : MapManager
 
         yield return new WaitForSeconds(3f);
 
-        // ÅØ½ºÆ®°¡ ¿Ã¶ó°¨
+        // í…ìŠ¤íŠ¸ê°€ ì˜¬ë¼ê°
         offset = textTransform.anchoredPosition - startTextPos;
         distance = offset.sqrMagnitude;
 
@@ -222,8 +224,8 @@ public class HitCountMap : MapManager
 
     #endregion
 
-    #region ÇÔ¼ö
-    // ¸Ê ÃÊ±â¼³Á¤
+    #region í•¨ìˆ˜
+    // ë§µ ì´ˆê¸°ì„¤ì •
     private void InitMap()
     {
         isClear = false;
@@ -232,19 +234,19 @@ public class HitCountMap : MapManager
 
         switch (Slime.Instance.currentWeapon.wName)
         {
-            case "È°":
+            case "í™œ":
                 maxCount = 90;
                 break;
-            case "ºÒ ÁöÆÎÀÌ":
+            case "ë¶ˆ ì§€íŒ¡ì´":
                 maxCount = 50;
                 break;
-            case "¾óÀ½ ÁöÆÎÀÌ":
+            case "ì–¼ìŒ ì§€íŒ¡ì´":
                 maxCount = 50;
                 break;
-            case "´Ü°Ë":
+            case "ë‹¨ê²€":
                 maxCount = 90;
                 break;
-            case "¾ç¼Õ°Ë":
+            case "ì–‘ì†ê²€":
                 maxCount = 40;
                 break;
             default:
@@ -262,7 +264,7 @@ public class HitCountMap : MapManager
         }
     }
 
-    // Ä«¿îÆ®¸¦ ¼¼´Â ÅØ½ºÆ®¸¦ ¼³Á¤
+    // ì¹´ìš´íŠ¸ë¥¼ ì„¸ëŠ” í…ìŠ¤íŠ¸ë¥¼ ì„¤ì •
     void SetCountText()
     {
         if(!spawnMonster)
@@ -281,7 +283,7 @@ public class HitCountMap : MapManager
         if (count >= maxCount) ClearMap();
     }
 
-    // ¸Ê Å¬¸®¾î ½Ã È£Ãâ
+    // ë§µ í´ë¦¬ì–´ ì‹œ í˜¸ì¶œ
     public override void ClearMap()
     {
         isClear = true;
@@ -292,8 +294,8 @@ public class HitCountMap : MapManager
         base.ClearMap();
     }
 
-    #region ¿ÀºêÁ§Æ® Ç®¸µ
-    // ÆÄÆ¼Å¬ ¿ÀºêÁ§Æ®¸¦ initCount ¸¸Å­ »ı¼º
+    #region ì˜¤ë¸Œì íŠ¸ í’€ë§
+    // íŒŒí‹°í´ ì˜¤ë¸Œì íŠ¸ë¥¼ initCount ë§Œí¼ ìƒì„±
     private void InitObject()
     {
         for (int i = 0; i < particlePooling.initCount; i++)
@@ -306,18 +308,18 @@ public class HitCountMap : MapManager
     }
 
     /// <summary>
-    /// ¿ÀºêÁ§Æ®¸¦ ¹İÈ¯
+    /// ì˜¤ë¸Œì íŠ¸ë¥¼ ë°˜í™˜
     /// </summary>
     public GameObject GetParticle(Vector3 pos)
     {
         GameObject tempGb;
 
-        if (particlePooling.queue.Count > 0)             // Å¥¿¡ °ÔÀÓ ¿ÀºêÁ§Æ®°¡ ³²¾Æ ÀÖÀ» ¶§
+        if (particlePooling.queue.Count > 0)             // íì— ê²Œì„ ì˜¤ë¸Œì íŠ¸ê°€ ë‚¨ì•„ ìˆì„ ë•Œ
         {
             tempGb = particlePooling.queue.Dequeue();
             tempGb.SetActive(true);
         }
-        else         // Å¥¿¡ ´õÀÌ»ó ¾øÀ¸¸é »õ·Î »ı¼º
+        else         // íì— ë”ì´ìƒ ì—†ìœ¼ë©´ ìƒˆë¡œ ìƒì„±
         {
             tempGb = GameObject.Instantiate(particlePooling.copyObj, particlePooling.parent.transform);
         }
@@ -329,7 +331,7 @@ public class HitCountMap : MapManager
 
 
     /// <summary>
-    /// ´Ù ¾´ ¿ÀºêÁ§Æ®¸¦ Å¥¿¡ µ¹·ÁÁÜ
+    /// ë‹¤ ì“´ ì˜¤ë¸Œì íŠ¸ë¥¼ íì— ëŒë ¤ì¤Œ
     /// </summary>
     public void SetParticle(GameObject gb)
     {

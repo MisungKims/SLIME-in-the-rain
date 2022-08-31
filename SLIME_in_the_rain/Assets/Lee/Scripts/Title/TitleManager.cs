@@ -31,7 +31,7 @@ public class TitleManager : MonoBehaviour
         buttons[i++].onClick.AddListener(delegate { ExitGame(); });  //종료
 
         //소리: 배경음
-        sound.Play("Title",SoundManager.Sound.BGM);
+        sound.Play("Title", SoundType.BGM);
     }
 
     public void StartButton()
