@@ -662,7 +662,10 @@ public class Slime : MonoBehaviour
     {
         /*float damageReduction = statManager.myStats.defensePower / (1 + statManager.myStats.defensePower);*/
         float damage = monsterStats.attackPower  - statManager.myStats.defensePower;
-        Debug.Log(damage);
+        if (damage <= 0)
+        {
+            damage = 0;
+        }
         TakeDamage(-damage);
     }
 

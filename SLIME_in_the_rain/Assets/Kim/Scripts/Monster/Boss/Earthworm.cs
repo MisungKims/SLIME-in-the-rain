@@ -29,7 +29,7 @@ public class Earthworm : Boss
         bossName = "지렁이";
         SetHPBar();
 
-        projectileAtk = 1;
+        projectileAtk = 20;
     }
 
     #region 코루틴
