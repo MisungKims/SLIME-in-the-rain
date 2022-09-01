@@ -39,6 +39,7 @@ public class MapManager : MonoBehaviour
     public virtual void ClearMap()
     {
        SceneDesign.Instance.mapClear = true;
+        SoundManager.Instance.Play("Map/MapClear", SoundType.SFX);
     }
 
 }
