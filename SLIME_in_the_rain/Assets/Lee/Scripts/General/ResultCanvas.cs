@@ -135,7 +135,7 @@ public class ResultCanvas : MapManager
         {
             titleText.text = "CLEAR!!!";
             titleText.color = new Color(1f, 0f, 0f, 1f);
-            StartCoroutine(CameraShake.StartShake(1f, 10f));
+            //StartCoroutine(CameraShake.StartShake(1f, 10f));
         }
         else
         {
@@ -177,22 +177,26 @@ public class ResultCanvas : MapManager
         textMeshArr[0] = stageText;
         int reachedStage = (sceneDesign.mapCounting - sceneDesign.bossLevel);
         string stage;
+        string stageCount;
         if (reachedStage % sceneDesign.stageNum == 0)
         {
             if (sceneDesign.s_nomal - 1 > reachedStage)
             {
-                stage = (reachedStage % sceneDesign.stageNum).ToString();
+                stage = ((reachedStage / sceneDesign.stageNum) + 1).ToString();
+                stageCount = (reachedStage % sceneDesign.stageNum).ToString();
             }
             else
             {
-                stage = "Boss";
+                stage = ((reachedStage / sceneDesign.stageNum)).ToString();
+                stageCount = "Boss";
             }
         }
         else
         {
-            stage = (reachedStage % sceneDesign.stageNum).ToString();
+            stage = ((reachedStage / sceneDesign.stageNum) + 1).ToString();
+            stageCount = (reachedStage % sceneDesign.stageNum).ToString();
         }
-        stringArr[0] = $"마지막 클리어 스테이지: {((reachedStage / sceneDesign.stageNum) + 1)}-{stage}";
+        stringArr[0] = $"마지막 클리어 스테이지: {stage}-{stageCount}";
 
         textMeshArr[1] = playtimeText;
         int hour = (int)(sceneDesign.Timer / 3600);
