@@ -52,9 +52,9 @@ public class FarmManager : MonoBehaviour
 
             //Position
             Vector3 setPos;
-            setPos.x = Random.Range(-1.9f, 1.9f);
+            setPos.x = Random.Range(-1.8f, 1.8f);
             setPos.y = 0;
-            setPos.z = -2 + Random.Range(-1.9f, 1.9f);
+            setPos.z = -2 + Random.Range(-1.5f, 1.8f);
             building.transform.localPosition = setPos;
             building.SetActive(true);
 
@@ -65,18 +65,18 @@ public class FarmManager : MonoBehaviour
 
             //Scale
             int ran = Random.Range(0, 100);
-            float minmax = 2.5f;
+            float mid = 1f;
             if (ran > 99)
             {
-                building.transform.localScale *= 10f;
+                building.transform.localScale *= 5f;
             }
             else if (ran > 95)
             {
-                building.transform.localScale *= Random.Range(minmax, 3f);
+                building.transform.localScale *= Random.Range(mid, 2f);
             }
             else
             {
-                building.transform.localScale *= Random.Range(1f, minmax);
+                building.transform.localScale *= Random.Range(0.5f, mid);
             }
         }
     }
