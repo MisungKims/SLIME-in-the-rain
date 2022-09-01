@@ -73,7 +73,7 @@ public class RuneManager : MonoBehaviour
     {
         rand = Random.Range(0, runes.Count);
 
-        return runes[rand];
+        return runes[7];
     }
 
     // ·éÀ» Ãß°¡

@@ -19,6 +19,7 @@ public class Orc : Boss
     {
         base.Awake();
 
+        attackSound = "Boss1/Attack";
         bossName = "오크";
         SetHPBar();
     }
@@ -61,7 +62,7 @@ public class Orc : Boss
                 }
             }
 
-            if (!isAttacking) nav.SetDestination(target.position);
+            if (!isAttacking && !isDie) nav.SetDestination(target.position);
 
             yield return null;
         }
@@ -72,67 +73,80 @@ public class Orc : Boss
     // 단거리 공격 코루틴
     private IEnumerator ShortAttack()
     {
-        canAttack = false;
-
-        nav.SetDestination(target.position);
-        transform.LookAt(target);
-
-        chaseCount = 0;
-        IsAttacking = true;
-
-        randAttack = Random.Range(0, 2);
-        anim.SetInteger("attack", randAttack);
-
-        PlayAnim(EMonsterAnim.attack);
-        yield return new WaitForSeconds(0.15f);
-        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -270903256) soundManager.Play("Boss1/Attack", SoundType.SFX);
-
-        // 공격 애니메이션이 끝날 때 까지 대기
-        while (!canAttack)
+        if(!isAttacking)
         {
-            yield return null;
+            canAttack = false;
+
+            nav.SetDestination(target.position);
+            transform.LookAt(target);
+
+            chaseCount = 0;
+            IsAttacking = true;
+
+            randAttack = Random.Range(0, 2);
+            anim.SetInteger("attack", randAttack);
+
+            PlayAnim(EMonsterAnim.attack);
+
+            // 공격 애니메이션이 끝날 때 까지 대기
+            while (!canAttack)
+            {
+                yield return null;
+            }
+
+            // 랜덤한 시간동안 대기
+            // 대기 중 공격 범위를 벗어나면 바로 쫓아감
+            if (randAttack==0)
+            {
+                randAtkTime = Random.Range(minAtkTime, maxAtkTime);
+                while (randAtkTime > 0 && isInRange)
+                {
+                    randAtkTime -= Time.deltaTime;
+
+                    yield return null;
+                }
+            }
+            
+
+            IsAttacking = false;
         }
-
-        // 랜덤한 시간동안 대기
-        // 대기 중 공격 범위를 벗어나면 바로 쫓아감
-        randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        while (randAtkTime > 0 && isInRange)
-        {
-            randAtkTime -= Time.deltaTime;
-
-            yield return null;
-        }
-
-        IsAttacking = false;
+        
     }
 
     // 원거리 공격 코루틴 (돌면서 슬라임에게 가까이 옴)
     private IEnumerator LongAttack()
     {
-        canAttack = false;
-
-        nav.SetDestination(target.position);
-        chaseCount = 0;
-        IsAttacking = true;
-        nav.speed *= 4;
-
-        // 애니메이션 실행
-        randAttack = 2;
-        anim.SetInteger("attack", 1);
-        PlayAnim(EMonsterAnim.attack);
-        soundManager.Play("Boss1/Attack", SoundType.SFX);
-
-        while (!canAttack)      // 애니메이션이 끝날 때 까지
+        if (!isAttacking)
         {
+            canAttack = false;
+
             nav.SetDestination(target.position);
+            chaseCount = 0;
+            IsAttacking = true;
+            nav.speed *= 4;
 
-            yield return null;
+            // 애니메이션 실행
+            randAttack = 2;
+            anim.SetInteger("attack", 1);
+            PlayAnim(EMonsterAnim.attack);
+
+            while (!canAttack)      // 애니메이션이 끝날 때 까지
+            {
+                nav.SetDestination(target.position);
+
+                yield return null;
+            }
+
+            nav.speed *= 0.25f;
+            IsAttacking = false;
+
+            maxCount = Random.Range(3f, 6f);
         }
+    }
 
-        nav.speed *= 0.25f;
-        IsAttacking = false;
-
-        maxCount = Random.Range(3f, 6f);
+    // 애니메이션 이벤트에서 호출
+    void PlayAttack2Sound()
+    {
+        soundManager.Play("Boss1/LongAttack", SoundType.SFX);
     }
 }

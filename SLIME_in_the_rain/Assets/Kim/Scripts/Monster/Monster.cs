@@ -102,6 +102,11 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected float damageTime = 0.1f;
 
+    // 사운드
+    protected string attackSound;
+    protected string takeDamageSound;
+    protected string dieSound;
+
     // 캐싱
     private StatManager statManager;
     protected ObjectPoolingManager objectPoolingManager;
@@ -111,9 +116,9 @@ public abstract class Monster : MonoBehaviour, IDamage
     private DamageText damageText;
     protected Camera cam;
     protected WaitForSeconds waitFor3s = new WaitForSeconds(3f);
-    
+    protected SoundManager soundManager;
     #endregion
-    
+
     #region 유니티 함수
     protected virtual void Awake()
     {
@@ -133,6 +138,7 @@ public abstract class Monster : MonoBehaviour, IDamage
 
    void Start()
     {
+        soundManager = SoundManager.Instance;
         statManager = StatManager.Instance;
         objectPoolingManager = ObjectPoolingManager.Instance;
         uiPoolingManager = UIObjectPoolingManager.Instance;
@@ -595,6 +601,21 @@ public abstract class Monster : MonoBehaviour, IDamage
         }
     }
 
+    // 애니메이션 이벤트에서 호출
+    protected void PlayAttackSound()
+    {
+        soundManager.Play(attackSound, SoundType.SFX);
+    }
+
+    protected void PlayTakeDamageSound()
+    {
+        soundManager.Play(takeDamageSound, SoundType.SFX);
+    }
+
+    protected void PlayDieSound()
+    {
+        soundManager.Play(dieSound, SoundType.SFX);
+    }
     #endregion
 
 #if UNITY_EDITOR    

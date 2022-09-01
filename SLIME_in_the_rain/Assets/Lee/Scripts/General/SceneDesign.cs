@@ -217,7 +217,7 @@ public class SceneDesign : MonoBehaviour
         {
             next = Random.Range(s_nomal, SceneManager.sceneCountInBuildSettings);
         }
-        return next;
+        return 4;
     }
 
     public void SceneInit()     //≈∏¿Ã∆≤
