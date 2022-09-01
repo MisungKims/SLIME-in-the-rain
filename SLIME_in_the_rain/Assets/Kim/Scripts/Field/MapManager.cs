@@ -27,11 +27,25 @@ public class MapManager : MonoBehaviour
         slime.RegisterMinimap();
         slime.transform.position = slimeSpawnPos.position;
         slime.SetCanAttack();
+        
+        ///매 씬마다 슬라임의 버프 초기화 하기
+        if(slime.currentWeapon)
+        {
+            if (slime.currentWeapon.currentSkillBuffTime > 0)
+            {
+                slime.currentWeapon.currentSkillBuffTime = 0;
+            }
+            if (slime.currentWeapon.currentDashBuffTime > 0)
+            {
+                slime.currentWeapon.currentDashBuffTime = 0;
+            }
+        }
 
         UIObjectPoolingManager uIObjectPoolingManager = UIObjectPoolingManager.Instance;
         uIObjectPoolingManager.SetHealthBarCanvas();
         uIObjectPoolingManager.InitUI();
         uIObjectPoolingManager.slimeHpBarParent.SetActive(true);
+
     }
 
     // TODO:

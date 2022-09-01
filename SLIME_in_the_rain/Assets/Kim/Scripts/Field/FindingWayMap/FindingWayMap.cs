@@ -129,7 +129,7 @@ public class FindingWayMap : MapManager
         slime.canMove = false;
         slime.isCanDash = false;
         slime.canAttack = false;
-
+        
         originSpeed = 0f;
         if (StatManager.Instance.myStats.moveSpeed >= maxSpeed)
         {
@@ -411,9 +411,9 @@ public class FindingWayMap : MapManager
         wall.SetActive(true);
         slime.rigid.constraints = slime.rigidbodyConstraints;
 
-        slime.isCanDash = true;
+        if (originSpeed > 0) StatManager.Instance.myStats.moveSpeed = originSpeed;
 
-        if(originSpeed > 0) StatManager.Instance.myStats.moveSpeed = originSpeed;
+        slime.isCanDash = true;
     }
 
 

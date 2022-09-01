@@ -61,7 +61,7 @@ public class ButtonManager : MonoBehaviour                                 //다�
                         canvasList[i].SetActive(false);
                         inventoryUI.activeInventory = false;
                     }
-                    else if(canvasList[i] == tutorial.tutorial)
+                    else if(TutorialManager.Instance && canvasList[i] == tutorial.tutorial)
                     {
                         tutorial.offThis();
                     }
@@ -79,7 +79,15 @@ public class ButtonManager : MonoBehaviour                                 //다�
                 }
                 if (unenable == canvasList.Count)
                 {
-                    canvasList[1].SetActive(true);
+                    if (SceneManager.GetActiveScene().buildIndex == 1)
+                    {
+                        canvasList[2].SetActive(true);
+
+                    }
+                    else
+                    {
+                        canvasList[1].SetActive(true);
+                    }
                     SoundManager.Instance.Play("UI/Button/On", SoundType.SFX);
                 }
             }
