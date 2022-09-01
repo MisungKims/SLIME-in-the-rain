@@ -36,7 +36,7 @@ public class BossMapManager : MapManager
     private Transform monstersObject;
 
     // 캐싱
-    private WaitForSeconds waitFor5s = new WaitForSeconds(5f);
+    private WaitForSeconds waitFor3s = new WaitForSeconds(3f);
     SoundManager sound;
     #endregion
 
@@ -65,13 +65,14 @@ public class BossMapManager : MapManager
     // 보스가 죽으면 룬 선택 창을 보여줌
     IEnumerator IsDie()
     {
-        yield return waitFor5s;
+        StartCoroutine(sound.BGMPitchReset());                     ///////////////////추가 빨라진 브금 리셋 -TG
+
+        yield return waitFor3s;
 
         if (!boss.GetComponent<Metalon>())
         {
             selectRuneWindow.OpenWindow();
         }
-        StartCoroutine(sound.BGMPitchReset());                     ///////////////////추가 빨라진 브금 리셋 -TG
         ClearMap();
     }
 

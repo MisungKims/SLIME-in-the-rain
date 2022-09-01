@@ -39,8 +39,11 @@ public class SelectRuneWindow : MonoBehaviour
     private RuneButton[] runeButtons = new RuneButton[3];           // ·é ¼±ÅÃ ¹öÆ° ¹è¿­
 
 
+
     // ¸®·Ñ
     private int rerollMaxCount = 3;
+    [SerializeField]
+    private Button rerollButton;
     [SerializeField]
     private TextMeshProUGUI rerollCountTxt;
     private int rerollCount;
@@ -126,8 +129,8 @@ public class SelectRuneWindow : MonoBehaviour
         }
         else if(rerollCount <= 0)
         {
-            rerollWarningText.ShowText();   // Á©¸® ºÎÁ·  
-            //return;
+            rerollWarningText.ShowText();   // Á©¸® ºÎÁ·
+            return;
         }
 
         SetButtons();
@@ -135,6 +138,10 @@ public class SelectRuneWindow : MonoBehaviour
         jellyManager.JellyCount -= 100;         // Á©¸® 100°³ È¸¼ö
 
         RerollCount--;
+        if(rerollCount == 0)
+        {
+            rerollButton.interactable = false;
+        }
     }
 
     // ·£´ý Á©¶óÆ¾ Áö±ÞÃ¢ º¸¿©ÁÜ
