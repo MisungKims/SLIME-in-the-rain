@@ -44,30 +44,33 @@ public class ProjectileMonster : GeneralMonster
     // АјАн 
     protected override IEnumerator Attack()
     {
-        canAttack = false;
-
-        nav.SetDestination(target.position);
-        transform.LookAt(target);
-
-        IsAttacking = true;
-        noDamage = true;
-
-        randAttack = Random.Range(0, attackTypeCount);
-        anim.SetInteger("attack", randAttack);
-
-        yield return StartCoroutine(ProjectileAttack());
-       
-        randAtkTime = 2.5f;
-        while (randAtkTime > 0)
+        if(!isDie)
         {
-            randAtkTime -= Time.deltaTime;
-            if(target && !isInRange && !isDie) nav.SetDestination(target.position);
+            canAttack = false;
 
-            yield return null;
+            nav.SetDestination(target.position);
+            transform.LookAt(target);
+
+            IsAttacking = true;
+            noDamage = true;
+
+            randAttack = Random.Range(0, attackTypeCount);
+            anim.SetInteger("attack", randAttack);
+
+            yield return StartCoroutine(ProjectileAttack());
+
+            randAtkTime = 2.5f;
+            while (randAtkTime > 0)
+            {
+                randAtkTime -= Time.deltaTime;
+                if (target && !isInRange && !isDie) nav.SetDestination(target.position);
+
+                yield return null;
+            }
+
+            IsAttacking = false;
+            canAttack = true;
         }
-
-        IsAttacking = false;
-        canAttack = true;
     }
 
     private IEnumerator ProjectileAttack()
