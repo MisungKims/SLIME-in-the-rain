@@ -107,7 +107,7 @@ public class Boss : Monster
         }
 
         bossNameText.text = bossName;
-        hpBar.maxValue = stats.maxHP * 10f;
+        hpBar.maxValue = stats.maxHP;
         ShowHPBar();
     }
 
@@ -116,9 +116,9 @@ public class Boss : Monster
         hpBar.value = stats.HP;
 
         sb.Clear();
-        sb.Append(hpBar.value.ToString());
+        sb.Append(hpBar.value.ToString("f1"));
         sb.Append("/");
-        sb.Append(hpBar.maxValue.ToString());
+        sb.Append(hpBar.maxValue.ToString("f1"));
         hPText.text = sb.ToString();
     }
 

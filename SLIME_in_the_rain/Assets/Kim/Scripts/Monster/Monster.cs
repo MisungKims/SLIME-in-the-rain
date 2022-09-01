@@ -523,12 +523,12 @@ public abstract class Monster : MonoBehaviour, IDamage
 
     protected virtual void AttackRaycast(int atkType)
     {
-        bool hit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange, 1 << LayerMask.NameToLayer("Slime"));
+        bool hit = Physics.BoxCast(transform.position + transform.forward * -0.5f + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange + 0.5f, 1 << LayerMask.NameToLayer("Slime"));
        
         if (hit)
         {
 #if UNITY_EDITOR
-            Debug.DrawLine(transform.position + Vector3.up * 0.1f, transform.position + Vector3.up * 0.1f + transform.forward * stats.attackRange, Color.blue, 0.5f);
+            Debug.DrawLine(transform.position + transform.forward * -0.5f + Vector3.up * 0.1f, transform.position + transform.forward * -0.5f + Vector3.up * 0.1f + transform.forward * (stats.attackRange + 0.5f), Color.blue, 0.5f);
 #endif
             slime.Damaged(stats, atkType);
         }
@@ -603,9 +603,9 @@ public abstract class Monster : MonoBehaviour, IDamage
 
        // RaycastHit hit;
 
-        bool isHit = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange, 1 << LayerMask.NameToLayer("Slime"));
+        bool isHit = Physics.BoxCast(transform.position + transform.forward * -0.5f + Vector3.up * 0.1f, transform.lossyScale * 0.5f, transform.forward, transform.rotation, stats.attackRange + 0.5f, 1 << LayerMask.NameToLayer("Slime"));
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + Vector3.up * 0.1f, transform.forward * stats.attackRange);
+        Gizmos.DrawRay(transform.position + transform.forward * -0.5f + Vector3.up * 0.1f, transform.forward * (stats.attackRange + 0.5f));
         //if (isHit)
         //{
         //    //Gizmos.color = Color.red;
