@@ -317,7 +317,7 @@ public class HitCountMap : MapManager
         if (particlePooling.queue.Count > 0)             // 큐에 게임 오브젝트가 남아 있을 때
         {
             tempGb = particlePooling.queue.Dequeue();
-            tempGb.SetActive(true);
+           if(tempGb)  tempGb.SetActive(true);
         }
         else         // 큐에 더이상 없으면 새로 생성
         {
