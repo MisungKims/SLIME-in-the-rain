@@ -11,9 +11,7 @@ using UnityEngine;
 public class Metalon : Boss
 {
     #region 변수
-    private float spawnBabyTime = 3f;
     private bool canSpawnBaby = true;
-
 
     [SerializeField]
     private Monster[] spiders = new Monster[3];
@@ -71,9 +69,6 @@ public class Metalon : Boss
             if(randAttack == 2) anim.SetInteger("attack", 0);
             else anim.SetInteger("attack", randAttack);
             PlayAnim(EMonsterAnim.attack);
-
-            //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-            //if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -153225821 || anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -274583130) soundManager.Play("Boss1/Attack", SoundType.SFX);
         }
 
         // 랜덤한 시간동안 대기
@@ -85,7 +80,7 @@ public class Metalon : Boss
 
             yield return null;
         }
-
+        canAttack = true;
         IsAttacking = false;
         TryStartChase();
     }
@@ -112,8 +107,8 @@ public class Metalon : Boss
 
             yield return null;
         }
-        
-       yield return new WaitForSeconds(spawnBabyTime);
+
+       yield return new WaitForSeconds(Random.Range(7f, 10f));
 
         canSpawnBaby = true;
     }

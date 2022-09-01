@@ -89,7 +89,7 @@ public class Orc : Boss
             PlayAnim(EMonsterAnim.attack);
 
             // 공격 애니메이션이 끝날 때 까지 대기
-            while (!canAttack)
+            while (!canAttack && !isDie)
             {
                 yield return null;
             }
@@ -99,7 +99,7 @@ public class Orc : Boss
             if (randAttack==0)
             {
                 randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-                while (randAtkTime > 0 && isInRange)
+                while (randAtkTime > 0 && isInRange && !isDie)
                 {
                     randAtkTime -= Time.deltaTime;
 
@@ -130,7 +130,7 @@ public class Orc : Boss
             anim.SetInteger("attack", 1);
             PlayAnim(EMonsterAnim.attack);
 
-            while (!canAttack)      // 애니메이션이 끝날 때 까지
+            while (!canAttack && !isDie)      // 애니메이션이 끝날 때 까지
             {
                 nav.SetDestination(target.position);
 
