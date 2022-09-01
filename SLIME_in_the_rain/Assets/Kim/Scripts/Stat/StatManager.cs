@@ -77,8 +77,7 @@ public class StatManager : MonoBehaviour
 
         AddHP(myStats.maxHP);
 
-        beforeMaxHP = myStats.maxHP;
-        beforeHP = myStats.HP;
+
     }
 
     // amount 만큼 증가값을 반환
@@ -143,6 +142,9 @@ public class StatManager : MonoBehaviour
     // 무기 변경 시 해당 무기의 스탯으로 변경 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void ChangeWeapon(Weapon weapon)
     {
+        beforeMaxHP = myStats.maxHP;
+        beforeHP = myStats.HP;
+
         weaponStat.maxHP = weapon.stats.maxHP;
         weaponStat.coolTime = weapon.stats.coolTime;
         weaponStat.moveSpeed = weapon.stats.moveSpeed;

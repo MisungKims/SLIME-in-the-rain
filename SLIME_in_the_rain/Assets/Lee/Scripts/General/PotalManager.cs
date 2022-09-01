@@ -278,6 +278,7 @@ public class PotalManager : MonoBehaviour
     void AddStat()
     {
         statManager.AddMaxHP(float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * farmStat);
+        statManager.AddHP(float.Parse(PlayerPrefs.GetString("MaxHP" + "level")) * farmStat);
         statManager.AddCoolTime(float.Parse(PlayerPrefs.GetString("CoolTime" + "level")) * farmStat);
         statManager.AddMoveSpeed(float.Parse(PlayerPrefs.GetString("MoveSpeed" + "level")) * farmStat);
         statManager.AddAttackSpeed(float.Parse(PlayerPrefs.GetString("AttackSpeed" + "level")) * farmStat);
