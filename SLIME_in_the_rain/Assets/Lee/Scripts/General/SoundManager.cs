@@ -30,6 +30,7 @@ public class SoundManager : MonoBehaviour
     Dictionary<string, AudioClip> BGMs = new Dictionary<string, AudioClip>();
     Dictionary<string, AudioClip> SFXs = new Dictionary<string, AudioClip>();
 
+    float pitchSpeed = 0.25f;
 
 
     void Awake()
@@ -90,9 +91,6 @@ public class SoundManager : MonoBehaviour
         Play(audioClip, type);
     }
 
-
-
-
     public AudioSource LoofSFX(AudioClip audioClip)
     {
         if (audioClip == null)
@@ -145,5 +143,26 @@ public class SoundManager : MonoBehaviour
             Debug.Log($"AudioClip Missing ! {path}");
 
         return audioClip;
+    }
+    public IEnumerator BGMFaster()
+    {
+        AudioSource _bgm = audioSources[(int)SoundType.BGM];
+        while (_bgm.pitch < 1.2f)
+        {
+            _bgm.pitch += Time.deltaTime * pitchSpeed;
+            yield return null;
+        }
+        _bgm.pitch = 1.2f;
+    }
+
+    public IEnumerator BGMPitchReset()
+    {
+        AudioSource _bgm = audioSources[(int)SoundType.BGM];
+        while (_bgm.pitch > 1.0f)
+        {
+            _bgm.pitch -= Time.deltaTime * pitchSpeed;
+            yield return null;
+        }
+        _bgm.pitch = 1.0f;
     }
 }

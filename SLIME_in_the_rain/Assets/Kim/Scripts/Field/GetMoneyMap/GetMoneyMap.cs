@@ -49,6 +49,7 @@ public class GetMoneyMap : MapManager
             secondText.text = second.ToString();
         } 
     }
+    float initSecond;
 
    public  float sumSpeed = 0;
 
@@ -60,6 +61,9 @@ public class GetMoneyMap : MapManager
     private ObjectPool particlePooling;     // 파티클 오브젝트 풀링
     [SerializeField]
     private ObjectPool speedUpPooling;     // 파티클 오브젝트 풀링
+
+    //캐싱
+    SoundManager sound;
     #endregion
     protected override void Awake()
     {
@@ -73,8 +77,12 @@ public class GetMoneyMap : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Money", SoundType.BGM);
+        /////////소리 관련 추가 -TG//////////
+        sound = SoundManager.Instance;
+        sound.Play("Money", SoundType.BGM);
+
         Second = 25;
+        initSecond = Second;
         InitObject();
     }
 
@@ -151,18 +159,28 @@ public class GetMoneyMap : MapManager
     // 시간을 세는 코루틴
     IEnumerator TimeCount()
     {
-        AudioSource timerSound = SoundManager.Instance.LoofSFX("Dungeon/Timer");                ////소리 추가함 -TG
+        AudioSource timerSound = sound.LoofSFX("Dungeon/Timer");                ////소리 추가함 -TG
         while (second > 0)
         {
             yield return new WaitForSeconds(1f);
 
+            /////////소리 관련 추가 -TG//////////
+            if (second < 10f)
+            {
+                StartCoroutine(sound.BGMFaster());
+            }
+            
             Second--;
         }
         StartCoroutine(objectPoolingManager.SetMoney());
 
         StatManager.Instance.AddMoveSpeed(sumSpeed * -1);
 
+        /////////소리 관련 추가 -TG//////////
         Destroy(timerSound);                                ////소리 삭제함
+        StartCoroutine(sound.BGMPitchReset());
+        
+
         ClearMap();
 
         yield return new WaitForSeconds(0.5f);

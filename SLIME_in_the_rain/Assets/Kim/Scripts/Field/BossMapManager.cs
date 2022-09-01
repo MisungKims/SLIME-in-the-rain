@@ -37,6 +37,7 @@ public class BossMapManager : MapManager
 
     // 캐싱
     private WaitForSeconds waitFor5s = new WaitForSeconds(5f);
+    SoundManager sound;
     #endregion
 
     protected override void Awake()
@@ -51,7 +52,9 @@ public class BossMapManager : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Boss", SoundType.BGM);
+        sound = SoundManager.Instance;
+        sound.Play("Boss", SoundType.BGM);
+        StartCoroutine(SoundFaster());
     }
 
     public void DieBoss()
@@ -68,7 +71,7 @@ public class BossMapManager : MapManager
         {
             selectRuneWindow.OpenWindow();
         }
-       
+        StartCoroutine(sound.BGMPitchReset());                     ///////////////////추가 빨라진 브금 리셋 -TG
         ClearMap();
     }
 
@@ -91,5 +94,17 @@ public class BossMapManager : MapManager
     public void ShowBossHPBar()
     {
         boss.SetHPBar();
-    }    
+    }
+    
+    ///////////////////////////////////////////추가 브금 빠르게!
+    IEnumerator SoundFaster()
+    {
+        while ((boss.Stats.HP / boss.Stats.maxHP * 100f) > 50f)
+        {
+            yield return null;
+        }
+        StartCoroutine(sound.BGMFaster());
+    }
+
+    /////////////////////////////////////////
 }

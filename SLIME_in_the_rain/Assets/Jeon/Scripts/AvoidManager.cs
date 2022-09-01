@@ -32,7 +32,12 @@ public class AvoidManager : MapManager
         }
 
         base.Awake();
-        SoundManager.Instance.Play("Gimmick", SoundType.BGM);
+
+        ///////////소리 추가
+        sound = SoundManager.Instance;
+        sound.Play("Gimmick", SoundType.BGM);
+
+
         for (int i = 0; i < traps.Length; i++)
         {
             Vector3 tempPos;
@@ -89,8 +94,10 @@ public class AvoidManager : MapManager
     public Trap[] traps;
 
 
-    ///////////////추가
+    /////////소리 관련 추가 -TG//////////
+    SoundManager sound;
     AudioSource timerSound;             //루프 효과음은 클론으로 추가 Destroy 해야함
+    float inItTimer;
 
     void Start()
     {
@@ -102,6 +109,7 @@ public class AvoidManager : MapManager
     IEnumerator Restart_Timer()
     {
         playCountTime = 60.0f;
+        inItTimer = playCountTime;
         startTimeText.gameObject.SetActive(true);
         startTime = 3;
         startTimeText.text = startTime.ToString();
@@ -135,6 +143,12 @@ public class AvoidManager : MapManager
         {
             playCountTime -= Time.deltaTime;
             countDownText.text = $"{playCountTime:N1}";
+            
+            if(playCountTime < 10f)
+            {
+                StartCoroutine(sound.BGMFaster());
+            }
+
         }
         else
         {
@@ -142,7 +156,11 @@ public class AvoidManager : MapManager
             countDownText.text = $"{playCountTime:N1}";
 
             isplay = false;
+
+            ///////////소리 추가
             Destroy(timerSound);                                ///소리 삭제함 -TG
+            StartCoroutine(sound.BGMPitchReset());
+
             ClearMap();
         }
     }
