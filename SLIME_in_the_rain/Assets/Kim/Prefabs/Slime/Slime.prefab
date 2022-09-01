@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 7547151028129720503}
   - component: {fileID: 6581223514260587976}
   - component: {fileID: 8477072826536774934}
+  - component: {fileID: 6784277916460137666}
   m_Layer: 9
   m_Name: Slime
   m_TagString: Slime
@@ -828,6 +829,24 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: d78527dc1336667428d64ee3ff560792, type: 3}
+--- !u!114 &6784277916460137666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7547151028122295155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.8679245, g: 0.84008545, b: 0.24154504, a: 0}
+  outlineWidth: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7547151028122295157
 GameObject:
   m_ObjectHideFlags: 0
