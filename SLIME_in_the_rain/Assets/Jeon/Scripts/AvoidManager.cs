@@ -89,6 +89,9 @@ public class AvoidManager : MapManager
     public Trap[] traps;
 
 
+    ///////////////추가
+    AudioSource timerSound;             //루프 효과음은 클론으로 추가 Destroy 해야함
+
     void Start()
     {
          StartCoroutine(Restart_Timer());
@@ -123,6 +126,7 @@ public class AvoidManager : MapManager
         yield return new WaitForSeconds(1f);
         startTimeText.gameObject.SetActive(false);
         isplay = true;
+        timerSound = SoundManager.Instance.LoofSFX("Dungeon/Timer");                                    ///소리 추가함 -TG
     }
 
     private void countDown()
@@ -138,6 +142,7 @@ public class AvoidManager : MapManager
             countDownText.text = $"{playCountTime:N1}";
 
             isplay = false;
+            Destroy(timerSound);                                ///소리 삭제함 -TG
             ClearMap();
         }
     }

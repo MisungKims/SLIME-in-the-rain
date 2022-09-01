@@ -151,6 +151,7 @@ public class GetMoneyMap : MapManager
     // 시간을 세는 코루틴
     IEnumerator TimeCount()
     {
+        AudioSource timerSound = SoundManager.Instance.LoofSFX("Dungeon/Timer");                ////소리 추가함 -TG
         while (second > 0)
         {
             yield return new WaitForSeconds(1f);
@@ -161,6 +162,7 @@ public class GetMoneyMap : MapManager
 
         StatManager.Instance.AddMoveSpeed(sumSpeed * -1);
 
+        Destroy(timerSound);                                ////소리 삭제함
         ClearMap();
 
         yield return new WaitForSeconds(0.5f);

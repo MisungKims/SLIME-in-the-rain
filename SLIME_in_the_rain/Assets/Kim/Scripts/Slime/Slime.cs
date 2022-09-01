@@ -106,13 +106,14 @@ public class Slime : MonoBehaviour
     private Vector3 direction;                  // 이동 방향
 
     public bool canMove = true;
-
     private bool isInWater = false;
     public bool IsInWater { get { return isInWater; } }
 
     private float decreaseHPAmount = 1f;  // 물 안에서 감소될 체력의 양
     [SerializeField]
     private GameObject waterRipples;
+    AudioSource waterSound;                                                     //루프 효과음은 클론 추가로 해야함
+
 
     [SerializeField]
     private MinimapWorldObject minimapWorldObject;
@@ -167,6 +168,8 @@ public class Slime : MonoBehaviour
         StartCoroutine(DecreaseHPInWater());
         StartCoroutine(DetectWater());
         StartCoroutine(DetectWall());
+        StartCoroutine(WaterSound());                   //소리 코루틴 추가함 -TG
+
     }
 
     public bool isFrontWall = false;
@@ -302,6 +305,29 @@ public class Slime : MonoBehaviour
         }
     }
 
+    IEnumerator WaterSound()                                //소리 추가함
+    {
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            waterSound = SoundManager.Instance.LoofSFX("Slime/Water");                              
+            while (true)
+            {
+                if (isInWater)
+                {
+                    if (!waterSound.isPlaying)
+                        waterSound.Play();
+                }
+                else
+                {
+                    if (waterSound.isPlaying)
+                        waterSound.Stop();
+                }
+                yield return null;
+            }
+        }
+    }
+
+
     // 스턴 코루틴
     IEnumerator DoStun(float stunTime)
     {
@@ -316,6 +342,7 @@ public class Slime : MonoBehaviour
     // 물 위에 있는지 감지
     private IEnumerator DetectWater()
     {
+            
         while (true)
         {
             // 슬라임의 위치에서 공격 거리만큼 ray를 쏨
@@ -356,7 +383,7 @@ public class Slime : MonoBehaviour
 
     // 물 위에 있으면 체력 감소
     private IEnumerator DecreaseHPInWater()
-    {
+    {   
         UIObjectPoolingManager uIObjectPoolingManager = UIObjectPoolingManager.Instance;
         while (true)
         {

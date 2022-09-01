@@ -30,9 +30,9 @@ public class ButtonManager : MonoBehaviour                                 //¥Ÿ¿
         if (SceneManager.GetActiveScene().buildIndex ==1)
         {
             canvasList = new List<GameObject>();
+            canvasList.Add(tutorial.tutorial);
             canvasList.Add(settingCanvas.popup);
             canvasList.Add(settingCanvas.settingCanvas);
-            canvasList.Add(tutorial.tutorial);
             canvasList.Add(inventoryUI.inventroyPanel);
             canvasList.Add(GameObject.Find("VillageCanvas").transform.Find("Shop").gameObject);
             canvasList.Add(GameObject.Find("VillageCanvas").transform.Find("Tower").gameObject);
