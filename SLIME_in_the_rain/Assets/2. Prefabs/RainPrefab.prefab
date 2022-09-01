@@ -9653,7 +9653,7 @@ MonoBehaviour:
   WindChangeInterval: {x: 5, y: 30}
   EnableWind: 1
   RainHeight: 25
-  RainForwardOffset: 0
+  RainForwardOffset: -3
   RainMistHeight: 3
 --- !u!1 &177510
 GameObject:
@@ -9987,8 +9987,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.15
-      minScalar: 0.05
+      scalar: 0.3
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14368,7 +14368,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5a5cdbef1fec3ec4ab759228c8234ed5, type: 2}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
