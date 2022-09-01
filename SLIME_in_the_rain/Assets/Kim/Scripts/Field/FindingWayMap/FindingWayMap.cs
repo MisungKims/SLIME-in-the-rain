@@ -129,11 +129,18 @@ public class FindingWayMap : MapManager
         slime.canMove = false;
         slime.isCanDash = false;
         slime.canAttack = false;
-        
+
+        // 최대 이속 제한
         originSpeed = 0f;
         if (StatManager.Instance.myStats.moveSpeed >= maxSpeed)
         {
-            originSpeed = StatManager.Instance.myStats.moveSpeed;/////////************************
+            // 양손검 대시 상태였을 때
+            if (slime.currentWeapon.wName.CompareTo("양손검") == 0 && slime.currentWeapon.GetComponent<Sword>().originSpeed != StatManager.Instance.myStats.moveSpeed)
+            {
+                originSpeed = slime.currentWeapon.GetComponent<Sword>().originSpeed;
+            }
+            else originSpeed = StatManager.Instance.myStats.moveSpeed;              /////////************************
+
             StatManager.Instance.myStats.moveSpeed = maxSpeed;
         }
 
@@ -278,7 +285,7 @@ public class FindingWayMap : MapManager
     {
         while (true)
         {
-            if (slime.IsInWater)
+            if (!isClear && slime.IsInWater)
             {
                 yield return new WaitForSeconds(0.5f);
 
@@ -412,6 +419,10 @@ public class FindingWayMap : MapManager
         slime.rigid.constraints = slime.rigidbodyConstraints;
 
         if (originSpeed > 0) StatManager.Instance.myStats.moveSpeed = originSpeed;
+
+        //양손검을 든 상태에서 대시를 통해 씬을 들어왔을 때를 대비(이속 증가를 원래대로)
+      
+
 
         slime.isCanDash = true;
     }

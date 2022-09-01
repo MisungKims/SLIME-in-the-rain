@@ -37,26 +37,27 @@ public class RoadObject : MonoBehaviour
         if (collision.gameObject.CompareTag("Slime"))
         {
             // 슬라임이 함정을 밟았을 때
-            if (this.gameObject.CompareTag("Trap"))        
+            if (this.gameObject.CompareTag("Trap"))
             {
-                this.gameObject.SetActive(false);   
+                this.gameObject.SetActive(false);
             }
 
             // 슬라임이 길을 밟았을 때
-            else if (this.gameObject.CompareTag("Road"))         
+            else if (this.gameObject.CompareTag("Road"))
             {
                 meshFilter.mesh = roadMesh;    // 길 Mesh로 변경
             }
 
             // 슬라임이 골인 지점에 들어왔을 때
-            else if (this.gameObject.CompareTag("Clear"))      
+            else if (!Slime.Instance.IsInWater && this.gameObject.CompareTag("Clear"))
             {
-                if(!findingWayMap.isClear)
+                if (!findingWayMap.isClear)
                 {
                     findingWayMap.isClear = true;
                     findingWayMap.ClearMap();
                 }
             }
+
         }
     }
     #endregion
