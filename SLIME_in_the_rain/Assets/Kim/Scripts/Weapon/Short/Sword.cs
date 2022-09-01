@@ -12,8 +12,8 @@ public class Sword : Short
 {
     #region 변수
     // 대시
-    float originSpeed;
-    float dashSpeed = 200f;
+   public  float originSpeed;
+    float dashSpeed = 150f;
     float dashDuration = 2.5f;
 
     bool isDashing;
@@ -50,10 +50,9 @@ public class Sword : Short
             isDashing = true;
             slime.DashTime = dashDuration;
 
-
+            originSpeed = statManager.myStats.moveSpeed;
             statManager.AddMoveSpeed(dashSpeed);
 
-            ///////////////////수정/////////////////////
             dashBuffTime = dashDuration;
             currentDashBuffTime = dashDuration;
             while (currentDashBuffTime > 0)
@@ -61,13 +60,13 @@ public class Sword : Short
                 currentDashBuffTime -= Time.deltaTime;
                 yield return null;
             }
-            //yield return new WaitForSeconds(dashDuration);
 
             statManager.AddMoveSpeed(-dashSpeed);
             isDashing = false;
             slime.DashTime = slime.originDashTime;
         }
     }
+
 
     IEnumerator CamShake()
     {
@@ -78,6 +77,7 @@ public class Sword : Short
     #endregion
 
     #region 함수
+
     // 스킬
     protected override void Skill()
     {
