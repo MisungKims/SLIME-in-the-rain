@@ -25,6 +25,7 @@ public class MainCanvas : MonoBehaviour
     Slime slime;
     StatManager statManager;
     JellyManager jellyManager;
+    SingletonManager singletonManager;
 
     //public
     [Header("메인 HP")]
@@ -70,28 +71,19 @@ public class MainCanvas : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         //싱글톤
         slime = Slime.Instance;
         statManager = StatManager.Instance;
         jellyManager = JellyManager.Instance;
+        singletonManager = SingletonManager.Instance;
 
         //hp 스탯 부르기
         beforeMaxHP = statManager.myStats.maxHP;
         beforeHP = statManager.myStats.HP;
-
         //초기화 (씬 넘어갈때마다 무기의 스킬 정보를 불러옴)
-        if (!slime.currentWeapon || notShowCoolTime)
-        {
-            skillCool.gameObject.SetActive(false);
-            dashCool.gameObject.SetActive(false);
-        }
-        else if(slime.currentWeapon)
-        {
-            Init();
-        }
+        StartCoroutine(Loading());      //슬라임 초기화가 더 늦게 돼서 코루틴으로
     }
 
     // Update is called once per frame
@@ -105,6 +97,7 @@ public class MainCanvas : MonoBehaviour
         hpText.text = (int)statManager.myStats.HP + "/" + (int)statManager.myStats.maxHP;
         if (slime.currentWeapon && !notShowCoolTime)
         {
+
             //스킬 아이콘 꺼져있으면 켜주기
             if (!skillCool.gameObject.activeSelf) skillCool.gameObject.SetActive(true);
 
@@ -189,6 +182,19 @@ public class MainCanvas : MonoBehaviour
     #endregion
 
     #region 함수
+    IEnumerator Loading()
+    {
+        yield return null;
+        if (!slime.currentWeapon || notShowCoolTime)
+        {
+            skillCool.gameObject.SetActive(false);
+            dashCool.gameObject.SetActive(false);
+        }
+        else if (slime.currentWeapon)
+        {
+            Init();
+        }
+    }
 
     void Init()
     {

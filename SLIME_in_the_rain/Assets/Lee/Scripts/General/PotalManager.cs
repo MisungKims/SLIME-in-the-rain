@@ -240,11 +240,6 @@ public class PotalManager : MonoBehaviour
     IEnumerator Wait(int next)
     {
         slime.canMove = false;
-        while (doReceipt)
-        {
-            slime.canMove = false;
-            yield return null;
-        }
         anyKeyPressText.SetActive(true);
         AddStat();
         yield return null;

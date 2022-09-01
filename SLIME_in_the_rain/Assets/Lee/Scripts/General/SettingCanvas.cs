@@ -264,13 +264,15 @@ public class SettingCanvas : MonoBehaviour
 
     void ResetButton()
     {
+        //¡©∏Æ √ ±‚»≠
         PlayerPrefs.DeleteKey("jellyCount");
+        //Ω∫≈»√ ±‚»≠
         PlayerPrefs.DeleteKey("MaxHP" + "level");
         PlayerPrefs.DeleteKey("CoolTime" + "level");
         PlayerPrefs.DeleteKey("MoveSpeed" + "level");
         PlayerPrefs.DeleteKey("AttackSpeed" + "level");
         PlayerPrefs.DeleteKey("AttackPower" + "level");
-        PlayerPrefs.DeleteKey("MultipleAttackRange" + "level");
+        PlayerPrefs.DeleteKey("AttackRange" + "level");
         PlayerPrefs.DeleteKey("DefensePower" + "level");
         PlayerPrefs.DeleteKey("InventorySlot" + "level");
         //±‚∫ª ºº∆√: ∆Àæ˜ ≤˚

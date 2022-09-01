@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public enum SoundType
 {
     BGM,
     SFX,
-    MaxCount,  // ì•„ë¬´ê²ƒë„ ì•„ë‹˜. ê·¸ëƒ¥ Sound enumì˜ ê°œìˆ˜ ì„¸ê¸° ìœ„í•´ ì¶”ê°€. (0, 1, '2' ì´ë ‡ê²Œ 2ê°œ) 
+    MaxCount,  // ¾Æ¹«°Íµµ ¾Æ´Ô. ±×³É Sound enumÀÇ °³¼ö ¼¼±â À§ÇØ Ãß°¡. (0, 1, '2' ÀÌ·¸°Ô 2°³) 
 }
 
 public class SoundManager : MonoBehaviour
 { 
-    #region ì‹±ê¸€í†¤
+    #region ½Ì±ÛÅæ
     private static SoundManager instance = null;
     public static SoundManager Instance
     {
@@ -54,18 +53,18 @@ public class SoundManager : MonoBehaviour
         GetOrAddAudioClip("Title", SoundType.BGM);
     }
 
-    //ì˜¤ë””ì˜¤ í”Œë ˆì´ í•¨ìˆ˜
+    //¿Àµğ¿À ÇÃ·¹ÀÌ ÇÔ¼ö
     /// <summary>
-    /// ì˜¤ë””ì˜¤ ì¬ìƒ í•¨(AudioClip)
+    /// ¿Àµğ¿À Àç»ı ÇÔ(AudioClip)
     /// </summary>
-    /// <param name="audioClip">ì†Œë¦¬ ì§ì ‘ ë„£ê¸° ê°€ëŠ¥</param>
-    /// <param name="type">SoundManagerë‚´ íƒ€ì… ìˆìŒ</param>
+    /// <param name="audioClip">¼Ò¸® Á÷Á¢ ³Ö±â °¡´É</param>
+    /// <param name="type">SoundManager³» Å¸ÀÔ ÀÖÀ½</param>
     public void Play(AudioClip audioClip, SoundType type)
     {
         if (audioClip == null)
             return;
 
-        if (type == SoundType.BGM) // BGM ë°°ê²½ìŒì•… ì¬ìƒ
+        if (type == SoundType.BGM) // BGM ¹è°æÀ½¾Ç Àç»ı
         {
             AudioSource audioSource = audioSources[(int)SoundType.BGM];
             if (audioSource.isPlaying)
@@ -74,31 +73,76 @@ public class SoundManager : MonoBehaviour
             audioSource.clip = audioClip;
             audioSource.Play();
         }
-        else // SFX íš¨ê³¼ìŒ ì¬ìƒ
+        else // SFX È¿°úÀ½ Àç»ı
         {
             AudioSource audioSource = audioSources[(int)SoundType.SFX];
             audioSource.PlayOneShot(audioClip);
         }
     }
     /// <summary>
-    /// ì†Œë¦¬ íŒŒì¼ ë””ë ‰í† ë¦¬ ëŒ€ë¡œ string ì…ë ¥(Resoures/Sounds/.. BGM or SFX)
+    /// ¼Ò¸® ÆÄÀÏ µğ·ºÅä¸® ´ë·Î string ÀÔ·Â(Resoures/Sounds/.. BGM or SFX)
     /// </summary>
-    /// <param name="path">ë””ë ‰í† ë¦¬ë¥¼ stringìœ¼ë¡œ ì…ë ¥</param>
-    /// <param name="type">SoundManagerë‚´ íƒ€ì… ìˆìŒ</param>
+    /// <param name="path">µğ·ºÅä¸®¸¦ stringÀ¸·Î ÀÔ·Â</param>
+    /// <param name="type">SoundManager³» Å¸ÀÔ ÀÖÀ½</param>
     public void Play(string path, SoundType type)
     {
         AudioClip audioClip = GetOrAddAudioClip(path, type);
         Play(audioClip, type);
     }
 
+
+
+
+    /// <summary>
+    /// ³ªÁß¿¡ ²¨¾ßÇÔ
+    /// </summary>
+    /// <param name="audioClip">¼Ò¸® Á÷Á¢ ³Ö±â °¡´É</param>
+    /// <param name="type">SoundManager³» Å¸ÀÔ ÀÖÀ½</param>
+    public AudioSource LoofSFX(AudioClip audioClip)
+    {
+        if (audioClip == null)
+            return null;
+
+        AudioSource audioSource = audioSources[(int)SoundType.SFX];
+        audioSource.clip = audioClip;
+        audioSource.loop = true;
+        audioSource.Play();
+        return audioSource;
+    }
+
+    /// <summary>
+    /// ¼Ò¸® ÆÄÀÏ µğ·ºÅä¸® ´ë·Î string ÀÔ·Â(Resoures/Sounds/.. BGM or SFX)
+    /// </summary>
+    /// <param name="path">µğ·ºÅä¸®¸¦ stringÀ¸·Î ÀÔ·Â</param>
+    /// <param name="type">SoundManager³» Å¸ÀÔ ÀÖÀ½</param>
+    /// <param name="onLoof">trueÇÏ¸é ·çÇÁ µÊ</param>
+    public AudioSource LoofSFX(string path)
+    {
+        AudioClip audioClip = GetOrAddAudioClip(path, SoundType.SFX);
+        return LoofSFX(audioClip);
+    }
+
+    public void StopLoofSFX(AudioSource audioSource)
+    {
+        audioSource.Stop();
+        audioSource.loop = false;
+        audioSource.clip = null;
+    }
+
+    /// <summary>
+    /// ¼Ò¸®ÆÄÀÏ µñ¼Å³Ê¸®¿¡ Ãß°¡ÇÔ
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
     AudioClip GetOrAddAudioClip(string path, SoundType type)
     {
         if (path.Contains("Sounds/") == false)
-            path = $"Sounds/{type}/{path}"; // Sound í´ë” ì•ˆì— ì €ì¥ë  ìˆ˜ ìˆë„ë¡, $ë¶™ì´ë©´ ì»´íŒŒì¼ëŸ¬ì—ì„œ {}ê°€ ë³€ìˆ˜ì¸ê±¸ ì•Œì•„ì„œ êµ¬ë¶„í•¨
+            path = $"Sounds/{type}/{path}"; // Sound Æú´õ ¾È¿¡ ÀúÀåµÉ ¼ö ÀÖµµ·Ï, $ºÙÀÌ¸é ÄÄÆÄÀÏ·¯¿¡¼­ {}°¡ º¯¼öÀÎ°É ¾Ë¾Æ¼­ ±¸ºĞÇÔ
 
         AudioClip audioClip = null;
 
-        if (type == SoundType.BGM) // BGM ë°°ê²½ìŒì•… í´ë¦½ ë¶™ì´ê¸°
+        if (type == SoundType.BGM) // BGM ¹è°æÀ½¾Ç Å¬¸³ ºÙÀÌ±â
         {
             if (BGMs.TryGetValue(path, out audioClip) == false)
             {
@@ -106,7 +150,7 @@ public class SoundManager : MonoBehaviour
                 BGMs.Add(path, audioClip);
             }
         }
-        else // Effect íš¨ê³¼ìŒ í´ë¦½ ë¶™ì´ê¸°
+        else // Effect È¿°úÀ½ Å¬¸³ ºÙÀÌ±â
         {
             if (SFXs.TryGetValue(path, out audioClip) == false)
             {

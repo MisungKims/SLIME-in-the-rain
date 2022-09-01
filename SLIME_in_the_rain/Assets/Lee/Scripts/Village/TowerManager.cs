@@ -130,7 +130,7 @@ public class TowerManager : MonoBehaviour
         }
         farmNameText.text = _stat +" "+ _farmType;
         farmExplainText.text = $"(현재 레벨 +{level})";
-        farmPriceText.text = ((intLevel * intLevel) + _price).ToString();
+        farmPriceText.text = ((intLevel * intLevel) * _price).ToString();
         farmStatText.text = $"<color=#{color}>[{_stat}]</color> +{intLevel * farmStat}";
     }
     

@@ -1481,7 +1481,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6817241032681249099, guid: 2b502e5b94535074bb615808c8536b44, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2b502e5b94535074bb615808c8536b44, type: 3}
---- !u!1 &678513299
+--- !u!1 &692728698
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1489,8 +1489,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 678513301}
-  - component: {fileID: 678513300}
+  - component: {fileID: 692728699}
+  m_Layer: 0
+  m_Name: Spiders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &692728699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692728698}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.4, y: -105.04957, z: 59.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1213540000}
+  - {fileID: 692912327}
+  - {fileID: 437835469}
+  - {fileID: 1371681619}
+  - {fileID: 1464686995}
+  - {fileID: 1996208312}
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &692912327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3270640347998897615, guid: 7577a6e61b581ee47a03d2f9203de539, type: 3}
+  m_PrefabInstance: {fileID: 227150337}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &697175702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 697175704}
+  - component: {fileID: 697175703}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1498,18 +1540,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!108 &678513300
+--- !u!108 &697175703
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678513299}
+  m_GameObject: {fileID: 697175702}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.6509804, g: 0.5647059, b: 0.34117648, a: 1}
+  m_Color: {r: 0.6320754, g: 0.54253954, b: 0.30709326, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1560,13 +1602,13 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!4 &678513301
+--- !u!4 &697175704
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678513299}
+  m_GameObject: {fileID: 697175702}
   m_LocalRotation: {x: 0.40671873, y: 0.2462519, z: -0.11482906, w: 0.87221223}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1575,48 +1617,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 50, y: 31.532, z: 0}
---- !u!1 &692728698
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 692728699}
-  m_Layer: 0
-  m_Name: Spiders
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &692728699
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 692728698}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.4, y: -105.04957, z: 59.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1213540000}
-  - {fileID: 692912327}
-  - {fileID: 437835469}
-  - {fileID: 1371681619}
-  - {fileID: 1464686995}
-  - {fileID: 1996208312}
-  m_Father: {fileID: 0}
-  m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &692912327 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3270640347998897615, guid: 7577a6e61b581ee47a03d2f9203de539, type: 3}
-  m_PrefabInstance: {fileID: 227150337}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &705724975
 PrefabInstance:
   m_ObjectHideFlags: 0
