@@ -91,15 +91,8 @@ public class Earthworm : Boss
 
         PlayAnim(EMonsterAnim.attack);
         
-        //yield return new WaitForSeconds(0.3f);
-
-        ////Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-      // if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash  == -153225821) soundManager.Play("Boss1/Attack", SoundType.SFX);
-
-        //if (!isHit) 
-
         // 공격 애니메이션이 끝날 때 까지 대기
-        while (!canAttack)
+        while (!canAttack && !isDie)
         {
             yield return null;
         }
@@ -107,7 +100,7 @@ public class Earthworm : Boss
         // 랜덤한 시간동안 대기
         // 대기 중 공격 범위를 벗어나면 바로 쫓아감
         randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        while (randAtkTime > 0 && isInRange)
+        while (randAtkTime > 0 && isInRange && !isDie)
         {
             randAtkTime -= Time.deltaTime;
 

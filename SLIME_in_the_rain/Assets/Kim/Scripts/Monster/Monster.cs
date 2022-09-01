@@ -208,9 +208,12 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 슬라임의 공격에 의해 점프
     public void JumpHit()
     {
-        nav.SetDestination(transform.position);
-        isChasing = false;
-        isJumpHit = true;
+        if(!isDie)
+        {
+            nav.SetDestination(transform.position);
+            isChasing = false;
+            isJumpHit = true;
+        }
     }
 
     // 감지된 슬라임을 쫓음
@@ -261,7 +264,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         PlayAnim(EMonsterAnim.attack);
 
         // 공격 애니메이션이 끝날 때 까지 대기
-        while (!canAttack)
+        while (!canAttack && !isDie)
         {
             yield return null;
         }
@@ -269,7 +272,7 @@ public abstract class Monster : MonoBehaviour, IDamage
         // 랜덤한 시간동안 대기
         // 대기 중 공격 범위를 벗어나면 바로 쫓아감
         randAtkTime = Random.Range(minAtkTime, maxAtkTime);
-        while (randAtkTime > 0 && isInRange)
+        while (randAtkTime > 0 && isInRange && !isDie)
         {
             randAtkTime -= Time.deltaTime;
 
@@ -518,7 +521,7 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 슬라임에게 데미지를 입힘
     public virtual void DamageSlime(int atkType)
     {
-        if (!target && doDamage) return;
+        if (isDie && !target && doDamage) return;
 
         if(!doDamage)
         {
@@ -559,6 +562,8 @@ public abstract class Monster : MonoBehaviour, IDamage
     // 추적 시작
     private void StartChase()
     {
+        if (isDie) return;
+
         if (!isChasing)
         {
             isChasing = true;
