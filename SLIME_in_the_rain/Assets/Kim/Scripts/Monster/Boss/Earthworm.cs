@@ -26,6 +26,7 @@ public class Earthworm : Boss
     {
         base.Awake();
 
+        attackSound = "Boss1/Attack";
         bossName = "지렁이";
         SetHPBar();
 
@@ -65,7 +66,7 @@ public class Earthworm : Boss
                 }
             }
 
-            if (!isAttacking) nav.SetDestination(target.position);
+            if (!isAttacking && !isDie) nav.SetDestination(target.position);
 
             yield return null;
         }
@@ -90,10 +91,10 @@ public class Earthworm : Boss
 
         PlayAnim(EMonsterAnim.attack);
         
-        yield return new WaitForSeconds(0.3f);
+        //yield return new WaitForSeconds(0.3f);
 
-        //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash  == -153225821) soundManager.Play("Boss1/Attack", SoundType.SFX);
+        ////Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+      // if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash  == -153225821) soundManager.Play("Boss1/Attack", SoundType.SFX);
 
         //if (!isHit) 
 
@@ -145,13 +146,17 @@ public class Earthworm : Boss
         noDamage = false;
         maxCount = Random.Range(3f, 6f);
     }
+
+    // 애니메이션 이벤트에서 호출
+    void PlayProjectileAttackSound()
+    {
+        soundManager.Play("Boss1/LongAttack", SoundType.SFX);
+    }
     #endregion
 
     #region 함수
     private void GetProjectile()
     {
-        soundManager.Play("Boss1/LongAttack", SoundType.SFX);
-
         // 투사체 발사
         MonsterProjectile projectile = ObjectPoolingManager.Instance.Get(EProjectileFlag.earthworm).GetComponent<MonsterProjectile>();
         projectile.monster = this;

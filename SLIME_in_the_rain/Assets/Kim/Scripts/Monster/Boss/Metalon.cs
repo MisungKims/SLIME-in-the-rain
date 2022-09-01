@@ -25,6 +25,7 @@ public class Metalon : Boss
     {
         base.Awake();
 
+        attackSound = "Boss1/Attack";
         bossName = "메탈론";
         SetHPBar();
     }
@@ -71,8 +72,8 @@ public class Metalon : Boss
             else anim.SetInteger("attack", randAttack);
             PlayAnim(EMonsterAnim.attack);
 
-            Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-            if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -153225821 || anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -274583130) soundManager.Play("Boss1/Attack", SoundType.SFX);
+            //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+            //if (anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -153225821 || anim.GetCurrentAnimatorStateInfo(0).fullPathHash == -274583130) soundManager.Play("Boss1/Attack", SoundType.SFX);
         }
 
         // 랜덤한 시간동안 대기

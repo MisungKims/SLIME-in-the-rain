@@ -402,8 +402,6 @@ public class FindingWayMap : MapManager
         base.ClearMap();
 
         // 저주 해제 알림
-        soundManager.Play("FindingWayMap/FindingWayMap2", SoundType.SFX);
-
         Vector3 particlePos = slime.transform.position;
         particlePos.y = 2.5f;
         particleObject2.transform.position = particlePos;
