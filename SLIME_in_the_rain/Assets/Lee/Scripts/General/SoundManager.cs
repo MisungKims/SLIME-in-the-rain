@@ -144,25 +144,15 @@ public class SoundManager : MonoBehaviour
 
         return audioClip;
     }
-    public IEnumerator BGMFaster()
+    public void BGMFaster(float pitch)
     {
         AudioSource _bgm = audioSources[(int)SoundType.BGM];
-        while (_bgm.pitch < 1.2f)
-        {
-            _bgm.pitch += Time.deltaTime * pitchSpeed;
-            yield return null;
-        }
-        _bgm.pitch = 1.2f;
+        _bgm.pitch = pitch;
     }
 
-    public IEnumerator BGMPitchReset()
+    public void BGMPitchReset()
     {
         AudioSource _bgm = audioSources[(int)SoundType.BGM];
-        while (_bgm.pitch > 1.0f)
-        {
-            _bgm.pitch -= Time.deltaTime * pitchSpeed;
-            yield return null;
-        }
         _bgm.pitch = 1.0f;
     }
 }

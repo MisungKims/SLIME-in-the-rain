@@ -54,7 +54,16 @@ public class VillageCanvas : MonoBehaviour
     }
     void TowerOpen()
     {
-        TowerCanvas.SetActive(true);    //鸥况UI ON
+        if(TowerCanvas.activeSelf)
+        {
+            TowerCanvas.SetActive(false);    //鸥况UI OFF
+            TowerCanvas.SetActive(true);    //鸥况UI ON
+        }
+        else
+        {
+            TowerCanvas.SetActive(true);    //鸥况UI ON
+        }
+
     }
     public void PanelCorou()
     {

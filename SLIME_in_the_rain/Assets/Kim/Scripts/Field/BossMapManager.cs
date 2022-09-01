@@ -65,7 +65,7 @@ public class BossMapManager : MapManager
     // 보스가 죽으면 룬 선택 창을 보여줌
     IEnumerator IsDie()
     {
-        StartCoroutine(sound.BGMPitchReset());                     ///////////////////추가 빨라진 브금 리셋 -TG
+        sound.BGMPitchReset();                     ///////////////////추가 빨라진 브금 리셋 -TG
 
         yield return waitFor3s;
 
@@ -100,11 +100,11 @@ public class BossMapManager : MapManager
     ///////////////////////////////////////////추가 브금 빠르게!
     IEnumerator SoundFaster()
     {
-        while ((boss.Stats.HP / boss.Stats.maxHP * 100f) > 50f)
+        while ((boss.Stats.HP / boss.Stats.maxHP * 100f) > 30f)
         {
             yield return null;
         }
-        StartCoroutine(sound.BGMFaster());
+        sound.BGMFaster(1.1f);
     }
 
     /////////////////////////////////////////
