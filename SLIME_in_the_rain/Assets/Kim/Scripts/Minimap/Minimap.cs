@@ -72,7 +72,7 @@ public class Minimap : MonoBehaviour
     private MinimapWorldObject minimapWorldObject;
     private MinimapIcon minimapIcon;
     private Vector2 iconPosition;
-
+    private Slime slime;
     private MinimapIcon newIcon;
     #endregion
 
@@ -96,7 +96,9 @@ public class Minimap : MonoBehaviour
         slimeIconRect.anchoredPosition = Vector2.zero;
         slimeIconRect.localScale *= zoom;
 
-        ZoomIn();
+        slime = Slime.Instance;
+        if (slime.isMinimapZoomIn) ZoomIn();
+        else ZoomOut();
     }
 
     private void Update()
@@ -117,6 +119,7 @@ public class Minimap : MonoBehaviour
     void ZoomIn()
     {
         isZoomIn = true;
+        slime.isMinimapZoomIn = true;
         slimeIconZoomIn.SetActive(true);
         if(slimeIconZoomOut) slimeIconZoomOut.SetActive(false);
 
@@ -129,6 +132,7 @@ public class Minimap : MonoBehaviour
     void ZoomOut()
     {
         isZoomIn = false;
+        slime.isMinimapZoomIn = false;
         slimeIconZoomIn.SetActive(false);
         if(slimeIconZoomOut) slimeIconZoomOut.SetActive(true);
 
