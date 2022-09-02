@@ -44,6 +44,7 @@ public class VillageManager : MapManager
         {
             yield return null;
         }
+        slime.currentWeapon.isCanSkill = true;
         ClearMap();
     }
     void OnDisable()
