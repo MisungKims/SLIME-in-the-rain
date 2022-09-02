@@ -27,19 +27,6 @@ public class Slime : MonoBehaviour
         }
     }
     #endregion
-    //public GameObject cube;
-    public GameObject shootPlane;
-    public int killCount = 0;
-    public bool isDungeonStart = false;
-
-    [SerializeField]
-    private LifePanel lifePanel;
-    private int life = 1;
-    public int Life
-    {
-        get { return life; }
-        set { life = value; }
-    }
 
     public Rigidbody rigid;
     public RigidbodyConstraints rigidbodyConstraints;
@@ -51,6 +38,23 @@ public class Slime : MonoBehaviour
     public SkinnedMeshRenderer SkinnedMesh { get { return skinnedMesh; } }
     [SerializeField]
     private Material baseMat;
+
+    public bool isMinimapZoomIn = true;       // 미니맵이 축소되어있는지? 
+
+    public GameObject shootPlane;           // 무기의 정확한 타격을 위해 무기의 위치에 맞춘 판
+
+    public int killCount = 0;
+
+    public bool isDungeonStart = false;
+
+    [SerializeField]
+    private LifePanel lifePanel;
+    private int life = 1;
+    public int Life
+    {
+        get { return life; }
+        set { life = value; }
+    }
 
     public bool isDie;
 
@@ -157,7 +161,7 @@ public class Slime : MonoBehaviour
         isCanDash = true;
 
         isInWater = false;
-        //isPlayingWaterSound = false;
+        isMinimapZoomIn = true;
         SkinnedMesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
 
