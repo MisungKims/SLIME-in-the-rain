@@ -20,12 +20,12 @@ UNITY 3D 포트폴리오
 ## 👨‍💻 Author
 ##### 👤 전우병
 * GitHub: @woody0108
-* Source : SLIME_in_the_rain/Assets/Jeon
+* Source : SLIME_in_the_rain/Assets/Jeon(https://github.com/MisungKims/SLIME_in_the_rain/tree/main/SLIME_in_the_rain/Assets/Jeon)
 
 ##### 👤 이태건
 * GitHub: @MallangBag
-* Source : SLIME_in_the_rain/Assets/Lee
+* Source : SLIME_in_the_rain/Assets/Lee(https://github.com/MisungKims/SLIME_in_the_rain/tree/main/SLIME_in_the_rain/Assets/Lee)
 
 ##### 👤 김미성
 * GitHub: @MisungKims
-* Source : SLIME_in_the_rain/Assets/Kim
+* Source : SLIME_in_the_rain/Assets/Kim(https://github.com/MisungKims/SLIME_in_the_rain/tree/main/SLIME_in_the_rain/Assets/Kim)
