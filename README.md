@@ -21,7 +21,7 @@ UNITY 3D 포트폴리오
 ##### 👤 전우병
 * GitHub: @woody0108
 * Source : SLIME_in_the_rain/Assets/Jeon(https://github.com/MisungKims/SLIME_in_the_rain/tree/main/SLIME_in_the_rain/Assets/Jeon)
-
+[SLIME_in_the_rain/Assets/Jeon](https://github.com/MisungKims/SLIME_in_the_rain/tree/main/SLIME_in_the_rain/Assets/Jeon)
 ##### 👤 이태건
 * GitHub: @MallangBag
 * Source : SLIME_in_the_rain/Assets/Lee(https://github.com/MisungKims/SLIME_in_the_rain/tree/main/SLIME_in_the_rain/Assets/Lee)
