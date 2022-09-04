@@ -1,6 +1,8 @@
 # SLIME_in_the_rain
 유니티 3D 포트폴리오
 
+<img src="https://user-images.githubusercontent.com/90057774/188316548-fbaf6dfa-0d19-4273-9501-dda505d955af.png"  width="960" height="540">
+
 ## 🖥 Desc
 * 스토리 : 비가 오는 마을을 지키기 위한 슬라임의 모험
 * 장르 : 액션 로그라이크
