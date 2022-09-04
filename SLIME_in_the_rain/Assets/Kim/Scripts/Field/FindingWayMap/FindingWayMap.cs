@@ -326,7 +326,7 @@ public class FindingWayMap : MapManager
     // 맵 설정
     private void SetMap()
     {
-        // 시작점과 끝점을 랜덤으로 설정
+        // 시작점을 랜덤으로 설정
         startIdx = Random.Range(0, width);
 
         GameObject obj = mapArrays[width - 1].map[startIdx];
