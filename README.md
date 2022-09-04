@@ -8,13 +8,13 @@
 * 개발 엔진 : UNITY 2021.3.5f1
 * 개발 인원 : 3인
 * 개발 기간 : 약 3개월 (22.06.09 ~ 22.09.02)
-
+<br>
 ## 👨‍💻 Author
-##### 👤 MisungKims
-* GitHub: @MisungKims
+##### 👤 전우병
+* GitHub: @woody0108
 
-##### 👤 MisungKims
-* GitHub: @MisungKims
+##### 👤 이태건
+* GitHub: @MallangBag
 
-##### 👤 MisungKims
+##### 👤 김미성
 * GitHub: @MisungKims
