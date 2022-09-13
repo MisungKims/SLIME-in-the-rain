@@ -30,7 +30,6 @@ public class SoundManager : MonoBehaviour
     Dictionary<string, AudioClip> BGMs = new Dictionary<string, AudioClip>();
     Dictionary<string, AudioClip> SFXs = new Dictionary<string, AudioClip>();
 
-    float pitchSpeed = 0.25f;
 
 
     void Awake()

@@ -30,7 +30,6 @@ public class PotalManager : MonoBehaviour
     //bool
     bool potalMake;
     bool doCollision;
-    bool doReceipt;
 
     //singleton
     Slime slime;
@@ -90,7 +89,6 @@ public class PotalManager : MonoBehaviour
                                 }
 
                                 Slime.Instance.canAttack = false;
-                                doReceipt = true;
                                 SetStat(ipotal.GetComponent<PotalCollider>().next);
                             }
                             else
@@ -273,7 +271,6 @@ public class PotalManager : MonoBehaviour
                 coloring = 0;
             }
         }
-        doReceipt = false;
     }
     void AddStat()
     {

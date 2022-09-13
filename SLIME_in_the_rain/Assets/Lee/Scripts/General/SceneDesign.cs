@@ -45,12 +45,12 @@ public class SceneDesign : MonoBehaviour
     //private
     int bossCount;
     //발표용 변수
-    int nomalCount = 0;
-    int gimmickCount = 0;
-    int bonusCount = 0;
-    bool isNomal = false;
-    bool isGimmick = false;
-    bool isBonus = false;
+    //int nomalCount = 0;
+    //int gimmickCount = 0;
+    //int bonusCount = 0;
+    //bool isNomal = false;
+    //bool isGimmick = false;
+    //bool isBonus = false;
     #endregion
 
     #region 유니티 함수
@@ -233,12 +233,12 @@ public class SceneDesign : MonoBehaviour
         mapCounting = 0;
 
         //발표용 초기화
-        nomalCount = 0;
-        gimmickCount = 0;
-        bonusCount = 0;
-        isNomal = false;
-        isGimmick = false;
-        isBonus = false;
+        //nomalCount = 0;
+        //gimmickCount = 0;
+        //bonusCount = 0;
+        //isNomal = false;
+        //isGimmick = false;
+        //isBonus = false;
 
     }
     public void VillageSceneInit()        //VillageManager 끝나면 실행함
@@ -255,12 +255,12 @@ public class SceneDesign : MonoBehaviour
         mapCounting = 0;
 
         //발표용 초기화
-        nomalCount = 0;
-        gimmickCount = 0;
-        bonusCount = 0;
-        isNomal = true;
-        isGimmick = false;
-        isBonus = false;
+        //nomalCount = 0;
+        //gimmickCount = 0;
+        //bonusCount = 0;
+        //isNomal = true;
+        //isGimmick = false;
+        //isBonus = false;
 
     }
     #endregion

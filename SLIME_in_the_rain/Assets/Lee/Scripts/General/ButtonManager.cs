@@ -24,10 +24,13 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
         inventoryUI = InventoryUI.Instance;
         tutorial = TutorialManager.Instance;
 
-
-        
-
-        if (SceneManager.GetActiveScene().buildIndex ==1)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            canvasList = new List<GameObject>();
+            canvasList.Add(settingCanvas.popup);
+            canvasList.Add(settingCanvas.settingCanvas);
+        }
+        else if (SceneManager.GetActiveScene().buildIndex ==1)
         {
             canvasList = new List<GameObject>();
             canvasList.Add(tutorial.tutorial);
@@ -40,6 +43,7 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
         else
         {
             canvasList = new List<GameObject>();
+            canvasList.Add(tutorial.tutorial);
             canvasList.Add(settingCanvas.popup);
             canvasList.Add(settingCanvas.settingCanvas);
             canvasList.Add(inventoryUI.inventroyPanel);
@@ -79,14 +83,14 @@ public class ButtonManager : MonoBehaviour                                 //´ÙÀ
                 }
                 if (unenable == canvasList.Count)
                 {
-                    if (SceneManager.GetActiveScene().buildIndex == 1)
+                    if (SceneManager.GetActiveScene().buildIndex == 0)
                     {
-                        canvasList[2].SetActive(true);
+                        canvasList[1].SetActive(true);
 
                     }
                     else
                     {
-                        canvasList[1].SetActive(true);
+                        canvasList[2].SetActive(true);
                     }
                     SoundManager.Instance.Play("UI/Button/On", SoundType.SFX);
                 }
